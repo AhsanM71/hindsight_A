@@ -2,6 +2,9 @@
 
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{parskip}
+
+\setlength{\parindent}{0pt}
 
 \title{Problem Statement and Goals\\\progname}
 
@@ -22,6 +25,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
+2026/09/24 & Mohammad Bilal & Completed sections 1.1 \& 4 \\
 2026/09/25 & Jake Finlay & Completed section 1.4 \\
 \bottomrule
 \end{tabularx}
@@ -38,11 +42,15 @@ information.}
 
 \subsection{Problem}
 
-\wss{What problem are you trying to solve?  Why is it important? Do not talk
-about how you will solve the problem, only what the problem is.  AI is rarely
-part of the problem.  The problem is ``what'' you want to do, not ``how'' you
-want to do it.  The problem statement should be written in a way that is
-understandable to a non-technical audience.}
+Paediatric ophthalmology appointments can be stressful and unfamiliar for children.
+Procedures such as vision testing, eye drops, and slit-lamp examinations may cause anxiety, particularly when children do not know what to expect.
+This anxiety can make it difficult to cooperate during examinations, potentially affecting the quality and completeness of clinical assessments.
+For example, a study of 298 children undergoing cycloplegic eye examinations found that 26\% experienced significant distress before receiving eye drops,
+while uncooperative children were also more anxious and required more time to complete the examination \cite{ChiaEtAl2015}.
+
+Children and their families therefore need adequate preparation for common ophthalmology procedures before attending an appointment.
+Without appropriate preparation, unfamiliar clinical experiences may contribute to increased anxiety, reduced cooperation, and longer or more difficult appointments.
+This project addresses the need for an accessible, child-friendly way to help children become more familiar and comfortable with the paediatric ophthalmology experience.
 
 \subsection{Inputs and Outputs}
 
@@ -145,5 +153,8 @@ devise descriptions about each stakeholder relative to their involvment in each
 of these three parts. This helped me reinforce my learning that breaking down 
 the problem or pain point into smaller pieces is a great approach for software 
 documentation.
+
+\bibliographystyle{plain}
+\bibliography{../../refs/References}
 
 \end{document}
