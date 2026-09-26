@@ -389,9 +389,9 @@ were removed or revised.
 %     and how did you resolve them?
 % \end{enumerate}
 
-\subsection{Mohammad Bilal}
+\subsection*{Mohammad Bilal}
 
-\textbf{Why is it important to create a development plan prior to starting the project?}
+\subsubsection*{Why is it important to create a development plan prior to starting the project?}
 
 Creating a development plan gives the team a clear idea of how the project will be organized
 before development starts. It helps establish expectations for how the team will communicate,
@@ -400,7 +400,7 @@ would have to be made as problems come up, which could lead to confusion or inco
 between team members. The development plan also gives the team something to refer back to throughout
 the project and helps make sure everyone has a shared understanding of how the project should be managed.
 
-\textbf{In your opinion, what are the advantages and disadvantages of using CI/CD?}
+\subsubsection*{In your opinion, what are the advantages and disadvantages of using CI/CD?}
 
 One of the main advantages of CI/CD is that it provides an automated way to check new changes
 before they are merged into the project. Running tests automatically can catch bugs early and
@@ -414,12 +414,39 @@ creating the pipeline and making sure it continues to work as the project change
 pipeline can also take time to investigate, especially when the issue is with the CI/CD configuration
 rather than the application itself.
 
-\textbf{What disagreements did your group have in this deliverable, if any, and how did you resolve them?}
+\subsubsection*{What disagreements did your group have in this deliverable, if any, and how did you resolve them?}
 
 There were no major disagreements during this deliverable. The main difference in opinion was
 how GitHub Issues should be structured. One preference was to use higher-level issues, while
 another was to break them down into more detailed tasks. The team discussed both approaches,
 agreed on a middle ground, and used a vote to finalize the decision.
+
+\subsection*{Jake Finlay}
+
+\subsubsection*{Why is it important to create a development plan prior to starting the project?}
+Without a development plan, collaboration can quickly become messy. Each team member tends to
+bring their own habits for code formatting, pull requests, and commit messages, and nothing ends
+up being consistent. A standardized workflow makes it much easier to find information in the
+repository and to contribute in a meaningful way. The plan also acts as a single source of truth
+for everything related to development. When disagreements come up, the team can point back to
+what was already agreed upon instead of debating it again. This keeps everyone aligned for the
+duration of the project.
+
+\subsubsection*{In your opinion, what are the advantages and disadvantages of using CI/CD?}
+My favourite advantage of CI/CD is automation. Simply pushing to a branch can trigger PDF
+generation, builds, deployments, tests, formatting, and linting without any manual effort. The
+results of these checks are visible to everyone, so reviewers can approve pull requests with much
+more confidence. However, CI/CD also has some disadvantages. A poorly
+configured pipeline can take a long time to run, which becomes frustrating when checks must pass
+before a merge is allowed. Pipelines can also break, and a broken check may let quality issues slip
+through or block progress entirely. As a result, someone has to be responsible for maintaining the
+pipeline. That maintenance draws on team resources that could otherwise go toward development.
+
+\subsubsection*{What disagreements did your group have in this deliverable, if any, and how did you resolve them?}
+Our group did not have any real disagreements during this deliverable. There was some back-and-forth
+about the contents of the development plan in our team group chat, but these discussions
+were resolved quickly. Going forward, I expect that clear communication and good documentation
+will help us settle any development-related issues that arise.
 
 \newpage{}
 
