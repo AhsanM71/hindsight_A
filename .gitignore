@@ -284,4 +284,8 @@ TSWLatexianTemp*
 __pycache__/
 *.pyc
 
+<<<<<<< HEAD
 ._*
+=======
+._*
+>>>>>>> e33bd3f (docs: complete PS section 3 Stretch Goals Closes #17)
