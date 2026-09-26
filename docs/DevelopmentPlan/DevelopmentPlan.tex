@@ -29,6 +29,7 @@
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
 2026/09/25 & Mohammad Bilal & Completed sections 1-4, Team Charter, \& reflection\\
+2026/09/25 & Jake Finlay & Completed Section 10: Proof of Concept Demonstration Plan \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -125,9 +126,153 @@ for deadlines.}
 
 \section{Proof of Concept Demonstration Plan}
 
-What is the main risk, or risks, for the success of your project?  What will you
-demonstrate during your proof of concept demonstration to convince yourself that
-you will be able to overcome this risk?
+The proof of concept (PoC) demonstration will focus on one complete ``vertical
+slice'' of the application instead of covering many procedures at once. The team
+will demonstrate the following on both a physical iOS device and a physical
+Android device:
+
+\begin{enumerate}
+  \item A child-friendly walkthrough of one common procedure (receiving eye
+  drops), shown through a guide character with narration, simple language, and
+  illustrations or animations.
+  \item An interactive vision testing practice activity, where the child matches
+  picture-based symbols similar to those used on paediatric vision charts.
+  \item Navigation between these activities that a child could complete with
+  little or no help from a parent.
+\end{enumerate}
+
+\noindent This slice was chosen because it exercises every major risk to the project.
+The accuracy of clinical content, whether young children can actually use and
+engage with the application, and whether rich media can be delivered reliably
+on both mobile platforms.
+
+\subsection{Risk 1: Clinical Accuracy and Age-Appropriateness of Content}
+
+The value of the application depends on children getting an accurate preview of
+what will happen at their appointment. If a procedure is shown incorrectly (for
+example, steps in the wrong order, leaving out that eye drops may sting, or
+equipment that looks different from what is in the clinic), the child's
+expectations will not match reality. This could increase anxiety, which is the
+opposite of the project's goal. No team member has clinical training, so there
+is a risk that the team cannot produce content that is both clinically accurate
+and understandable for young children. There is also a risk that getting
+content reviewed by a clinician takes too long to cover the full set of planned
+procedures.
+
+\subsubsection*{What the PoC will demonstrate:}
+\begin{itemize}
+  \item The eye drop walkthrough (script and visuals) will be reviewed by a
+  paediatric ophthalmology clinician before the demonstration. The team will
+  record the corrections requested and how many review rounds were needed.
+  \item The narration will use short sentences and familiar words, and will be
+  honest about sensations (e.g., drops may feel cold or sting briefly) while
+  staying reassuring.
+  \item The team will measure how long one procedure takes to go from draft to
+  clinician-approved. This will be used to estimate how many procedures are
+  realistic for the final product.
+\end{itemize}
+
+\subsubsection*{Success criteria:}
+The clinician confirms the walkthrough accurately
+reflects what a child experiences, with no outstanding corrections, and the
+review turnaround is short enough to cover the remaining planned procedures
+(e.g., vision testing and slit-lamp examination).
+
+\subsection{Risk 2: Child Engagement and Usability}
+
+The target users are young children, many of whom cannot read yet, have short
+attention spans, and are still developing fine motor skills. If they cannot
+navigate the application on their own or lose interest partway through, they
+will not benefit from the preparation. Designing for children is different from
+designing for adults and requires audio-first instructions, large touch targets,
+and interactions that are forgiving of mistakes. A related risk is that testing
+directly with children may require research ethics approval, which may not be
+in place by the PoC date.
+
+\subsubsection*{What the PoC will demonstrate:}
+\begin{itemize}
+  \item All instructions in the vertical slice are narrated, so no step
+  depends on the user reading text.
+  \item Touch targets are sized for small fingers, and incorrect taps in the
+  vision practice activity lead to encouragement instead of failure.
+  \item Informal walkthroughs will be run with people unfamiliar with the
+  application (e.g., parents or peers outside the team). The team will record
+  whether they complete the walkthrough and activity without verbal help, how
+  long it takes, and where they get stuck. If ethics approval is in place, a
+  supervised session with a child will also be run.
+  \item The team will confirm what approval is required for testing with
+  children and a realistic timeline for obtaining it.
+\end{itemize}
+
+\subsubsection*{Success criteria:}
+Testers complete both activities without verbal
+help, the full slice takes about five minutes or less so that it fits a young
+child's attention span, and the team has a clear path to testing with children
+before the final evaluation.
+
+\subsection{Risk 3: Cross-Platform Delivery of Rich Media}
+
+The application must run on iOS and Android, on both phones and tablets, while
+playing animations, audio narration, and interactive touch content. Families may
+use older or lower-end devices, and the application may be opened in hospital
+waiting rooms where connectivity is poor. As more procedures are added, media
+files could make the application large to download. With a small team, keeping
+one codebase working well on both platforms is a technical risk.
+
+\subsubsection*{What the PoC will demonstrate:}
+\begin{itemize}
+  \item The same build of the vertical slice running on at least one iOS device
+  and one Android device, including at least one older or lower-spec device.
+  \item Narration and animations playing smoothly and in sync on each device.
+  \item The slice working with no network connection (airplane mode) after
+  installation.
+  \item The install size of the slice, used to estimate the total size of the
+  application once all planned procedures are included.
+\end{itemize}
+
+\subsubsection*{Success criteria:}
+The slice behaves the same on both platforms with no
+noticeable lag or audio/visual desynchronization, works fully offline, and the
+estimated full application size is reasonable for a family to download.
+
+\subsection{Consequences of an Unsuccessful PoC}
+
+If the PoC does not sufficiently address these risks, the consequences for the
+project are as follows.
+
+\subsubsection*{If clinical accuracy (Risk 1) is not resolved:}
+\begin{itemize}
+  \item The team cannot claim the content is trustworthy. Inaccurate content
+  could mislead children and increase their anxiety, and clinicians would be
+  unlikely to recommend the application to families.
+  \item If clinician review is too slow, fewer procedures can be covered in the
+  final product (e.g., only eye drops and vision testing, without the slit-lamp
+  examination), leaving parts of the appointment unprepared for.
+\end{itemize}
+
+\subsubsection*{If child engagement and usability (Risk 2) are not resolved:}
+\begin{itemize}
+  \item If children cannot use the application on their own, it becomes a
+  parent-led tool. This would require rethinking the interaction design and may
+  make the application less engaging for the child.
+  \item If approval to test with children cannot be obtained in time, the final
+  evaluation would have to rely on adult testers and clinician judgement. This
+  would weaken any claims that the application actually helps children feel
+  more prepared.
+\end{itemize}
+
+\subsubsection*{If cross-platform delivery (Risk 3) is not resolved:}
+\begin{itemize}
+  \item Supporting only one platform would exclude families who use the other,
+  reducing how accessible the application is.
+  \item Poor performance on older devices, or a very large download, would
+  create barriers for some families. The team may need to reduce the richness
+  of the media (e.g., static illustrations instead of animations), which could
+  make the application less engaging for children.
+\end{itemize}
+
+\noindent Whether or not the PoC succeeds, its results will be used to set the number of
+procedures covered, the interaction design, and the media approach.
 
 \section{Expected Technology}
 
