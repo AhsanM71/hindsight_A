@@ -277,37 +277,50 @@ procedures covered, the interaction design, and the media approach.
 
 \section{Expected Technology}
 
-\wss{What programming language or languages do you expect to use?  What external
-libraries?  What frameworks?  What technologies.  Are there major components of
-the implementation that you expect you will implement, despite the existence of
-libraries that provide the required functionality.  For projects with machine
-learning, will you use pre-trained models, or be training your own model?  }
-
-\wss{The implementation decisions can, and likely will, change over the course
-of the project.  The initial documentation should be written in an abstract way;
-it should be agnostic of the implementation choices, unless the implementation
-choices are project constraints.  However, recording our initial thoughts on
-implementation helps understand the challenge level and feasibility of a
-project.  It may also help with early identification of areas where project
-members will need to augment their training.}
-
-Topics to discuss include the following:
+We note at the beginning of this section that the expected technologies listed here can possibly change as the project is
+developed. That being said, our initial thoughts on implementation details are as follows:
 
 \begin{itemize}
-\item Specific programming language
-\item Specific libraries
-\item Pre-trained models
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Tools you will likely be using?
-\end{itemize}
+    \item \textbf{Version Control:} Git will be used for version control. The team is already familiar with it, and we all
+    have it setup on our machines.
 
-\wss{git, GitHub and GitHub projects should be part of your technology.}
+    \item \textbf{Source Code Hosting:} We will host our source code, as well as other assets and documentation, on GitHub.
+    Again, the team is already familiar with this platform. Additionally, we will be managing our project scheduling using a
+    Kanban board created with GitHub Projects (as detailed in Section 8).
+
+    \item \textbf{Game Engine:} We will use Unity as the engine to develop our game. Motivating choices behind this include
+    the ease at which we can create a cross-platform mobile application (Unity makes it straightforward to deploy on Android
+    and iOS), and that development is done in C\#, which some of our team members have good familiarity with. While the team
+    has limited experience with using Unity, there is a robust enough community and documentation that should flatten the
+    learning curve.
+
+    \item \textbf{Programming Language:} We will primarily be using C\#. As mentioned above, Unity development is done in
+    C\#, thus this is a requirement for using it.
+
+    \item \textbf{Assets:} We will likely make use of Unity's extensive Asset Store, for assets such as sprites, audio, etc..
+    This is because we are not graphic designers or composers (for example), and it would be less effort intensive to re-use existing assets
+    where we are able. In the cases where we have need for an asset that's not readily available, we will use other tools detailed below to create them ourselves.
+
+    \item \textbf{Blender:} We are tentatively targeting a 3D mobile game, for better alignment with our stretch goal of porting
+    the game to an AR/XR format. For creation of 3D assets not available on the Asset Store, we would make them ourselves in Blender.
+    The motivation behind this selection is that Blender is free and open-source, which keeps our cost and licensing requirements for the project low.
+
+    \item \textbf{Development Environment:} We will use JetBrains Rider as our IDE for Unity development. While normally paid,
+    as students we have the option to use it for free. The main motivation for using Rider is that it has awareness of Unity-specific
+    methods and properties, which makes it easier to debug during development. As well, since the team works cross-platform
+    (some of us have a Mac while others have Windows), Visual Studio is not an option as it is no longer available on Mac.
+    Visual Studio Code also requires extension set-up for C\# and Unity development, whereas Rider supports it out-of-the-box,
+    which makes it more appealing.
+
+    \item \textbf{Unit Testing:} Unit testing for game code will be done using the C\# NUnit framework for game logic,
+    and rely on the Unity test tools and framework for actual Unity object interactions.
+
+    \item \textbf{CI/CD:} Our CI/CD will be done through GitHub Actions, and consist of two main parts for game code. First,
+    we will have a “linter gate” stage, that will fail the pipeline if the incoming code fails to meet the code quality standards
+    we lay out as a team. To keep it simple, this will be carried out by the default \texttt{dotnet format} command that ships
+    natively with .NET. Second, we will have our unit test stage, which will fail the pipeline if any of the unit test asserts fail.
+    We will use the open source toolkit GameCI to allow us to spin up a headless instance of Unity to test our interaction-focused unit tests.
+\end{itemize}
 
 \section{Use of AI and LLMs}
 
