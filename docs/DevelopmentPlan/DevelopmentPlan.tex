@@ -926,7 +926,93 @@ our documentation, as well as crucial information we are trying to convey, is no
 The main tools our team will be using vary between the team members, but we will primarily be using Claude (Claude Code) and ChatGPT (Codex).
 \section{Coding Standard}
 
-\wss{What coding standard will you adopt?}
+The team will follow a consistent set of coding standards to improve
+readability, maintainability, and consistency across the project. These
+standards will apply primarily to the C\# and Unity codebase and will be
+reinforced through code review and automated CI checks.
+
+\subsection{Naming Conventions}
+
+The team will use consistent naming conventions for C\# code. Classes,
+methods, and public properties will use PascalCase, while local variables
+and private fields will use camelCase. Private fields may use an underscore
+prefix when appropriate.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Element} & \textbf{Convention} & \textbf{Example} \\ \hline
+        Class & PascalCase & \texttt{EyeDropActivity} \\ \hline
+        Method & PascalCase & \texttt{StartActivity()} \\ \hline
+        Public Property & PascalCase & \texttt{ActivityDuration} \\ \hline
+        Private Field & camelCase & \texttt{activityManager} \\ \hline
+        Local Variable & camelCase & \texttt{attemptCount} \\ \hline
+        Constant & PascalCase & \texttt{MaxAttempts} \\ \hline
+    \end{tabular}
+    \caption{C\# Naming Conventions}
+    \label{tab:csharp-naming}
+\end{table}
+
+
+\subsection{Code Organization}
+
+Code will be organized according to functionality so that related
+components can be easily located and maintained. Classes should have a
+focused responsibility, and unnecessary duplication should be avoided.
+Files will be named according to their primary class or component.
+
+Methods should remain reasonably focused and should not contain unrelated
+functionality. When functionality is reused across multiple components,
+it should be extracted into an appropriate shared component rather than
+duplicated.
+
+
+\subsection{Comments and Documentation}
+
+Comments will be used to explain non-obvious implementation decisions,
+assumptions, or reasoning rather than restating what the code already
+expresses. Public or reusable components should include appropriate
+documentation where additional context is necessary.
+
+For example, comments should explain why a particular implementation is
+required rather than simply describing individual statements.
+
+
+\subsection{Error Handling}
+
+The application will handle expected errors explicitly and provide
+meaningful error information when failures occur. Exceptions will not be
+used for normal program flow, and errors should not be silently ignored.
+Input and external dependencies will be validated where appropriate to
+prevent unexpected behaviour.
+
+
+\subsection{Unity Standards}
+
+Unity specific code will follow consistent practices across the project.
+Unity lifecycle methods such as \texttt{Awake()}, \texttt{Start()}, and
+\texttt{Update()} will be organized consistently within scripts.
+
+Unnecessary work inside frame based methods such as \texttt{Update()} will
+be avoided where possible. Configurable values will use Unity's serialized
+fields when appropriate rather than unnecessarily exposing fields as
+public. UI logic, game logic, and data management will be separated where
+practical to improve maintainability and testing.
+
+
+\subsection{Enforcement}
+
+Coding standards will be enforced through a combination of automated tools
+and peer review. \texttt{dotnet format} will be used within the CI pipeline
+to identify formatting and code style issues. Automated tests and build
+verification will also be executed as part of CI.
+
+During Pull Request review, team members will verify that changes follow
+the established naming, organization, documentation, and Unity specific
+standards. Required CI checks must pass before a Pull Request can be
+merged. If recurring issues are identified during development, the team
+may update the coding standards to address them consistently.
 
 \newpage{}
 
