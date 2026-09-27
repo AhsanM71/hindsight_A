@@ -4,8 +4,15 @@
 \usepackage{tabularx}
 \usepackage{parskip}
 \usepackage{hyperref}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
 
+% Consistent paragraph formatting:
 \setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
 
 \title{Development Plan\\\progname}
 
@@ -32,6 +39,7 @@
 2026/09/25 & Jake Finlay & Completed Section 10: Proof of Concept Demonstration Plan \\
 2026/09/26 & Jackson Beach & Completed sections 9, 11, 12, and individual reflection \\
 2026/09/27 & Mohammad Bilal & Updated license link \\
+2026/09/27 & Ahsan Muzammil & Completed initial draft of Workflow plan, Coding Standards, and Reflection (Ahsan)\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -106,14 +114,568 @@ leader, meeting chair, reviewer.  Assigning specific people to those roles is
 not necessary at this stage.  In a student team the role of the individuals will
 likely change throughout the year.}
 
+
+
 \section{Workflow Plan}
 
+Our development workflow is designed to support parallel work while maintaining
+traceability, code quality, and controlled integration of changes. GitHub will
+be used for version control and project management, with GitHub Issues,
+Projects, Pull Requests, and Actions working together throughout the
+development process.
+
+
+% ============================================================
+% GIT WORKFLOW
+% ============================================================
+
+\subsection{Git Workflow}
+
+GitHub will be used as our primary version control system for managing source
+code, \LaTeX{} documentation, and other project artifacts.
+
+
+\subsubsection{Repository Organization}
+
+We created a GitHub organization for the project to provide centralized
+management of the project's repositories, permissions, and team access.
+Using an organization prevents the project from being dependent on an
+individual team member's personal repository and provides a consistent
+location for all project resources.
+
+Our repository structure follows a fork based workflow:
+
+\begin{enumerate}
+    \item The team maintains a primary repository containing the project's
+    main codebase and documentation.
+
+    \item Each team member maintains a fork of the primary repository.
+
+    \item Team members create task specific branches within their fork.
+
+    \item Completed work is submitted to the primary repository through
+    Pull Requests (PRs).
+\end{enumerate}
+
+We chose this approach to allow team members to work independently while
+protecting the primary repository from direct changes. It also provides a
+formal review process before changes are integrated into shared branches.
+
+
+\subsubsection{Branch and Pull Request Workflow}
+
+Each task will be completed on a dedicated branch. This workflow applies to
+different types of work, including:
+
 \begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classification, etc.?
-  \item Use of CI/CD
+    \item New features
+    \item Bug fixes
+    \item Enhancements
+    \item Documentation and reports
+    \item Testing
+    \item Other project tasks
 \end{itemize}
+
+Team members will make commits throughout their work so that changes remain
+traceable to the corresponding task or issue.
+
+The overall branch and Pull Request workflow is shown in
+Figure~\ref{fig:git-workflow}.
+
+\begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}[
+        node distance=1.2cm and 1.5cm,
+        box/.style={
+            rectangle,
+            rounded corners,
+            draw,
+            align=center,
+            minimum width=3.2cm,
+            minimum height=0.9cm
+        },
+        arrow/.style={
+            -{Stealth},
+            thick
+        }
+    ]
+
+    \node[box] (issue) {Create / Select\\GitHub Issue};
+
+    \node[box, below=of issue] (branch)
+        {Create Task Branch\\in Team Fork};
+
+    \node[box, below=of branch] (work)
+        {Complete Work\\Code / Documentation / Bug Fix};
+
+    \node[box, below=of work] (pr)
+        {Create Pull Request\\to Epic Branch};
+
+    \node[box, below=of pr] (review)
+        {Peer Review\\+ CI Checks};
+
+    \node[box, below=of review] (epic)
+        {Merge into\\Epic Branch};
+
+    \node[box, below=of epic] (main)
+        {Merge Epic into\\Main Branch};
+
+    \draw[arrow] (issue) -- (branch);
+    \draw[arrow] (branch) -- (work);
+    \draw[arrow] (work) -- (pr);
+    \draw[arrow] (pr) -- (review);
+    \draw[arrow] (review) -- (epic);
+    \draw[arrow] (epic) -- (main);
+
+    \draw[arrow] (review.east) -- ++(2.0,0)
+        node[midway, above] {Changes required}
+        |- (work.east);
+
+    \end{tikzpicture}
+
+    \caption{Git and Pull Request Workflow}
+    \label{fig:git-workflow}
+\end{figure}
+
+Once work is complete, the branch will be submitted as a PR to the appropriate
+epic branch in the primary repository. The PR will reference the GitHub Issues
+associated with the work. This provides traceability between the task being
+completed and the changes submitted to the repository.
+
+PRs will require peer review before being merged. Reviewers will verify that:
+
+\begin{itemize}
+    \item The changes satisfy the associated issue.
+    \item The changes follow the team's development standards.
+    \item The implementation or documentation does not introduce unintended
+    problems.
+    \item Required CI checks have passed.
+\end{itemize}
+
+After approval, the PR will be merged into the appropriate epic branch.
+Epic branches allow related work to be integrated and reviewed together.
+Once an epic has been completed, its branch will be merged into the main
+branch.
+
+This workflow provides multiple quality control points while still allowing
+team members to work independently.
+
+\subsubsection{Commit Message Convention}
+
+To maintain consistent and traceable commit history, the team will follow a
+standard commit message structure:
+
+\begin{center}
+    \texttt{<Type>(<Scope>): <Message> (\#<IssueNumber>)}
+\end{center}
+
+The \textit{Type} identifies the general purpose of the change, while the
+optional \textit{Scope} identifies the specific part of the project affected.
+The \textit{Message} briefly describes the change, and the issue number
+provides traceability between the commit and the corresponding GitHub Issue.
+
+The following commit types will be used:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{8.5cm}|}
+        \hline
+        \textbf{Type} & \textbf{Purpose} \\ \hline
+
+        Feature &
+        Addition of new functionality. \\ \hline
+
+        Bug &
+        Correction of unexpected or incorrect behaviour. \\ \hline
+
+        Enhancement &
+        Improvement to existing functionality. \\ \hline
+
+        Docs &
+        Changes to documentation or project deliverables. \\ \hline
+
+        Test &
+        Addition or modification of tests. \\ \hline
+
+        Research &
+        Research or investigation related to the project. \\ \hline
+
+        Refactor &
+        Restructuring of existing code without changing its intended behaviour. \\ \hline
+    \end{tabular}
+
+    \caption{Git Commit Types}
+    \label{tab:commit-types}
+\end{table}
+
+For documentation related commits, the optional scope will identify the
+document being modified. For example, \texttt{DP} may be used for the
+Development Plan and \texttt{PS} may be used for the Problem Statement.
+
+Examples of valid commit messages include:
+
+\begin{lstlisting}[caption={Example Commit Messages}]
+Feature: Add eye drop preparation activity (#42)
+Bug: Fix activity completion state (#57)
+Docs(DP): Update workflow plan (#31)
+Docs(PS): Revise problem statement (#18)
+Test: Add activity completion tests (#63)
+Research(AR): Investigate AR procedure simulation (#71)
+\end{lstlisting}
+
+This convention provides a consistent commit history and makes it easier to
+identify the purpose of a change and trace it back to the corresponding
+GitHub Issue. Pull Requests will additionally reference or close the
+associated issues where appropriate.
+
+% ============================================================
+% ISSUE MANAGEMENT
+% ============================================================
+
+\subsection{Issue Management}
+
+GitHub Issues will be used as the primary mechanism for tracking project work.
+Issues will be used for development tasks, bugs, documentation, research,
+meetings, reviews, and other activities.
+
+Each issue will contain, where applicable:
+
+\begin{itemize}
+    \item A clear description of the task.
+    \item The expected outcome or acceptance criteria.
+    \item An assigned team member.
+    \item Relevant labels.
+    \item A milestone.
+    \item Links to related issues or Pull Requests.
+\end{itemize}
+
+
+\subsubsection{Breaking Down Work}
+
+Large tasks will be divided into smaller issues or sub issues using a
+divide and conquer approach (as mentioned in section 9). For example, a large documentation deliverable
+may be divided into individual sections that can be assigned to different
+team members.
+
+This allows the team to work in parallel while keeping the relationship
+between smaller tasks and larger deliverables visible.
+
+
+\subsubsection{Kanban Board}
+
+We will use a GitHub Projects Kanban board to track the current state of
+issues throughout the workflow. The stages used by the team are shown in
+Table~\ref{tab:kanban}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{9cm}|}
+        \hline
+        \textbf{Stage} & \textbf{Purpose} \\ \hline
+
+        Backlog &
+        Work that has been identified but is not yet scheduled. \\ \hline
+
+        To Do &
+        Work that is ready to be started. \\ \hline
+
+        In Progress &
+        Work currently being completed by a team member. \\ \hline
+
+        In Review &
+        Work that has been completed and is awaiting review and/or CI checks. \\ \hline
+
+        Done &
+        Work that has been reviewed, approved, and completed. \\ \hline
+    \end{tabular}
+
+    \caption{GitHub Projects Kanban Workflow}
+    \label{tab:kanban}
+\end{table}
+
+The Kanban board provides the team with a shared view of project progress
+and helps identify outstanding work and potential bottlenecks.
+
+
+\subsubsection{Milestones}
+
+Milestones will be used to group issues according to major project deadlines,
+deliverables, or development phases. This allows us to track progress toward
+larger objectives rather than only individual tasks.
+
+For example, a milestone may contain all issues required to complete a
+specific project deliverable or prototype. This provides a high level view
+of whether the team is on track to complete upcoming objectives.
+
+
+\subsubsection{Issue Templates}
+
+We will use GitHub Issue Templates for recurring activities. Templates
+provide a consistent structure and reduce repetitive work when creating
+issues.
+
+The templates used by the team are shown in Table~\ref{tab:issue-templates}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{8.5cm}|}
+        \hline
+        \textbf{Template} & \textbf{Purpose} \\ \hline
+
+        Lecture &
+        Record important information, notes, attendance, and action items. \\ \hline
+
+        Peer Review &
+        Record feedback and follow up actions from peer reviews. \\ \hline
+
+        Supervisor Meeting &
+        Record agendas, discussions, decisions, and action items from
+        supervisor or stakeholder meetings. \\ \hline
+
+        TA Meeting &
+        Record agendas, feedback, decisions, and action items from TA
+        meetings. \\ \hline
+
+        Team Meeting &
+        Record discussions, decisions, assigned tasks, and follow up actions
+        from team meetings. \\ \hline
+
+        Blank Issue &
+        General purpose template for tasks that do not fit another template. \\ \hline
+    \end{tabular}
+
+    \caption{GitHub Issue Templates}
+    \label{tab:issue-templates}
+\end{table}
+
+
+\subsubsection{Issue Labels}
+
+Labels will be used to classify issues according to the type of work they
+represent. Labels describe the nature of the work rather than its current
+status, since status is managed through the Kanban board.
+
+The labels used by the team are shown in Table~\ref{tab:issue-labels}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{8.5cm}|}
+        \hline
+        \textbf{Label} & \textbf{Purpose} \\ \hline
+
+        Bug &
+        Unexpected or incorrect behaviour requiring correction. \\ \hline
+
+        Feature &
+        New functionality or a significant addition to the system. \\ \hline
+
+        Enhancement &
+        Improvement to existing functionality. \\ \hline
+
+        Documentation/Deliverable &
+        Reports, documentation, presentations, or other deliverables. \\ \hline
+
+        Testing &
+        Creation, modification, or execution of tests. \\ \hline
+
+        Research &
+        Research or investigation required to support project decisions. \\ \hline
+
+        Lecture &
+        Lecture related tasks and notes. \\ \hline
+
+        Peer Review &
+        Peer review activities and resulting actions. \\ \hline
+
+        TA Meeting &
+        TA meeting notes, feedback, and actions. \\ \hline
+
+        Team Meeting &
+        Team meeting discussions and actions. \\ \hline
+
+        Supervisor Meeting &
+        Supervisor or stakeholder meetings and follow ups. \\ \hline
+    \end{tabular}
+
+    \caption{GitHub Issue Labels}
+    \label{tab:issue-labels}
+\end{table}
+
+
+\subsubsection{Pull Request Template}
+
+To maintain consistency across Pull Requests, we will use a standard PR
+template. The template will require contributors to identify the associated
+issues, summarize their changes, and confirm that the required checks have
+been completed.
+
+An example of the template is shown below.
+
+\begin{lstlisting}[caption={Pull Request Template}]
+## Description
+
+Briefly describe the changes made in this Pull Request.
+
+## Related Issues
+
+- Closes #IssueNumber
+- Related to #IssueNumber
+
+## Type of Change
+
+- [ ] Feature
+- [ ] Bug Fix
+- [ ] Enhancement
+- [ ] Documentation
+- [ ] Testing
+- [ ] Other
+
+## Testing
+
+Describe the tests or verification performed.
+
+## Checklist
+
+- [ ] Changes satisfy the associated issue(s).
+- [ ] Code/documentation follows team standards.
+- [ ] Tests have been added or updated where necessary.
+- [ ] All CI checks pass.
+- [ ] Changes have been reviewed locally before submission.
+
+## Additional Notes
+
+Include any additional information reviewers should know.
+\end{lstlisting} 
+
+\newpage
+
+A completed example is shown below.
+
+\begin{lstlisting}[caption={Example Completed Pull Request}]
+## Add Eye-Drop Preparation Activity
+
+### Related Issue
+
+Closes #42
+
+### Description
+
+Added the eye-drop preparation activity and associated user interface.
+The activity introduces the procedure and provides an interactive
+simulation for the child.
+
+### Type of Change
+
+- [x] Feature
+- [ ] Bug Fix
+- [ ] Enhancement
+- [ ] Documentation
+- [ ] Testing
+- [ ] Other
+
+### Testing
+
+Tested the activity in the Unity editor and verified that the activity
+can be completed from beginning to end without errors.
+
+### Checklist
+
+- [x] Changes satisfy the associated issue(s).
+- [x] Code/documentation follows team standards.
+- [x] Tests have been added or updated where necessary.
+- [x] All CI checks pass.
+- [x] Changes have been reviewed locally before submission.
+
+### Additional Notes
+
+No additional notes.
+\end{lstlisting}
+
+
+% ============================================================
+% CI/CD
+% ============================================================
+
+\subsection{CI/CD}
+
+GitHub Actions will be used for continuous integration (CI) and, where
+appropriate, continuous delivery (CD). The purpose of the CI pipeline is
+to automatically verify changes before they are merged, reducing the
+likelihood of introducing formatting issues, failing tests, or broken
+builds into shared branches.
+
+The overall CI pipeline is shown in Figure~\ref{fig:ci-pipeline}.
+
+\begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}[
+        node distance=1.2cm,
+        box/.style={
+            rectangle,
+            rounded corners,
+            draw,
+            align=center,
+            minimum width=3.2cm,
+            minimum height=0.9cm
+        },
+        arrow/.style={
+            -{Stealth},
+            thick
+        }
+    ]
+
+    \node[box] (push) {Push / Pull Request};
+
+    \node[box, below=of push]
+        (format) {\texttt{dotnet format}\\Code Quality};
+
+    \node[box, below=of format]
+        (test) {Automated\\Unit Tests};
+
+    \node[box, below=of test]
+        (build) {Build\\Verification};
+
+    \node[box, below=of build]
+        (pass) {CI Passed\\Ready for Review/Merge};
+
+    \draw[arrow] (push) -- (format);
+    \draw[arrow] (format) -- (test);
+    \draw[arrow] (test) -- (build);
+    \draw[arrow] (build) -- (pass);
+
+    \end{tikzpicture}
+
+    \caption{Continuous Integration Pipeline}
+    \label{fig:ci-pipeline}
+\end{figure}
+
+
+The pipeline will perform the following checks:
+
+\begin{enumerate}
+    \item \textbf{Code Quality:}
+    \texttt{dotnet format} will verify that .NET code follows the team's
+    formatting standards.
+
+    \item \textbf{Unit Tests:}
+    Automated tests will be executed to verify individual components.
+    GameCI will provide a headless Unity environment for running Unity tests.
+
+    \item \textbf{Build Verification:}
+    Where applicable, the project will be built to ensure that changes do not
+    prevent the application from compiling or generating a valid build.
+\end{enumerate}
+
+The CI workflow will run when relevant branches are updated and when PRs
+are created or updated. Required CI checks must pass before a PR can be
+merged.
+
+For continuous delivery, GitHub Actions may be used to automatically
+generate builds or project artifacts for testing, demonstrations, or
+milestones. This will reduce manual build steps and provide a consistent
+process for producing validated project versions.
 
 \section{Project Decomposition and Scheduling}
 
