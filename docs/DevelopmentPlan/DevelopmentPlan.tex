@@ -494,6 +494,32 @@ about the contents of the development plan in our team group chat, but these dis
 were resolved quickly. Going forward, I expect that clear communication and good documentation
 will help us settle any development-related issues that arise.
 
+\subsection*{Jackson Beach}
+
+\subsubsection*{Why is it important to create a development plan prior to starting the project?}
+I believe a development plan is important as it lays out key aspects of the project at various levels.
+At a high level, we lay out guidelines for team meetings, communication, roles, and project milestones, so we are clear on
+where we are headed and how we will accomplish it together as a team. At a lower level, we lay out our software development workflow,
+standards, and (preliminary) technologies we will use so we are all clear on (what we consider) the best and most efficient
+way to implement our project is. Without one, we would all likely do our own thing in terms of contributions, which would be confusing
+and probably lead to conflict among members. Having something like this laid out is meant to reduce conflict by providing a
+``ground truth'' we can all reference.
+
+\subsubsection*{In your opinion, what are the advantages and disadvantages of using CI/CD?}
+The main advantage I see for using CI/CD is that it can help prevent breaking changes from
+being merged in, which alleviates the effort needed to fix those bugs in the production build later. Automated linting
+and regression testing saves the developer from having to manually check for issues, which can be time consuming and susceptible to human error.
+The main disadvantage I see is that it can be a pain to configure and maintain, as it requires careful configuration of your
+YAML files and required credentials/secrets. Also, debugging errors with things like runners can be confusing, as it can be
+unclear exactly where the problem is coming from.
+
+\subsubsection*{What disagreements did your group have in this deliverable, if any, and how did you resolve them?}
+I wouldn't say there were any disagreements. Most discussion points revolved around what we felt was the most efficient and ideal
+development workflow for the team. We had conversations on what would be the most clear for commit messages, how to structure
+our pull requests, etc., but we were able to come to a consensus on these items. We are all coming from a place of ensuring that
+what we do during development is simple and straightforward so we can spend more of our time and energy on actually developing
+the game.
+
 \newpage{}
 
 \section{Appendix --- Team Charter}
