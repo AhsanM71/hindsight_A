@@ -1175,6 +1175,28 @@ our pull requests, etc., but we were able to come to a consensus on these items.
 what we do during development is simple and straightforward so we can spend more of our time and energy on actually developing
 the game.
 
+\subsection*{Ahsan Muzammil}
+
+\subsubsection*{Why is it important to create a development plan prior to starting the project?}
+
+Creating a development plan before starting the project is important because it establishes a shared understanding of how the team will organize, track, and integrate its work. Without a defined workflow, different team members may make different assumptions about how tasks should be completed, reviewed, and merged. Developing the plan also allows the team to identify potential issues with collaboration before they occur. For example, defining our branching strategy, issue management process, Pull Request requirements, and CI/CD process in advance provides a consistent structure for development and makes responsibilities clearer. I also learned that a development plan is not only about deciding which tools to use, but also about establishing how those tools work together to support the team's overall development process.
+
+\subsubsection*{In your opinion, what are the advantages and disadvantages of using CI/CD?}
+
+In my opinion, one of the main advantages of CI/CD is that it provides automated verification of changes before they are integrated into the shared codebase. This is particularly valuable based on my experience during my previous co-op term. The company I worked for did not have an effective CI/CD pipeline, so whenever I received feedback from a user on a feature request and made changes to address that feedback, I had to manually rerun the relevant tests after every change. This process could take a significant amount of time, especially when multiple rounds of feedback were required. Much of this time could have been reduced if the tests had been automatically executed through a CI pipeline after each change. This experience showed me how the lack of CI/CD can result in repetitive manual work that does not directly contribute to implementing the requested changes.
+
+For our project, automated formatting checks, unit tests, and build verification can identify problems earlier and reduce the amount of manual verification required from individual team members. CI/CD also provides a consistent process for validating changes, which is particularly useful when multiple team members are working on different parts of the project.
+
+However, CI/CD also introduces additional setup and maintenance overhead. The team needs to spend time creating and maintaining the workflows, configuring the required tools, and addressing failures when the CI environment behaves differently from a local development environment. There can also be an initial learning curve when setting up tools such as GitHub Actions and GameCI. Despite these disadvantages, my previous co-op experience has shown me that automating repetitive verification can save significant development time, particularly when changes need to be made and tested repeatedly.
+
+\subsubsection*{What disagreements did your group have in this deliverable, if any, and how did you resolve them?}
+
+Our main disagreement during this deliverable was related to our overall Git workflow. We initially had different understandings of how our branching strategy was supposed to work. Some group members assumed that we would use a traditional workflow where each team member creates a branch for their assigned task, creates a Pull Request to an epic branch, and eventually merges the completed epic branch into the main branch. Other members understood that we would use a fork-based workflow, where each team member works within their own fork and submits Pull Requests to the primary repository.
+
+We resolved this disagreement by discussing both approaches as a group rather than assuming that one interpretation was correct. Each approach was considered based on how well it would support parallel development, code review, repository protection, and collaboration. After discussing the advantages and disadvantages of both approaches, we held a group vote. The vote was unanimous in favour of using the fork-based workflow.
+
+This disagreement showed me the importance of explicitly discussing development processes before implementation begins. Even though everyone understood the general purpose of branches and Pull Requests, we had different interpretations of how they should be combined into an overall workflow. Establishing and documenting the workflow early helped ensure that everyone had the same expectations before continuing with development.
+
 \newpage{}
 
 \section{Appendix --- Team Charter}
