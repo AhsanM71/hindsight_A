@@ -76,4 +76,4 @@ mobile application implementation and automated test suite.
 The GitHub Actions workflow in `.github/workflows/latex-pages.yml` builds the
 documentation and publishes the generated PDFs through GitHub Pages.
 
-The documentation for this project is updated on the project's [GitHub page](https://smiths.github.io/capTemplate/). <!-- update for your project!  -->
+The documentation for this project is updated on the project's [GitHub page](https://team-hindsight.github.io/ophthamology-game/).
