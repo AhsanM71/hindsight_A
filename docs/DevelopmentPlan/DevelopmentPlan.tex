@@ -1,7 +1,8 @@
 \documentclass{article}
-
+\usepackage{float}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage[margin=1in]{geometry}
 \usepackage{parskip}
 \usepackage{hyperref}
 \usepackage{tcolorbox}
@@ -35,6 +36,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
+2026/09/27 & Ethan & Completed Sections 5, 6, 7 \\
 2026/09/25 & Mohammad Bilal & Completed sections 1-4, Team Charter, \& reflection \\
 2026/09/25 & Jake Finlay & Completed Section 10: Proof of Concept Demonstration Plan \\
 2026/09/26 & Jackson Beach & Completed sections 9, 11, 12, and individual reflection \\
@@ -84,36 +86,120 @@ for the project can be found in the team repository.
 
 \section{Team Meeting Plan}
 
-\wss{This section is for meetings between the team members, and meetings between 
-the team and their supervisor/advisor (as appropriate).}
+Weekly meetings will be held in person from 3:30 PM - 4:30 PM on Wednesdays, which 
+is conveniently during the Capstone tutorial time. These weekly meetings will 
+proceed in-person on campus. Should a 
+team member not be able to attend the in-person meeting they should provide at least 
+1 hour notice and join online (unless an emergency ensues). Each member is required 
+to be prepared for the meeting by reading through the associated deliverable 
+documentation beforehand. Additional virtual meetings may be required when we approach 
+a deliverable deadline and the team needs to convene. Supervisor meetings will be 
+held weekly, biweekly, or as needed basis which is also dependent on the availability 
+of the supervisor. All members can chair and record their meeting minutes, but the 
+primary recording responsibility will fall to the Team Liaison. The chair should use 
+the agenda and meeting minutes template below. The template will be used and made into 
+a GitHub meeting issue that can be edited by any member of the team.
 
-\wss{How often will the team meet? where? when?}
+\underline{Meeting Agenda}
 
-\wss{If the meeting is a physical location (not virtual), out of an abundance of
-caution for safety reasons you shouldn't put the location online}
+\begin{itemize}
+  \item Date, Time
+  \item Attendance
+  \item Purpose of Meeting Description
+  \item New Deliverable Tasks: \par
+  Brief introduction \par
+  Decide division of labour \par
+  Record task assignment, record miscalleneous task assignment \par
+  \item Current Deliverable: \par
+  Discussion of progress \par
+  Team Member Updates \par
+  Discuss inquiries for supervisor \par
+  Discuss inquiries for professor \par
+\end{itemize}
 
-\wss{To help schedule meetings, you can use the lecture/tutorial time when we do 
-not have anything else scheduled.}
+\underline{Meeting Minutes}
 
-\wss{How often will you meet with your supervisor/advisor?  when?  where?}
-
-\wss{Will meetings be virtual?  At least some meetings should likely be
-in-person.}
-
-\wss{How will the meetings be structured?  There should be a chair for all meetings.  
-There should be an agenda for all meetings.}
+\begin{itemize}
+  \item Date, Time
+  \item Introduction
+  \item Suggested Improvements
+  \item Positives + Negatives discussion
+  \item Division of Labour
+  \item Task Assignment Record
+  \item Discussion of Progress
+  \item Team Member Updates
+  \item Questions for Supervisor/Professor (Communicated by Team Liaison)
+  \item Mental health check, satisfaction levels: Awesome, Good, Neutral, Bad, Despaired
+  \item Extra Comments
+\end{itemize}
 
 \section{Team Communication Plan}
 
-\wss{Issues on GitHub should be part of your communication plan.}
+Our team communication plan will involve the following technologies and plan:
+\begin{itemize}
+  \item Issues: GitHub/GitHub Projects
+  \item Weekly Meetings: In-Person on Campus (Discord Channel if Online with >1 Hour Notice)
+  \item Meeting Minutes Outside Weekly Meetings: Discord
+  \item Meeting Agenda and Minutes: GitHub Meeting Issue
+  \item Meeting with Stakeholders: In Person or Zoom (Dependent on Availability of Stakeholder)
+  \item General Discussion: In-person or Discord
+\end{itemize}
+
+To avoid last minute communication or lost communication, at least one team member must 
+respond to a message within 24 hours. If urgent communication shall arise about a 
+deliverable (or actual emergency) than direct messaging can be performed.
 
 \section{Team Member Roles}
 
-\wss{You should identify the types of roles you anticipate, like notetaker,
-leader, meeting chair, reviewer.  Assigning specific people to those roles is
-not necessary at this stage.  In a student team the role of the individuals will
-likely change throughout the year.}
+See Table \ref{RoleAssignments} for the role assignments of our team members.
 
+\textbf{Editor}: This member will read through all deliverables and be responsible for 
+the final read-through before submission. They are responsible for ensuring 
+consistency, clarity in the documentation and conciseness in the writing within the 
+document and can edit any text to ensure these communication goals are met.
+
+\textbf{Team Liaison}: This member is responsible for any and all communication with 
+supervisors and professors, communicating the information back to the team. This 
+member is also primarily responsible for the meeting agenda and meeting minutes.
+
+\textbf{Technical Manager}: They will be responsible for task 
+workload assignments and for enforcing the GitHub workflow plan is followed to the 
+standard agreed upon by the team.
+
+\textbf{Researcher}: A researcher is responsible for performing initial or preporatory 
+research and communicating the findings back to the team, and if required into the CD 
+documentation.
+
+\textbf{Back-end Developer}: They are responsible to ensure the back-end is functional 
+and meeting the coding standards agreed upon by the team.
+
+\textbf{Front-end Developer}: They are responsible to ensure the front-end is functional 
+and meeting the user-centric interface standards, needs, and goals of our users.
+
+\textbf{Comment Reviewer}: This member is responsible for reviewing the clarity and 
+presence of effective code comments.
+
+\textbf{GitHub Wiki Manager}: They are responsible to verify the GitHub Wiki Manager 
+contains all the expected content for presentation.
+
+\begin{table}[H]
+\caption{Revision History} \label{RoleAssignments}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Role} & \textbf{Name} & \textbf{Change Possibility (Y/N)} \\
+\midrule
+Editor & All & Y \\
+Team Liaison & Ethan & N \\
+Technical Manager & Ahsan & Y \\
+Lead Researcher & All & Y \\
+Back-end Developer & All & Y \\
+Front-end Developer & All & Y \\
+Code Reviewer & All & N \\
+GitHub Wiki Manager & All & Y \\
+
+\bottomrule
+\end{tabularx}
+\end{table}
 
 
 \section{Workflow Plan}
