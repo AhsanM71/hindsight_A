@@ -5,8 +5,15 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{parskip}
 \usepackage{hyperref}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
 
+% Consistent paragraph formatting:
 \setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
 
 \title{Development Plan\\\progname}
 
@@ -32,7 +39,9 @@
 2026/09/27 & Ethan & Completed Sections 5, 6, 7 \\
 2026/09/25 & Mohammad Bilal & Completed sections 1-4, Team Charter, \& reflection \\
 2026/09/25 & Jake Finlay & Completed Section 10: Proof of Concept Demonstration Plan \\
+2026/09/26 & Jackson Beach & Completed sections 9, 11, 12, and individual reflection \\
 2026/09/27 & Mohammad Bilal & Updated license link \\
+2026/09/27 & Ahsan Muzammil & Completed initial draft of Workflow plan, Coding Standards, and Reflection (Ahsan)\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -191,25 +200,603 @@ GitHub Wiki Manager & All & Y \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+
 \section{Workflow Plan}
 
+Our development workflow is designed to support parallel work while maintaining
+traceability, code quality, and controlled integration of changes. GitHub will
+be used for version control and project management, with GitHub Issues,
+Projects, Pull Requests, and Actions working together throughout the
+development process.
+
+
+% ============================================================
+% GIT WORKFLOW
+% ============================================================
+
+\subsection{Git Workflow}
+
+GitHub will be used as our primary version control system for managing source
+code, \LaTeX{} documentation, and other project artifacts.
+
+
+\subsubsection{Repository Organization}
+
+We created a GitHub organization for the project to provide centralized
+management of the project's repositories, permissions, and team access.
+Using an organization prevents the project from being dependent on an
+individual team member's personal repository and provides a consistent
+location for all project resources.
+
+Our repository structure follows a fork based workflow:
+
+\begin{enumerate}
+    \item The team maintains a primary repository containing the project's
+    main codebase and documentation.
+
+    \item Each team member maintains a fork of the primary repository.
+
+    \item Team members create task specific branches within their fork.
+
+    \item Completed work is submitted to the primary repository through
+    Pull Requests (PRs).
+\end{enumerate}
+
+We chose this approach to allow team members to work independently while
+protecting the primary repository from direct changes. It also provides a
+formal review process before changes are integrated into shared branches.
+
+
+\subsubsection{Branch and Pull Request Workflow}
+
+Each task will be completed on a dedicated branch. This workflow applies to
+different types of work, including:
+
 \begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classification, etc.?
-  \item Use of CI/CD
+    \item New features
+    \item Bug fixes
+    \item Enhancements
+    \item Documentation and reports
+    \item Testing
+    \item Other project tasks
 \end{itemize}
+
+Team members will make commits throughout their work so that changes remain
+traceable to the corresponding task or issue.
+
+The overall branch and Pull Request workflow is shown in
+Figure~\ref{fig:git-workflow}.
+
+\begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}[
+        node distance=1.2cm and 1.5cm,
+        box/.style={
+            rectangle,
+            rounded corners,
+            draw,
+            align=center,
+            minimum width=3.2cm,
+            minimum height=0.9cm
+        },
+        arrow/.style={
+            -{Stealth},
+            thick
+        }
+    ]
+
+    \node[box] (issue) {Create / Select\\GitHub Issue};
+
+    \node[box, below=of issue] (branch)
+        {Create Task Branch\\in Team Fork};
+
+    \node[box, below=of branch] (work)
+        {Complete Work\\Code / Documentation / Bug Fix};
+
+    \node[box, below=of work] (pr)
+        {Create Pull Request\\to Epic Branch};
+
+    \node[box, below=of pr] (review)
+        {Peer Review\\+ CI Checks};
+
+    \node[box, below=of review] (epic)
+        {Merge into\\Epic Branch};
+
+    \node[box, below=of epic] (main)
+        {Merge Epic into\\Main Branch};
+
+    \draw[arrow] (issue) -- (branch);
+    \draw[arrow] (branch) -- (work);
+    \draw[arrow] (work) -- (pr);
+    \draw[arrow] (pr) -- (review);
+    \draw[arrow] (review) -- (epic);
+    \draw[arrow] (epic) -- (main);
+
+    \draw[arrow] (review.east) -- ++(2.0,0)
+        node[midway, above] {Changes required}
+        |- (work.east);
+
+    \end{tikzpicture}
+
+    \caption{Git and Pull Request Workflow}
+    \label{fig:git-workflow}
+\end{figure}
+
+Once work is complete, the branch will be submitted as a PR to the appropriate
+epic branch in the primary repository. The PR will reference the GitHub Issues
+associated with the work. This provides traceability between the task being
+completed and the changes submitted to the repository.
+
+PRs will require peer review before being merged. Reviewers will verify that:
+
+\begin{itemize}
+    \item The changes satisfy the associated issue.
+    \item The changes follow the team's development standards.
+    \item The implementation or documentation does not introduce unintended
+    problems.
+    \item Required CI checks have passed.
+\end{itemize}
+
+After approval, the PR will be merged into the appropriate epic branch.
+Epic branches allow related work to be integrated and reviewed together.
+Once an epic has been completed, its branch will be merged into the main
+branch.
+
+This workflow provides multiple quality control points while still allowing
+team members to work independently.
+
+\subsubsection{Commit Message Convention}
+
+To maintain consistent and traceable commit history, the team will follow a
+standard commit message structure:
+
+\begin{center}
+    \texttt{<Type>(<Scope>): <Message> (\#<IssueNumber>)}
+\end{center}
+
+The \textit{Type} identifies the general purpose of the change, while the
+optional \textit{Scope} identifies the specific part of the project affected.
+The \textit{Message} briefly describes the change, and the issue number
+provides traceability between the commit and the corresponding GitHub Issue.
+
+The following commit types will be used:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{8.5cm}|}
+        \hline
+        \textbf{Type} & \textbf{Purpose} \\ \hline
+
+        Feature &
+        Addition of new functionality. \\ \hline
+
+        Bug &
+        Correction of unexpected or incorrect behaviour. \\ \hline
+
+        Enhancement &
+        Improvement to existing functionality. \\ \hline
+
+        Docs &
+        Changes to documentation or project deliverables. \\ \hline
+
+        Test &
+        Addition or modification of tests. \\ \hline
+
+        Research &
+        Research or investigation related to the project. \\ \hline
+
+        Refactor &
+        Restructuring of existing code without changing its intended behaviour. \\ \hline
+    \end{tabular}
+
+    \caption{Git Commit Types}
+    \label{tab:commit-types}
+\end{table}
+
+For documentation related commits, the optional scope will identify the
+document being modified. For example, \texttt{DP} may be used for the
+Development Plan and \texttt{PS} may be used for the Problem Statement.
+
+Examples of valid commit messages include:
+
+\begin{lstlisting}[caption={Example Commit Messages}]
+Feature: Add eye drop preparation activity (#42)
+Bug: Fix activity completion state (#57)
+Docs(DP): Update workflow plan (#31)
+Docs(PS): Revise problem statement (#18)
+Test: Add activity completion tests (#63)
+Research(AR): Investigate AR procedure simulation (#71)
+\end{lstlisting}
+
+This convention provides a consistent commit history and makes it easier to
+identify the purpose of a change and trace it back to the corresponding
+GitHub Issue. Pull Requests will additionally reference or close the
+associated issues where appropriate.
+
+% ============================================================
+% ISSUE MANAGEMENT
+% ============================================================
+
+\subsection{Issue Management}
+
+GitHub Issues will be used as the primary mechanism for tracking project work.
+Issues will be used for development tasks, bugs, documentation, research,
+meetings, reviews, and other activities.
+
+Each issue will contain, where applicable:
+
+\begin{itemize}
+    \item A clear description of the task.
+    \item The expected outcome or acceptance criteria.
+    \item An assigned team member.
+    \item Relevant labels.
+    \item A milestone.
+    \item Links to related issues or Pull Requests.
+\end{itemize}
+
+
+\subsubsection{Breaking Down Work}
+
+Large tasks will be divided into smaller issues or sub issues using a
+divide and conquer approach (as mentioned in section 9). For example, a large documentation deliverable
+may be divided into individual sections that can be assigned to different
+team members.
+
+This allows the team to work in parallel while keeping the relationship
+between smaller tasks and larger deliverables visible.
+
+
+\subsubsection{Kanban Board}
+
+We will use a GitHub Projects Kanban board to track the current state of
+issues throughout the workflow. The stages used by the team are shown in
+Table~\ref{tab:kanban}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{9cm}|}
+        \hline
+        \textbf{Stage} & \textbf{Purpose} \\ \hline
+
+        Backlog &
+        Work that has been identified but is not yet scheduled. \\ \hline
+
+        To Do &
+        Work that is ready to be started. \\ \hline
+
+        In Progress &
+        Work currently being completed by a team member. \\ \hline
+
+        In Review &
+        Work that has been completed and is awaiting review and/or CI checks. \\ \hline
+
+        Done &
+        Work that has been reviewed, approved, and completed. \\ \hline
+    \end{tabular}
+
+    \caption{GitHub Projects Kanban Workflow}
+    \label{tab:kanban}
+\end{table}
+
+The Kanban board provides the team with a shared view of project progress
+and helps identify outstanding work and potential bottlenecks.
+
+
+\subsubsection{Milestones}
+
+Milestones will be used to group issues according to major project deadlines,
+deliverables, or development phases. This allows us to track progress toward
+larger objectives rather than only individual tasks.
+
+For example, a milestone may contain all issues required to complete a
+specific project deliverable or prototype. This provides a high level view
+of whether the team is on track to complete upcoming objectives.
+
+
+\subsubsection{Issue Templates}
+
+We will use GitHub Issue Templates for recurring activities. Templates
+provide a consistent structure and reduce repetitive work when creating
+issues.
+
+The templates used by the team are shown in Table~\ref{tab:issue-templates}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{8.5cm}|}
+        \hline
+        \textbf{Template} & \textbf{Purpose} \\ \hline
+
+        Lecture &
+        Record important information, notes, attendance, and action items. \\ \hline
+
+        Peer Review &
+        Record feedback and follow up actions from peer reviews. \\ \hline
+
+        Supervisor Meeting &
+        Record agendas, discussions, decisions, and action items from
+        supervisor or stakeholder meetings. \\ \hline
+
+        TA Meeting &
+        Record agendas, feedback, decisions, and action items from TA
+        meetings. \\ \hline
+
+        Team Meeting &
+        Record discussions, decisions, assigned tasks, and follow up actions
+        from team meetings. \\ \hline
+
+        Blank Issue &
+        General purpose template for tasks that do not fit another template. \\ \hline
+    \end{tabular}
+
+    \caption{GitHub Issue Templates}
+    \label{tab:issue-templates}
+\end{table}
+
+
+\subsubsection{Issue Labels}
+
+Labels will be used to classify issues according to the type of work they
+represent. Labels describe the nature of the work rather than its current
+status, since status is managed through the Kanban board.
+
+The labels used by the team are shown in Table~\ref{tab:issue-labels}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{8.5cm}|}
+        \hline
+        \textbf{Label} & \textbf{Purpose} \\ \hline
+
+        Bug &
+        Unexpected or incorrect behaviour requiring correction. \\ \hline
+
+        Feature &
+        New functionality or a significant addition to the system. \\ \hline
+
+        Enhancement &
+        Improvement to existing functionality. \\ \hline
+
+        Documentation/Deliverable &
+        Reports, documentation, presentations, or other deliverables. \\ \hline
+
+        Testing &
+        Creation, modification, or execution of tests. \\ \hline
+
+        Research &
+        Research or investigation required to support project decisions. \\ \hline
+
+        Lecture &
+        Lecture related tasks and notes. \\ \hline
+
+        Peer Review &
+        Peer review activities and resulting actions. \\ \hline
+
+        TA Meeting &
+        TA meeting notes, feedback, and actions. \\ \hline
+
+        Team Meeting &
+        Team meeting discussions and actions. \\ \hline
+
+        Supervisor Meeting &
+        Supervisor or stakeholder meetings and follow ups. \\ \hline
+    \end{tabular}
+
+    \caption{GitHub Issue Labels}
+    \label{tab:issue-labels}
+\end{table}
+
+
+\subsubsection{Pull Request Template}
+
+To maintain consistency across Pull Requests, we will use a standard PR
+template. The template will require contributors to identify the associated
+issues, summarize their changes, and confirm that the required checks have
+been completed.
+
+An example of the template is shown below.
+
+\begin{lstlisting}[caption={Pull Request Template}]
+## Description
+
+Briefly describe the changes made in this Pull Request.
+
+## Related Issues
+
+- Closes #IssueNumber
+- Related to #IssueNumber
+
+## Type of Change
+
+- [ ] Feature
+- [ ] Bug Fix
+- [ ] Enhancement
+- [ ] Documentation
+- [ ] Testing
+- [ ] Other
+
+## Testing
+
+Describe the tests or verification performed.
+
+## Checklist
+
+- [ ] Changes satisfy the associated issue(s).
+- [ ] Code/documentation follows team standards.
+- [ ] Tests have been added or updated where necessary.
+- [ ] All CI checks pass.
+- [ ] Changes have been reviewed locally before submission.
+
+## Additional Notes
+
+Include any additional information reviewers should know.
+\end{lstlisting} 
+
+\newpage
+
+A completed example is shown below.
+
+\begin{lstlisting}[caption={Example Completed Pull Request}]
+## Add Eye-Drop Preparation Activity
+
+### Related Issue
+
+Closes #42
+
+### Description
+
+Added the eye-drop preparation activity and associated user interface.
+The activity introduces the procedure and provides an interactive
+simulation for the child.
+
+### Type of Change
+
+- [x] Feature
+- [ ] Bug Fix
+- [ ] Enhancement
+- [ ] Documentation
+- [ ] Testing
+- [ ] Other
+
+### Testing
+
+Tested the activity in the Unity editor and verified that the activity
+can be completed from beginning to end without errors.
+
+### Checklist
+
+- [x] Changes satisfy the associated issue(s).
+- [x] Code/documentation follows team standards.
+- [x] Tests have been added or updated where necessary.
+- [x] All CI checks pass.
+- [x] Changes have been reviewed locally before submission.
+
+### Additional Notes
+
+No additional notes.
+\end{lstlisting}
+
+
+% ============================================================
+% CI/CD
+% ============================================================
+
+\subsection{CI/CD}
+
+GitHub Actions will be used for continuous integration (CI) and, where
+appropriate, continuous delivery (CD). The purpose of the CI pipeline is
+to automatically verify changes before they are merged, reducing the
+likelihood of introducing formatting issues, failing tests, or broken
+builds into shared branches.
+
+The overall CI pipeline is shown in Figure~\ref{fig:ci-pipeline}.
+
+\begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}[
+        node distance=1.2cm,
+        box/.style={
+            rectangle,
+            rounded corners,
+            draw,
+            align=center,
+            minimum width=3.2cm,
+            minimum height=0.9cm
+        },
+        arrow/.style={
+            -{Stealth},
+            thick
+        }
+    ]
+
+    \node[box] (push) {Push / Pull Request};
+
+    \node[box, below=of push]
+        (format) {\texttt{dotnet format}\\Code Quality};
+
+    \node[box, below=of format]
+        (test) {Automated\\Unit Tests};
+
+    \node[box, below=of test]
+        (build) {Build\\Verification};
+
+    \node[box, below=of build]
+        (pass) {CI Passed\\Ready for Review/Merge};
+
+    \draw[arrow] (push) -- (format);
+    \draw[arrow] (format) -- (test);
+    \draw[arrow] (test) -- (build);
+    \draw[arrow] (build) -- (pass);
+
+    \end{tikzpicture}
+
+    \caption{Continuous Integration Pipeline}
+    \label{fig:ci-pipeline}
+\end{figure}
+
+
+The pipeline will perform the following checks:
+
+\begin{enumerate}
+    \item \textbf{Code Quality:}
+    \texttt{dotnet format} will verify that .NET code follows the team's
+    formatting standards.
+
+    \item \textbf{Unit Tests:}
+    Automated tests will be executed to verify individual components.
+    GameCI will provide a headless Unity environment for running Unity tests.
+
+    \item \textbf{Build Verification:}
+    Where applicable, the project will be built to ensure that changes do not
+    prevent the application from compiling or generating a valid build.
+\end{enumerate}
+
+The CI workflow will run when relevant branches are updated and when PRs
+are created or updated. Required CI checks must pass before a PR can be
+merged.
+
+For continuous delivery, GitHub Actions may be used to automatically
+generate builds or project artifacts for testing, demonstrations, or
+milestones. This will reduce manual build steps and provide a consistent
+process for producing validated project versions.
 
 \section{Project Decomposition and Scheduling}
 
-\begin{itemize}
-  \item How will you be using GitHub projects?
-  \item Include a link to your GitHub project
-\end{itemize}
+\subsubsection*{How will we be using GitHub Projects?} 
 
-\wss{How will the project be scheduled?  This is the big picture schedule, not
-details. You will need to reproduce information that is in the course outline
-for deadlines.}
+We have created a Kanban board using GitHub Projects for our capstone. Currently, we have four columns: Backlog,
+In Progress, Review, and Done. We meet as a team to create issues for the upcoming deliverables, which adds them to the
+Backlog column, as the project is linked to our repository. During these meetings, we divide up the work and assign it in a
+relatively equal manner. Each team member moves the issues they are assigned to through the different stages of the project
+as they work on them. For sections with multiple subsections, we create a parent issue for the entire section, and sub-issues
+under said parent correlating to the various sub-sections. This allows multiple people to tackle a section in a straightforward
+manner (in terms of project scheduling). We also have alphabetic codes for the deliverables, to serve as an additional organization tactic
+(e.g., the Problem Statement document is ``PS"). This allows for keyword search on the Kanban board, to see what work needs to
+be completed for a specific document. The project will also be used to keep track of meeting minutes, as well as lecture attendance for the group.
+
+We create milestones as well, which correspond to the deliverable deadlines as laid out in the course schedule.
+We currently only have the first milestone created, however there will be a milestone for each delivery, related to the following dates:
+
+{\setlength{\leftmargini}{4em}
+\begin{itemize}
+  \item[\textbf{M1:}] Problem Statement, Proof of Concept Plan, Development Plan, Team Charter (Due September 28th)
+  \item[\textbf{M2:}] SRS, Hazard Analysis Revision 0 (Due October 19th)
+  \item[\textbf{M3:}] V\&V Plan Revision 0 (Due November 2nd)
+  \item[\textbf{M4:}] Design Document Revision -1 and Fall CD (Due November 16th)
+  \item[\textbf{M5:}] Proof of Concept Demonstration (Completed by December 4th at the latest)
+  \item[\textbf{M6:}] Design Document Revision 0 (Due January 18th)
+  \item[\textbf{M7:}] Revision 0 Demonstration (Completed by February 11th at the latest)
+  \item[\textbf{M8:}] V\&V Report Revision 0 and Winter CD (Due March 8th)
+  \item[\textbf{M9:}] Final Demonstration (Completed by March 21st at the latest)
+  \item[\textbf{M10:}] Final Documentation (Due March 31st)
+  \item[\textbf{M11:}] Expo Presentation (Held on April 6th)
+\end{itemize}
+}
+
+Link to our GitHub Project: \href{https://github.com/orgs/team-hindsight/projects/1/views/2}{Link to Kanban Board}
 
 \section{Proof of Concept Demonstration Plan}
 
@@ -363,48 +950,158 @@ procedures covered, the interaction design, and the media approach.
 
 \section{Expected Technology}
 
-\wss{What programming language or languages do you expect to use?  What external
-libraries?  What frameworks?  What technologies.  Are there major components of
-the implementation that you expect you will implement, despite the existence of
-libraries that provide the required functionality.  For projects with machine
-learning, will you use pre-trained models, or be training your own model?  }
-
-\wss{The implementation decisions can, and likely will, change over the course
-of the project.  The initial documentation should be written in an abstract way;
-it should be agnostic of the implementation choices, unless the implementation
-choices are project constraints.  However, recording our initial thoughts on
-implementation helps understand the challenge level and feasibility of a
-project.  It may also help with early identification of areas where project
-members will need to augment their training.}
-
-Topics to discuss include the following:
+We note at the beginning of this section that the expected technologies listed here can possibly change as the project is
+developed. That being said, our initial thoughts on implementation details are as follows:
 
 \begin{itemize}
-\item Specific programming language
-\item Specific libraries
-\item Pre-trained models
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Tools you will likely be using?
-\end{itemize}
+    \item \textbf{Version Control:} Git will be used for version control. The team is already familiar with it, and we all
+    have it setup on our machines.
 
-\wss{git, GitHub and GitHub projects should be part of your technology.}
+    \item \textbf{Source Code Hosting:} We will host our source code, as well as other assets and documentation, on GitHub.
+    Again, the team is already familiar with this platform. Additionally, we will be managing our project scheduling using a
+    Kanban board created with GitHub Projects (as detailed in Section 8).
+
+    \item \textbf{Game Engine:} We will use Unity as the engine to develop our game. Motivating choices behind this include
+    the ease at which we can create a cross-platform mobile application (Unity makes it straightforward to deploy on Android
+    and iOS), and that development is done in C\#, which some of our team members have good familiarity with. While the team
+    has limited experience with using Unity, there is a robust enough community and documentation that should flatten the
+    learning curve.
+
+    \item \textbf{Programming Language:} We will primarily be using C\#. As mentioned above, Unity development is done in
+    C\#, thus this is a requirement for using it.
+
+    \item \textbf{Assets:} We will likely make use of Unity's extensive Asset Store, for assets such as sprites, audio, etc..
+    This is because we are not graphic designers or composers (for example), and it would be less effort intensive to re-use existing assets
+    where we are able. In the cases where we have need for an asset that's not readily available, we will use other tools detailed below to create them ourselves.
+
+    \item \textbf{Blender:} We are tentatively targeting a 3D mobile game, for better alignment with our stretch goal of porting
+    the game to an AR/XR format. For creation of 3D assets not available on the Asset Store, we would make them ourselves in Blender.
+    The motivation behind this selection is that Blender is free and open-source, which keeps our cost and licensing requirements for the project low.
+
+    \item \textbf{Development Environment:} We will use JetBrains Rider as our IDE for Unity development. While normally paid,
+    as students we have the option to use it for free. The main motivation for using Rider is that it has awareness of Unity-specific
+    methods and properties, which makes it easier to debug during development. As well, since the team works cross-platform
+    (some of us have a Mac while others have Windows), Visual Studio is not an option as it is no longer available on Mac.
+    Visual Studio Code also requires extension set-up for C\# and Unity development, whereas Rider supports it out-of-the-box,
+    which makes it more appealing.
+
+    \item \textbf{Unit Testing:} Unit testing for game code will be done using the C\# NUnit framework for game logic,
+    and rely on the Unity test tools and framework for actual Unity object interactions.
+
+    \item \textbf{CI/CD:} Our CI/CD will be done through GitHub Actions, and consist of two main parts for game code. First,
+    we will have a “linter gate” stage, that will fail the pipeline if the incoming code fails to meet the code quality standards
+    we lay out as a team. To keep it simple, this will be carried out by the default \texttt{dotnet format} command that ships
+    natively with .NET. Second, we will have our unit test stage, which will fail the pipeline if any of the unit test asserts fail.
+    We will use the open source toolkit GameCI to allow us to spin up a headless instance of Unity to test our interaction-focused unit tests.
+\end{itemize}
 
 \section{Use of AI and LLMs}
 
-\wss{This section is a continuation of the previous section.  The role of LLMs
-in your project as important enough to warrant their own section.  
-How will your team be using LLMs for code and documentation development?  
-What tools will you be using?  How will you verify the output of your LLMs?}
+For game development, our team plans to use LLMs primarily for assistance with Unity-specific code generation and
+understanding (when documentation and community tutorials are not sufficient), since we are not very familiar with the
+game engine. As well, if we need to design any of our own assets (as discussed in Section 10), we will use LLMs to help
+us understand the platform we are using for asset creation (e.g., Blender) and troubleshoot issues when resources available
+on the internet are not enough. For code, we will aim to verify the output of our LLMs by referencing existing Unity
+documentation to confirm functionality is not hallucinated, and seems to be correct given the scenario. We will leverage
+elements like our linter and unit tests as well. to verify the code conforms to our level of quality and new code does not
+break existing functionality.\\
 
+For documentation, our team's primary usage of LLMs will be to carry out \LaTeX{} formatting (when needed), and edit our work
+clarity and conciseness. We will verify by output of any formatting work by ensuring the documentation compiles correctly,
+visually inspect it to make sure that it is what we were expecting, and check to see that it does not mess up any other
+aspects of our document. To verify edits to our written work, we will re-read any edited passages to ensure the meaning of
+our documentation, as well as crucial information we are trying to convey, is not removed or obscured by the wording changes.\\
+
+The main tools our team will be using vary between the team members, but we will primarily be using Claude (Claude Code) and ChatGPT (Codex).
 \section{Coding Standard}
 
-\wss{What coding standard will you adopt?}
+The team will follow a consistent set of coding standards to improve
+readability, maintainability, and consistency across the project. These
+standards will apply primarily to the C\# and Unity codebase and will be
+reinforced through code review and automated CI checks.
+
+\subsection{Naming Conventions}
+
+The team will use consistent naming conventions for C\# code. Classes,
+methods, and public properties will use PascalCase, while local variables
+and private fields will use camelCase. Private fields may use an underscore
+prefix when appropriate.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Element} & \textbf{Convention} & \textbf{Example} \\ \hline
+        Class & PascalCase & \texttt{EyeDropActivity} \\ \hline
+        Method & PascalCase & \texttt{StartActivity()} \\ \hline
+        Public Property & PascalCase & \texttt{ActivityDuration} \\ \hline
+        Private Field & camelCase & \texttt{activityManager} \\ \hline
+        Local Variable & camelCase & \texttt{attemptCount} \\ \hline
+        Constant & PascalCase & \texttt{MaxAttempts} \\ \hline
+    \end{tabular}
+    \caption{C\# Naming Conventions}
+    \label{tab:csharp-naming}
+\end{table}
+
+
+\subsection{Code Organization}
+
+Code will be organized according to functionality so that related
+components can be easily located and maintained. Classes should have a
+focused responsibility, and unnecessary duplication should be avoided.
+Files will be named according to their primary class or component.
+
+Methods should remain reasonably focused and should not contain unrelated
+functionality. When functionality is reused across multiple components,
+it should be extracted into an appropriate shared component rather than
+duplicated.
+
+
+\subsection{Comments and Documentation}
+
+Comments will be used to explain non-obvious implementation decisions,
+assumptions, or reasoning rather than restating what the code already
+expresses. Public or reusable components should include appropriate
+documentation where additional context is necessary.
+
+For example, comments should explain why a particular implementation is
+required rather than simply describing individual statements.
+
+
+\subsection{Error Handling}
+
+The application will handle expected errors explicitly and provide
+meaningful error information when failures occur. Exceptions will not be
+used for normal program flow, and errors should not be silently ignored.
+Input and external dependencies will be validated where appropriate to
+prevent unexpected behaviour.
+
+
+\subsection{Unity Standards}
+
+Unity specific code will follow consistent practices across the project.
+Unity lifecycle methods such as \texttt{Awake()}, \texttt{Start()}, and
+\texttt{Update()} will be organized consistently within scripts.
+
+Unnecessary work inside frame based methods such as \texttt{Update()} will
+be avoided where possible. Configurable values will use Unity's serialized
+fields when appropriate rather than unnecessarily exposing fields as
+public. UI logic, game logic, and data management will be separated where
+practical to improve maintainability and testing.
+
+
+\subsection{Enforcement}
+
+Coding standards will be enforced through a combination of automated tools
+and peer review. \texttt{dotnet format} will be used within the CI pipeline
+to identify formatting and code style issues. Automated tests and build
+verification will also be executed as part of CI.
+
+During Pull Request review, team members will verify that changes follow
+the established naming, organization, documentation, and Unity specific
+standards. Required CI checks must pass before a Pull Request can be
+merged. If recurring issues are identified during development, the team
+may update the coding standards to address them consistently.
 
 \newpage{}
 
@@ -422,6 +1119,7 @@ What tools will you be using?  How will you verify the output of your LLMs?}
 
 \begin{itemize}
     \item ChatGPT (GPT-5.6 Luna)
+    \item Claude (Opus 5.5 Medium)
 \end{itemize}
 
 \subsection{How and Where Used}
@@ -437,8 +1135,36 @@ What tools will you be using?  How will you verify the output of your LLMs?}
 % uses that materially contributed to your work}
 
 \begin{itemize}
-  \item In sections 1--4 and section 16 (Team Charter), the ideas and content
-  were developed by the team. GPT-5.6 Luna was used to improve wording, grammar, and flow.
+    \item In Sections 1--4 and Section 16 (Team Charter), the ideas and content
+    were developed by the team. GPT-5.6 Luna was used to improve wording,
+    grammar, and flow while preserving the team's original meaning and decisions.
+
+    \item In section 10, the PoC plan, risks, and consequences were all identified by the team.
+    Opus 5.5 Medium was used to fix spelling errors and improve grammar.
+
+    \item In sections 9, 11, and 12, GPT-5.6 Luna was used to ensure \LaTeX{} formatting was correct. Also in section 11,
+    GPT-5.6 Luna was used to brainstorm possible ideas for the development environment, unit testing, and CI/CD technologies to support
+    our Unity workflow.
+  
+    \item GPT-5.6 Luna was used to assist with the LaTeX formatting and
+    presentation of content in Sections 8 and 13.1. This included generating
+    and formatting tables, figures, and code listings based on the team's
+    existing processes, decisions, and coding standards. Specifically:
+
+    \begin{itemize}
+        \item Section 8.1.2: Figure~\ref{fig:git-workflow}
+        \item Section 8.1.3: Table~\ref{tab:commit-types} and Listing 1
+        \item Section 8.2.2: Table~\ref{tab:kanban}
+        \item Section 8.2.4: Table~\ref{tab:issue-templates}
+        \item Section 8.2.5: Table~\ref{tab:issue-labels}
+        \item Section 8.2.6: Listings 2 and 3
+        \item Section 8.3: Figure~\ref{fig:ci-pipeline}
+        \item Section 13.1: Table~\ref{tab:csharp-naming}
+    \end{itemize}
+
+    \item GPT-5.6 Luna was also used to review the document for
+    LaTeX formatting issues, inconsistencies, and errors in references,
+    labels, and document structure.
 \end{itemize}
 
 \subsection{Verification of AI-Generated Content}
@@ -454,10 +1180,22 @@ What tools will you be using?  How will you verify the output of your LLMs?}
 % whether material was generated by a human or an AI system.}
 % \end{itemize}}
 
-All AI-assisted text was reviewed by the team before being included in the document.
-The team checked that the revised wording accurately represented the team's decisions,
-policies, and intended meaning. Any changes that did not reflect the team's decisions
-were removed or revised.
+All AI-assisted text was reviewed by the team before being included in the
+document. The team checked that the revised wording accurately represented
+the team's decisions, policies, and intended meaning. Any changes that did
+not reflect the team's decisions were removed or revised. Any ideas proposed
+during brainstorming were independently verified using non-generative AI
+sources to assess their accuracy and feasibility.
+
+For AI-assisted \LaTeX{} formatting and generated tables, figures, and
+listings, the team verified that the content accurately reflected the team's
+actual development workflow, coding standards, and project practices. The
+team also verified that the document compiled successfully and that the
+formatting, references, labels, and overall presentation were correct.
+
+The team is responsible for the accuracy, completeness, consistency, and
+appropriateness of the final document, regardless of whether content was
+generated or modified with AI assistance.
 
 \newpage{}
 
@@ -534,6 +1272,54 @@ Our group did not have any real disagreements during this deliverable. There was
 about the contents of the development plan in our team group chat, but these discussions
 were resolved quickly. Going forward, I expect that clear communication and good documentation
 will help us settle any development-related issues that arise.
+
+\subsection*{Jackson Beach}
+
+\subsubsection*{Why is it important to create a development plan prior to starting the project?}
+I believe a development plan is important as it lays out key aspects of the project at various levels.
+At a high level, we lay out guidelines for team meetings, communication, roles, and project milestones, so we are clear on
+where we are headed and how we will accomplish it together as a team. At a lower level, we lay out our software development workflow,
+standards, and (preliminary) technologies we will use so we are all clear on (what we consider) the best and most efficient
+way to implement our project is. Without one, we would all likely do our own thing in terms of contributions, which would be confusing
+and probably lead to conflict among members. Having something like this laid out is meant to reduce conflict by providing a
+``ground truth'' we can all reference.
+
+\subsubsection*{In your opinion, what are the advantages and disadvantages of using CI/CD?}
+The main advantage I see for using CI/CD is that it can help prevent breaking changes from
+being merged in, which alleviates the effort needed to fix those bugs in the production build later. Automated linting
+and regression testing saves the developer from having to manually check for issues, which can be time consuming and susceptible to human error.
+The main disadvantage I see is that it can be a pain to configure and maintain, as it requires careful configuration of your
+YAML files and required credentials/secrets. Also, debugging errors with things like runners can be confusing, as it can be
+unclear exactly where the problem is coming from.
+
+\subsubsection*{What disagreements did your group have in this deliverable, if any, and how did you resolve them?}
+I wouldn't say there were any disagreements. Most discussion points revolved around what we felt was the most efficient and ideal
+development workflow for the team. We had conversations on what would be the most clear for commit messages, how to structure
+our pull requests, etc., but we were able to come to a consensus on these items. We are all coming from a place of ensuring that
+what we do during development is simple and straightforward so we can spend more of our time and energy on actually developing
+the game.
+
+\subsection*{Ahsan Muzammil}
+
+\subsubsection*{Why is it important to create a development plan prior to starting the project?}
+
+Creating a development plan before starting the project is important because it establishes a shared understanding of how the team will organize, track, and integrate its work. Without a defined workflow, different team members may make different assumptions about how tasks should be completed, reviewed, and merged. Developing the plan also allows the team to identify potential issues with collaboration before they occur. For example, defining our branching strategy, issue management process, Pull Request requirements, and CI/CD process in advance provides a consistent structure for development and makes responsibilities clearer. I also learned that a development plan is not only about deciding which tools to use, but also about establishing how those tools work together to support the team's overall development process.
+
+\subsubsection*{In your opinion, what are the advantages and disadvantages of using CI/CD?}
+
+In my opinion, one of the main advantages of CI/CD is that it provides automated verification of changes before they are integrated into the shared codebase. This is particularly valuable based on my experience during my previous co-op term. The company I worked for did not have an effective CI/CD pipeline, so whenever I received feedback from a user on a feature request and made changes to address that feedback, I had to manually rerun the relevant tests after every change. This process could take a significant amount of time, especially when multiple rounds of feedback were required. Much of this time could have been reduced if the tests had been automatically executed through a CI pipeline after each change. This experience showed me how the lack of CI/CD can result in repetitive manual work that does not directly contribute to implementing the requested changes.
+
+For our project, automated formatting checks, unit tests, and build verification can identify problems earlier and reduce the amount of manual verification required from individual team members. CI/CD also provides a consistent process for validating changes, which is particularly useful when multiple team members are working on different parts of the project.
+
+However, CI/CD also introduces additional setup and maintenance overhead. The team needs to spend time creating and maintaining the workflows, configuring the required tools, and addressing failures when the CI environment behaves differently from a local development environment. There can also be an initial learning curve when setting up tools such as GitHub Actions and GameCI. Despite these disadvantages, my previous co-op experience has shown me that automating repetitive verification can save significant development time, particularly when changes need to be made and tested repeatedly.
+
+\subsubsection*{What disagreements did your group have in this deliverable, if any, and how did you resolve them?}
+
+Our main disagreement during this deliverable was related to our overall Git workflow. We initially had different understandings of how our branching strategy was supposed to work. Some group members assumed that we would use a traditional workflow where each team member creates a branch for their assigned task, creates a Pull Request to an epic branch, and eventually merges the completed epic branch into the main branch. Other members understood that we would use a fork-based workflow, where each team member works within their own fork and submits Pull Requests to the primary repository.
+
+We resolved this disagreement by discussing both approaches as a group rather than assuming that one interpretation was correct. Each approach was considered based on how well it would support parallel development, code review, repository protection, and collaboration. After discussing the advantages and disadvantages of both approaches, we held a group vote. The vote was unanimous in favour of using the fork-based workflow.
+
+This disagreement showed me the importance of explicitly discussing development processes before implementation begins. Even though everyone understood the general purpose of branches and Pull Requests, we had different interpretations of how they should be combined into an overall workflow. Establishing and documenting the workflow early helped ensure that everyone had the same expectations before continuing with development.
 
 \newpage{}
 
