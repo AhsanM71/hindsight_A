@@ -353,7 +353,7 @@ To maintain consistent and traceable commit history, the team will follow a
 standard commit message structure:
 
 \begin{center}
-    \texttt{<Type>(<Scope>): <Message> (\#<IssueNumber>)}
+    \texttt{<type>(<scope>): <message> (\#<issueNumber>)}
 \end{center}
 
 The \textit{Type} identifies the general purpose of the change, while the
@@ -369,26 +369,29 @@ The following commit types will be used:
         \hline
         \textbf{Type} & \textbf{Purpose} \\ \hline
 
-        Feature &
+        feat &
         Addition of new functionality. \\ \hline
 
-        Bug &
+        bug &
         Correction of unexpected or incorrect behaviour. \\ \hline
 
-        Enhancement &
+        imp &
         Improvement to existing functionality. \\ \hline
 
-        Docs &
+        docs &
         Changes to documentation or project deliverables. \\ \hline
 
-        Test &
+        test &
         Addition or modification of tests. \\ \hline
 
-        Research &
+        research &
         Research or investigation related to the project. \\ \hline
 
-        Refactor &
+        refactor &
         Restructuring of existing code without changing its intended behaviour. \\ \hline
+
+        perf &
+        Improve performance to existing code. \\ \hline
     \end{tabular}
 
     \caption{Git Commit Types}
@@ -402,12 +405,12 @@ Development Plan and \texttt{PS} may be used for the Problem Statement.
 Examples of valid commit messages include:
 
 \begin{lstlisting}[caption={Example Commit Messages}]
-Feature: Add eye drop preparation activity (#42)
-Bug: Fix activity completion state (#57)
-Docs(DP): Update workflow plan (#31)
-Docs(PS): Revise problem statement (#18)
-Test: Add activity completion tests (#63)
-Research(AR): Investigate AR procedure simulation (#71)
+feat: Add eye drop preparation activity (#42)
+bug: Fix activity completion state (#57)
+docs(DP): Update workflow plan (#31)
+docs(PS): Revise problem statement (#18)
+test: Add activity completion tests (#63)
+research(AR): Investigate AR procedure simulation (#71)
 \end{lstlisting}
 
 This convention provides a consistent commit history and makes it easier to
