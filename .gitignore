@@ -286,3 +286,5 @@ __pycache__/
 
 ._*
 
+!docs/SRS-IEEE/SystemContextFigure.pdf
+
