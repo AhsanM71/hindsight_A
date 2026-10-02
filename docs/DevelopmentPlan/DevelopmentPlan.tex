@@ -44,6 +44,7 @@
 2026/09/27 & Mohammad Bilal & Updated license link \\
 2026/09/27 & Ahsan Muzammil & Completed initial draft of Workflow plan, Coding Standards, and Reflection (Ahsan)\\
 2026/09/27 & Ethan McMehen & Completed Sections 5, 6, 7, Reflection \\
+2026/09/30 & Jake Finlay & Reduced PoC scope and added mitigation strategies for an unsuccessful PoC (peer review feedback) \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -804,153 +805,161 @@ Link to our GitHub Project: \href{https://github.com/orgs/team-hindsight/project
 
 \section{Proof of Concept Demonstration Plan}
 
-The proof of concept (PoC) demonstration will focus on one complete ``vertical
-slice'' of the application instead of covering many procedures at once. The team
-will demonstrate the following on both a physical iOS device and a physical
-Android device:
+The proof of concept (PoC) demonstration will be a focused demonstration that
+addresses the three highest-priority risks to the project.
+The PoC will be a bare-bones walkthrough of one common procedure (receiving eye
+drops) that moves the user through each step of the procedure in order, using
+short helper text and a simple 3D scene of the clinic built in Unity with
+models made in Blender.
 
-\begin{enumerate}
-  \item A child-friendly walkthrough of one common procedure (receiving eye
-  drops), shown through a guide character with narration, simple language, and
-  illustrations or animations.
-  \item An interactive vision testing practice activity, where the child matches
-  picture-based symbols similar to those used on paediatric vision charts.
-  \item Navigation between these activities that a child could complete with
-  little or no help from a parent.
-\end{enumerate}
+\noindent The PoC intentionally leaves out guide characters, narration,
+sound, detailed graphics, advanced animations, and any other paediatric procedures.
+Keeping the PoC this small lets the team focus on whether the content is
+correct, whether the overall flow suits children, and whether the team can
+build the application with the chosen technologies, before investing in
+detailed art and audio.
 
-\noindent This slice was chosen because it exercises every major risk to the project.
-The accuracy of clinical content, whether young children can actually use and
-engage with the application, and whether rich media can be delivered reliably
-on both mobile platforms.
+\noindent The team expects to create two versions of the experience: one for
+children aged 5--7 and one for children aged 3--5. The PoC targets the 5--7
+version first. This version will use simple
+graphics and short text for the child to read, possibly with simple questions
+between steps to keep the child involved. The 3--5 version, which will need to
+rely less on reading, will be developed later using what is learned from the
+PoC.
 
-\subsection{Risk 1: Clinical Accuracy and Age-Appropriateness of Content}
+\subsection{Risk 1: Implementing Clinically Accurate Procedure Content}
 
-The value of the application depends on children getting an accurate preview of
-what will happen at their appointment. If a procedure is shown incorrectly (for
-example, steps in the wrong order, leaving out that eye drops may sting, or
-equipment that looks different from what is in the clinic), the child's
-expectations will not match reality. This could increase anxiety, which is the
-opposite of the project's goal. No team member has clinical training, so there
-is a risk that the team cannot produce content that is both clinically accurate
-and understandable for young children. There is also a risk that getting
-content reviewed by a clinician takes too long to cover the full set of planned
-procedures.
+The main part of the application is a set of walkthroughs that show real
+clinical procedures step by step. No team member has clinical training, so the
+team may not be able to build these walkthroughs correctly. For example, steps
+could be in the wrong order, details like eye drops stinging could be left out,
+or the equipment could look different from what is in the clinic. The content
+also needs to be easy for young children to understand. If the team gets this
+wrong, each procedure will need a lot of rework after clinician review, and the
+team may run out of time to build all the planned procedures.
 
 \subsubsection*{What the PoC will demonstrate:}
 \begin{itemize}
-  \item The eye drop walkthrough (script and visuals) will be reviewed by a
-  paediatric ophthalmology clinician before the demonstration. The team will
-  record the corrections requested and how many review rounds were needed.
-  \item The narration will use short sentences and familiar words, and will be
-  honest about sensations (e.g., drops may feel cold or sting briefly) while
-  staying reassuring.
-  \item The team will measure how long one procedure takes to go from draft to
-  clinician-approved. This will be used to estimate how many procedures are
-  realistic for the final product.
+  \item The walkthrough presents every step of receiving eye drops in the order
+  it happens at the clinic (e.g., sitting in the chair, tilting the head back,
+  the drops going in, blinking, and waiting for the drops to work).
+  \item The 3D scene for each step shows the equipment and setting the child
+  will actually see at the clinic.
+  \item The helper text is honest about sensations (e.g., drops may feel cold or
+  sting briefly) while staying reassuring.
+  \item The helper text uses short sentences and familiar words that a child
+  aged 5--7 can read.
 \end{itemize}
 
 \subsubsection*{Success criteria:}
-The clinician confirms the walkthrough accurately
-reflects what a child experiences, with no outstanding corrections, and the
-review turnaround is short enough to cover the remaining planned procedures
-(e.g., vision testing and slit-lamp examination).
+The walkthrough is reviewed by a paediatric ophthalmology clinician before the
+demonstration. The team has the opportunity to show the PoC to a clinician
+early, so review can begin as soon as the walkthrough is drafted. The clinician
+confirms the walkthrough accurately reflects what a child experiences. The clinician may have some additional feedback for us but
+this will be good enough to revise and present the PoC.
 
 \subsection{Risk 2: Child Engagement and Usability}
 
 The target users are young children, many of whom cannot read yet, have short
 attention spans, and are still developing fine motor skills. If they cannot
-navigate the application on their own or lose interest partway through, they
-will not benefit from the preparation. Designing for children is different from
-designing for adults and requires audio-first instructions, large touch targets,
-and interactions that are forgiving of mistakes. A related risk is that testing
-directly with children may require research ethics approval, which may not be
-in place by the PoC date.
+follow the application or lose interest partway through, they will not benefit
+from the preparation. Testing directly with children will likely require
+research ethics approval, which will not be in place by the PoC date. The team
+therefore needs a quicker way to check that the application is likely to be
+engaging and usable for children, without testing with children directly.
 
 \subsubsection*{What the PoC will demonstrate:}
 \begin{itemize}
-  \item All instructions in the vertical slice are narrated, so no step
-  depends on the user reading text.
-  \item Touch targets are sized for small fingers, and incorrect taps in the
-  vision practice activity lead to encouragement instead of failure.
-  \item Informal walkthroughs will be run with people unfamiliar with the
-  application (e.g., parents or peers outside the team). The team will record
-  whether they complete the walkthrough and activity without verbal help, how
-  long it takes, and where they get stuck. If ethics approval is in place, a
-  supervised session with a child will also be run.
-  \item The team will confirm what approval is required for testing with
-  children and a realistic timeline for obtaining it.
+  \item The walkthrough shows one step per screen, with a single large button to
+  move forward and touch targets sized for small fingers.
+  \item Each step pairs one or two short sentences of helper text with a simple
+  3D scene.
+  \item Simple questions between steps
+  keep the child involved. An incorrect answer gives a gentle hint instead of a
+  failure message.
+  \item The user can go back to a previous step at any time.
+  \item The full walkthrough can be completed in about three minutes or less,
+  to fit a young child's attention span.
 \end{itemize}
 
 \subsubsection*{Success criteria:}
-Testers complete both activities without verbal
-help, the full slice takes about five minutes or less so that it fits a young
-child's attention span, and the team has a clear path to testing with children
-before the final evaluation.
+During the same review session used for Risk 1, the clinician, who sees young
+children every day, agrees that a young child would likely stay engaged and be
+able to follow the walkthrough (with the planned characters and visuals
+added), and identifies any points where a child would lose interest or get
+confused. The walkthrough is also checked against published guidelines for
+designing applications for young children (e.g., large touch targets, one
+action per screen, short sessions, forgiving interactions), with any gaps
+revised. The team ends with a list of concrete changes to make the walkthrough
+more engaging, and a clear path to testing with children.
 
-\subsection{Risk 3: Cross-Platform Delivery of Rich Media}
+\subsection{Risk 3: Inexperience with Unfamiliar Technologies}
 
-The application must run on iOS and Android, on both phones and tablets, while
-playing animations, audio narration, and interactive touch content. Families may
-use older or lower-end devices, and the application may be opened in hospital
-waiting rooms where connectivity is poor. As more procedures are added, media
-files could make the application large to download. With a small team, keeping
-one codebase working well on both platforms is a technical risk.
+The application will be built in Unity and is tentatively planned as a 3D
+mobile game, with 3D models created in Blender where suitable assets are not
+available on the Unity Asset Store. The team has limited experience with Unity
+and no significant experience with 3D modelling or rendering. There is a risk
+that learning these technologies takes longer than planned, or that the team
+cannot produce 3D content of sufficient quality in the time available, which
+would delay every later milestone.
 
 \subsubsection*{What the PoC will demonstrate:}
 \begin{itemize}
-  \item The same build of the vertical slice running on at least one iOS device
-  and one Android device, including at least one older or lower-spec device.
-  \item Narration and animations playing smoothly and in sync on each device.
-  \item The slice working with no network connection (airplane mode) after
-  installation.
-  \item The install size of the slice, used to estimate the total size of the
-  application once all planned procedures are included.
+  \item At least one 3D model created by the team in Blender (e.g., an eye drop
+  bottle or an examination chair) is imported into Unity and rendered in the
+  walkthrough's clinic scene.
+  \item The camera moves between viewpoints in the 3D scene as the user moves
+  from one step to the next.
+  \item The walkthrough is built from Unity and runs on a physical mobile device.
+  \item The PoC code passes the team's CI pipeline (formatting check and unit
+  tests).
 \end{itemize}
 
 \subsubsection*{Success criteria:}
-The slice behaves the same on both platforms with no
-noticeable lag or audio/visual desynchronization, works fully offline, and the
-estimated full application size is reasonable for a family to download.
+The 3D scene renders correctly and runs smoothly on a physical mobile device,
+the team-made Blender model displays correctly in Unity, and the team can
+estimate how long it takes to create a model and set up a scene. This estimate
+will be used to confirm that 3D content is realistic for the remaining
+procedures.
 
-\subsection{Consequences of an Unsuccessful PoC}
+\subsection{Consequences and Mitigation of an Unsuccessful PoC}
 
 If the PoC does not sufficiently address these risks, the consequences for the
-project are as follows.
+project and a potential mitigation strategy for each are as follows.
 
-\subsubsection*{If clinical accuracy (Risk 1) is not resolved:}
+\subsubsection*{If implementing accurate procedure content (Risk 1) is not resolved:}
 \begin{itemize}
-  \item The team cannot claim the content is trustworthy. Inaccurate content
-  could mislead children and increase their anxiety, and clinicians would be
-  unlikely to recommend the application to families.
-  \item If clinician review is too slow, fewer procedures can be covered in the
-  final product (e.g., only eye drops and vision testing, without the slit-lamp
-  examination), leaving parts of the appointment unprepared for.
+  \item \textbf{Consequence:} Each procedure would need several rounds of rework
+  after clinician review, slowing development and reducing the number of
+  procedures the team can implement.
+  \item \textbf{Mitigation:} Seek additional clinical reviewers and base the
+  content more closely on existing patient education material from paediatric
+  eye clinics.
 \end{itemize}
 
 \subsubsection*{If child engagement and usability (Risk 2) are not resolved:}
 \begin{itemize}
-  \item If children cannot use the application on their own, it becomes a
-  parent-led tool. This would require rethinking the interaction design and may
-  make the application less engaging for the child.
-  \item If approval to test with children cannot be obtained in time, the final
-  evaluation would have to rely on adult testers and clinician judgement. This
-  would weaken any claims that the application actually helps children feel
-  more prepared.
+  \item \textbf{Consequence:} The interaction design and structure of the
+  walkthroughs would need to be rethought before more procedures are built, and
+  the application may become a parent-led tool that is less engaging for the
+  child.
+  \item \textbf{Mitigation:} Simplify and shorten the walkthrough based on the
+  feedback received, and gather feedback again before building more procedures.
 \end{itemize}
 
-\subsubsection*{If cross-platform delivery (Risk 3) is not resolved:}
+\subsubsection*{If inexperience with unfamiliar technologies (Risk 3) is not resolved:}
 \begin{itemize}
-  \item Supporting only one platform would exclude families who use the other,
-  reducing how accessible the application is.
-  \item Poor performance on older devices, or a very large download, would
-  create barriers for some families. The team may need to reduce the richness
-  of the media (e.g., static illustrations instead of animations), which could
-  make the application less engaging for children.
+  \item \textbf{Consequence:} Development would take longer than planned, putting
+  later milestones at risk, and the application may not reach the intended
+  visual quality.
+  \item \textbf{Mitigation:} Switch to 2D graphics in Unity and rely on
+  ready-made assets from the Unity Asset Store instead of creating custom 3D
+  models.
 \end{itemize}
 
-\noindent Whether or not the PoC succeeds, its results will be used to set the number of
-procedures covered, the interaction design, and the media approach.
+\noindent Whether or not the PoC succeeds, its results will be used to set the
+number of procedures covered, the interaction design, and the media approach
+(including whether to use 3D graphics).
 
 \section{Expected Technology}
 
