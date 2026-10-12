@@ -43,6 +43,7 @@
 \usepackage{caption}
 \usepackage{pdflscape}
 \usepackage{afterpage}
+\usepackage{parskip}
 
 \usepackage[round]{natbib}
 
@@ -56,6 +57,8 @@
     filecolor=magenta,      % color of file links
     urlcolor=cyan           % color of external links
 }
+
+\setlength{\parindent}{0pt}
 
 \input{../Comments.text}
 \input{../Common.text}
@@ -86,7 +89,7 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for \progname: subtitle describing software} 
+\title{Software Requirements Specification for \progname: An Ophthalmology Preparation Game for Children} 
 \author{\authname}
 \date{\today}
 	
@@ -117,64 +120,20 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-\plt{This SRS template is based on the IEEE template, with input from co-pilot
-  and S. Smith. It will get you started.  You should not modify the section
-  headings, without first discussing the change with the course instructor.
-  Modification means you are not following the template, which loses some of the
-  advantage of a template, especially standardization.}
-
-\plt{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
-
-\plt{This template document assumes that a single program is being documented.
-  If you are documenting a family of models, you should start with a commonality
-  analysis.}
-
-\plt{The SRS is not generally written, or read, sequentially.  The SRS is a
-  reference document.  It is generally read in an ad hoc order, as the need
-  arises.}
-
-\plt{Guiding principles for the SRS document:
-\begin{itemize}
-\item Do not repeat the same information at the same abstraction level.  If
-  information is repeated, the repetition should be at a different abstraction
-  level.
-\end{itemize}
-}
-
-\plt{The template description comments should be disabled before submitting this
-  document for grading.}
-
-\plt{You can borrow any wording from the text given in the template.  It is part
-  of the template, and not considered an instance of academic integrity.  Of
-  course, you need to cite the source of the template.}
-
-\plt{When the documentation is done, it should be possible to trace back to the
-  source of every piece of information.  Some information will come from
-  external sources, like terminology.}
-
-\plt{An SRS document should have the following qualities: unambiguous,
-  consistent, complete, validatable, abstract and traceable.}
-
-\plt{The overall goal of the SRS is that someone can learn,
-  understand and verify the captured domain knowledge.  They should not have to
-  trust the authors of the SRS on any statements.  They should be able to
-  independently verify/derive every statement made.}
-
 % ============================================================== 
 \section{Introduction} 
 % ==============================================================
 
-\plt{Explain what system is being specified. State purpose, users, and project goals.}
+This document is the Software Requirements Specification (SRS) for \progname{}, a mobile game
+that prepares children aged 4 to 7 years for paediatric ophthalmology appointments.
+This document defines the expected behaviour, scope, and requirements of \progname{},
+establishing a basis for implementation, verification, and validation by describing what the system
+is expected to accomplish and the conditions under which it will be used.
 
-\plt{Introduce the name of your software as \progname{}.  Using \progname{} as
-a command lets you change the name if necessary and have the change propagate to
-all documents.}
-
-\plt{Include a reference to the template this work is based on.  \citet{ISOIECIEEE29148_2018}
-justifies the SRS structure and \citet{ISOIECIEEE15288_2023} provides the
-broader life-cycle context that underlines modern requirements engineering
-practice.}
+This document follows the IEEE SRS template provided in the course repository \cite{SmithCapTemplate},
+informed by ISO/IEC/IEEE 29148 \cite{ISOIECIEEE291482018} for requirements engineering and ISO/IEC/IEEE 15288
+\cite{ISOIECIEEE152882023} for systems life-cycle management. These standards guide the organization of this SRS,
+which serves as a reference for readers to consult as needed.
 
 \subsection{Purpose}
 
