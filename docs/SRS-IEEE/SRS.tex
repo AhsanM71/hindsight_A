@@ -1926,7 +1926,7 @@ The guide character, the home control, and the next and previous controls shall 
 
 \textbf{Rationale:} Children who cannot read find controls by where they are, not by label. A control that moves is a control a child loses, and consistent positions let a child who has learned one activity use another without help.
 
-\textbf{Fit Criterion:} A design review of every screen finds each of these elements within \constref{TOUCH_TARGET_MIN} millimetres of its position on all other screens.
+\textbf{Fit Criterion:} A design review of every screen confirms that the guide character, home control, and next and previous controls remain within \constref{CONTROL_POSITION_TOLERANCE_MM} millimetres of their designated positions across all screens.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_ChildSafe}:]
 No image, animation, narration, or sound shall be frightening, or show pain or distress beyond the sensations in the approved script.
@@ -1958,16 +1958,16 @@ A control that returns to the home menu shall be reachable with one touch from e
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Usability}:]
 A first-time user from the defined user characteristics shall be able to complete one walkthrough and its practice activity without reading and without prior training.
 
-\textbf{Rationale:} The application is meant to be used at home with little or no help. If a child needs a parent to explain it, it becomes a parent-led tool and loses the engagement the product depends on. The Development Plan sets about five minutes as the limit of a young child's attention, which gives \constref{ACTIVITY_PAIR_MAX_MIN}. The 80\% rate allows for small test samples.
+\textbf{Rationale:} The application is meant to be used at home with little or no help. If a child needs a parent to explain it, it becomes a parent-led tool and loses the engagement the product depends on.
 
-\textbf{Fit Criterion:} In usability testing, at least \constref{UNAIDED_RATE_MIN}\% of participants complete one walkthrough and its practice activity without verbal help, with a median time of at most \constref{ACTIVITY_PAIR_MAX_MIN} minutes. Participants aged 3--4 may have a parent present who does not explain.
+\textbf{Fit Criterion:} In usability testing, at least \constref{UNAIDED_RATE_MIN}\% of participants complete one walkthrough and its practice activity without verbal help, with a median completion time of at most \constref{ACTIVITY_PAIR_MAX_MIN} minutes. Participants aged 3--4 may have a parent present who does not explain.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Language}:]
-Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words and use words familiar to a child aged 3 to 7, and text in the adult area shall be at or below a Grade 8 reading level.
+Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words and use words familiar to a child aged 3 to 7, and text in the adult area shall be at or below Grade \constref{ADULT_TEXT_MAX_GRADE} reading level.
 
 \textbf{Rationale:} Young children follow short sentences in familiar words, and long ones are lost. Adults vary in reading ability, and Grade 8 matches the defined user characteristics. The sentence limit is to be confirmed with the child-life specialists.
 
-\textbf{Fit Criterion:} A count over all scripts finds no narrated sentence over the limit, a child-life specialist finds no unfamiliar word, and a readability formula gives a grade of 8 or lower for each adult-area text.
+\textbf{Fit Criterion:} A count over all scripts finds no narrated sentence over \constref{SENTENCE_MAX_WORDS} words, a child-life specialist finds no unfamiliar word, and a readability formula gives a grade of at most \constref{ADULT_TEXT_MAX_GRADE} for each adult-area text.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Accessibility}:]
 The application shall meet the WCAG 2.2 Level AA success criteria that apply to a native mobile application.
@@ -1994,21 +1994,21 @@ The home menu shall appear within \constref{STARTUP_MAX_S} seconds of launch.
 
 \textbf{Rationale:} A child looking at a blank screen may lose interest before anything starts. Low-spec devices set the limit, and the value is revisited after proof-of-concept measurements.
 
-\textbf{Fit Criterion:} The median of 10 cold starts on each low-spec device is at most this time.
+\textbf{Fit Criterion:} The median of \constref{STARTUP_TRIALS_MIN} cold starts on each low-spec device is at most \constref{STARTUP_MAX_S} seconds.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Responsiveness}:]
 The system shall respond visibly to a touch on an interactive element within \constref{RESPONSE_MAX_MS} milliseconds.
 
 \textbf{Rationale:} About 0.1 seconds is the longest delay that feels instant to a user \cite{Nielsen1993}. A child who sees no reaction will tap again, which the activities then have to handle.
 
-\textbf{Fit Criterion:} At least 95\% of measured touches on each low-spec device meet this time.
+\textbf{Fit Criterion:} At least \constref{RESPONSE_RATE_MIN}\% of measured touches on each low-spec device receive a visible response within \constref{RESPONSE_MAX_MS} milliseconds.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Smoothness}:]
 Animation shall run at no fewer than \constref{FRAME_RATE_MIN} frames per second.
 
-\textbf{Rationale:} 30 frames per second is the usual minimum for animation that looks smooth on mobile. Choppy animation of a procedure would distract from what it shows.
+\textbf{Rationale:} Choppy animation of a procedure would distract from what it shows.
 
-\textbf{Fit Criterion:} On each low-spec device, the frame rate is at least this value for 95\% of the time over a full walkthrough and practice activity.
+\textbf{Fit Criterion:} On each low-spec device, the frame rate is at least \constref{FRAME_RATE_MIN} frames per second for at least \constref{FRAME_RATE_COMPLIANCE_MIN}\% of the time over a full walkthrough and practice activity.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_AVSync}:]
 Narration shall start within \constref{AV_SYNC_MAX_MS} milliseconds of the animation it accompanies.
@@ -2027,9 +2027,9 @@ No sound effect or music shall have a peak level above the peak level of the nar
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Reliability}:]
 The application shall not crash or freeze during use.
 
-\textbf{Rationale:} A crash in front of an anxious child, or in a waiting room minutes before an appointment, harms trust in the application. 99\% crash-free sessions is a common benchmark for mobile applications, and 100 sessions is enough to see a failure at that rate.
+\textbf{Rationale:} A crash in front of an anxious child, or in a waiting room minutes before an appointment, harms trust in the application.
 
-\textbf{Fit Criterion:} At least \constref{TEST_SESSIONS_MIN} test sessions end without a crash or freeze.
+\textbf{Fit Criterion:} At least \constref{CRASH_FREE_RATE_MIN}\% of at least \constref{TEST_SESSIONS_MIN} test sessions end without a crash or freeze.
 
 \end{itemize}
 
@@ -2339,14 +2339,14 @@ TODO
 \subsection{Appendix C: Values of Auxiliary Constants}
 \label{sec_Constants}
 
-This appendix lists the auxiliary constants used throughout the requirements
-specification. These constants define quantitative thresholds, performance
-targets, platform compatibility requirements, and other fixed values referenced
-by the functional and non-functional requirements. Centralising these values
-ensures consistency across the document and provides a single reference point
-for interpreting and verifying the specified requirements.
+This appendix lists the auxiliary constants used throughout the
+requirements specification. These constants define quantitative
+thresholds, performance targets, platform compatibility requirements,
+and other fixed values referenced by the requirements. Centralising
+these values provides a single reference point for interpreting and
+verifying the specified requirements.
 
-\begin{longtable}{p{0.34\textwidth} p{0.12\textwidth} p{0.4\textwidth}}
+\begin{longtable}{p{0.38\textwidth} p{0.15\textwidth} p{0.37\textwidth}}
 
 \caption{Values of Auxiliary Constants}
 \label{tab:Constants}\\
@@ -2370,56 +2370,97 @@ Constant & Value & Unit\\
 \bottomrule
 \endlastfoot
 
-\texttt{TOUCH\_TARGET\_MIN} & 15 & mm
-\label{const:TOUCH_TARGET_MIN}\\
+\texttt{TOUCH\_TARGET\_MIN}
+\label{const:TOUCH_TARGET_MIN}
+& 15 & mm\\
 
-\texttt{STARTUP\_MAX\_S} & 5 & s
-\label{const:STARTUP_MAX_S}\\
+\texttt{CONTROL\_POSITION\_TOLERANCE\_MM}
+\label{const:CONTROL_POSITION_TOLERANCE_MM}
+& 5 & mm\\
 
-\texttt{RESPONSE\_MAX\_MS} & 100 & ms
-\label{const:RESPONSE_MAX_MS}\\
+\texttt{STARTUP\_MAX\_S}
+\label{const:STARTUP_MAX_S}
+& 5 & s\\
 
-\texttt{FRAME\_RATE\_MIN} & 30 & frames per second
-\label{const:FRAME_RATE_MIN}\\
+\texttt{STARTUP\_TRIALS\_MIN}
+\label{const:STARTUP_TRIALS_MIN}
+& 10 & cold-start trials\\
 
-\texttt{AV\_SYNC\_MAX\_MS} & 100 & ms
-\label{const:AV_SYNC_MAX_MS}\\
+\texttt{RESPONSE\_MAX\_MS}
+\label{const:RESPONSE_MAX_MS}
+& 100 & ms\\
 
-\texttt{TEST\_SESSIONS\_MIN} & 100 & sessions
-\label{const:TEST_SESSIONS_MIN}\\
+\texttt{RESPONSE\_RATE\_MIN}
+\label{const:RESPONSE_RATE_MIN}
+& 95 & \%\\
 
-\texttt{UNAIDED\_RATE\_MIN} & 80 & \%
-\label{const:UNAIDED_RATE_MIN}\\
+\texttt{FRAME\_RATE\_MIN}
+\label{const:FRAME_RATE_MIN}
+& 30 & frames per second\\
 
-\texttt{ACTIVITY\_PAIR\_MAX\_MIN} & 5 & min
-\label{const:ACTIVITY_PAIR_MAX_MIN}\\
+\texttt{FRAME\_RATE\_COMPLIANCE\_MIN}
+\label{const:FRAME_RATE_COMPLIANCE_MIN}
+& 95 & \% of measured time\\
 
-\texttt{MIN\_IOS} & 16 & version
-\label{const:MIN_IOS}\\
+\texttt{AV\_SYNC\_MAX\_MS}
+\label{const:AV_SYNC_MAX_MS}
+& 100 & ms\\
 
-\texttt{MIN\_ANDROID} & 10 & version
-\label{const:MIN_ANDROID}\\
+\texttt{TEST\_SESSIONS\_MIN}
+\label{const:TEST_SESSIONS_MIN}
+& 100 & sessions\\
 
-\texttt{SCREEN\_MIN\_IN} & 4.7 & inches
-\label{const:SCREEN_MIN_IN}\\
+\texttt{CRASH\_FREE\_RATE\_MIN}
+\label{const:CRASH_FREE_RATE_MIN}
+& 99 & \%\\
 
-\texttt{SCREEN\_MAX\_IN} & 13 & inches
-\label{const:SCREEN_MAX_IN}\\
+\texttt{UNAIDED\_RATE\_MIN}
+\label{const:UNAIDED_RATE_MIN}
+& 80 & \%\\
 
-\texttt{LOW\_SPEC\_AGE\_YEARS} & 5 & years
-\label{const:LOW_SPEC_AGE_YEARS}\\
+\texttt{ACTIVITY\_PAIR\_MAX\_MIN}
+\label{const:ACTIVITY_PAIR_MAX_MIN}
+& 5 & min\\
 
-\texttt{INSTALL\_SIZE\_MAX\_MB} & 300 & MB
-\label{const:INSTALL_SIZE_MAX_MB}\\
+\texttt{SENTENCE\_MAX\_WORDS}
+\label{const:SENTENCE_MAX_WORDS}
+& 10 & words\\
 
-\texttt{SENTENCE\_MAX\_WORDS} & 10 & words
-\label{const:SENTENCE_MAX_WORDS}\\
+\texttt{ADULT\_TEXT\_MAX\_GRADE}
+\label{const:ADULT_TEXT_MAX_GRADE}
+& 8 & reading grade\\
 
-\texttt{SETUP\_MAX\_H} & 2 & hours
-\label{const:SETUP_MAX_H}\\
+\texttt{MIN\_IOS}
+\label{const:MIN_IOS}
+& 16 & version\\
 
-\texttt{MAINT\_FRACTION} & 0.10 & of original development time
-\label{const:MAINT_FRACTION}\\
+\texttt{MIN\_ANDROID}
+\label{const:MIN_ANDROID}
+& 10 & version\\
+
+\texttt{SCREEN\_MIN\_IN}
+\label{const:SCREEN_MIN_IN}
+& 4.7 & inches\\
+
+\texttt{SCREEN\_MAX\_IN}
+\label{const:SCREEN_MAX_IN}
+& 13 & inches\\
+
+\texttt{LOW\_SPEC\_AGE\_YEARS}
+\label{const:LOW_SPEC_AGE_YEARS}
+& 5 & years\\
+
+\texttt{INSTALL\_SIZE\_MAX\_MB}
+\label{const:INSTALL_SIZE_MAX_MB}
+& 300 & MB\\
+
+\texttt{SETUP\_MAX\_H}
+\label{const:SETUP_MAX_H}
+& 2 & hours\\
+
+\texttt{MAINT\_FRACTION}
+\label{const:MAINT_FRACTION}
+& 0.10 & fraction of original development time\\
 
 \end{longtable}
 
