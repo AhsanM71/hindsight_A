@@ -2212,6 +2212,21 @@ Functional Req & Nonfunctional Req \\
 \section{Rationale}
 \label{rationale}
 
+\subsection{Scope}
+
+The scope is focused on preparing children aged 3 to 7 for common paediatric
+ophthalmology procedures. Diagnosis, treatment, and other clinical functions
+were excluded because they are outside the main goal of the application and
+would add requirements that are not needed for preparation. The initial set
+of procedures is also limited so that the team can focus on making each
+activity clear, accessible, and reliable. Features such as AR and personalized
+preparation are considered stretch goals rather than part of the minimum
+scope.
+
+\subsection{Functional Requirements}
+
+TODO
+
 \subsection{Data Requirements}
 
 The data requirements were developed by considering how
@@ -2244,6 +2259,44 @@ game progress, journey progression, and rewards
 were introduced. All user data is stored locally to maintain
 offline functionality and minimize the collection of
 personal information.
+
+\subsection{Non-Functional Requirements}
+
+This section explains decisions that affect multiple non-functional requirements. Individual
+requirement rationales are provided alongside their respective requirements.
+
+The main non-functional requirements support three priorities: child-friendly
+interaction, reliable use, and privacy. Since the application is designed for
+children aged 3 to 7, requirements such as \nfrref{NFR_TouchTarget},
+\nfrref{NFR_Layout}, and \nfrref{NFR_Usability} ensure that activities are
+easy to navigate and complete. \nfrref{NFR_ChildSafe} and
+\nfrref{NFR_Language} ensure that the content is appropriate for the target
+age group.
+
+Accessibility is also important so that children with different needs can
+use the application. \nfrref{NFR_Accessibility} and \nfrref{NFR_Colour}
+address accessibility needs, while \nfrref{NFR_AVSync} and
+\nfrref{NFR_AudioSafety} help keep audio and animations clear during
+activities.
+
+Since the application may be used at home or before an appointment,
+\nfrref{NFR_Offline} allows activities to work without internet access.
+\nfrref{NFR_Responsiveness}, \nfrref{NFR_Smoothness}, and
+\nfrref{NFR_Reliability} help prevent delays and interruptions that could
+affect the experience. \nfrref{NFR_Portability} and
+\nfrref{NFR_Installability} also make the application easier to access
+across supported devices.
+
+Finally, privacy and security are especially important because the
+application is intended for children. \nfrref{NFR_Minimisation} limits
+the information stored, \nfrref{NFR_Privacy} prevents data from being
+transmitted off the device, and \nfrref{NFR_DataProtection} protects
+locally stored data. \nfrref{NFR_Integrity} and \nfrref{NFR_Immunity}
+help protect the application from unauthorized changes and vulnerable
+dependencies. Other requirements, including \nfrref{NFR_Inclusivity},
+\nfrref{NFR_NoClaims}, \nfrref{NFR_Licensing}, and
+\nfrref{NFR_StoreCompliance}, address inclusive content, the application's
+medical scope, and distribution requirements.
 
 \section{Likely Changes}    
 
