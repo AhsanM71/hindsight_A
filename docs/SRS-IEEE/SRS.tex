@@ -136,6 +136,7 @@ in the course repository \cite{SmithCapTemplate}. The AI and Machine Learning Re
 also removed, as it is not applicable to the project.
 
 \subsection{Purpose}
+\label{purpose}
 
 The purpose of \progname{} is to reduce anxiety and uncertainty in children before paediatric
 ophthalmology appointments by providing accessible, age-appropriate preparation for common eye
@@ -145,7 +146,8 @@ reduced anxiety, improved cooperation, sustained engagement across the target ag
 more effective preparation at home, and greater clinical efficiency. The application complements,
 rather than replaces, professional guidance and medical examinations.
 
-\subsection{Scope} \label{sec_Scope}
+\subsection{Scope}
+\label{sec_Scope}
 
 \progname{} is a mobile application intended to help children aged 4 to 7 years become familiar
 with common paediatric ophthalmology procedures before attending an appointment. The application
@@ -339,6 +341,7 @@ This section also describes user characteristics and lists the system
 constraints.
 
 \subsection{Problem Statement}
+\label{problem-statement}
 
 Paediatric ophthalmology appointments can be stressful and unfamiliar for children.
 Procedures such as vision testing, eye drops, and slit-lamp examinations may cause anxiety, particularly when children do not know what to expect.
@@ -351,6 +354,7 @@ Without appropriate preparation, unfamiliar clinical experiences may contribute 
 This project addresses the need for an accessible, child-friendly way to help children become more familiar and comfortable with the paediatric ophthalmology experience.
 
 \subsection{Product Vision}
+\label{sec_Product_Vision}
 
 \progname{} is an interactive mobile application designed to help
 children aged 3--7 feel more comfortable and prepared for paediatric
@@ -1411,6 +1415,7 @@ parts of the SRS.  The label names should be meaningful mnemonics, not numbers.}
 
 % ============================================================== 
 \section{Data Requirements}
+\label{sec_Data_Requirements}
 
 This section describes the information managed by \progname{}
 to support journey based progression, character customization,
@@ -2001,6 +2006,7 @@ Functional Req & Nonfunctional Req \\
 % ============================================================== 
 
 \section{Rationale}
+\label{rationale}
 
 \subsection{Data Requirements}
 
@@ -2088,19 +2094,35 @@ TODO
 \subsubsection*{AI Tools Used}
 
 \begin{itemize}
+    \item Claude (Opus 5.5)
     \item ChatGPT (GPT-6 Luna)
 \end{itemize}
 
 \subsubsection*{How and Where Used}
 
-ChatGPT was used as a supporting tool during the preparation of
+ChatGPT and Claude were used as supporting tools during the preparation of
 this document, primarily to assist with \LaTeX{} formatting,
 improving wording and clarity, and organizing information.
 Its use was mainly used in the following sections:
 
 \begin{itemize}
+    \item In the sections listed below, the ideas and content
+    were developed by the team. Opus 5.5 was used to improve wording,
+    grammar, and flow while preserving the team's original meaning and decisions.
 
-    \item \textbf{Section 2.2 -- Product Vision:}
+    \begin{itemize}
+        \item Sections ~\ref{purpose}, ~\ref{sec_Scope}, and ~\ref{problem-statement}
+    \end{itemize}
+
+    \item In Section~\ref{non-func-req} (Non-Functional Requirements), Opus 5.5 was
+    provided with stakeholder meeting notes, team assumptions, and preliminary requirements
+    to generate an initial draft of the NFRs. The team then manually reviewed, refined,
+    and validated the generated requirements.
+
+    \item In Section~\ref{rationale} (Rationale), Opus 5.5 was used to identify connections
+    and shared justifications across requirements, which the team then used to develop the section.
+
+    \item In Section~\ref{sec_Product_Vision} (Product Vision),
     ChatGPT was used to help summarize and organize the
     application's purpose and goals based on the team's
     existing Problem Statement and Goals document.
@@ -2108,23 +2130,15 @@ Its use was mainly used in the following sections:
     remained concise, understandable, and consistent
     with the project's objectives.
 
-    \item \textbf{Section 7 -- Data Requirements:}
+    \item In Section~\ref{sec_Data_Requirements} (Data Requirements),
     ChatGPT was used primarily to assist with formatting
     data dictionary tables in \LaTeX{}, organizing major
     data entities and their attributes, and improving
     the readability of the Privacy and Data Retention
     subsection.
-
-    \item \textbf{General Writing and Formatting:}
-    ChatGPT was used to suggest clearer wording,
-    improve document organization, and identify
-    potential inconsistencies or missing information.
-    These suggestions were reviewed and modified
-    where appropriate.
-
 \end{itemize}
 
-\subsubsection*{Verification of AI-Assisted Content:}
+\subsubsection*{Verification of AI-Generated Content}
 
 The team reviewed AI-assisted material to ensure it was
 consistent with the project's scope, existing documentation,
