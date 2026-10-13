@@ -1943,7 +1943,7 @@ No image, animation, narration, or sound shall be frightening, or show pain or d
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_TouchTarget}:]
 Every interactive element shall be at least \constref{TOUCH_TARGET_MIN} millimetres wide and high on screen.
 
-\textbf{Rationale:} The Apple and Android guidance minimums are about 7 mm and 9 mm \citep{AppleHIG, MaterialDesign}. Children aged 3 to 7 have less precise motor control, so a larger size is used. The value is to be confirmed in usability testing.
+\textbf{Rationale:} The Apple and Android guidance minimums are about 7 mm and 9 mm \cite{AppleHIG, MaterialDesign}. Children aged 3 to 7 have less precise motor control, so a larger size is used. The value is to be confirmed in usability testing.
 
 \textbf{Fit Criterion:} Measured on each reference device, every interactive element meets this size.
 
@@ -1971,7 +1971,7 @@ Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words a
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Accessibility}:]
 The application shall meet the WCAG 2.2 Level AA success criteria that apply to a native mobile application.
 
-\textbf{Rationale:} Children who attend an eye clinic may have low vision, and some will have hearing or motor differences. WCAG is the accepted benchmark \citep{WCAG22}, and the same duty applies in Ontario \citep{AODA2005}.
+\textbf{Rationale:} Children who attend an eye clinic may have low vision, and some will have hearing or motor differences. WCAG is the accepted benchmark \cite{WCAG22}, and the same duty applies in Ontario \cite{AODA2005}.
 
 \textbf{Fit Criterion:} An accessibility audit against the applicable criteria finds no failure.
 
@@ -1998,7 +1998,7 @@ The home menu shall appear within \constref{STARTUP_MAX_S} seconds of launch.
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Responsiveness}:]
 The system shall respond visibly to a touch on an interactive element within \constref{RESPONSE_MAX_MS} milliseconds.
 
-\textbf{Rationale:} About 0.1 seconds is the longest delay that feels instant to a user \citep{Nielsen1993}. A child who sees no reaction will tap again, which the activities then have to handle.
+\textbf{Rationale:} About 0.1 seconds is the longest delay that feels instant to a user \cite{Nielsen1993}. A child who sees no reaction will tap again, which the activities then have to handle.
 
 \textbf{Fit Criterion:} At least 95\% of measured touches on each low-spec device meet this time.
 
@@ -2147,7 +2147,7 @@ Content shall not assume a child's family structure, culture, religion, gender, 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_NoClaims}:]
 The application, its notices, and its store listings shall make no claim to diagnose, screen, treat, or monitor any condition.
 
-\textbf{Rationale:} Software that makes such claims may be regulated as a medical device \citep{HealthCanadaSaMD}. Such a claim would also encourage a parent to treat the practice as a vision test and miss a real problem.
+\textbf{Rationale:} Software that makes such claims may be regulated as a medical device \cite{HealthCanadaSaMD}. Such a claim would also encourage a parent to treat the practice as a vision test and miss a real problem.
 
 \textbf{Fit Criterion:} Two team members and a clinician review every child-facing text, adult-facing text, and store listing against a checklist, and find no such claim.
 
@@ -2161,7 +2161,7 @@ Every third-party asset and library shall have a recorded licence that permits r
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_StoreCompliance}:]
 The application shall meet the Apple and Google policies for children's applications listed in the project's standards table.
 
-\textbf{Rationale:} The application is aimed at children, and the policies call for parental gates and limit advertising, outside links, and third-party data collection \citep{AppleGuidelines, GooglePlayPolicy}. Non-compliance would lead to rejection or removal.
+\textbf{Rationale:} The application is aimed at children, and the policies call for parental gates and limit advertising, outside links, and third-party data collection \cite{AppleGuidelines, GooglePlayPolicy}. Non-compliance would lead to rejection or removal.
 
 \textbf{Fit Criterion:} Both app stores approve the release build for a children's audience, and every item on the pre-submission policy checklist passes.
 
