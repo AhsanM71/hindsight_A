@@ -284,12 +284,7 @@ TSWLatexianTemp*
 __pycache__/
 *.pyc
 
-<<<<<<< HEAD
 ._*
 
 !docs/SRS-IEEE/SystemContextFigure.pdf
 
-=======
-
-._*
->>>>>>> 99c78d7 (added .gitignore criteria for hidden mac files)
