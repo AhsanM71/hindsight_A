@@ -432,6 +432,67 @@ excitement are added to the medical content.
 
 \end{itemize}
 
+\begin{enumerate}
+    \item \textbf{SR-1: Camera Unavailability Handling}
+    
+    If camera permission is denied, revoked, or the camera
+    is unavailable, the system shall notify the user and
+    provide an option to continue without camera based
+    tracking or exit the activity.
+
+    \textit{Rationale:}
+    Camera related failures should not prevent children
+    from accessing preparation activities or cause the
+    application to become unresponsive.
+
+    \textit{Associated hazards:} TODO \\
+    \textit{SRS:} TODO
+
+    \item \textbf{SR-2: Medical Disclaimer and Caregiver Acknowledgment}
+
+    The system shall inform caregivers that the application is intended
+    solely as a preparation aid and does not replace professional medical
+    advice, diagnosis, or treatment. The system shall require caregiver
+    acknowledgment of this notice before first use and make the notice
+    accessible from every caregiver guide.
+
+    \textit{Rationale:}
+    The application introduces children to common ophthalmology
+    procedures, which may lead caregivers to mistake its educational
+    content for professional medical guidance. Providing a clear
+    disclaimer and requiring acknowledgment helps communicate the
+    application's intended purpose and limitations, reducing the
+    risk of caregivers relying on it as a substitute for
+    professional medical care.
+
+    \textit{Associated hazards:} TODO \\
+    \textit{SRS:} TODO
+
+    \item \textbf{SR-3: Restriction of Medical Guidance}
+
+    The system shall not provide medical diagnoses, treatment
+    recommendations, medication dosage instructions, or instructions
+    encouraging users to perform medical procedures independently.
+    Educational descriptions of ophthalmology procedures shall be
+    permitted when reviewed and approved by qualified clinical
+    professionals.
+
+    \textit{Rationale:}
+    The application is designed to familiarize children with
+    ophthalmology procedures rather than provide medical guidance.
+    Without clear restrictions, children or caregivers may
+    misinterpret simulated procedures as instructions for performing
+    actual medical procedures. Restricting medical guidance while
+    allowing clinically approved educational content helps prevent
+    unsafe imitation and misleading information without limiting
+    the application's preparatory purpose.
+
+    \textit{Associated hazards:} TODO \\
+    \textit{SRS:} TODO
+
+\end{enumerate}
+
+
 \section{Roadmap}
 
 \wss{Which safety requirements will be implemented as part of the capstone timeline?
