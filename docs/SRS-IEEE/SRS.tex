@@ -602,44 +602,613 @@ parts of the SRS.  The label names should be meaningful mnemonics, not numbers.}
 % ============================================================== 
 \section{Data Requirements}
 
-\plt{The Data Requirements section describes what information the system must manage.
-  It includes the major data entities, their attributes, and the relationships
-  between them.  It also includes a data dictionary that defines the meaning of
-  each attribute.}
+This section describes the information managed by \progname{}
+to support age appropriate preparation activities, caregiver
+configuration, and local activity progress. The application
+does not require patient accounts or integration with clinical
+information systems. All application data is maintained locally
+on the user's device.
 
 \subsection{Major Data Entities}
 
-\plt{What information must exist for the system to accomplish its goals?}
-
-\plt{For each entity, provide a short explanation.}
+The system manages the following major data entities:
 
 \begin{itemize}
-\item User
-\item Song
-\item Session
-\item Report
+
+    \item \textbf{Procedure:}
+    Represents a common paediatric ophthalmology procedure
+    introduced through the application, such as vision testing,
+    eye drop administration, or slit lamp examinations.
+    Each procedure is associated with one or more preparation
+    activities.
+
+    \item \textbf{Preparation Activity:}
+    Represents an interactive game or educational activity
+    designed to familiarize children with a particular
+    ophthalmology procedure. Each activity is associated
+    with a procedure and an intended age group.
+
+    \item \textbf{Caregiver Configuration:}
+    Represents the selection of preparation activities
+    enabled by a parent or caregiver based on the
+    recommendations provided by the child's clinician.
+    The configuration determines which activities appear
+    in the child's preparation experience.
+
+    \item \textbf{Local Preferences:}
+    Represents optional settings associated with the
+    application, including the child's nickname, age
+    group, and display or accessibility preferences.
+    These settings are stored locally and do not
+    require a patient account.
+
+    \item \textbf{Activity Progress:}
+    Represents the completion status of preparation
+    activities, allowing children and caregivers to
+    view which activities have been completed.
+    This information reflects application progress
+    rather than clinical performance or assessment results.
+
 \end{itemize}
+
+The relationship between these entities is as follows:
+each Procedure may have multiple Preparation Activities.
+A Caregiver Configuration identifies the activities
+selected for the child. Activity Progress records the
+completion status of individual activities, while
+Local Preferences determine how the application is
+presented to the user.
 
 \subsection{Data Dictionary}
 
-\plt{For each entity, define all important attributes.}
+The following data dictionary defines the major
+attributes associated with each entity.
 
-\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth} p{0.45\textwidth}}
+\begin{longtable}{
+    p{0.16\textwidth}
+    p{0.24\textwidth}
+    p{0.16\textwidth}
+    p{0.33\textwidth}
+}
+
+\caption{Data Dictionary for Caregiver Configured Preparation}
+\label{tab:DataDictionary}\\
+
 \toprule
-Attribute & Type & Description\\
+\textbf{Entity} &
+\textbf{Attribute} &
+\textbf{Type} &
+\textbf{Description} \\
 \midrule
-user\_id & UUID & Unique identifier\\
-email & String & User email address\\
+\endfirsthead
+
+\toprule
+\textbf{Entity} &
+\textbf{Attribute} &
+\textbf{Type} &
+\textbf{Description} \\
+\midrule
+\endhead
+
+Procedure &
+procedure\_id &
+String &
+Unique identifier for an ophthalmology procedure. \\
+\midrule
+
+Procedure &
+procedure\_name &
+String &
+Human readable name of the procedure. \\
+\midrule
+
+Procedure &
+procedure\_description &
+String &
+Clinically reviewed educational description of the
+procedure. \\
+\midrule
+
+Preparation Activity &
+activity\_id &
+String &
+Unique identifier for a preparation activity. \\
+\midrule
+
+Preparation Activity &
+procedure\_id &
+String &
+Identifier of the procedure associated with the
+activity. \\
+\midrule
+
+Preparation Activity &
+activity\_name &
+String &
+Name displayed for the preparation activity. \\
+\midrule
+
+Preparation Activity &
+age\_groups &
+Set of Strings &
+Age groups for which the activity is intended. \\
+\midrule
+
+Caregiver Configuration &
+enabled\_activities &
+Set of Strings &
+Identifiers of the preparation activities selected
+by the caregiver. \\
+\midrule
+
+Caregiver Configuration &
+configuration\_status &
+Enumeration &
+Indicates whether the caregiver has configured
+the activity selection. Values: Unconfigured,
+Configured. \\
+\midrule
+
+Local Preferences &
+nickname &
+Optional String &
+Optional nickname used to personalize the
+application without requiring a legal name. \\
+\midrule
+
+Local Preferences &
+age\_group &
+Optional String &
+Age group selected by the caregiver to determine
+which activity versions are appropriate. \\
+\midrule
+
+Local Preferences &
+display\_settings &
+Settings Record &
+Locally stored display, audio, and accessibility
+preferences. \\
+\midrule
+
+Activity Progress &
+activity\_id &
+String &
+Identifier of the activity associated with the
+progress record. \\
+\midrule
+
+Activity Progress &
+completion\_status &
+Enumeration &
+Current activity status. Values: Not Started,
+In Progress, Completed. \\
+
 \bottomrule
-\caption{Data Dictionary} \label{tab:DataDictionary}
+
 \end{longtable}
 
 \subsection{Privacy and Data Retention}
 
-\plt{Discuss storage, retention, deletion, privacy controls,
- consent, encryption, and compliance requirements.}
+\progname{} follows a data minimization approach, collecting
+and retaining only the information necessary to support
+caregiver configured preparation activities and local progress
+tracking. The application's privacy and data management
+practices are outlined below:
 
-TODO
+\begin{itemize}
+
+    \item \textbf{Data Collection:}
+    The application does not require patient accounts,
+    medical records, appointment details, or personally
+    identifying information. Optional nicknames are used
+    solely for personalization and do not need to
+    correspond to the child's legal name.
+
+    \item \textbf{Caregiver Configuration:}
+    Caregivers select preparation activities based on
+    recommendations provided by the child's clinician.
+    The application does not access clinical information
+    systems or independently retrieve appointment specific
+    medical information.
+
+    \item \textbf{Data Storage and Protection:}
+    User preferences, caregiver configurations, and activity
+    progress shall be stored locally on the user's device
+    and protected from unauthorized access by other applications.
+    The application shall not transmit this information
+    to external servers or require user accounts.
+
+    \item \textbf{Data Retention and Deletion:}
+    Locally stored information is retained until
+    deleted by the caregiver or through application
+    removal, subject to the device's backup and
+    restoration behaviour. Caregivers can clear
+    stored preferences, activity selections, and
+    progress through the application's data
+    management functionality.
+
+    \item \textbf{Consent and Access:}
+    The application does not require registration
+    or the collection of personal information to
+    access its preparation activities. Caregivers
+    control the configuration of activities
+    presented to the child.
+
+    \item \textbf{Research and Regulatory Compliance:}
+    Any personal information collected separately
+    for research or usability evaluation is outside
+    the application's operational data storage
+    and is subject to applicable institutional
+    ethics and privacy requirements.
+
+\end{itemize}
+
+
+% \section{Data Requirements}
+
+% This section describes the information managed by \progname{}
+% to support procedure recommendations through predefined
+% codes. The application does not require patient accounts
+% or access to clinical information systems.
+
+% Clinicians may provide caregivers with a generic
+% recommendation code corresponding to an age group and
+% a set of preparation activities. The caregiver enters
+% the code into the application, which identifies the
+% associated activities using a locally available mapping.
+
+% The recommendation codes described in this section
+% are an initial draft and will be reviewed with the project
+% supervisors before finalization.
+
+% \subsection{Major Data Entities}
+
+% The system manages the following major data entities:
+
+% \begin{itemize}
+
+%     \item \textbf{Procedure:}
+%     Represents a common paediatric ophthalmology
+%     procedure introduced through the application,
+%     such as vision testing, eye drop administration,
+%     or slit lamp examinations.
+
+%     \item \textbf{Preparation Activity:}
+%     Represents an interactive game or educational
+%     activity associated with an ophthalmology
+%     procedure. Activities may have different
+%     versions designed for particular age groups.
+
+%     \item \textbf{Recommendation Code:}
+%     Represents a predefined mapping between a
+%     generic recommendation code, an intended
+%     age group, and a set of preparation activities.
+%     These codes are not patient-specific and do
+%     not contain personal or appointment information.
+
+%     \item \textbf{Local Preferences:}
+%     Represents the locally maintained application
+%     settings, including an optional nickname,
+%     display preferences, and the active
+%     recommendation selection.
+
+%     \item \textbf{Activity Progress:}
+%     Represents the completion status of individual
+%     preparation activities. Progress is maintained
+%     locally and is not treated as a clinical
+%     assessment or measure of visual ability.
+
+% \end{itemize}
+
+% Each Procedure may be associated with multiple
+% Preparation Activities. Each Recommendation Code
+% identifies an age group and a predefined set of
+% activities associated with one or more procedures.
+
+% When a valid code is entered, the application
+% retrieves the corresponding activity selection
+% from its local recommendation catalogue.
+% The active recommendation determines which
+% activities are presented to the child.
+
+% Activity Progress is maintained independently
+% for each preparation activity.
+
+% \subsection{Data Dictionary}
+
+% The following data dictionary defines the major
+% attributes associated with each entity.
+
+% \begin{longtable}{
+%     p{0.16\textwidth}
+%     p{0.22\textwidth}
+%     p{0.16\textwidth}
+%     p{0.31\textwidth}
+% }
+
+% \caption{Data Dictionary for Code Based Preparation}
+% \label{tab:DataDictionary}\\
+
+% \toprule
+% \textbf{Entity} &
+% \textbf{Attribute} &
+% \textbf{Type} &
+% \textbf{Description} \\
+% \midrule
+% \endfirsthead
+
+% \toprule
+% \textbf{Entity} &
+% \textbf{Attribute} &
+% \textbf{Type} &
+% \textbf{Description} \\
+% \midrule
+% \endhead
+
+% Procedure &
+% procedure\_id &
+% String &
+% Unique identifier for an ophthalmology procedure. \\
+% \midrule
+
+% Procedure &
+% procedure\_name &
+% String &
+% Human-readable name of the procedure. \\
+% \midrule
+
+% Procedure &
+% procedure\_description &
+% String &
+% Clinically reviewed educational description
+% of the procedure. \\
+% \midrule
+
+% Preparation Activity &
+% activity\_id &
+% String &
+% Unique identifier for a preparation activity. \\
+% \midrule
+
+% Preparation Activity &
+% procedure\_id &
+% String &
+% Identifier of the associated ophthalmology procedure. \\
+% \midrule
+
+% Preparation Activity &
+% activity\_name &
+% String &
+% Name displayed for the preparation activity. \\
+% \midrule
+
+% Preparation Activity &
+% age\_groups &
+% Set of Strings &
+% Age groups for which the activity is intended. \\
+% \midrule
+
+% Recommendation Code &
+% recommendation\_code &
+% String &
+% Unique generic code identifying an age group
+% and preparation activity selection. \\
+% \midrule
+
+% Recommendation Code &
+% age\_group &
+% Enumeration &
+% Age band associated with the code.
+% Provisional values: Ages 3--5 and Ages 5--7. \\
+% \midrule
+
+% Recommendation Code &
+% procedure\_ids &
+% Set of Strings &
+% Identifiers of the procedures included
+% in the recommendation. \\
+% \midrule
+
+% Recommendation Code &
+% activity\_ids &
+% Set of Strings &
+% Identifiers of the preparation activities
+% associated with the recommendation. \\
+% \midrule
+
+% Recommendation Code &
+% recommendation\_description &
+% String &
+% Human-readable description of the
+% recommended preparation activities. \\
+% \midrule
+
+% Local Preferences &
+% nickname &
+% Optional String &
+% Optional nickname used for local personalization. \\
+% \midrule
+
+% Local Preferences &
+% active\_recommendation &
+% Optional String &
+% Identifier of the currently selected
+% recommendation code. \\
+% \midrule
+
+% Local Preferences &
+% display\_settings &
+% Settings Record &
+% Locally stored display, audio, and
+% accessibility preferences. \\
+% \midrule
+
+% Activity Progress &
+% activity\_id &
+% String &
+% Identifier of the activity associated
+% with the progress record. \\
+% \midrule
+
+% Activity Progress &
+% completion\_status &
+% Enumeration &
+% Current activity status. Values:
+% Not Started, In Progress, Completed. \\
+
+% \bottomrule
+
+% \end{longtable}
+
+% \subsubsection{Initial Draft of Recommendation Code Mapping}
+
+% For the initial specification, recommendation codes
+% are assumed to consist of an age group prefix
+% followed by an activity selection identifier.
+
+% The proposed prefixes are:
+
+% \begin{itemize}
+%     \item \texttt{J}: Activities intended for ages 3--5.
+%     \item \texttt{S}: Activities intended for ages 5--7.
+% \end{itemize}
+
+% For children aged five, either age group may be
+% selected based on the clinician's recommendation.
+% The age band boundaries and selection rules
+% will be confirmed with the project supervisors.
+
+% The following mappings are preliminary examples
+% and do not represent clinically approved
+% recommendations.
+
+% \begin{longtable}{
+%     p{0.22\textwidth}
+%     p{0.17\textwidth}
+%     p{0.49\textwidth}
+% }
+% \caption{Provisional Procedure Recommendation Codes}
+% \label{tab:RecommendationCodes}\\
+
+% \toprule
+% \textbf{Code} &
+% \textbf{Age Group} &
+% \textbf{Preparation Activities} \\
+% \midrule
+% \endfirsthead
+
+% \toprule
+% \textbf{Code} &
+% \textbf{Age Group} &
+% \textbf{Preparation Activities} \\
+% \midrule
+% \endhead
+
+% \texttt{J-ROUTINE} &
+% 3--5 &
+% Vision testing, eye drop preparation,
+% and slit lamp preparation. \\
+
+% \texttt{S-ROUTINE} &
+% 5--7 &
+% Vision testing, eye drop preparation,
+% and slit lamp preparation. \\
+
+% \texttt{J-VISION} &
+% 3--5 &
+% Vision testing preparation. \\
+
+% \texttt{S-VISION} &
+% 5--7 &
+% Vision testing preparation. \\
+
+% \texttt{J-DROPS} &
+% 3--5 &
+% Eye drop preparation. \\
+
+% \texttt{S-DROPS} &
+% 5--7 &
+% Eye drop preparation. \\
+
+% \texttt{J-SLIT} &
+% 3--5 &
+% Slit lamp examination preparation. \\
+
+% \texttt{S-SLIT} &
+% 5--7 &
+% Slit lamp examination preparation. \\
+
+% \bottomrule
+
+% \end{longtable}
+
+% The application will use these mappings to
+% determine which activities to present when a
+% valid recommendation code is entered. 
+% Recommendation codes do not identify individual
+% patients and are reusable across users.
+% The code mappings and supported age groups
+% may be revised following consultation with
+% clinical stakeholders.
+
+% \subsection{Privacy and Data Retention}
+
+% \progname{} follows a data minimization approach, storing only
+% the information necessary to support code based game
+% recommendations, user preferences, and local game progress.
+% The application's privacy and data management practices
+% are outlined below:
+
+% \begin{itemize}
+
+%     \item \textbf{Data Collection:}
+%     The application does not require patient accounts,
+%     medical records, appointment details, or personally
+%     identifying information. Optional nicknames are used
+%     solely for personalization and do not need to
+%     correspond to the child's legal name.
+
+%     \item \textbf{Recommendation Codes and Clinical Data:}
+%     Recommendation codes represent predefined combinations
+%     of games rather than patient specific information.
+%     Codes do not identify individual children or provide
+%     access to clinical records. Code validation and game
+%     selection are performed locally without accessing
+%     clinical information systems or external services.
+
+%     \item \textbf{Data Storage and Protection:}
+%     The application stores only the active recommendation
+%     code, optional user preferences, and game progress
+%     required for its functionality. This information
+%     is stored locally on the user's device and protected
+%     from unauthorized access by other applications.
+%     The application does not transmit this information
+%     to external servers.
+
+%     \item \textbf{Data Retention and Deletion:}
+%     Locally stored information is retained until deleted
+%     by the caregiver or through application removal,
+%     subject to the device's backup and restoration
+%     behaviour. Caregivers can replace or clear the
+%     active recommendation code and delete stored
+%     preferences and game progress.
+
+%     \item \textbf{Consent and Access:}
+%     The application does not require patient registration
+%     or the collection of clinical information to access
+%     its preparation games. Caregivers enter recommendation
+%     codes provided by clinicians to select the games
+%     relevant to their child's upcoming appointment.
+
+%     \item \textbf{Research and Regulatory Compliance:}
+%     Any personal information collected separately for
+%     research or usability evaluation is outside the
+%     application's operational data storage and is
+%     subject to applicable institutional ethics and
+%     privacy requirements.
+
+% \end{itemize}
+
 
 % ============================================================== 
 \section{Non-Functional Requirements}
