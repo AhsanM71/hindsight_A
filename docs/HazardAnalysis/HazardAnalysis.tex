@@ -91,6 +91,7 @@ H\thehazard}
 Components, added 3 entries to Section 5: Failure Mode and Effect Analysis,
 added 5 saftey requirements to Section 6: Safety and Security Requirements,
 added my AI disclosure and reflection \\
+2026/10/13 & Ahsan Muzammil & Completed section 4 (CA), section 5 and 6 (3 each), section 8 (only my AI uses), and Reflection\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -163,10 +164,81 @@ The system contains the following components:
 
 \section{Critical Assumptions}
 
-\wss{These assumptions that are made about the software or system.  You should
-minimize the number of assumptions that remove potential hazards.  For instance,
-you could assume a part will never fail, but it is generally better to include
-this potential failure mode.}
+\section{Critical Assumptions}
+
+\section{Critical Assumptions}
+
+The following assumptions establish the expected conditions under
+which \progname{} will operate. Potential failures involving these
+conditions will still be considered during the hazard analysis.
+
+\begin{enumerate}
+
+    \item Assume that users have access to a compatible smartphone
+    or tablet and possess, or can receive assistance with, the
+    basic skills required to interact with a mobile application.
+
+    \textit{Justification:}
+    The application is intended for use on consumer mobile devices.
+    Since the primary users are young children, their familiarity
+    with mobile devices and ability to interact independently may
+    vary.
+
+    \item Assume that children will primarily use the application
+    at home or in a clinical environment before their ophthalmology
+    appointments, where the level of caregiver assistance may vary.
+
+    \textit{Justification:}
+    The application is intended to support preparation before
+    clinical examinations. The environment and availability of
+    caregivers may influence how children interact with the
+    application and whether they can complete activities
+    independently.
+
+    \item Assume that the mobile device's operating system and
+    hardware will generally support normal application operation,
+    although device failures and performance limitations may occur.
+
+    \textit{Justification:}
+    The application is intended to operate on both iOS and Android
+    devices with varying hardware capabilities. Device related
+    limitations or failures may affect the availability and
+    performance of the application.
+
+    \item Assume that internet connectivity may be unavailable
+    or unreliable during normal application use.
+
+    \textit{Justification:}
+    Families may use the application in environments with
+    limited network connectivity, including clinical waiting
+    areas. The application should therefore not depend on
+    continuous internet access for its essential preparation
+    activities.
+
+    \item Assume that the ophthalmology procedures presented in
+    the application are generally representative of common
+    clinical practices, although the actual procedures may vary
+    between patients and clinical settings.
+
+    \textit{Justification:}
+    The application prepares children for common ophthalmology
+    procedures rather than a specific standardized appointment.
+    Variations in clinical practices may affect how closely
+    the simulated experience reflects the child's actual
+    examination.
+
+    \item Assume that qualified clinical professionals will be
+    available to provide feedback and review the educational
+    content developed for the application.
+
+    \textit{Justification:}
+    The development team relies on clinical expertise to ensure
+    that the educational content appropriately represents
+    ophthalmology procedures. The availability and timing of
+    clinical feedback may affect the accuracy and readiness
+    of the content.
+
+\end{enumerate}
 
 \section{Failure Mode and Effect Analysis}
 \label{sec_FMEA}
