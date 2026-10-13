@@ -83,6 +83,10 @@
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{LC\ref{#1}}
 
+\newcommand{\constref}[1]{%
+    \hyperref[const:#1]{\texttt{\detokenize{#1}}}%
+}
+
 \usepackage{fullpage}
 
 \begin{document}
@@ -1906,63 +1910,263 @@ practices are outlined below:
 % ============================================================== 
 \section{Non-Functional Requirements}
 \label{non-func-req}
+% ==============================================================
 
-\plt{You may have to add other NFRs.}
+The following non-functional requirements define the quality attributes
+and constraints of the application. Each requirement includes a rationale
+and a measurable fit criterion.
 
-\plt{List your nonfunctional requirements.  You may consider using a fit
-  criterion to make them verifiable.}
+\subsection{Look and Feel Requirements}
 
-\plt{The goal is for the nonfunctional requirements to be unambiguous, abstract
-  and verifiable.  This isn't easy to show succinctly, so a good strategy may be
-to give a ``high level'' view of the requirement, but allow for the details to
-be covered in the Verification and Validation document.}
+\begin{itemize}
 
-\plt{An absolute requirement on a quality of the system is rarely needed.  For
-  instance, an accuracy of 0.0101 \% is likely fine, even if the requirement is
-  for 0.01 \% accuracy.  Therefore, the emphasis will often be more on
-  describing now well the quality is achieved, through experimentation, and
-  possibly theory, rather than meeting some bar that was defined a priori.}
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Layout}:]
+The guide character, the home control, and the next and previous controls shall be in the same screen position on every screen of every activity.
 
-\plt{You do not need an entry for correctness in your NFRs.  The purpose of the
-  SRS is to record the requirements that need to be satisfied for correctness.
-  Any statement of correctness would just be redundant. Rather than discuss
-  correctness, you can characterize how far away from the correct (true)
-  solution you are allowed to be.  This is discussed under accuracy.}
+\textbf{Rationale:} Children who cannot read find controls by where they are, not by label. A control that moves is a control a child loses, and consistent positions let a child who has learned one activity use another without help.
 
-\noindent \begin{itemize}
+\textbf{Fit Criterion:} A design review of every screen finds each of these elements within \constref{TOUCH_TARGET_MIN} millimetres of its position on all other screens.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
-  \textbf{Accuracy} \plt{Characterize the accuracy by giving the context/use for
-    the software.  Maybe something like, ``The accuracy of the computed
-    solutions should meet the level needed for $<$engineering or scientific
-    application$>$.  The level of accuracy achieved by \progname{} shall be
-    described following the procedure given in Section~X of the Verification and
-    Validation Plan.''  If you do this provide a link to the VnV plan.}
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_ChildSafe}:]
+No image, animation, narration, or sound shall be frightening, or show pain or distress beyond the sensations in the approved script.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
-  \plt{Characterize the usability by giving the context/use for the software.
-    You should likely reference the user characteristics section.  The level of
-    usability achieved by the software shall be described following the
-    procedure given in Section~X of the Verification and Validation Plan.  Include a link to the VnV plan.}
+\textbf{Rationale:} The clinic is already unfamiliar to the child, so the application must not add to the fear it is meant to reduce. Child-life specialists know what frightens children of this age, and the team does not.
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
-  \textbf{Maintainability} \plt{The effort required to make any of the likely
-    changes listed for \progname{} should be less than FRACTION of the original
-    development time.  FRACTION is then a symbolic constant that can be defined
-    at the end of the report.}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
-  \textbf{Portability} \plt{This NFR is easier to write than the others.  The
-    systems that \progname{} should run on should be listed here.  When possible
-    the specific versions of the potential operating environments should be
-    given.  To make the NFR verifiable a statement could be made that the tests
-    from a given section of the VnV plan can be successfully run on all of the
-    possible operating environments.}
-
-\item Other NFRs that might be discussed include verifiability,
-  understandability, reusability, performance, reliability and availability, security, and accessibility.  You may have to add other NFRs.
+\textbf{Fit Criterion:} A child-life specialist reviews all content against a checklist, and no finding is unresolved at release.
 
 \end{itemize}
+
+\subsection{Usability and Humanity Requirements}
+
+\begin{itemize}
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_TouchTarget}:]
+Every interactive element shall be at least \constref{TOUCH_TARGET_MIN} millimetres wide and high on screen.
+
+\textbf{Rationale:} The Apple and Android guidance minimums are about 7 mm and 9 mm \citep{AppleHIG, MaterialDesign}. Children aged 3 to 7 have less precise motor control, so a larger size is used. The value is to be confirmed in usability testing.
+
+\textbf{Fit Criterion:} Measured on each reference device, every interactive element meets this size.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Exit}:]
+A control that returns to the home menu shall be reachable with one touch from every screen of an activity.
+
+\textbf{Rationale:} A child or parent who chooses the wrong activity, or wants to stop, needs a way out that does not depend on reading. Without one, the child may feel trapped, which works against the goal of reassurance.
+
+\textbf{Fit Criterion:} On every screen of every activity, a tester reaches the home menu with one touch.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Usability}:]
+A first-time user from the defined user characteristics shall be able to complete one walkthrough and its practice activity without reading and without prior training.
+
+\textbf{Rationale:} The application is meant to be used at home with little or no help. If a child needs a parent to explain it, it becomes a parent-led tool and loses the engagement the product depends on. The Development Plan sets about five minutes as the limit of a young child's attention, which gives \constref{ACTIVITY_PAIR_MAX_MIN}. The 80\% rate allows for small test samples.
+
+\textbf{Fit Criterion:} In usability testing, at least \constref{UNAIDED_RATE_MIN}\% of participants complete one walkthrough and its practice activity without verbal help, with a median time of at most \constref{ACTIVITY_PAIR_MAX_MIN} minutes. Participants aged 3--4 may have a parent present who does not explain.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Language}:]
+Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words and use words familiar to a child aged 3 to 7, and text in the adult area shall be at or below a Grade 8 reading level.
+
+\textbf{Rationale:} Young children follow short sentences in familiar words, and long ones are lost. Adults vary in reading ability, and Grade 8 matches the defined user characteristics. The sentence limit is to be confirmed with the child-life specialists.
+
+\textbf{Fit Criterion:} A count over all scripts finds no narrated sentence over the limit, a child-life specialist finds no unfamiliar word, and a readability formula gives a grade of 8 or lower for each adult-area text.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Accessibility}:]
+The application shall meet the WCAG 2.2 Level AA success criteria that apply to a native mobile application.
+
+\textbf{Rationale:} Children who attend an eye clinic may have low vision, and some will have hearing or motor differences. WCAG is the accepted benchmark \citep{WCAG22}, and the same duty applies in Ontario \citep{AODA2005}.
+
+\textbf{Fit Criterion:} An accessibility audit against the applicable criteria finds no failure.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Colour}:]
+Every state and prompt shall remain distinguishable without colour, and for users with common forms of colour vision deficiency.
+
+\textbf{Rationale:} Colour vision deficiency is common enough that some children and parents will have it, and it is more likely among users of an eye service. Relying on colour alone, for example green for correct and red for wrong, would hide information from them.
+
+\textbf{Fit Criterion:} Screens viewed under protanopia, deuteranopia, and tritanopia simulation show every state and choice as distinct by shape, position, or text as well as colour.
+
+\end{itemize}
+
+\subsection{Performance Requirements}
+
+\begin{itemize}
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Startup}:]
+The home menu shall appear within \constref{STARTUP_MAX_S} seconds of launch.
+
+\textbf{Rationale:} A child looking at a blank screen may lose interest before anything starts. Low-spec devices set the limit, and the value is revisited after proof-of-concept measurements.
+
+\textbf{Fit Criterion:} The median of 10 cold starts on each low-spec device is at most this time.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Responsiveness}:]
+The system shall respond visibly to a touch on an interactive element within \constref{RESPONSE_MAX_MS} milliseconds.
+
+\textbf{Rationale:} About 0.1 seconds is the longest delay that feels instant to a user \citep{Nielsen1993}. A child who sees no reaction will tap again, which the activities then have to handle.
+
+\textbf{Fit Criterion:} At least 95\% of measured touches on each low-spec device meet this time.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Smoothness}:]
+Animation shall run at no fewer than \constref{FRAME_RATE_MIN} frames per second.
+
+\textbf{Rationale:} 30 frames per second is the usual minimum for animation that looks smooth on mobile. Choppy animation of a procedure would distract from what it shows.
+
+\textbf{Fit Criterion:} On each low-spec device, the frame rate is at least this value for 95\% of the time over a full walkthrough and practice activity.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_AVSync}:]
+Narration shall start within \constref{AV_SYNC_MAX_MS} milliseconds of the animation it accompanies.
+
+\textbf{Rationale:} Narration that does not match the picture can teach the wrong step. The value is a practical limit that keeps the two looking together, and it is checked in the proof of concept.
+
+\textbf{Fit Criterion:} Measured on each reference device across all steps, no offset exceeds this value.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_AudioSafety}:]
+No sound effect or music shall have a peak level above the peak level of the narration.
+
+\textbf{Rationale:} A sudden loud sound can frighten a child who is already anxious, and can be uncomfortable for small ears. Tying every sound to the narration level, which the parent sets with the device volume, avoids a sound that is louder than the voice.
+
+\textbf{Fit Criterion:} An audio analysis of all sound assets finds no exception.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Reliability}:]
+The application shall not crash or freeze during use.
+
+\textbf{Rationale:} A crash in front of an anxious child, or in a waiting room minutes before an appointment, harms trust in the application. 99\% crash-free sessions is a common benchmark for mobile applications, and 100 sessions is enough to see a failure at that rate.
+
+\textbf{Fit Criterion:} At least \constref{TEST_SESSIONS_MIN} test sessions end without a crash or freeze.
+
+\end{itemize}
+
+\subsection{Operational and Environmental Requirements}
+
+\begin{itemize}
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Offline}:]
+After installation, every function shall work with no network connection.
+
+\textbf{Rationale:} Hospital waiting rooms often have poor connectivity, and that is a place where the application is useful. A network dependency would also raise privacy questions.
+
+\textbf{Fit Criterion:} The full functional test suite passes with the device in airplane mode.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Portability}:]
+The application shall run on iOS \constref{MIN_IOS} and later and Android \constref{MIN_ANDROID} and later, on phones and tablets with screens from \constref{SCREEN_MIN_IN} to \constref{SCREEN_MAX_IN} inches.
+
+\textbf{Rationale:} Families use the devices they already own. These versions cover the large majority of devices in use by families and keep the supported range testable by a small team. A low-spec device is one released at least \constref{LOW_SPEC_AGE_YEARS} years before the test date that still supports the minimum version. The values are revisited after the proof of concept.
+
+\textbf{Fit Criterion:} The functional tests in the VnV Plan pass on every reference device.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Installability}:]
+A parent shall be able to install the application from the app store and reach the home menu without creating an account, granting permissions, or downloading further content.
+
+\textbf{Rationale:} Every extra step is a place where a parent may give up, and a required account would conflict with the decision to collect no personal data.
+
+\textbf{Fit Criterion:} On each reference device, a tester installs the application and reaches the home menu following only the store listing, with none of those steps required.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_InstallSize}:]
+The installed size of the application shall be at most \constref{INSTALL_SIZE_MAX_MB} megabytes.
+
+\textbf{Rationale:} The limit is chosen so a family can download over a mobile connection and so older devices with little storage can hold it. The proof of concept measures the real size.
+
+\textbf{Fit Criterion:} The size reported by each app store for the release build is within this limit.
+
+\end{itemize}
+
+\subsection{Maintainability and Support Requirements}
+
+\begin{itemize}
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Maintainability}:]
+The effort to make any likely change in the Likely Changes section shall be less than \constref{MAINT_FRACTION} of the original development time, not counting clinical review.
+
+\textbf{Rationale:} A change such as a new procedure should cost far less than building the first one, or the application cannot keep up with what clinicians want covered.
+
+\textbf{Fit Criterion:} The recorded effort for each such change made during the project is within this fraction.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Documentation}:]
+The repository shall contain documentation that lets a new developer build the application, run its tests, and add a procedure.
+
+\textbf{Rationale:} The application is meant to be reused and extended by clinicians and other healthcare providers, and the team will not be available to every future developer. Two hours is about as long as a developer can spend on set-up in a first session before becoming blocked.
+
+\textbf{Fit Criterion:} A developer who is new to the project, following only that documentation, builds the application and runs the tests within \constref{SETUP_MAX_H} hours.
+
+\end{itemize}
+
+\subsection{Security Requirements}
+
+\begin{itemize}
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_DataProtection}:]
+Stored settings and progress shall be readable only by the application, using the storage the platform keeps private to it.
+
+\textbf{Rationale:} The nickname and progress are about a child, and no other application or person using the device should read them. The platform already provides private storage.
+
+\textbf{Fit Criterion:} On an unmodified test device, no other application and no file-sharing function can read the stored data.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Integrity}:]
+Every release build shall be digitally signed and distributed only through the Apple App Store and Google Play Store.
+
+\textbf{Rationale:} What children see must be what clinicians approved. A signed build from the official stores means the content cannot have been altered on the way to the device.
+
+\textbf{Fit Criterion:} The signature of each release build verifies with the team's signing key using the platform tools, and no other distribution channel is in use.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Privacy}:]
+The application shall not transmit any data off the device.
+
+\textbf{Rationale:} Not collecting data removes most of the privacy and legal exposure for a service aimed at children, who cannot consent, and the application does not need any data to work. Evaluation measures are collected separately, with consent.
+
+\textbf{Fit Criterion:} A network capture during a full test session shows no outbound request from the application.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Minimisation}:]
+The application shall store only the nickname, age band, display settings, and progress record.
+
+\textbf{Rationale:} Data that is not stored cannot leak or be requested. Only these items are needed for the application to function.
+
+\textbf{Fit Criterion:} Inspection of the storage after a full test session finds only these items.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Immunity}:]
+Each release shall contain no third-party library with a publicly known vulnerability of high or critical severity.
+
+\textbf{Rationale:} The application has no server and accepts no input except touch, so its main exposure is through the libraries it includes. A compromised dependency could break the privacy requirements.
+
+\textbf{Fit Criterion:} A dependency vulnerability scan run on each release build reports none of that severity.
+
+\end{itemize}
+
+\subsection{Cultural and Political Requirements}
+
+\begin{itemize}
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Inclusivity}:]
+Content shall not assume a child's family structure, culture, religion, gender, or ethnicity.
+
+\textbf{Rationale:} Families using the service come from many backgrounds, and a child who does not see themselves in the content, or is shown a family unlike theirs, may feel left out when the aim is reassurance.
+
+\textbf{Fit Criterion:} The review of child-facing content includes an inclusivity checklist, and no finding is unresolved at release.
+
+\end{itemize}
+
+\subsection{Legal Requirements}
+
+\begin{itemize}
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_NoClaims}:]
+The application, its notices, and its store listings shall make no claim to diagnose, screen, treat, or monitor any condition.
+
+\textbf{Rationale:} Software that makes such claims may be regulated as a medical device \citep{HealthCanadaSaMD}. Such a claim would also encourage a parent to treat the practice as a vision test and miss a real problem.
+
+\textbf{Fit Criterion:} Two team members and a clinician review every child-facing text, adult-facing text, and store listing against a checklist, and find no such claim.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Licensing}:]
+Every third-party asset and library shall have a recorded licence that permits redistribution under the project's chosen software licence.
+
+\textbf{Rationale:} Assets from a public store may forbid redistribution or require terms that conflict with the project's chosen licence. A removal for a licence breach would take the application away from families.
+
+\textbf{Fit Criterion:} The licence log lists every third-party asset and library with its licence, and has no gap.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_StoreCompliance}:]
+The application shall meet the Apple and Google policies for children's applications listed in the project's standards table.
+
+\textbf{Rationale:} The application is aimed at children, and the policies call for parental gates and limit advertising, outside links, and third-party data collection \citep{AppleGuidelines, GooglePlayPolicy}. Non-compliance would lead to rejection or removal.
+
+\textbf{Fit Criterion:} Both app stores approve the release build for a children's audience, and every item on the pre-submission policy checklist passes.
+
+\end{itemize}
+ 
 
 % ============================================================== 
 \section{Requirements Traceability Matrices}
@@ -2079,15 +2283,91 @@ TODO
   requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
 
 \subsection{Appendix C: Values of Auxiliary Constants}
+\label{sec_Constants}
 
-\plt{Show the values of the symbolic parameters introduced in the report.}
+This appendix lists the auxiliary constants used throughout the requirements
+specification. These constants define quantitative thresholds, performance
+targets, platform compatibility requirements, and other fixed values referenced
+by the functional and non-functional requirements. Centralising these values
+ensures consistency across the document and provides a single reference point
+for interpreting and verifying the specified requirements.
 
-\plt{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
+\begin{longtable}{p{0.34\textwidth} p{0.12\textwidth} p{0.4\textwidth}}
 
-\plt{The value of FRACTION, for the Maintainability NFR would be given here.}
+\caption{Values of Auxiliary Constants}
+\label{tab:Constants}\\
 
-TODO
+\toprule
+Constant & Value & Unit\\
+\midrule
+\endfirsthead
+
+\multicolumn{3}{c}%
+{{\tablename\ \thetable{} -- continued from previous page}}\\
+\toprule
+Constant & Value & Unit\\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{{Continued on next page}}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\texttt{TOUCH\_TARGET\_MIN} & 15 & mm
+\label{const:TOUCH_TARGET_MIN}\\
+
+\texttt{STARTUP\_MAX\_S} & 5 & s
+\label{const:STARTUP_MAX_S}\\
+
+\texttt{RESPONSE\_MAX\_MS} & 100 & ms
+\label{const:RESPONSE_MAX_MS}\\
+
+\texttt{FRAME\_RATE\_MIN} & 30 & frames per second
+\label{const:FRAME_RATE_MIN}\\
+
+\texttt{AV\_SYNC\_MAX\_MS} & 100 & ms
+\label{const:AV_SYNC_MAX_MS}\\
+
+\texttt{TEST\_SESSIONS\_MIN} & 100 & sessions
+\label{const:TEST_SESSIONS_MIN}\\
+
+\texttt{UNAIDED\_RATE\_MIN} & 80 & \%
+\label{const:UNAIDED_RATE_MIN}\\
+
+\texttt{ACTIVITY\_PAIR\_MAX\_MIN} & 5 & min
+\label{const:ACTIVITY_PAIR_MAX_MIN}\\
+
+\texttt{MIN\_IOS} & 16 & version
+\label{const:MIN_IOS}\\
+
+\texttt{MIN\_ANDROID} & 10 & version
+\label{const:MIN_ANDROID}\\
+
+\texttt{SCREEN\_MIN\_IN} & 4.7 & inches
+\label{const:SCREEN_MIN_IN}\\
+
+\texttt{SCREEN\_MAX\_IN} & 13 & inches
+\label{const:SCREEN_MAX_IN}\\
+
+\texttt{LOW\_SPEC\_AGE\_YEARS} & 5 & years
+\label{const:LOW_SPEC_AGE_YEARS}\\
+
+\texttt{INSTALL\_SIZE\_MAX\_MB} & 300 & MB
+\label{const:INSTALL_SIZE_MAX_MB}\\
+
+\texttt{SENTENCE\_MAX\_WORDS} & 10 & words
+\label{const:SENTENCE_MAX_WORDS}\\
+
+\texttt{SETUP\_MAX\_H} & 2 & hours
+\label{const:SETUP_MAX_H}\\
+
+\texttt{MAINT\_FRACTION} & 0.10 & of original development time
+\label{const:MAINT_FRACTION}\\
+
+\end{longtable}
 
 \subsection{Appendix D: Generative AI Disclosure}
 
