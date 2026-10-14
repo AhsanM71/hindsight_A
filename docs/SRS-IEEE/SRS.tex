@@ -108,8 +108,7 @@
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
 2026/10/12 & Mohammad Bilal & Completed sections 1.1, 1.2, 2.1, \& contributed to 1.4 \\
-2026/10/13 & Ahsan Muzammil & Completed sections 2.2, 7, \& contributed to Appendix D, E, section 1.4 \\
-2026/10/XX & Ahsan Muzammil & Completed sections 5, Appendix B, \& section 1.4 \\
+2026/10/13 & Ahsan Muzammil & Completed sections 2.2, 5, 7, \& contributed to Appendix D, E \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -544,40 +543,1224 @@ numbers.}
 
 % ============================================================== 
 \section{Use Cases}
-\plt{Use cases are a way to describe the interactions between users and the system.
-  They are typically written in natural language and describe the steps that a
-  user takes to achieve a specific goal.  Use cases can be used to identify
-  functional requirements and to create test cases.}  
-\plt{Typically 8-15 substantial use cases.}
 
-\refstepcounter{ucnum} \label{UC_Label1}
-\subsection{\ucref{UC_Label1}: Example Use Case}
+The following use cases describe how children and caregivers
+interact with \progname{} to prepare for upcoming paediatric
+ophthalmology appointments. These use cases apply to both
+caregiver-configured and code-based game recommendations.
+
+\refstepcounter{ucnum}
+\label{UC_FirstUse}
+\subsection{\ucref{UC_FirstUse}: Initial Application Setup}
 
 \textbf{Primary Actor}
 
-TODO
+Caregiver
 
 \textbf{Preconditions}
 \begin{itemize}
-\item TODO
+    \item The application is installed on a supported device.
+    \item The application is being opened for the first time.
 \end{itemize}
 
 \textbf{Main Success Scenario}
 \begin{enumerate}
-\item TODO
-\item TODO
-\item TODO
+    \item The caregiver opens the application.
+    \item The system displays an introduction explaining
+    the application's purpose.
+    \item The system informs the caregiver that the
+    application is a preparation aid and does not
+    replace professional medical advice.
+    \item The caregiver reads and acknowledges the notice.
+    \item The system records the acknowledgment locally.
+    \item The system allows the caregiver to continue
+    to the application's home screen.
 \end{enumerate}
 
 \textbf{Alternative Flows}
 \begin{itemize}
-\item TODO
+    \item If the caregiver does not acknowledge the notice,
+    the system does not proceed beyond the initial
+    acknowledgment step.
+    \item If the application is closed during setup,
+    the system displays the notice again when the
+    application is reopened.
+    \item If the caregiver has previously acknowledged
+    the notice, the system skips the initial
+    acknowledgment step.
 \end{itemize}
 
 \textbf{Postconditions}
 \begin{itemize}
-\item TODO
+    \item The caregiver has been informed of the
+    application's intended purpose and limitations.
+    \item The initial acknowledgment has been
+    recorded locally.
+    \item The application is ready for further configuration
+    or use.
 \end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_ProcedureInformation}
+\subsection{\ucref{UC_ProcedureInformation}: View Procedure Information}
+
+\textbf{Primary Actor}
+
+Caregiver
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The application is open.
+    \item Procedure information is available within
+    the application.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The caregiver navigates to the procedure
+    information or caregiver guide section.
+    \item The system displays the available
+    ophthalmology procedures.
+    \item The caregiver selects a procedure.
+    \item The system displays an age-appropriate
+    explanation of the selected procedure and
+    the preparation game associated with it.
+    \item The caregiver reviews the information to
+    understand how the game prepares the child
+    for the upcoming examination.
+    \item The caregiver returns to the previous
+    screen or selects another procedure.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If the caregiver selects a different procedure,
+    the system displays the information associated
+    with the newly selected procedure.
+    \item If the caregiver exits the guide,
+    the system returns to the previous screen
+    without changing game progress.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The caregiver has access to information
+    explaining the selected procedure and game.
+    \item No changes are made to the child's
+    game progress.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_SelectGame}
+\subsection{\ucref{UC_SelectGame}: Select a Preparation Game}
+
+\textbf{Primary Actor}
+
+Child
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The application is open.
+    \item At least one preparation game is available
+    through the current recommendation selection.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The child navigates to the game selection screen.
+    \item The system displays the preparation games
+    available under the current recommendation.
+    \item The child selects a game using the
+    displayed visual controls.
+    \item The system presents the selected game's
+    introduction and instructions.
+    \item The child begins the game.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If no games have been selected, the system
+    informs the caregiver that game configuration
+    is required.
+    \item If the child returns to the home screen
+    before starting the game, the system exits
+    the selection process without updating progress.
+    \item If the selected game has existing progress,
+    the system uses the game's supported
+    continuation or restart behaviour.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The selected game has been opened.
+    \item The child can begin an age-appropriate
+    preparation experience.
+    \item Progress for unrelated games remains unchanged.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_VisionGame}
+\subsection{\ucref{UC_VisionGame}: Complete Vision Testing Preparation}
+
+\textbf{Primary Actor}
+
+Child
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The vision testing game is available to the child.
+    \item The child has selected the vision testing game.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The system introduces the vision testing procedure
+    through a child-friendly animation demonstrating how
+    an eye examination may be performed.
+
+    \item The system explains that the child will practice
+    identifying and matching different symbols displayed
+    on the screen.
+
+    \item The system displays a reference symbol and a
+    set of possible matching symbols.
+
+    \item The child selects the symbol that matches
+    the reference symbol or chooses to skip the round.
+
+    \item The system provides encouraging feedback
+    based on the child's selection or acknowledges
+    the decision to skip.
+
+    \item Steps 3--5 repeat with different symbols
+    until all symbol-matching rounds have been
+    attempted or skipped.
+
+    \item The system displays a completion message
+    and records the game as completed.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If the child selects an incorrect symbol,
+    the system provides non-punitive feedback
+    and allows another attempt.
+
+    \item If the child has difficulty identifying
+    a symbol, the child may skip the current round.
+    The system proceeds to the next round without
+    requiring a correct answer.
+
+    \item If the child requests assistance, a caregiver
+    may help explain the instructions.
+
+    \item If the child exits the game before reaching
+    the end of all rounds, the system returns to
+    the home screen without marking the game
+    as completed.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The child has been introduced to symbol
+    recognition activities associated with vision testing.
+
+    \item If all rounds have been attempted or skipped,
+    the game's completion status is updated locally.
+
+    \item The application does not assess visual acuity
+    or generate diagnostic results.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_EyeDropGame}
+\subsection{\ucref{UC_EyeDropGame}: Complete Eye-Drop Preparation}
+
+\textbf{Primary Actor}
+
+Child
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The eye-drop preparation game is available
+    to the child.
+    \item The child has selected the eye-drop game.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The system introduces a virtual character
+    preparing to receive eye drops during an
+    ophthalmology appointment.
+
+    \item The system explains through child-friendly
+    narration that a clinical professional may
+    administer eye drops during an examination.
+
+    \item The system displays a virtual character
+    and demonstrates a preparation action,
+    such as tilting the character's head back.
+
+    \item The child interacts with the virtual
+    character to perform the demonstrated
+    preparation action or chooses to skip it.
+
+    \item The system provides encouraging feedback
+    or acknowledges the decision to skip.
+
+    \item Steps 3--5 repeat for the remaining
+    preparation actions until all have been
+    attempted or skipped.
+
+    \item The system displays an animation of
+    a clinical professional administering
+    eye drops to the virtual character.
+
+    \item The system explains that receiving eye drops
+    may feel unfamiliar and that the child can
+    communicate discomfort to the clinician.
+
+    \item The child watches the simulation or chooses
+    to skip to the end of the demonstration.
+
+    \item The system displays a completion message
+    and records the game as completed.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If the child performs a preparation action
+    incorrectly, the system provides a visual hint
+    and allows another attempt.
+
+    \item If the child cannot complete a preparation
+    action, the child may skip it and continue
+    to the next stage of the simulation.
+
+    \item If the child is uncomfortable watching
+    the eye-drop administration animation,
+    the child may skip the demonstration.
+
+    \item If the child exits the game before reaching
+    the end of the simulation, the system returns
+    to the home screen without marking the
+    game as completed.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The child has been introduced to the
+    preparation steps and experience associated
+    with receiving eye drops.
+
+    \item If all stages have been attempted or skipped,
+    the game's completion status is updated locally.
+
+    \item The application does not instruct the child
+    to administer actual medication or independently
+    perform medical procedures.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_SlitLampGame}
+\subsection{\ucref{UC_SlitLampGame}: Complete Slit-Lamp Preparation}
+
+\textbf{Primary Actor}
+
+Child
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The slit-lamp preparation game is available
+    to the child.
+    \item The child has selected the slit-lamp game.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The system introduces the slit-lamp examination
+    through a child-friendly animation of a virtual
+    examination room.
+
+    \item The system displays a simulated slit-lamp
+    device and explains how a clinician uses it
+    to examine the child's eyes.
+
+    \item The system demonstrates a positioning action,
+    such as placing the virtual character's chin
+    on the examination device's chin rest.
+
+    \item The child uses the displayed controls
+    to perform the demonstrated positioning
+    action or chooses to skip the exercise.
+
+    \item The system provides visual feedback
+    indicating whether the character is positioned
+    correctly or acknowledges the decision to skip.
+
+    \item Steps 3--5 repeat for the remaining
+    positioning exercises, including forehead
+    placement, until all exercises have been
+    attempted or skipped.
+
+    \item The system introduces a short simulation
+    demonstrating the importance of remaining
+    relatively still during the examination.
+
+    \item The child participates in the simulated
+    positioning exercise or chooses to skip it.
+
+    \item The system provides encouraging feedback
+    and displays an animation representing
+    the completion of the examination.
+
+    \item The system displays a completion message
+    and records the game as completed.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If the virtual character is positioned
+    incorrectly, the system provides visual
+    guidance and allows the child to adjust
+    its position.
+
+    \item If the child has difficulty with a
+    positioning exercise, the child may skip
+    it without being required to achieve
+    the correct position.
+
+    \item If the child cannot complete the simulated
+    stillness exercise, the system allows
+    the child to skip it and continue
+    to the final demonstration.
+
+    \item If the child exits the game before
+    reaching its final stage, the system returns
+    to the home screen without marking
+    the game as completed.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The child has been introduced to the
+    slit-lamp examination device and the
+    positioning involved in the procedure.
+
+    \item If all exercises have been attempted
+    or skipped, the game's completion status
+    is updated locally.
+
+    \item The application does not produce
+    clinical measurements or diagnostic results.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_ExitGame}
+\subsection{\ucref{UC_ExitGame}: Exit a Preparation Game Before Completion}
+
+\textbf{Primary Actor}
+
+Child
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The child is currently playing a preparation game,
+    such as the vision testing, eye-drop, or slit-lamp game.
+    \item The child has not yet reached the end of the game.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item While participating in a preparation game, the
+    child decides to stop playing before completing
+    all the game's rounds or exercises.
+
+    \item The child selects the home button displayed
+    on the game screen.
+
+    \item The system stops the current game interaction,
+    including any ongoing animations, narration,
+    and game specific input processing.
+
+    \item The system closes the game screen and returns
+    the child to the game selection screen.
+
+    \item The system displays the available preparation
+    games, including the game the child just exited.
+
+    \item The system retains the completion records
+    of previously completed games and does not mark
+    the interrupted game as completed.
+
+    \item The child may select another preparation
+    game or choose to replay the game they exited.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item \textbf{Exit During a Game Animation:}
+    If the child selects the home button while an
+    animation or narration is playing, the system
+    stops the animation and audio before returning
+    to the game selection screen.
+
+    \item \textbf{Exit After Skipping Multiple Rounds:}
+    If the child has skipped one or more rounds
+    but has not reached the end of the game,
+    the system allows the child to exit without
+    requiring any skipped rounds to be completed.
+
+    \item \textbf{Application Interruption:}
+    If the application is closed or interrupted
+    during gameplay, the system retains previously
+    completed game records. When the application
+    is reopened, the child can access the game
+    selection screen and restart the interrupted game.
+
+    \item \textbf{Replay an Interrupted Game:}
+    If the child selects the previously interrupted
+    game again, the system starts the game from
+    its introduction rather than automatically
+    recording the previous attempt as completed.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The child is returned to the game selection
+    screen, where the available preparation games
+    are displayed.
+
+    \item The interrupted game's animations, audio,
+    and interactive controls are no longer running.
+
+    \item The interrupted game is not recorded as
+    completed unless its completion conditions
+    were already satisfied.
+
+    \item Completion records for previously completed
+    games remain unchanged.
+
+    \item The child can start another game or
+    replay the interrupted game without
+    completing the previous attempt.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_CompleteGame}
+\subsection{\ucref{UC_CompleteGame}: Receive Game Completion Feedback}
+
+\textbf{Primary Actor}
+
+Child
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item A preparation game is active.
+    \item The child has reached the game's
+    defined completion conditions.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The child completes the required
+    interactions within the game.
+    \item The system recognizes that
+    the game's completion conditions
+    have been satisfied.
+    \item The system records the game
+    as completed.
+    \item The system presents positive
+    completion feedback or a reward.
+    \item The child returns to the
+    game selection screen.
+    \item The system displays the game
+    as completed.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If the game is exited before
+    completion, the system does not
+    issue a completion reward.
+    \item If the child replays a previously
+    completed game, the system allows
+    the replay without removing its
+    completed status.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The game's completion status
+    is stored locally.
+    \item The child receives positive
+    feedback for completing the game.
+    \item Completion does not indicate
+    clinical readiness or guarantee
+    cooperation during an appointment.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_ViewProgress}
+\subsection{\ucref{UC_ViewProgress}: View Preparation Progress}
+
+\textbf{Primary Actor}
+
+Caregiver
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The application is open.
+    \item The caregiver has configured or entered a
+    recommendation for the child's preparation games.
+    \item The system has access to the locally stored
+    completion status of each game.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The caregiver selects the progress button
+    from the application's home screen.
+
+    \item The system displays the preparation progress
+    screen, showing the games currently recommended
+    for the child.
+
+    \item The system retrieves the locally stored
+    completion status of each recommended game.
+
+    \item For each game, the system displays its name
+    and one of the following completion statuses:
+    \begin{itemize}
+        \item \textbf{Not Started:} The child has not
+        started the game.
+        \item \textbf{In Progress:} The child has
+        started the game but exited before reaching
+        its final stage.
+        \item \textbf{Completed:} The child has
+        reached the end of the game after attempting
+        or skipping its activities.
+    \end{itemize}
+
+    \item The system visually distinguishes completed
+    games from incomplete games using status
+    indicators that do not rely solely on colour.
+
+    \item Steps 3--5 are repeated for each game in
+    the current recommendation until the progress
+    information for all recommended games is displayed.
+
+    \item The caregiver reviews the status of each
+    game to identify which preparation games the
+    child has completed and which remain unfinished.
+
+    \item The caregiver selects the home button
+    to return to the application's home screen.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item \textbf{No Games Started:}
+    If the child has not started any recommended
+    games, the system displays all recommended
+    games with the status \textit{Not Started}.
+
+    \item \textbf{Game Exited Before Completion:}
+    If the child previously exited a game before
+    reaching its final stage, the system displays
+    that game with the status \textit{In Progress}.
+    The game is not marked as completed.
+
+    \item \textbf{Game Completed with Skipped Rounds:}
+    If the child reached the end of a game after
+    attempting or skipping its rounds, the system
+    displays the game with the status
+    \textit{Completed}.
+
+    \item \textbf{No Games Configured:} CHANGE-REQ
+    If no games have been selected through caregiver
+    configuration or a recommendation code, the
+    system informs the caregiver that there are
+    no recommended games to display.
+
+    \item \textbf{Progress Previously Cleared:}
+    If the caregiver has deleted the locally stored
+    game progress, the system displays each
+    recommended game with the status
+    \textit{Not Started}.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The caregiver has viewed the completion
+    status of each currently recommended game.
+
+    \item The progress screen has not modified
+    any stored game completion records.
+
+    \item All game progress remains stored locally
+    on the device.
+
+    \item The displayed completion statuses represent
+    participation in the preparation games and
+    do not indicate clinical performance, visual
+    ability, or readiness for an examination.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_AdjustPreferences}
+\subsection{\ucref{UC_AdjustPreferences}: Change Application Preferences}
+
+\textbf{Primary Actor}
+
+Caregiver
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The application is open.
+    \item The caregiver can access the application settings.
+    \item A nickname has previously been saved.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The caregiver selects the settings button
+    from the application's home screen.
+
+    \item The system displays the available settings,
+    including the current nickname and display
+    and audio preferences.
+
+    \item The caregiver selects the nickname field,
+    which displays the currently saved nickname.
+
+    \item The system allows the caregiver to edit
+    the existing nickname.
+
+    \item The caregiver replaces the existing nickname
+    with a new nickname of their choice and
+    selects the save button.
+
+    \item The system saves the updated nickname
+    locally on the device.
+
+    \item The system updates the nickname field
+    to display the newly saved nickname.
+
+    \item The caregiver selects the home button
+    to return to the application's home screen.
+
+    \item The system displays the updated nickname
+    wherever it is used within the application.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item \textbf{Empty Nickname:}
+    If the caregiver clears the nickname field,
+    the system allows it to remain empty and
+    uses default text where personalization
+    would normally appear.
+
+    \item \textbf{Cancel Changes:}
+    If the caregiver cancels the changes before
+    saving, the system retains the previously
+    saved nickname.
+
+    \item \textbf{Modify Other Preferences:}
+    If the caregiver selects an audio or display
+    setting instead, the system allows the
+    caregiver to modify and save that preference.
+
+    \item \textbf{Application Restart:}
+    If the application is closed and reopened
+    after saving, the system retrieves and
+    displays the updated nickname.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The previously saved nickname has
+    been replaced with the caregiver's
+    newly chosen nickname.
+
+    \item The updated nickname is displayed
+    wherever personalization is supported
+    within the application.
+
+    \item The updated nickname remains available
+    after the application is closed and reopened.
+
+    \item Existing game recommendations and
+    completion records remain unchanged.
+
+    \item No nickname information is transmitted
+    to an external server.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_DeleteData}
+\subsection{\ucref{UC_DeleteData}: Clear Locally Stored User Data}
+
+\textbf{Primary Actor}
+
+Caregiver
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The application is installed.
+    \item The caregiver can access
+    the data management settings.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The caregiver opens
+    the data management section.
+    \item The system displays
+    an option to clear
+    locally stored user data.
+    \item The caregiver selects
+    the option to clear data.
+    \item The system requests
+    confirmation of the action.
+    \item The caregiver confirms
+    the deletion.
+    \item The system clears locally
+    stored preferences, game
+    selections or recommendations,
+    and game progress.
+    \item The system returns
+    to the default setup state.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If the caregiver cancels
+    the confirmation, no data
+    is deleted.
+    \item If there is no user
+    data to clear, the system
+    indicates that no stored
+    progress or preferences
+    are available for deletion.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The selected locally
+    stored user data has
+    been cleared.
+    \item The application remains
+    installed and usable.
+    \item The application's
+    built-in games and educational
+    content remain available.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_OfflineUse}
+\subsection{\ucref{UC_OfflineUse}: Access Preparation Games Offline}
+
+\textbf{Primary Actor}
+
+Child
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The application has been installed successfully
+    on a supported device.
+
+    \item CHANGE-REQ The caregiver has previously configured the
+    recommended games or entered a valid recommendation
+    code, and the selection has been saved locally.
+
+    \item The application is closed.
+
+    \item The device has no active Internet connection.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The child opens the application while the
+    device has no Internet connection.
+
+    \item The system loads the previously saved game
+    recommendations, preferences, and progress
+    from the device's local storage.
+
+    \item The system displays the application's
+    home screen without requiring an Internet
+    connection.
+
+    \item The child selects the button to view
+    the available preparation games.
+
+    \item The system displays the previously
+    recommended games, such as the Vision Testing,
+    Eye-Drop, and Slit-Lamp Preparation Games.
+
+    \item The child selects the Vision Testing Game.
+
+    \item The system opens the game and presents
+    its introduction and instructions using
+    locally available content.
+
+    \item The system displays a reference symbol
+    and a set of possible matching symbols.
+
+    \item The child selects the matching symbol
+    or chooses to skip the current round.
+
+    \item The system provides encouraging feedback
+    or acknowledges the decision to skip.
+
+    \item Steps 8--10 repeat with different symbols
+    until all required rounds have been attempted
+    or skipped.
+
+    \item The system displays a completion message
+    and records the Vision Testing Game as completed
+    in the device's local storage.
+
+    \item The child selects the home button to
+    return to the application's home screen.
+
+    \item The system displays the updated game
+    completion status without requiring an
+    Internet connection.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+
+    \item \textbf{Select a Different Game:}
+    If the child selects the Eye-Drop or Slit-Lamp
+    Preparation Game instead of the Vision Testing
+    Game in Step 6, the system launches the selected
+    game using locally available content. The child
+    completes or skips its individual exercises,
+    and the system saves its completion status locally.
+
+    \item \textbf{Exit Before Completion:}
+    If the child selects the home button before
+    reaching the end of the game, the system stops
+    the game's animations, audio, and interactions
+    and returns to the home screen. The interrupted
+    game is not marked as completed.
+
+    \item \textbf{Internet Connection Lost During Gameplay:}
+    If the device initially has an Internet connection
+    but loses it during gameplay, the current game
+    continues without interruption. The child can
+    finish the game, and its completion status is
+    saved locally.
+
+    \item \textbf{Previously Completed Game:}
+    If the child selects a game that was previously
+    completed, the system allows the game to be
+    replayed without resetting its completed status.
+
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The child has accessed and played a
+    recommended preparation game without requiring
+    an Internet connection.
+
+    \item If the child reached the end of the game,
+    its completion status is updated and stored
+    locally on the device.
+
+    \item Previously saved recommendations,
+    preferences, and game progress remain available.
+
+    \item No external server or network connection
+    was required to load the game, process interactions,
+    or save completion progress.
+\end{itemize}
+
+
+
+
+% Option 2 Use case Scenarios
+CHANGE-REQ
+\refstepcounter{ucnum}
+\label{UC_ConfigureGames}
+\subsection{\ucref{UC_ConfigureGames}: Configure Recommended Games}
+
+\textbf{Primary Actor}
+
+Caregiver
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The application is installed and open.
+    \item The caregiver has received recommendations
+    from the child's clinician regarding the
+    procedures expected during the appointment.
+    \item The caregiver can access the
+    game configuration settings.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The caregiver navigates to
+    the game configuration section.
+    \item The system displays the available
+    procedure games and their descriptions.
+    \item The caregiver selects the age group
+    appropriate for the child.
+    \item The caregiver selects the games
+    recommended by the clinician.
+    \item The system displays the selected
+    games for review.
+    \item The caregiver confirms the selection.
+    \item The system saves the selected age
+    group and enabled games locally.
+    \item The system displays the selected
+    games in the child's game selection screen.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If the caregiver makes no game selections,
+    the system informs the caregiver that
+    at least one game must be selected
+    before completing the configuration.
+    \item If the caregiver cancels the configuration,
+    the system retains the previously saved settings.
+    \item If the caregiver selects an unsupported
+    age group for a game, the system indicates
+    that the game is not available for that
+    age group.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The caregiver's game selections
+    and age-group preference are stored locally.
+    \item The child can access the games
+    selected by the caregiver.
+    \item No patient account or clinical
+    database connection is required.
+\end{itemize}
+
+
+\refstepcounter{ucnum}
+\label{UC_ModifyGames}
+\subsection{\ucref{UC_ModifyGames}: Modify Recommended Games}
+
+\textbf{Primary Actor}
+
+Caregiver
+
+\textbf{Preconditions}
+\begin{itemize}
+    \item The application has an existing
+    caregiver configuration.
+    \item The caregiver can access the
+    game configuration settings.
+\end{itemize}
+
+\textbf{Main Success Scenario}
+\begin{enumerate}
+    \item The caregiver opens the
+    game configuration section.
+    \item The system displays the currently
+    enabled games.
+    \item The caregiver reviews the
+    existing game selections.
+    \item The caregiver enables or disables
+    games based on updated clinical
+    recommendations or preparation needs.
+    \item The system displays the revised
+    selection for confirmation.
+    \item The caregiver confirms the changes.
+    \item The system saves the updated
+    configuration locally.
+    \item The system updates the games
+    available on the child's game
+    selection screen.
+\end{enumerate}
+
+\textbf{Alternative Flows}
+\begin{itemize}
+    \item If the caregiver cancels the changes,
+    the previous configuration remains active.
+    \item If all games are disabled, the
+    system informs the caregiver that
+    no preparation games are currently selected.
+    \item If a previously completed game
+    is disabled, its completion record
+    is retained unless the caregiver
+    separately clears the stored data.
+\end{itemize}
+
+\textbf{Postconditions}
+\begin{itemize}
+    \item The updated game configuration
+    is stored locally.
+    \item The child's game selection
+    screen reflects the updated selections.
+    \item Existing game completion records
+    remain unchanged.
+\end{itemize}
+
+
+% Option 3 Use case scenarios
+% \refstepcounter{ucnum}
+% \label{UC_EnterCode}
+% \subsection{\ucref{UC_EnterCode}: Enter a Procedure Recommendation Code}
+
+% \textbf{Primary Actor}
+
+% Caregiver
+
+% \textbf{Preconditions}
+% \begin{itemize}
+%     \item The application is installed and open.
+%     \item The caregiver has received a recommendation
+%     code from the child's clinician.
+%     \item The application contains a locally
+%     available mapping of supported
+%     recommendation codes to games.
+% \end{itemize}
+
+% \textbf{Main Success Scenario}
+% \begin{enumerate}
+%     \item The caregiver navigates to
+%     the recommendation code entry screen.
+%     \item The system prompts the caregiver
+%     to enter a recommendation code.
+%     \item The caregiver enters the code
+%     provided by the clinician.
+%     \item The system validates the code
+%     against its local recommendation catalogue.
+%     \item The system identifies the age
+%     group associated with the code.
+%     \item The system identifies the
+%     procedure games associated with the code.
+%     \item The system displays the age group
+%     and recommended games for review.
+%     \item The caregiver confirms the recommendation.
+%     \item The system stores the active
+%     recommendation locally.
+%     \item The system displays the corresponding
+%     games on the child's game selection screen.
+% \end{enumerate}
+
+% \textbf{Alternative Flows}
+% \begin{itemize}
+%     \item If the caregiver enters an invalid
+%     or unrecognized code, the system displays
+%     an error message and allows another attempt.
+%     \item If the caregiver cancels the operation,
+%     the system retains the previously
+%     active recommendation, if any.
+%     \item If the caregiver does not confirm
+%     the displayed recommendation, the system
+%     does not apply the new code.
+%     \item If the device has no Internet
+%     connection, the system validates
+%     the code using its locally
+%     available catalogue.
+% \end{itemize}
+
+% \textbf{Postconditions}
+% \begin{itemize}
+%     \item A valid recommendation code
+%     has been applied to the application.
+%     \item The appropriate age group
+%     and games have been selected.
+%     \item The active recommendation
+%     is stored locally.
+%     \item No patient account or external
+%     clinical system is required.
+% \end{itemize}
+
+
+% \refstepcounter{ucnum}
+% \label{UC_ChangeCode}
+% \subsection{\ucref{UC_ChangeCode}: Change the Active Recommendation Code}
+
+% \textbf{Primary Actor}
+
+% Caregiver
+
+% \textbf{Preconditions}
+% \begin{itemize}
+%     \item The application has an active
+%     recommendation code.
+%     \item The caregiver has received
+%     a different recommendation code
+%     or wishes to update the current selection.
+% \end{itemize}
+
+% \textbf{Main Success Scenario}
+% \begin{enumerate}
+%     \item The caregiver opens the
+%     recommendation settings.
+%     \item The system displays the currently
+%     active recommendation and its
+%     associated games.
+%     \item The caregiver selects the option
+%     to change the recommendation code.
+%     \item The system prompts the caregiver
+%     to enter a new code.
+%     \item The caregiver enters the new code.
+%     \item The system validates the code
+%     using its local recommendation catalogue.
+%     \item The system displays the new age
+%     group and associated procedure games.
+%     \item The caregiver confirms the changes.
+%     \item The system replaces the active
+%     recommendation with the new selection.
+%     \item The system updates the child's
+%     game selection screen.
+% \end{enumerate}
+
+% \textbf{Alternative Flows}
+% \begin{itemize}
+%     \item If the new code is invalid,
+%     the system displays an error message
+%     and retains the existing recommendation.
+%     \item If the caregiver cancels the operation,
+%     the previously active recommendation
+%     remains unchanged.
+%     \item If the new recommendation contains
+%     games that were previously completed,
+%     their stored completion records are retained.
+%     \item If the caregiver clears the active
+%     recommendation without entering a new code,
+%     the system returns to an unconfigured state.
+% \end{itemize}
+
+% \textbf{Postconditions}
+% \begin{itemize}
+%     \item The new recommendation code
+%     replaces the previous active code
+%     if the caregiver confirmed the change.
+%     \item The child's available games and
+%     age-appropriate content reflect
+%     the new recommendation.
+%     \item Previously stored game progress
+%     remains unchanged.
+%     \item The updated recommendation
+%     is stored locally.
+% \end{itemize}
 
 % ============================================================== 
 \section{Functional Requirements}
