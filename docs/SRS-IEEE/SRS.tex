@@ -259,6 +259,57 @@ A table linking stakeholder requirements, use cases, and functional and non-func
 Augmented Reality (AR) &
 Technology that overlays digital content onto the real world. \\
 
+Journey Based Progression &
+A game structure in which children explore ophthalmology
+preparation games presented as levels within a journey.
+All levels remain accessible regardless of previous
+completion. \\
+
+Procedure Game &
+An interactive game representing one ophthalmology
+procedure, such as vision testing, eye-drop
+administration, or slit-lamp examination. \\
+
+Journey Level &
+A stage within the preparation journey corresponding
+to a procedure game. Each level may contain multiple
+interactive exercises or rounds. \\
+
+Game Progress &
+The recorded completion status of a preparation game:
+Not Started, In Progress, or Completed. \\
+
+Journey Points &
+Points earned through participation in preparation
+games. They contribute to the child's overall score
+and are not reduced when in game currency is spent. \\
+
+In Game Coins &
+Virtual currency earned through gameplay that can
+be spent on character accessories. Coins have no
+real world monetary value. \\
+
+Personal Scoreboard &
+A display of the child's individual journey progress,
+including completed levels, accumulated points,
+and available coins, without comparing results
+against other children. \\
+
+Cosmetic Accessory &
+A virtual item, such as a hat or glasses, that
+changes a character's appearance without affecting
+gameplay or clinical preparation content. \\
+
+Character Inventory &
+The collection of cosmetic accessories that a child
+owns through in game purchases or direct rewards. \\
+
+First Completion Reward &
+A reward granted when a child completes a journey
+level for the first time. The reward may include
+journey points and either in game coins or a
+cosmetic accessory. \\
+
 \end{longtable}
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
@@ -1362,8 +1413,8 @@ parts of the SRS.  The label names should be meaningful mnemonics, not numbers.}
 \section{Data Requirements}
 
 This section describes the information managed by \progname{}
-to support journey-based progression, character selection,
-game completion tracking, and a personal scoreboard.
+to support journey based progression, character customization,
+game completion tracking, rewards, and a personal scoreboard.
 The application does not require patient accounts or
 integration with clinical information systems. All user
 data is maintained locally on the user's device.
@@ -1374,10 +1425,16 @@ journey. Games may contain multiple smaller interactions
 or rounds, but these are treated as part of the game
 rather than as separate data entities.
 
-All levels are accessible regardless of whether previous
-levels have been completed. As children explore the games,
-they can earn points, track their progress, and view their
-achievements through a personal scoreboard.
+All levels remain accessible regardless of whether previous
+levels have been completed. Children can earn journey points,
+receive in game coins or cosmetic accessories, and use
+their rewards to customize a selected character.
+
+Journey points accumulate across completed games and are
+displayed on the personal scoreboard. In game coins are
+tracked separately and may be spent on cosmetic accessories.
+Rewards are granted upon the first completion of each game,
+including when individual exercises have been skipped.
 
 
 \subsection{Major Data Entities}
@@ -1398,45 +1455,81 @@ The system manages the following major data entities:
 
     \item \textbf{Character:}
     Represents a character available for the child to
-    select and use throughout their preparation journey.
+    select and use throughout the preparation journey.
     Each character has a unique identifier, a display
     name, and a visual representation.
+
+    \item \textbf{Cosmetic Accessory:}
+    Represents a virtual item, such as a hat or glasses,
+    used to customize a character's appearance.
+    Accessories may be purchased using in game coins
+    or received directly as game completion rewards.
+    Cosmetic accessories do not affect gameplay
+    performance or clinical preparation activities.
+
+    \item \textbf{Character Inventory:}
+    Represents the cosmetic accessories owned by the
+    child and identifies which accessories are currently
+    equipped on the selected character. Owned items
+    remain available when the child changes characters.
+
+    \item \textbf{Reward Definition:}
+    Represents the predefined reward associated with
+    the first completion of a procedure game.
+    Each reward includes journey points and either
+    in-game coins or a cosmetic accessory.
+    Rewards are based on game completion rather
+    than the accuracy of individual responses.
 
     \item \textbf{Local Preferences:}
     Represents locally stored application settings,
     including the child's optional nickname, selected
-    character, age group, and display or accessibility
-    preferences. These settings do not require a
-    patient account.
+    character, age group, display or accessibility
+    preferences, and caregiver acknowledgment of
+    the application's educational purpose.
+    These settings do not require a patient account.
 
     \item \textbf{Game Progress:}
-    Represents the completion status and points earned
-    for each preparation game. Progress is tracked at
-    the game level rather than for individual rounds
-    or exercises. This information reflects participation
-    in the application rather than clinical performance
+    Represents the completion status, journey points
+    earned, and reward claim status for each preparation
+    game. Progress is tracked at the game level rather
+    than for individual rounds or exercises.
+    This information reflects participation in the
+    application rather than clinical performance
     or assessment results.
 
     \item \textbf{Journey Progress:}
     Represents the child's overall progression across
-    all preparation games, including accumulated points
-    and completed levels. This information is calculated
-    from individual Game Progress records and displayed
-    through the personal scoreboard.
+    all preparation games, including accumulated journey
+    points, completed levels, and the current in game
+    coin balance. Total journey points and completed
+    levels are calculated from Game Progress records,
+    while the spendable coin balance is maintained
+    locally and updated when coins are earned or spent.
 
 \end{itemize}
 
 The relationship between these entities is as follows:
 each Procedure Game represents one ophthalmology procedure
-and corresponds to one level in the journey. Local
-Preferences identifies the character selected by the child
-and determines how the application is presented.
+and corresponds to one level in the journey. Each game has
+an associated Reward Definition and a Game Progress record.
 
-Game Progress records the completion status and points
-earned for each Procedure Game independently. Journey
-Progress summarizes these records to display the child's
-overall achievements without requiring duplicate
-progress data to be stored.
+Local Preferences identifies the character selected by the
+child, while Character Inventory tracks the Cosmetic
+Accessories owned and equipped by the child.
+
+When a game is completed for the first time, the system
+records its completion, awards the corresponding journey
+points, and grants either coins or a cosmetic accessory.
+Game Progress records whether the reward has been claimed
+to prevent duplicate rewards when a completed game is
+replayed.
+
+Journey Progress summarizes individual Game Progress
+records to calculate accumulated journey points and
+completed levels. The coin balance is maintained
+separately because coins may be spent in the
+character customization shop.
 
 
 \subsection{Data Dictionary}
@@ -1529,6 +1622,89 @@ Identifier of the character's visual representation
 within the application. \\
 \midrule
 
+Cosmetic Accessory &
+accessory\_id &
+String &
+Unique identifier for a cosmetic accessory. \\
+\midrule
+
+Cosmetic Accessory &
+accessory\_name &
+String &
+Name displayed for the accessory. \\
+\midrule
+
+Cosmetic Accessory &
+accessory\_visual &
+String &
+Identifier of the accessory's visual representation
+within the application. \\
+\midrule
+
+Cosmetic Accessory &
+accessory\_category &
+String &
+Category indicating where the accessory can
+be equipped, such as hats or glasses. \\
+\midrule
+
+Cosmetic Accessory &
+coin\_price &
+Optional Non-negative Integer &
+Number of in-game coins required to purchase
+the accessory. An absent price indicates that
+the item is not available for purchase. \\
+\midrule
+
+Character Inventory &
+owned\_accessory\_ids &
+Set of Strings &
+Identifiers of accessories purchased with coins
+or received directly as game rewards. \\
+\midrule
+
+Character Inventory &
+equipped\_accessory\_ids &
+Set of Strings &
+Identifiers of owned accessories currently
+equipped on the selected character. \\
+\midrule
+
+Reward Definition &
+game\_id &
+String &
+Identifier of the procedure game associated
+with the first-completion reward. \\
+\midrule
+
+Reward Definition &
+points\_awarded &
+Non-negative Integer &
+Journey points awarded when the game is
+completed for the first time. \\
+\midrule
+
+Reward Definition &
+reward\_type &
+Enumeration &
+Type of additional reward.
+Values: Coins, Cosmetic Accessory. \\
+\midrule
+
+Reward Definition &
+coin\_amount &
+Optional Non-negative Integer &
+Number of coins awarded when the reward
+type is Coins. \\
+\midrule
+
+Reward Definition &
+reward\_accessory\_id &
+Optional String &
+Identifier of the cosmetic accessory awarded
+when the reward type is Cosmetic Accessory. \\
+\midrule
+
 Local Preferences &
 nickname &
 Optional String &
@@ -1541,7 +1717,7 @@ Local Preferences &
 selected\_character\_id &
 Optional String &
 Identifier of the character selected by the child
-for their preparation journey. \\
+for the preparation journey. \\
 \midrule
 
 Local Preferences &
@@ -1556,6 +1732,13 @@ display\_settings &
 Settings Record &
 Locally stored display, audio, and accessibility
 preferences. \\
+\midrule
+
+Local Preferences &
+notice\_acknowledged &
+Boolean &
+Indicates whether the caregiver has acknowledged
+the application's educational-use notice. \\
 \midrule
 
 Game Progress &
@@ -1575,22 +1758,32 @@ Values: Not Started, In Progress, Completed. \\
 Game Progress &
 points\_earned &
 Non-negative Integer &
-Points earned by the child through participation
-in the corresponding preparation game. \\
+Journey points earned through the game's
+first completion. Points are retained
+when the game is replayed. \\
+\midrule
+
+Game Progress &
+reward\_claimed &
+Boolean &
+Indicates whether the game's first-completion
+reward has already been granted. \\
 \midrule
 
 Journey Progress &
 total\_points &
 Derived Integer &
-Total points accumulated across all preparation
-games, calculated from Game Progress records. \\
+Total journey points accumulated across all
+preparation games, calculated from Game
+Progress records. \\
 \midrule
 
 Journey Progress &
 completed\_levels &
 Derived Integer &
-Number of preparation games marked as completed,
-calculated from Game Progress records. \\
+Number of preparation games marked as
+Completed, calculated from Game Progress
+records. \\
 \midrule
 
 Journey Progress &
@@ -1598,17 +1791,26 @@ total\_levels &
 Derived Integer &
 Total number of preparation games available
 within the journey. \\
+\midrule
+
+Journey Progress &
+coin\_balance &
+Non-negative Integer &
+Current spendable balance of in-game coins.
+The balance increases when coins are earned
+and decreases when accessories are purchased. \\
 
 \bottomrule
 
 \end{longtable}
 
+
 \subsection{Privacy and Data Retention}
 
 \progname{} follows a data-minimization approach,
 collecting and retaining only the information necessary
-to support character selection, journey progression,
-user preferences, and local game progress.
+to support character customization, journey progression,
+rewards, user preferences, and local game progress.
 The application's privacy and data management
 practices are outlined below:
 
@@ -1621,29 +1823,37 @@ practices are outlined below:
     used solely for personalization and do not need
     to correspond to the child's legal name.
 
-    \item \textbf{Character Selection:}
-    Children may select a character to accompany
-    them throughout their preparation journey.
-    The application stores the identifier of the
-    selected character locally without requiring
-    personal information or account registration.
+    \item \textbf{Character Selection and Customization:}
+    The application stores the selected character,
+    owned cosmetic accessories, and equipped accessories
+    locally. Character customization does not require
+    registration or the collection of personal information.
 
     \item \textbf{Game and Journey Progress:}
-    The application stores the completion status
-    and points earned for each preparation game.
-    Total points and completed levels are calculated
-    from these records to display the child's
-    personal scoreboard. No information about
-    clinical performance or visual ability is
-    collected through the games.
+    The application stores completion status, journey
+    points, and reward claim status for each preparation
+    game. Total points and completed levels are calculated
+    from these records and displayed on the personal
+    scoreboard. This information does not represent
+    clinical performance or visual ability.
+
+    \item \textbf{Rewards and Virtual Currency:}
+    In-game coins and cosmetic accessories are earned
+    through game completion. Coins may be exchanged
+    for accessories within the application, while
+    some accessories are awarded directly.
+    Coin balances and owned accessories are stored
+    locally. No real-money purchases or external
+    payment services are required.
 
     \item \textbf{Data Storage and Protection:}
-    User preferences, selected character information,
-    and game progress shall be stored locally on the
-    user's device and protected from unauthorized
-    access by other applications. The application
-    shall not transmit this information to external
-    servers or require user accounts.
+    User preferences, character selections, game
+    progress, coin balances, and accessory inventories
+    shall be stored locally on the user's device
+    and protected from unauthorized access by other
+    applications. The application shall not transmit
+    this information to external servers or require
+    user accounts.
 
     \item \textbf{Data Retention and Deletion:}
     Locally stored information is retained until
@@ -1651,21 +1861,32 @@ practices are outlined below:
     removal, subject to the device's backup and
     restoration behaviour. Caregivers can clear
     stored preferences, character selections,
-    and game progress through the application's
+    game progress, points, coin balances, and
+    accessory inventories through the application's
     data management functionality.
 
     \item \textbf{Consent and Access:}
     The application does not require registration
     or the collection of personal information
-    to access its preparation games. All games
-    are available to children regardless of
-    whether previous levels have been completed.
+    to access its preparation games. Caregivers
+    acknowledge the application's educational
+    purpose during initial setup. All games remain
+    available regardless of whether previous
+    levels have been completed.
 
     \item \textbf{Scoreboard Privacy:}
-    The scoreboard displays only the child's
-    own accumulated points and journey progress.
-    It does not compare scores with other users
-    or require an online leaderboard.
+    The personal scoreboard displays only the child's
+    accumulated journey points, completed levels,
+    and current coin balance. It does not compare
+    scores with other children or require an
+    online leaderboard.
+
+    \item \textbf{Offline Functionality:}
+    Procedure games, characters, cosmetic accessories,
+    and reward definitions are available locally.
+    Game progress, rewards, accessory purchases,
+    and character customization do not require
+    an Internet connection or external server.
 
     \item \textbf{Research and Regulatory Compliance:}
     Any personal information collected separately
@@ -1785,33 +2006,34 @@ Functional Req & Nonfunctional Req \\
 
 The data requirements were developed by considering how
 ophthalmology procedures and their preparation games should
-be represented. Initially, we considered a one to many
+be represented. Initially, the team considered a one to many
 relationship where each procedure could have multiple
-preparation activities. However, since we had not established
+preparation activities. However, since the team had not established
 whether multiple distinct games would be developed for
-each procedure, we chose a simpler one to one relationship.
+each procedure, a simpler one to one relationship was selected.
 Each procedure is represented by one game, which may contain
 multiple smaller exercises or rounds.
 
-We also considered two approaches for selecting preparation
+The team also considered two approaches for selecting preparation
 games: allowing caregivers to manually choose games based
 on clinical recommendations, or having caregivers enter a
 clinician provided code to automatically select the appropriate
-games. We consulted our supervisor to determine which approach
-would be more practical in a clinical setting.
+games. The team consulted the project supervisor to determine
+which approach would be more practical in a clinical setting.
 
-Our supervisor recommended making all games accessible,
+The supervisor recommended making all games accessible,
 since the procedures required during an examination may
-change unexpectedly. She also suggested presenting the
+change unexpectedly. The supervisor also suggested presenting the
 games as a journey with levels, rewards, a personal
 scoreboard, and character customization.
 
-Based on this feedback, we removed the caregiver configuration
+Based on this feedback, the team removed the caregiver configuration
 and recommendation code entities from the data requirements.
-We instead introduced entities to support character selection,
-game progress, journey progression, and rewards. All user
-data is stored locally to maintain offline functionality
-and minimize the collection of personal information.
+Instead, entities supporting character selection, 
+game progress, journey progression, and rewards
+were introduced. All user data is stored locally to maintain
+offline functionality and minimize the collection of
+personal information.
 
 \section{Likely Changes}    
 
@@ -1863,7 +2085,13 @@ TODO
 
 \subsection{Appendix D: Generative AI Disclosure}
 
-\textbf{AI Tool Used:} ChatGPT (OpenAI).
+\subsubsection*{AI Tools Used}
+
+\begin{itemize}
+    \item ChatGPT (GPT-6 Luna)
+\end{itemize}
+
+\subsubsection*{How and Where Used}
 
 ChatGPT was used as a supporting tool during the preparation of
 this document, primarily to assist with \LaTeX{} formatting,
@@ -1896,7 +2124,7 @@ Its use was mainly used in the following sections:
 
 \end{itemize}
 
-\textbf{Verification of AI-Assisted Content:}
+\subsubsection*{Verification of AI-Assisted Content:}
 
 The team reviewed AI-assisted material to ensure it was
 consistent with the project's scope, existing documentation,
@@ -2247,51 +2475,42 @@ individual responses are provided under each respective team member's name.
     \item \textbf{Which knowledge areas or skills will you personally
     need to acquire?}
 
-    One of the main skills I need to develop is game
-    development using Unity and C\#. I have never worked
-    on developing a game before, and this will be my
-    first time using Unity and C\# in this context.
-    Although I have previous programming experience,
-    I recognize that game development involves different
-    concepts, tools, and workflows that I will need
-    time to understand.
+    One of the main skills I would like to develop is mobile
+    application development. Although I have previous programming
+    experience, I have limited experience developing mobile
+    applications, particularly those involving interactive
+    interfaces, animations, audio, and local data storage.
 
-    In particular, I need to become familiar with
-    Unity's editor, scene management, game objects,
-    user interface development, animations, and
-    handling user interactions. I will also need
-    to improve my understanding of how C\# scripts
-    are used within Unity to control game behaviour.
-    Developing these skills will be important for
-    contributing effectively to the implementation
-    of our application's preparation games.
+    I will need to learn how to use our selected development
+    framework, Unity, and C\# to implement these features.
+    I also want to understand how to structure a mobile
+    application, manage navigation between screens, handle
+    user interactions, and ensure the application functions
+    correctly across supported devices. Developing these
+    skills will help me contribute to the implementation
+    of EyeCanDo.
+
 
     \item \textbf{What approaches will you pursue to acquire this
     knowledge or master this skill, and why?}
 
-    I plan to begin by watching beginner friendly
-    Unity tutorials and following along with small
-    example projects to understand the fundamentals
-    of the engine. Rather than immediately working
-    on complex features, I want to become comfortable
-    with creating scenes, managing game objects,
-    writing C\# scripts, and implementing simple
-    user interactions. This will help me build a
-    foundation before applying these concepts to
-    our actual project.
+    The approaches I plan to pursue to acquire knowledge about
+    mobile application development include the following:
 
-    I also plan to use AI assisted development tools,
-    particularly OpenAI Codex, to help me understand
-    unfamiliar Unity concepts, troubleshoot errors,
-    and learn different ways of implementing features.
-    I intend to use these tools primarily as learning
-    and debugging resources rather than relying on
-    generated code without understanding it. By
-    combining tutorials, hands on practice, AI assisted
-    troubleshooting, and collaboration with my
-    teammates, I hope to become more confident with
-    Unity and contribute more effectively to the
-    development of our application.
+    First, I will use official documentation and tutorials
+    to learn the fundamentals of Unity and C\#, including
+    interface development, navigation, animations, audio,
+    and local data storage. This will help me understand
+    the development framework and become familiar with
+    the tools needed to implement our application.
+
+    Second, I will build small technical prototypes to
+    practice implementing individual features, such as
+    navigating between screens, handling user interactions,
+    and saving progress locally. Developing these features
+    separately will allow me to apply what I have learned,
+    identify technical and compatibility issues, and gain
+    experience before integrating them into EyeCanDo.
 
 \end{enumerate}
 
