@@ -1,9 +1,59 @@
 \documentclass{article}
 
+\usepackage[margin=1in]{geometry}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{parskip}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{pdflscape}
+
+% Ragged-right paragraph column for tables
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% Bullet point inside a table cell
+\newcommand{\bitem}{\par\noindent\hangindent=1em\hangafter=1%
+\makebox[1em][l]{\textbullet}}
+
+% ----- Cross-referencing system ---------------------------------------------
+% Every component, hazard and requirement has a unique key. Numbers are worked
+% out from where the item appears, and every reference uses the key, so
+% reordering the component list, the FMEA rows or the requirement list
+% updates every number and link automatically.
+%
+% Components (Section 3): label each item in the component list with
+%   \complabel{key}. \compref{key}{text} links text to it.
+%
+% Hazards (FMEA table): in the Component cell, write \fmeacomp{key}{name}
+%   for the main component, followed by the subcomponent, and give each row
+%   \hazdef{key}. Hazards are numbered H<c>-<n>: c is the main component's
+%   number in Section 3 and n is the row's position within that component.
+%   \hazref{key} links to a hazard.
+%
+% Requirements (Section 6): start each item with \item[\srdef{key}].
+%   Requirements are numbered SR-<n> in list order.
+%   \srref{key} links to a requirement.
+\newcommand{\complabel}[1]{\phantomsection\label{comp:#1}}
+\newcommand{\compref}[2]{\hyperref[comp:#1]{#2}}
+
+\newcounter{hazard}
+\newcommand{\fmeacurrent}{}
+\renewcommand{\thehazard}{\getrefnumber{comp:\fmeacurrent}-\arabic{hazard}}
+\renewcommand{\theHhazard}{\fmeacurrent.\arabic{hazard}}
+% Hazard numbering restarts only when the main component changes, so
+% several subcomponents of the same component share one sequence.
+\newcommand{\fmeacomp}[2]{\def\fmeanext{#1}%
+\ifx\fmeanext\fmeacurrent\else\setcounter{hazard}{0}\fi
+\gdef\fmeacurrent{#1}\compref{#1}{#2}}
+\newcommand{\hazdef}[1]{\leavevmode\refstepcounter{hazard}\label{haz:#1}%
+H\thehazard}
+\newcommand{\hazref}[1]{\hyperref[haz:#1]{H\ref*{haz:#1}}}
+
+\newcounter{sr}
+\newcommand{\srdef}[1]{\refstepcounter{sr}\label{sr:#1}\textbf{SR-\thesr:}}
+\newcommand{\srref}[1]{\hyperref[sr:#1]{SR-\ref*{sr:#1}}}
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -86,24 +136,24 @@ device the child is playing on.
 The system contains the following components:
 
 \begin{enumerate}
-  \item \textbf{The Device:} A phone or tablet running iOS or Android including its operating system, touchscreen,
+  \item \complabel{Device}\textbf{The Device:} A phone or tablet running iOS or Android including its operating system, touchscreen,
   speakers or headphones, and storage.
 
-  \item \textbf{The Game:} An application installed on the device. The Game can be split into multiple subcomponents:
+  \item \complabel{Game}\textbf{The Game:} An application installed on the device. The Game can be split into multiple subcomponents:
   \begin{itemize}
-    \item \textbf{Gameplay:} The levels, the interactions that respond to the child's
+    \item \complabel{Gameplay}\textbf{Gameplay:} The levels, the interactions that respond to the child's
     touch input, and scoring.
-    \item \textbf{Educational Content:} The facts about each eye procedure and
+    \item \complabel{EducationalContent}\textbf{Educational Content:} The facts about each eye procedure and
     the story, characters and illustrations that present them.
-    \item \textbf{Quizzes:} The questions that check what the child has
+    \item \complabel{Quizzes}\textbf{Quizzes:} The questions that check what the child has
     learned, and the feedback given for right and wrong answers.
-    \item \textbf{Progress and Rewards:} Unlocked levels, stars, collectibles,
+    \item \complabel{ProgressRewards}\textbf{Progress and Rewards:} Unlocked levels, stars, collectibles,
     cosmetic rewards and player profiles.
-    \item \textbf{Audio and Visuals:} Graphics, animations, effects, music,
+    \item \complabel{AudioVisuals}\textbf{Audio and Visuals:} Graphics, animations, effects, music,
     sound effects and narration.
-    \item \textbf{Save Data:} The progress, rewards and settings stored on the
+    \item \complabel{SaveData}\textbf{Save Data:} The progress, rewards and settings stored on the
     device.
-    \item \textbf{Third-party Software and Assets:} The game engine, libraries,
+    \item \complabel{ThirdParty}\textbf{Third-party Software and Assets:} The game engine, libraries,
     art, fonts and sounds included in the game.
   \end{itemize}
 
@@ -118,20 +168,200 @@ you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
 
 \section{Failure Mode and Effect Analysis}
+\label{sec_FMEA}
 
-\wss{Include your FMEA table here. This is the most important part of this document.}
-\wss{The safety requirements in the table do not have to have the prefix SR.
-The most important thing is to show traceability to your SRS. You might trace to
-requirements you have already written, or you might need to add new
-requirements.}
-\wss{If no safety requirement can be devised, other mitigation strategies can be
-entered in the table, including strategies involving providing additional
-documentation, and/or test cases.}
+\subsection{Method}
+
+The hazards are identified with a Failure Mode and Effects Analysis (FMEA).
+FMEA works bottom-up from the components of Section~3: for each component, the
+team asked how it could fail and what that failure would do to the child. This
+suits the game, because most of its hazards come from a single failure, such
+as one piece of wrong content or one unsafe effect, rather than from complex
+interactions between components. Failures involving the conditions in the
+critical assumptions of Section~4 are still analysed.
+
+The game is meant to be finished in full before the child's visit, since
+families do not always know which procedures will be done. A failure that
+stops the child from finishing the game therefore stops them from learning
+about every procedure that comes after it.
+
+Table~\ref{tab:FMEA} is divided into one section per component of
+Section~3. Each row records:
+
+\begin{itemize}
+  \item \textbf{Component:} the main component of Section~3 and the
+  subcomponent that fails.
+  \item \textbf{Failure mode:} how the failure would be observed.
+  \item \textbf{Effects of failure:} the consequence for the child or their
+  family.
+  \item \textbf{Causes of failure:} the reasons the failure could occur.
+  \item \textbf{Recommended action:} what will remove the hazard or reduce its
+  likelihood or effect.
+  \item \textbf{SR:} the safety and security requirements of
+  Section~\ref{sec_SR} that the actions lead to.
+  \item \textbf{Ref:} the hazard identifier, H$c$-$n$, where $c$ is the main
+  component's number in Section~3 and $n$ is the hazard's position within that
+  component.
+\end{itemize}
+
+\subsection{FMEA Table}
+
+Table~\ref{tab:FMEA} is printed in landscape orientation.
+
+% Column widths as fractions of the landscape text width (after the space
+% between columns). The fractions add up to 1.
+\newlength{\fmeaw}
+\newcolumntype{W}[1]{L{#1\fmeaw}}
+\newcommand{\fmeahead}{\toprule
+\textbf{Component} & \textbf{Failure Mode} & \textbf{Effects of Failure} &
+\textbf{Causes of Failure} & \textbf{Recommended Action} & \textbf{SR} &
+\textbf{Ref}\\
+\midrule}
+
+\begin{landscape}
+\small
+\setlength{\fmeaw}{\dimexpr\linewidth-14\tabcolsep\relax}
+\begin{longtable}{W{0.12}W{0.13}W{0.16}W{0.18}W{0.26}W{0.09}W{0.06}}
+\caption{FMEA table} \label{tab:FMEA}\\
+\fmeahead
+\endfirsthead
+\fmeahead
+\endhead
+\bottomrule
+\multicolumn{7}{r}{continue on next page \ldots}\\
+\endfoot
+\bottomrule
+\endlastfoot
+% ----- The Game: Educational Content ----------------------------------------
+\fmeacomp{Game}{The Game}:\newline
+\compref{EducationalContent}{Educational Content}
+& Procedure shown inaccurately (wrong steps, order or equipment)
+& Child's expectations do not match the visit, causing surprise, anxiety and
+reduced cooperation during the examination
+& \bitem No team member has clinical training
+  \bitem Procedures differ between patients, clinicians and clinics
+  \bitem Content changed after it was reviewed
+& \bitem Have a paediatric eye-care clinician approve all procedure content
+  before release
+  \bitem Tell the child their doctor may do things a little differently
+  \bitem Release only the content version that was approved
+& \srref{ClinicianApproval}, \srref{ClinicsDiffer},
+  \srref{ApprovedContent}
+& \hazdef{InaccurateProcedure}\\
+\addlinespace
+& Unpleasant sensations left out or played down (``it won't hurt'')
+& Child is surprised by stinging drops, a bright light or blurry vision, and
+loses trust in their caregivers, clinicians and the game
+& \bitem Writers try to reassure the child
+  \bitem Sensation information is easy to skip during fast-paced play
+& \bitem Describe each sensation honestly before the child sees that part of
+  the procedure
+  \bitem Never promise that something will not hurt or be uncomfortable
+  \bitem Do not let the sensation information be skipped
+& \srref{HonestSensations}, \srref{ChildLifeReview}
+& \hazdef{SensationsHidden}\\
+\addlinespace
+& Frightening content (needles, crying, looming equipment, sudden noises or
+scary story moments)
+& Increased fear of the appointment; the child may resist or refuse the
+examination
+& \bitem Realistic depiction chosen for accuracy
+  \bitem Danger or drama added to the story to make the game exciting
+  \bitem Art and sounds used without review
+& \bitem Have a child-life specialist or child development expert review all
+  images, sounds, language and story
+  \bitem Keep danger and drama out of the parts of the game that show
+  procedures
+& \srref{ChildLifeReview}
+& \hazdef{Frightening}\\
+\end{longtable}
+\end{landscape}
 
 \section{Safety and Security Requirements}
+\label{sec_SR}
 
-\wss{Newly discovered requirements.  These should also be added to the SRS.  (A
-rationale design process how and why to fake it.)}
+The following requirements were identified through the Failure Mode and
+Effects Analysis of Section~\ref{sec_FMEA}. Each requirement will also be
+incorporated into the SRS to maintain traceability between the two
+documents.
+
+\begin{itemize}[leftmargin=1.5cm, labelwidth=1.3cm, labelsep=0.2cm,
+  align=left, itemsep=1.2em, parsep=0.6em]
+
+\item[\srdef{ClinicianApproval}] \textbf{Clinical Approval of Procedure Content}
+
+Every procedure shown in the game, including its steps, equipment and the
+sensations the child may feel, shall be approved by a paediatric eye-care
+clinician before the game is released. The approval shall be recorded.
+
+\textit{Rationale:} No team member has clinical training. A procedure shown
+wrongly means the child's expectations do not match the clinic, which causes
+the anxiety the game aims to prevent.
+
+\textit{Associated hazards:} \hazref{InaccurateProcedure}
+
+\textit{SRS:} TODO
+
+\item[\srdef{ClinicsDiffer}] \textbf{Variation Between Clinics}
+
+The game shall tell the child, in words and pictures suited to their age,
+that their doctor may do things a little differently from the game.
+
+\textit{Rationale:} Procedures vary between patients, clinicians and clinics
+(Assumption~5). Telling the child this in advance means a difference at the
+visit is less likely to surprise or upset them.
+
+\textit{Associated hazards:} \hazref{InaccurateProcedure}
+
+\textit{SRS:} TODO
+
+\item[\srdef{ApprovedContent}] \textbf{Release of Approved Content Only}
+
+The released game shall contain only the version of the educational content
+that was approved by the clinical and child-life reviewers. Any change to
+approved content shall be reviewed again before release.
+
+\textit{Rationale:} An approval is only meaningful if the content the child
+sees is the content that was reviewed. Late edits, such as wording changes or
+new art, could reintroduce errors.
+
+\textit{Associated hazards:} \hazref{InaccurateProcedure}
+
+\textit{SRS:} TODO
+
+\item[\srdef{HonestSensations}] \textbf{Honest Description of Sensations}
+
+For every part of a procedure that the child may feel (such as cold, stinging,
+a bright light, pressure or blurry vision), the game shall describe the
+sensation before showing that part of the procedure. The description shall
+not be skippable, and the game shall not state or imply that a procedure will
+not hurt or be uncomfortable.
+
+\textit{Rationale:} Clinicians identified stinging eye drops as a major source
+of anxiety. A child who has been told about a sensation is not surprised by
+it, and does not learn to distrust the people who prepared them.
+
+\textit{Associated hazards:} \hazref{SensationsHidden}
+
+\textit{SRS:} TODO
+
+\item[\srdef{ChildLifeReview}] \textbf{Child-Life Review of Content}
+
+All images, sounds, language and story in the game shall be reviewed by a
+child-life specialist or child development expert before release, confirming
+that they are suitable for children aged three to seven, contain no
+frightening material, and make no promise that a procedure will not be
+uncomfortable.
+
+\textit{Rationale:} Child-life experts judge emotional suitability, which the
+clinical review does not cover. This matters more in a game, where story and
+excitement are added to the medical content.
+
+\textit{Associated hazards:} \hazref{SensationsHidden}, \hazref{Frightening}
+
+\textit{SRS:} TODO
+
+\end{itemize}
 
 \section{Roadmap}
 
