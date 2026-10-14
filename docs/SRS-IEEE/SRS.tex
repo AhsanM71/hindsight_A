@@ -60,6 +60,9 @@
 
 % Used so that cross-references have a meaningful prefix
 
+\newcounter{connum} %System Constraint (C) Number
+\newcommand{\conref}[1]{C.\ref{#1}}
+
 \newcounter{srnum} %Stakeholder Requirement (SR) Number
 \newcommand{\srthesrnum}{SR\thesrnum}
 \newcommand{\srref}[1]{SR\ref{#1}}
@@ -378,15 +381,85 @@ McSCert uses in their automotive hazard analyses.}
 
 \subsection{System Constraints}
 
-\plt{System constraints differ from other type of requirements because they
-  limit the developers' options in the system design and they identify how the
-  eventual system must fit into the world. This is the only place in the SRS
-  where design decisions can be specified.  That is, the quality requirement for
-  abstraction is relaxed here.  However, system constraints should only be
-  included if they are truly required.}
+\begin{itemize}
+    \item \progname{} shall operate on consumer smartphones and tablets running
+    iOS or Android.
+    (C.\refstepcounter{connum}\theconnum\label{C_MobilePlatforms})
+    \begin{itemize}
+        \item \textbf{Rationale:} Patient families and clinics may use mobile devices running
+        either operating system. Supporting both enables preparation
+        at home and in clinic without assuming a particular platform.
+    \end{itemize}
 
-\plt{This is where you would mention platform constrains, and licensing
-restrictions.}
+    \item Third-party assets and libraries included in \progname{} shall have
+    licenses allowing their use and redistribution within the application.
+    Required copyright notices, licenses, and attributions shall be retained.
+    (C.\refstepcounter{connum}\theconnum\label{C_ApplicationLicensing})
+    \begin{itemize}
+        \item \textbf{Rationale:} The application's source code is licensed under the
+        MIT license, while third-party materials have their own licensing.
+        These conditions must be satisfied when the application is released.
+    \end{itemize}
+
+    \item Third-party materials present in the \progname{} GitHub
+    repository shall have licenses allowing redistribution in the form committed to the repository.
+    (C.\refstepcounter{connum}\theconnum\label{C_RepositoryLicensing})
+    \begin{itemize}
+        \item \textbf{Rationale:} Permission to distribute an asset in
+        an application does not necessarily mean redistribution of its raw
+        files in the project repository is permitted. Repository contents must satisfy
+        the applicable licensing conditions (separately from the compiled application).
+    \end{itemize}
+
+    \item \progname{} shall be built using a game engine with native support
+    for cross-platform deployment to iOS and Android.
+    (C.\refstepcounter{connum}\theconnum\label{C_CrossPlatformEngine})
+    \begin{itemize}
+        \item \textbf{Rationale:} Native deployment support satisfies \conref{C_MobilePlatforms}. The team has
+        currently selected the Unity game engine, but the selected engine may
+        change provided that it satisfies this constraint.
+    \end{itemize}
+
+    \item \progname{} shall provide all included preparation modules and their
+    required assets without internet connection after installation.
+    (C.\refstepcounter{connum}\theconnum\label{C_OfflineOperation})
+    \begin{itemize}
+        \item \textbf{Rationale:} Families must be able to prepare at home and
+        in clinic, where connectivity may be poor or unavailable.
+    \end{itemize}
+
+    \item \progname{} shall operate as a standalone local application and shall
+    not initiate network communications during operation, including
+    through included third-party libraries.
+    (C.\refstepcounter{connum}\theconnum\label{C_NoNetworkCommunications})
+    \begin{itemize}
+        \item \textbf{Rationale:} Preparation activities do not require external
+        services or data transit. Prohibiting network
+        communications also prevents included libraries from transmitting usage
+        data. Downloading and updating the application through its distribution
+        channels are outside normal application operation (i.e., a patient progressing through the application's
+        preparation modules).
+    \end{itemize}
+
+    \item \progname{} shall not request, collect, or store identifying
+    information or clinical records, and shall not integrate with clinic
+    information systems.
+    (C.\refstepcounter{connum}\theconnum\label{C_PatientPrivacy})
+    \begin{itemize}
+        \item \textbf{Rationale:} Preparation activities do not require patient
+        records. Limiting application data to local gameplay, like character selection and scores,
+        supports preparation without requiring identifying information.
+    \end{itemize}
+
+    \item The iOS and Android releases of \progname{} shall comply with the Apple App Store and Google Play submission
+    requirements, respectively, including applicable policies for applications meant for children, at time of submission.
+    (C.\refstepcounter{connum}\theconnum\label{C_StoreCompliance})
+    \begin{itemize}
+        \item \textbf{Rationale:} These marketplaces are the planned distribution
+        channels through which families and clinics will install the application. Compliance
+        with their submission requirements is necessary for distribution to the target users.
+    \end{itemize}
+\end{itemize}
 
 % ============================================================== 
 \section{Stakeholder Requirements}
