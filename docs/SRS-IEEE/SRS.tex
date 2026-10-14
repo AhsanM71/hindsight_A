@@ -1781,12 +1781,37 @@ Functional Req & Nonfunctional Req \\
 
 \section{Rationale}
 
-\plt{Provide a rationale for the decisions made in the documentation.  Rationale
-should be provided for scope decisions, functional requirements, nonfunctioanl
-requirements, data requirements, and AI requirements.  You don't need a
-rationale for everything, ust the major decisions that are not obvious.  You
-should have traceability to the entities in the document that you are
-referencing.}
+\subsection{Data Requirements}
+
+The data requirements were developed by considering how
+ophthalmology procedures and their preparation games should
+be represented. Initially, we considered a one to many
+relationship where each procedure could have multiple
+preparation activities. However, since we had not established
+whether multiple distinct games would be developed for
+each procedure, we chose a simpler one to one relationship.
+Each procedure is represented by one game, which may contain
+multiple smaller exercises or rounds.
+
+We also considered two approaches for selecting preparation
+games: allowing caregivers to manually choose games based
+on clinical recommendations, or having caregivers enter a
+clinician provided code to automatically select the appropriate
+games. We consulted our supervisor to determine which approach
+would be more practical in a clinical setting.
+
+Our supervisor recommended making all games accessible,
+since the procedures required during an examination may
+change unexpectedly. She also suggested presenting the
+games as a journey with levels, rewards, a personal
+scoreboard, and character customization.
+
+Based on this feedback, we removed the caregiver configuration
+and recommendation code entities from the data requirements.
+We instead introduced entities to support character selection,
+game progress, journey progression, and rewards. All user
+data is stored locally to maintain offline functionality
+and minimize the collection of personal information.
 
 \section{Likely Changes}    
 
