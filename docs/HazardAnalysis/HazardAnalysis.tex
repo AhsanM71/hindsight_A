@@ -3,6 +3,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{parskip}
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -64,11 +65,50 @@ hazards.}
 
 \section{System Boundaries and Components}
 
-\wss{Dividing the system into components will help you brainstorm the hazards.
-You shouldn't do a full design of the components, just get a feel for the major
-ones.  For projects that involve hardware, the components will typically include
-each individual piece of hardware.  If your software will have a database, or an
-important library, these are also potential components.}
+\subsection{System Boundary}
+
+The system boundary contains the game and the device it is played on.
+
+The game includes everything in the release build. This includes the code, content,
+assets and any third-party software packaged with it, along with the data it saves
+on the device.
+
+The device includes the hardware and operating system that run
+the game. The team did not make the devices, but they are inside the boundary
+because the game must run correctly on the device.
+
+The boundary ends at the device. The game runs offline after installation and
+has no accounts or servers, so everything the system does happens on the
+device the child is playing on.
+
+\subsection{Components}
+
+The system contains the following components:
+
+\begin{enumerate}
+  \item \textbf{The Device:} A phone or tablet running iOS or Android including its operating system, touchscreen,
+  speakers or headphones, and storage.
+
+  \item \textbf{The Game:} An application installed on the device. The Game can be split into multiple subcomponents:
+  \begin{itemize}
+    \item \textbf{Gameplay:} The levels, the interactions that respond to the child's
+    touch input, and scoring.
+    \item \textbf{Educational Content:} The facts about each eye procedure and
+    the story, characters and illustrations that present them.
+    \item \textbf{Quizzes:} The questions that check what the child has
+    learned, and the feedback given for right and wrong answers.
+    \item \textbf{Progress and Rewards:} Unlocked levels, stars, collectibles,
+    cosmetic rewards and player profiles.
+    \item \textbf{Audio and Visuals:} Graphics, animations, effects, music,
+    sound effects and narration.
+    \item \textbf{Save Data:} The progress, rewards and settings stored on the
+    device.
+    \item \textbf{Third-party Software and Assets:} The game engine, libraries,
+    art, fonts and sounds included in the game.
+  \end{itemize}
+
+
+\end{enumerate}
 
 \section{Critical Assumptions}
 
