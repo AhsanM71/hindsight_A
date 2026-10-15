@@ -106,6 +106,7 @@ added my AI disclosure and reflection \\
 \pagenumbering{arabic}
 
 \section{Introduction}
+\label{sec_Introduction}
 
 This document presents the hazard analysis for \progname{}, a mobile game
 designed to prepare children aged 3--7 for paediatric ophthalmology appointments.
@@ -122,6 +123,7 @@ or data security, the use of inaccurate information, and failure to prepare
 children effectively for their eye appointments.
 
 \section{Scope and Purpose of Hazard Analysis}
+\label{sec_Scope}
 
 The purpose of this hazard analysis is to evaluate risks associated with the
 development and use of \progname{}, assess their potential consequences, and
@@ -202,6 +204,7 @@ The system contains the following components:
 \end{enumerate}
 
 \section{Critical Assumptions}
+\label{sec_Critical_Assumptions}
 
 The following assumptions establish the expected conditions under
 which \progname{} will operate. Potential failures involving these
@@ -313,6 +316,7 @@ Section~3. Each row records:
 \end{itemize}
 
 \subsection{FMEA Table}
+\label{sec_FMEA_Table}
 
 Table~\ref{tab:FMEA} is printed in landscape orientation.
 
@@ -1078,26 +1082,34 @@ hazard analysis.
 The following sections were assisted by AI:
 
 \begin{itemize}
-  \item \textbf{FMEA Table:} Claude was used to help with the table formatting
+  \item In Section~\ref{sec_Introduction} (Introduction) and Section~\ref{sec_Scope} (Scope),
+  Opus 5.5 was used to generate an initial draft based on our problem statement document.
+  The team then manually refined the content.
+
+  \item In Section~\ref{sec_FMEA_Table} (FMEA Table), Claude was used to help with the table formatting
   and the creation of a numbering system. This allowed us to quickly link the
   hazards to the security requirements without worrying about the order of
   which items appear first.
   
-    \item \textbf{Critical Assumptions:}
-    ChatGPT was used to brainstorm potential assumptions regarding
-    the application's operating environment, intended users, and
-    external dependencies. These suggestions were reviewed and
-    refined to ensure they were relevant to the project's scope.
+  \item In Section~\ref{sec_Critical_Assumptions} (Critical Assumptions),
+  ChatGPT was used to brainstorm potential assumptions regarding
+  the application's operating environment, intended users, and
+  external dependencies. These suggestions were reviewed and
+  refined to ensure they were relevant to the project's scope.
 
-    \item \textbf{Safety and Security Requirements:}
-    ChatGPT was used to ensure that additional safety and security
-    requirements that were brainstormed didn't already overlap with existing SRS 
-    NFRs. 
+  \item In Section~\ref{sec_SR} (Safety and Security Requirements),
+  ChatGPT was used to ensure that additional safety and security
+  requirements that were brainstormed didn't already overlap with existing SRS 
+  NFRs.
 
-    \item \textbf{Document Formatting:}
-    ChatGPT was used to assist with converting and formatting
-    written content into appropriate \LaTeX{} structures,
-    including lists, tables, and section organization.
+  \item In Section~\ref{sec_FMEA} (FMEA) and Section~\ref{sec_SR} (Safety and Security Requirements),
+  ChatGPT and Opus 5.5 were used for brainstorming and idea generation, which the team
+  then used to aid us in coming up with hazards and associated requirements.
+
+  \item For document formatting,
+  ChatGPT was used to assist with converting and formatting
+  written content into appropriate \LaTeX{} structures,
+  including lists, tables, and section organization.
 \end{itemize}
 
 \subsection{Verification of AI-Generated Content}
@@ -1112,7 +1124,9 @@ methodology presented in the course lectures. Suggestions that were
 inappropriate, unnecessary, or inconsistent with the team's decisions were
 removed or revised. For \LaTeX{} formatting, the team verified that the
 document compiled successfully and that the resulting output was formatted as
-intended. The team remains responsible for the accuracy, completeness,
+intended.
+
+The team remains responsible for the accuracy, completeness,
 consistency, and appropriateness of the final document, regardless of whether
 content was generated or modified with AI assistance.
 
