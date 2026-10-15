@@ -339,27 +339,48 @@ Table~\ref{tab:FMEA} is printed in landscape orientation.
 \endfoot
 \bottomrule
 \endlastfoot
+
+% ----- The Device -----------------------------------------------------------
+\fmeacomp{Device}{The Device}
+& Device becomes excessively hot during use
+& The child may become uncomfortable or stop using the
+application; in severe cases, prolonged contact with a
+hot device could cause minor injury
+& \bitem Device has insufficient cooling
+  \bitem Application places excessive load on the device
+  \bitem Application continues performing unnecessary
+  processing while idle
+& \bitem Avoid unnecessary continuous processing
+  \bitem Stop resource-intensive activities when they
+  are no longer required
+  \bitem Test the application on supported devices under
+  extended use conditions
+& \srref{DeviceResourceUse}
+& \hazdef{DeviceOverheating}\\
+\addlinespace
+
+& Game experiences poor performance, including
+slow response times or dropped frames
+& Delayed or inconsistent gameplay may make the
+application difficult to use, causing frustration or
+preventing the child from following preparation
+activities effectively
+& \bitem Application requires excessive processing
+  \bitem Insufficient memory or processing resources
+  \bitem Inefficient rendering or animation
+  \bitem Performance degrades during extended use
+& \bitem Maintain responsive gameplay and smooth
+  visual transitions
+  \bitem Optimize processing, rendering, and animations
+  \bitem Test gameplay performance on supported devices
+  \bitem Verify performance during extended gameplay
+& \srref{DevicePerformance}
+& \hazdef{PoorPerformance}\\
+\addlinespace
+
+% ----- The Game: Gameplay ---------------------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{Gameplay}{Gameplay}
-& Incorrect answers or skipped exercises trigger
-negative feedback or penalties
-& The child experiences frustration or increased
-anxiety and may become reluctant to continue
-preparing for ophthalmology examinations
-& \bitem Game rewards are awarded based on answer
-accuracy rather than activity completion
-  \bitem Skipped exercises are treated as failures
-  \bitem Gameplay requires correct answers
-before allowing progression
-& \bitem Provide encouraging feedback for
-incorrect responses and skipped exercises
-  \bitem Allow children to skip exercises
-without losing previously earned rewards
-  \bitem Award level completion based on reaching
-the ending rather than answering correctly
-& \srref{NonPunitiveFeedback}
-& \hazdef{PunitiveFeedback}\\
-\addlinespace
 & Repeated or accidental touch inputs cause the game
 to skip important preparation information
 & The child may miss explanations about an
@@ -380,6 +401,27 @@ information cannot be skipped accidentally
 & \srref{PreventAccidentalInput}
 & \hazdef{AccidentalInputSkipping}\\
 \addlinespace
+
+& Gameplay becomes stuck or enters an unrecoverable state
+after an unexpected or invalid player action
+& The child may be unable to continue the preparation
+activity and may become frustrated or confused
+& \bitem Invalid or unexpected input is not handled
+  \bitem A gameplay state does not have a valid exit
+  \bitem An incomplete action leaves the game in an
+  unusable state
+  \bitem Error conditions are not tested during gameplay
+& \bitem Provide a valid recovery path from every
+  gameplay state
+  \bitem Handle unexpected or invalid inputs without
+  preventing continued play
+  \bitem Allow the child to safely restart the current
+  activity without losing completed preparation
+  \bitem Test gameplay recovery and interruption scenarios
+& \srref{GameplayRecovery}
+& \hazdef{GameplayStuck}\\
+\addlinespace
+
 % ----- The Game: Educational Content ----------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{EducationalContent}{Educational Content}
@@ -397,6 +439,7 @@ reduced cooperation during the examination
   \srref{ApprovedContent}
 & \hazdef{InaccurateProcedure}\\
 \addlinespace
+
 & Unpleasant sensations left out or played down (``it won't hurt'')
 & Child is surprised by stinging drops, a bright light or blurry vision, and
 loses trust in their caregivers, clinicians and the game
@@ -409,20 +452,22 @@ loses trust in their caregivers, clinicians and the game
 & \srref{HonestSensations}, \srref{ChildLifeReview}
 & \hazdef{SensationsHidden}\\
 \addlinespace
-& Frightening content (needles, crying, looming equipment, sudden noises or
-scary story moments)
+
+& Frightening content (needles, crying, looming equipment,
+threatening imagery, or scary story moments)
 & Increased fear of the appointment; the child may resist or refuse the
 examination
 & \bitem Realistic depiction chosen for accuracy
   \bitem Danger or drama added to the story to make the game exciting
-  \bitem Art and sounds used without review
+  \bitem Art and imagery used without review
 & \bitem Have a child-life specialist or child development expert review all
-  images, sounds, language and story
+  images, language, and story
   \bitem Keep danger and drama out of the parts of the game that show
   procedures
 & \srref{ChildLifeReview}
 & \hazdef{Frightening}\\
 \addlinespace
+
 & The game does not clearly communicate that
 its content is educational rather than medical advice
 & Caregivers may mistake simulated procedures or
@@ -442,8 +487,20 @@ before accessing the application
 caregiver procedure guide
 & \srref{MedicalDisclaimer}
 & \hazdef{MisinterpretedMedicalPurpose}\\
-% ----- Additional Hazards: The Game -------------------------------
 \addlinespace
+
+% ----- The Game: Quizzes ----------------------------------------------------
+\fmeacomp{Game}{The Game}:\newline
+\compref{Quizzes}{Quizzes}
+& TODO
+& TODO
+& TODO
+& TODO
+& TODO
+& TODO\\
+\addlinespace
+
+% ----- The Game: Progress and Rewards ---------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{ProgressRewards}{Progress and Rewards}
 & Preparation levels become inaccessible until earlier
@@ -463,7 +520,28 @@ rather than restricting access to educational games
 regardless of previous completion
 & \srref{AllLevelsAccessible}
 & \hazdef{RestrictedLevelAccess}\\
+
+& Incorrect answers or skipped exercises trigger
+negative feedback or penalties
+& The child experiences frustration or increased
+anxiety and may become reluctant to continue
+preparing for ophthalmology examinations
+& \bitem Game rewards are awarded based on answer
+accuracy rather than activity completion
+  \bitem Skipped exercises are treated as failures
+  \bitem Gameplay requires correct answers
+before allowing progression
+& \bitem Provide encouraging feedback for
+incorrect responses and skipped exercises
+  \bitem Allow children to skip exercises
+without losing previously earned rewards
+  \bitem Award level completion based on reaching
+the ending rather than answering correctly
+& \srref{NonPunitiveFeedback}
+& \hazdef{PunitiveFeedback}\\
 \addlinespace
+
+% ----- The Game: Audio and Visuals ------------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{AudioVisuals}{Audio and Visuals}
 & Audio, animations, or visual effects continue
@@ -486,6 +564,108 @@ the journey map
 audio playback and animations
 & \srref{StopAudioVisualsOnExit}
 & \hazdef{AudioVisualsContinueOnExit}\\
+\addlinespace
+
+& Sudden loud audio, excessive volume, or rapidly
+flashing visual effects cause discomfort or distress
+& The child may experience sensory discomfort,
+headaches, startle responses, or difficulty
+continuing to use the application
+& \bitem Audio is played at an unnecessarily high volume
+  \bitem Sound effects begin suddenly without a gradual transition
+  \bitem Visual effects change or flash rapidly
+  \bitem Sensory effects are not tested on supported devices
+& \bitem Keep audio at a comfortable volume and avoid
+unnecessarily loud sound effects
+  \bitem Avoid rapidly flashing or excessively repetitive
+visual effects
+  \bitem Test audio and visual effects during normal gameplay
+  \bitem Allow non-essential audio to be muted or reduced
+& \srref{SafeAudioVisuals}
+& \hazdef{UnsafeAudioVisuals}\\
+\addlinespace
+
+% ----- The Game: Save Data --------------------------------------------------
+\fmeacomp{Game}{The Game}:\newline
+\compref{SaveData}{Save Data}
+& Saved progress becomes corrupted or is reset
+& The child loses completed levels, rewards, or
+settings and may become frustrated or believe
+that previously completed preparation has been lost
+& \bitem Application terminates while saving
+  \bitem Invalid save data is written
+  \bitem Device storage becomes unavailable
+  \bitem Changes to the save-data format are
+not handled correctly
+& \bitem Validate save data before loading it
+  \bitem Handle interrupted or invalid saves
+without crashing
+  \bitem Preserve valid progress when a save
+operation fails
+  \bitem Test save and load behaviour under
+interrupted conditions
+& \srref{ReliableSaveData}
+& \hazdef{SaveDataCorruption}\\
+\addlinespace
+
+& Save data contains unnecessary personal information
+or is accessible to other applications
+& Information about the child could be exposed,
+creating a privacy or security risk
+& \bitem Personal information is stored despite
+not being required for gameplay
+  \bitem Save files are stored without appropriate
+device protections
+  \bitem Debug information is included in release
+save data
+& \bitem Store only information required for
+offline gameplay
+  \bitem Do not store names, contact information,
+or other unnecessary personal information
+  \bitem Protect stored game data using the
+platform's application storage mechanisms
+& \srref{MinimalSaveData}
+& \hazdef{SaveDataPrivacy}\\
+\addlinespace
+
+% ----- The Game: Third-party Software and Assets ----------------------------
+\fmeacomp{Game}{The Game}:\newline
+\compref{ThirdParty}{Third-party Software and Assets}
+& A third-party library or engine component
+causes the application to crash or behave incorrectly
+& The child may lose progress, be unable to complete
+a preparation activity, or receive incomplete
+information about an ophthalmology procedure
+& \bitem Third-party software contains defects
+  \bitem Incompatible library versions
+  \bitem Unexpected interaction between dependencies
+  \bitem Dependency is updated without sufficient testing
+& \bitem Test third-party components as part of
+the release build
+  \bitem Pin and review dependency versions
+  \bitem Test critical gameplay and preparation
+flows after dependency changes
+  \bitem Remove unused third-party dependencies
+& \srref{ThirdPartyValidation}
+& \hazdef{ThirdPartyFailure}\\
+\addlinespace
+
+& Third-party asset contains inappropriate or
+misleading content
+& The child may be exposed to frightening,
+inappropriate, or inaccurate information that
+contradicts the intended preparation experience
+& \bitem Asset selected without sufficient review
+  \bitem Asset is modified or replaced after review
+  \bitem External content does not match the
+application's educational requirements
+& \bitem Review all third-party assets before release
+  \bitem Include third-party assets in the same
+clinical and child-life review process as
+first-party content
+  \bitem Release only reviewed versions of assets
+& \srref{ThirdPartyAssetReview}
+& \hazdef{ThirdPartyAssetContent}\\
 \end{longtable}
 \end{landscape}
 
