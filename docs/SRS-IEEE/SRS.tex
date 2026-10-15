@@ -61,27 +61,27 @@
 % Used so that cross-references have a meaningful prefix
 
 \newcounter{connum} %System Constraint (C) Number
-\newcommand{\conref}[1]{C.\ref{#1}}
+\newcommand{\conref}[1]{\hyperref[#1]{C.\ref*{#1}}}
 
 \newcounter{srnum} %Stakeholder Requirement (SR) Number
 \newcommand{\srthesrnum}{SR\thesrnum}
-\newcommand{\srref}[1]{SR\ref{#1}}
+\newcommand{\srref}[1]{\hyperref[#1]{SR\ref*{#1}}}
 
 \newcounter{ucnum} %Use Case (UC) Number
 \newcommand{\uctheucnum}{UC\theucnum}
-\newcommand{\ucref}[1]{UC\ref{#1}}
+\newcommand{\ucref}[1]{\hyperref[#1]{UC\ref*{#1}}}
 
 \newcounter{reqnum} %Functional Requirement (FR) Number
 \newcommand{\rthereqnum}{FR\thereqnum}
-\newcommand{\rref}[1]{FR\ref{#1}}
+\newcommand{\rref}[1]{\hyperref[#1]{FR\ref*{#1}}}
 
 \newcounter{nfrnum} %Non-Functional Requirement (NFR) Number
 \newcommand{\rthenfrnum}{NFR\thenfrnum}
-\newcommand{\nfrref}[1]{NFR\ref{#1}}
+\newcommand{\nfrref}[1]{\hyperref[#1]{NFR\ref*{#1}}}
 
 \newcounter{lcnum} %Likely Change (LC) Number
 \newcommand{\lthelcnum}{LC\thelcnum}
-\newcommand{\lcref}[1]{LC\ref{#1}}
+\newcommand{\lcref}[1]{\hyperref[#1]{LC\ref*{#1}}}
 
 \newcommand{\constref}[1]{%
     \hyperref[const:#1]{\texttt{\detokenize{#1}}}%
@@ -1942,12 +1942,11 @@ and a measurable fit criterion.
 
 \begin{itemize}
 
-\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Layout}:]
-The guide character, the home control, and the next and previous controls shall be in the same screen position on every screen of every activity.
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Layout}:] Interactive controls that serve the same function shall remain in consistent screen positions across all screens where they appear.
 
-\textbf{Rationale:} Children who cannot read find controls by where they are, not by label. A control that moves is a control a child loses, and consistent positions let a child who has learned one activity use another without help.
+\textbf{Rationale:} Consistent control placement helps children locate and recognize controls without relying on text labels. Maintaining consistent positions across different activities and game features reduces confusion and supports independent navigation.
 
-\textbf{Fit Criterion:} A design review of every screen confirms that the guide character, home control, and next and previous controls remain within \constref{CONTROL_POSITION_TOLERANCE_MM} millimetres of their designated positions across all screens.
+\textbf{Fit Criterion:} A design review confirms that controls serving the same function remain within \constref{CONTROL_POSITION_TOLERANCE_MM} millimetres of their designated positions across all applicable screens.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_ChildSafe}:]
 No image, animation, narration, or sound shall be frightening, or show pain or distress beyond the sensations in the approved script.
@@ -1976,12 +1975,11 @@ A control that returns to the home menu shall be reachable with one touch from e
 
 \textbf{Fit Criterion:} On every screen of every activity, a tester reaches the home menu with one touch.
 
-\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Usability}:]
-A first-time user from the defined user characteristics shall be able to complete one walkthrough and its practice activity without reading and without prior training.
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Usability}:] A first-time user from the defined user characteristics shall be able to use the application's core features without reading instructions or receiving prior training.
 
-\textbf{Rationale:} The application is meant to be used at home with little or no help. If a child needs a parent to explain it, it becomes a parent-led tool and loses the engagement the product depends on.
+\textbf{Rationale:} The application is intended for use at home with little or no assistance. Users should be able to understand and interact with its core features independently, supporting engagement and reducing reliance on parental guidance.
 
-\textbf{Fit Criterion:} In usability testing, at least \constref{UNAIDED_RATE_MIN}\% of participants complete one walkthrough and its practice activity without verbal help, with a median completion time of at most \constref{ACTIVITY_PAIR_MAX_MIN} minutes. Participants aged 3--4 may have a parent present who does not explain.
+\textbf{Fit Criterion:} In usability testing, at least \constref{UNAIDED_RATE_MIN}\% of participants shall successfully complete a predefined core task without verbal assistance, with a median completion time of at most \constref{ACTIVITY_PAIR_MAX_MIN} minutes. Participants aged 3--4 may have a parent present who does not explain or guide the task.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Language}:]
 Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words and use words familiar to a child aged 3 to 7, and text in the adult area shall be at or below Grade \constref{ADULT_TEXT_MAX_GRADE} reading level.
@@ -2098,13 +2096,6 @@ The effort to make any likely change in the Likely Changes section shall be less
 \textbf{Rationale:} A change such as a new procedure should cost far less than building the first one, or the application cannot keep up with what clinicians want covered.
 
 \textbf{Fit Criterion:} The recorded effort for each such change made during the project is within this fraction.
-
-\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Documentation}:]
-The repository shall contain documentation that lets a new developer build the application, run its tests, and add a procedure.
-
-\textbf{Rationale:} The application is meant to be reused and extended by clinicians and other healthcare providers, and the team will not be available to every future developer. Two hours is about as long as a developer can spend on set-up in a first session before becoming blocked.
-
-\textbf{Fit Criterion:} A developer who is new to the project, following only that documentation, builds the application and runs the tests within \constref{SETUP_MAX_H} hours.
 
 \end{itemize}
 
@@ -2474,10 +2465,6 @@ Constant & Value & Unit\\
 \texttt{INSTALL\_SIZE\_MAX\_MB}
 \label{const:INSTALL_SIZE_MAX_MB}
 & 300 & MB\\
-
-\texttt{SETUP\_MAX\_H}
-\label{const:SETUP_MAX_H}
-& 2 & hours\\
 
 \texttt{MAINT\_FRACTION}
 \label{const:MAINT_FRACTION}
