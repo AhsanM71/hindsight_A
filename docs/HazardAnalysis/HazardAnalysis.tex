@@ -673,12 +673,101 @@ first-party content
 \label{sec_SR}
 
 The following requirements were identified through the Failure Mode and
-Effects Analysis of Section~\ref{sec_FMEA}. Each requirement will also be
-incorporated into the SRS to maintain traceability between the two
-documents.
+Effects Analysis of Section~\ref{sec_FMEA}. They are stated at a general
+level here, and measurable values such as thresholds and limits are left
+unspecified. The specific, testable details of each requirement will be
+defined in the SRS, where each requirement will also be incorporated to
+maintain traceability between the two documents.
 
 \begin{itemize}[leftmargin=1.5cm, labelwidth=1.3cm, labelsep=0.2cm,
   align=left, itemsep=1.2em, parsep=0.6em]
+
+\item[\srdef{DeviceResourceUse}]
+\textbf{Device Heat Limit}
+
+The game shall not cause the device's temperature to exceed
+a defined safe temperature threshold during normal or extended
+gameplay. The game shall avoid unnecessary continuous
+processing and shall stop resource-intensive activities when
+they are no longer required, so that heat generation stays
+below this threshold.
+
+\textit{Rationale:}
+Excessive processing can raise device temperature. Young
+children may hold a device for extended periods, so a device
+that becomes too hot could cause discomfort or minor injury.
+Keeping device temperature below a defined threshold reduces
+this risk.
+
+\textit{Associated hazards:}
+\hazref{DeviceOverheating}
+
+\textit{SRS:} TODO
+
+\item[\srdef{DevicePerformance}]
+\textbf{Device Performance}
+
+The application shall maintain a frame rate at or above a
+defined minimum on supported devices during normal and
+extended gameplay, and shall maintain responsive gameplay
+and smooth visual transitions. The application shall minimize
+unnecessary processing, rendering, and animation, and shall be
+tested for performance against this minimum.
+
+\textit{Rationale:}
+Slow response times and dropped frames may make the game
+difficult for young children to interact with and follow.
+Setting a minimum frame rate and testing against it helps
+ensure that preparation activities remain usable across
+supported devices.
+
+\textit{Associated hazards:}
+\hazref{PoorPerformance}
+
+\textit{SRS:} TODO
+
+\item[\srdef{PreventAccidentalInput}]
+\textbf{Prevention of Unintentional Gameplay Actions}
+
+The game shall prevent repeated touch inputs from
+triggering multiple navigation actions during a
+single screen transition. Essential procedure
+information shall not be skipped as a result
+of repeated or accidental touch inputs.
+
+\textit{Rationale:}
+Young children may repeatedly tap the screen
+while interacting with the game. If multiple
+inputs are processed unintentionally, the child
+may skip important explanations about an
+ophthalmology procedure. Preventing accidental
+navigation helps ensure children receive the
+necessary preparation information.
+
+\textit{Associated hazards:}
+\hazref{AccidentalInputSkipping}
+
+\textit{SRS:} TODO
+
+\item[\srdef{GameplayRecovery}]
+\textbf{Gameplay Recovery}
+
+The application shall provide a valid recovery path from every
+gameplay state and handle unexpected or invalid inputs without
+preventing the child from continuing the activity. The child
+shall be able to safely restart the current activity without
+losing previously saved progress.
+
+\textit{Rationale:}
+Unexpected inputs or incomplete actions may leave the game
+in an unusable state. Providing recovery options allows the
+child to continue preparing for the appointment without
+unnecessary frustration or loss of progress.
+
+\textit{Associated hazards:}
+\hazref{GameplayStuck}
+
+\textit{SRS:} TODO
 
 \item[\srdef{ClinicianApproval}] \textbf{Clinical Approval of Procedure Content}
 
@@ -753,30 +842,6 @@ excitement are added to the medical content.
 
 \textit{SRS:} TODO
 
-
-\item[\srdef{AllLevelsAccessible}]
-\textbf{All Preparation Levels Must Remain Accessible}
-
-The game shall allow the child to access every
-ophthalmology preparation level regardless of
-whether previous levels have been completed.
-Journey points, completion status, and rewards
-shall not restrict access to preparation games.
-
-\textit{Rationale:}
-The procedures required during an ophthalmology
-appointment may change unexpectedly. Restricting
-access to later levels could prevent children from
-preparing for an examination they may need.
-Keeping all levels accessible allows children
-to explore the procedures in any order.
-
-\textit{Associated hazards:}
-\hazref{RestrictedLevelAccess}
-
-\textit{SRS:} TODO
-
-
 \item[\srdef{MedicalDisclaimer}]
 \textbf{Medical Disclaimer and Caregiver Acknowledgment}
 
@@ -802,6 +867,27 @@ intended purpose before use.
 
 \textit{SRS:} TODO
 
+\item[\srdef{AllLevelsAccessible}]
+\textbf{All Preparation Levels Must Remain Accessible}
+
+The game shall allow the child to access every
+ophthalmology preparation level regardless of
+whether previous levels have been completed.
+Journey points, completion status, and rewards
+shall not restrict access to preparation games.
+
+\textit{Rationale:}
+The procedures required during an ophthalmology
+appointment may change unexpectedly. Restricting
+access to later levels could prevent children from
+preparing for an examination they may need.
+Keeping all levels accessible allows children
+to explore the procedures in any order.
+
+\textit{Associated hazards:}
+\hazref{RestrictedLevelAccess}
+
+\textit{SRS:} TODO
 
 \item[\srdef{NonPunitiveFeedback}]
 \textbf{Encouraging Feedback Without Penalties}
@@ -850,32 +936,120 @@ fully ends the activity.
 
 \textit{SRS:} TODO
 
-\item[\srdef{PreventAccidentalInput}]
-\textbf{Prevention of Unintentional Gameplay Actions}
+\item[\srdef{SafeAudioVisuals}]
+\textbf{Safe Audio and Visual Effects}
 
-The game shall prevent repeated touch inputs from
-triggering multiple navigation actions during a
-single screen transition. Essential procedure
-information shall not be skipped as a result
-of repeated or accidental touch inputs.
+The game shall avoid unnecessarily loud audio,
+rapidly flashing effects, and other audio or visual
+effects that could cause discomfort or distress.
+Audio shall be adjustable or muted without
+preventing access to essential educational
+information.
 
 \textit{Rationale:}
-Young children may repeatedly tap the screen
-while interacting with the game. If multiple
-inputs are processed unintentionally, the child
-may skip important explanations about an
-ophthalmology procedure. Preventing accidental
-navigation helps ensure children receive the
-necessary preparation information.
+The intended users are children aged three to
+seven and may be sensitive to sudden or intense
+audio and visual effects. Keeping effects
+comfortable reduces avoidable distress while
+preserving the educational purpose of the game.
 
 \textit{Associated hazards:}
-\hazref{AccidentalInputSkipping}
+\hazref{UnsafeAudioVisuals}
 
 \textit{SRS:} TODO
+
+\item[\srdef{ReliableSaveData}]
+\textbf{Reliable Save Data Handling}
+
+The game shall validate saved progress before
+using it and shall handle interrupted or invalid
+save operations without crashing. A failed save
+operation shall not overwrite valid previously
+saved progress with invalid data.
+
+\textit{Rationale:}
+Corrupted save data could cause the child to
+lose completed preparation activities and rewards.
+Protecting valid saved progress reduces the
+frustration and loss of functionality caused by
+unexpected application or device failures.
+
+\textit{Associated hazards:}
+\hazref{SaveDataCorruption}
+
+\textit{SRS:} TODO
+
+\item[\srdef{MinimalSaveData}]
+\textbf{Minimization and Protection of Saved Data}
+
+The game shall store only information required
+for offline gameplay and shall not store names,
+contact information, or other unnecessary
+personal information. Saved game data shall be
+stored using the platform's application storage
+mechanisms and shall not be intentionally exposed
+to other applications.
+
+\textit{Rationale:}
+The game does not require personal information
+to provide its core functionality. Minimizing
+stored information reduces the potential impact
+of a privacy or security failure, particularly
+because the application is intended for young
+children.
+
+\textit{Associated hazards:}
+\hazref{SaveDataPrivacy}
+
+\textit{SRS:} TODO
+
+\item[\srdef{ThirdPartyValidation}]
+\textbf{Third-Party Software Validation}
+
+Third-party libraries and engine components
+used by the released game shall be tested as
+part of the release build. Dependency versions
+shall be explicitly managed, and changes to
+third-party software shall be tested before
+being included in a release.
+
+\textit{Rationale:}
+The game depends on third-party software that
+the development team does not control. A defect,
+incompatibility, or unexpected dependency update
+could cause crashes or incorrect behaviour in
+critical preparation activities.
+
+\textit{Associated hazards:}
+\hazref{ThirdPartyFailure}
+
+\textit{SRS:} TODO
+
+\item[\srdef{ThirdPartyAssetReview}]
+\textbf{Third-Party Asset Review}
+
+All third-party art, fonts, sounds, and other
+assets included in the game shall be reviewed
+before release for age appropriateness,
+accuracy, and consistency with the clinician
+and child-life approved content. A third-party
+asset shall not be included in the release if
+it has not completed the required review.
+
+\textit{Rationale:}
+Third-party assets are part of the user's
+experience even though they are not created by
+the team. An inappropriate or misleading asset
+could introduce a hazard that would otherwise
+have been removed from the application's
+first-party content.
+
+\textit{Associated hazards:}
+\hazref{ThirdPartyAssetContent}
+
+\textit{SRS:} TODO
+
 \end{itemize}
-
-
-
 
 \section{Roadmap}
 
