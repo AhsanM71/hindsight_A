@@ -2164,6 +2164,13 @@ The application shall not crash or freeze during use.
 
 \textbf{Fit Criterion:} At least \constref{CRASH_FREE_RATE_MIN}\% of at least \constref{TEST_SESSIONS_MIN} test sessions end without a crash or freeze.
 
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_DeviceHeat}:]
+The application shall not cause the device temperature to exceed \constref{DEVICE_TEMP_MAX_C} degrees Celsius during use.
+
+\textbf{Rationale:} Young children may hold a device for long periods, and a device that becomes too hot can cause discomfort or minor injury. The limit is revisited after proof-of-concept measurements on low-spec devices.
+
+\textbf{Fit Criterion:} On each low-spec device, the device temperature stays at or below this value over a continuous session of at least \constref{HEAT_TEST_SESSION_MIN} minutes of gameplay.
+
 \end{itemize}
 
 \subsection{Operational and Environmental Requirements}
@@ -2251,6 +2258,13 @@ Each release shall contain no third-party library with a publicly known vulnerab
 \textbf{Rationale:} The application has no server and accepts no input except touch, so its main exposure is through the libraries it includes. A compromised dependency could break the privacy requirements.
 
 \textbf{Fit Criterion:} A dependency vulnerability scan run on each release build reports none of that severity.
+
+\item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_DependencyTesting}:]
+Every third-party library and engine component shall be fixed to an exact version, and each change to one shall be tested on a release build before it is included in a release.
+
+\textbf{Rationale:} The application depends on software the team does not control, and an unexpected update or incompatibility could cause crashes or wrong behaviour in the activities that prepare the child. Fixing versions means each release contains only what was tested.
+
+\textbf{Fit Criterion:} The dependency list gives an exact version for every third-party library and engine component, and the functional test suite passes on the release build after each dependency change, with no finding unresolved at release.
 
 \end{itemize}
 
@@ -2496,21 +2510,61 @@ Constant & Value & Unit\\
 \bottomrule
 \endlastfoot
 
-\texttt{TOUCH\_TARGET\_MIN}
-\label{const:TOUCH_TARGET_MIN}
-& 15 & mm\\
+\texttt{ACTIVITY\_PAIR\_MAX\_MIN}
+\label{const:ACTIVITY_PAIR_MAX_MIN}
+& 5 & min\\
+
+\texttt{ADULT\_TEXT\_MAX\_GRADE}
+\label{const:ADULT_TEXT_MAX_GRADE}
+& 8 & reading grade\\
+
+\texttt{AV\_SYNC\_MAX\_MS}
+\label{const:AV_SYNC_MAX_MS}
+& 100 & ms\\
 
 \texttt{CONTROL\_POSITION\_TOLERANCE\_MM}
 \label{const:CONTROL_POSITION_TOLERANCE_MM}
 & 5 & mm\\
 
-\texttt{STARTUP\_MAX\_S}
-\label{const:STARTUP_MAX_S}
-& 5 & s\\
+\texttt{CRASH\_FREE\_RATE\_MIN}
+\label{const:CRASH_FREE_RATE_MIN}
+& 99 & \%\\
 
-\texttt{STARTUP\_TRIALS\_MIN}
-\label{const:STARTUP_TRIALS_MIN}
-& 10 & cold-start trials\\
+\texttt{DEVICE\_TEMP\_MAX\_C}
+\label{const:DEVICE_TEMP_MAX_C}
+& 43 & degrees Celsius\\
+
+\texttt{FRAME\_RATE\_COMPLIANCE\_MIN}
+\label{const:FRAME_RATE_COMPLIANCE_MIN}
+& 95 & \% of measured time\\
+
+\texttt{FRAME\_RATE\_MIN}
+\label{const:FRAME_RATE_MIN}
+& 30 & frames per second\\
+
+\texttt{HEAT\_TEST\_SESSION\_MIN}
+\label{const:HEAT_TEST_SESSION_MIN}
+& 30 & min\\
+
+\texttt{INSTALL\_SIZE\_MAX\_MB}
+\label{const:INSTALL_SIZE_MAX_MB}
+& 300 & MB\\
+
+\texttt{LOW\_SPEC\_AGE\_YEARS}
+\label{const:LOW_SPEC_AGE_YEARS}
+& 5 & years\\
+
+\texttt{MAINT\_FRACTION}
+\label{const:MAINT_FRACTION}
+& 0.10 & fraction of original development time\\
+
+\texttt{MIN\_ANDROID}
+\label{const:MIN_ANDROID}
+& 10 & version\\
+
+\texttt{MIN\_IOS}
+\label{const:MIN_IOS}
+& 16 & version\\
 
 \texttt{RESPONSE\_MAX\_MS}
 \label{const:RESPONSE_MAX_MS}
@@ -2520,69 +2574,37 @@ Constant & Value & Unit\\
 \label{const:RESPONSE_RATE_MIN}
 & 95 & \%\\
 
-\texttt{FRAME\_RATE\_MIN}
-\label{const:FRAME_RATE_MIN}
-& 30 & frames per second\\
-
-\texttt{FRAME\_RATE\_COMPLIANCE\_MIN}
-\label{const:FRAME_RATE_COMPLIANCE_MIN}
-& 95 & \% of measured time\\
-
-\texttt{AV\_SYNC\_MAX\_MS}
-\label{const:AV_SYNC_MAX_MS}
-& 100 & ms\\
-
-\texttt{TEST\_SESSIONS\_MIN}
-\label{const:TEST_SESSIONS_MIN}
-& 100 & sessions\\
-
-\texttt{CRASH\_FREE\_RATE\_MIN}
-\label{const:CRASH_FREE_RATE_MIN}
-& 99 & \%\\
-
-\texttt{UNAIDED\_RATE\_MIN}
-\label{const:UNAIDED_RATE_MIN}
-& 80 & \%\\
-
-\texttt{ACTIVITY\_PAIR\_MAX\_MIN}
-\label{const:ACTIVITY_PAIR_MAX_MIN}
-& 5 & min\\
-
-\texttt{SENTENCE\_MAX\_WORDS}
-\label{const:SENTENCE_MAX_WORDS}
-& 10 & words\\
-
-\texttt{ADULT\_TEXT\_MAX\_GRADE}
-\label{const:ADULT_TEXT_MAX_GRADE}
-& 8 & reading grade\\
-
-\texttt{MIN\_IOS}
-\label{const:MIN_IOS}
-& 16 & version\\
-
-\texttt{MIN\_ANDROID}
-\label{const:MIN_ANDROID}
-& 10 & version\\
+\texttt{SCREEN\_MAX\_IN}
+\label{const:SCREEN_MAX_IN}
+& 13 & inches\\
 
 \texttt{SCREEN\_MIN\_IN}
 \label{const:SCREEN_MIN_IN}
 & 4.7 & inches\\
 
-\texttt{SCREEN\_MAX\_IN}
-\label{const:SCREEN_MAX_IN}
-& 13 & inches\\
+\texttt{SENTENCE\_MAX\_WORDS}
+\label{const:SENTENCE_MAX_WORDS}
+& 10 & words\\
 
-\texttt{LOW\_SPEC\_AGE\_YEARS}
-\label{const:LOW_SPEC_AGE_YEARS}
-& 5 & years\\
+\texttt{STARTUP\_MAX\_S}
+\label{const:STARTUP_MAX_S}
+& 5 & s\\
 
-\texttt{INSTALL\_SIZE\_MAX\_MB}
-\label{const:INSTALL_SIZE_MAX_MB}
-& 300 & MB\\
+\texttt{STARTUP\_TRIALS\_MIN}
+\label{const:STARTUP_TRIALS_MIN}
+& 10 & cold-start trials\\
 
-\texttt{MAINT\_FRACTION}
-\label{const:MAINT_FRACTION}
-& 0.10 & fraction of original development time\\
+\texttt{TEST\_SESSIONS\_MIN}
+\label{const:TEST_SESSIONS_MIN}
+& 100 & sessions\\
+
+\texttt{TOUCH\_TARGET\_MIN}
+\label{const:TOUCH_TARGET_MIN}
+& 15 & mm\\
+
+\texttt{UNAIDED\_RATE\_MIN}
+\label{const:UNAIDED_RATE_MIN}
+& 80 & \%\\
 
 \end{longtable}
 
