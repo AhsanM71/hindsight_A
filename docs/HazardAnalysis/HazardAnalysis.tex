@@ -428,21 +428,100 @@ content was generated or modified with AI assistance.
 
 \section{Appendix --- Reflection}
 
-\wss{Not required for CAS 741}
+% \wss{Not required for CAS 741}
 
-\input{../Reflection.text}
+% \input{../Reflection.text}
 
-\begin{enumerate}
-    \item What went well while writing this deliverable? 
-    \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-    \item Which of your listed risks had your team thought of before this
-    deliverable, and which did you think of while doing this deliverable? For
-    the latter ones (ones you thought of while doing the Hazard Analysis), how
-    did they come about?
-    \item Other than the risk of physical harm (some projects may not have any
-    appreciable risks of this form), list at least 2 other types of risk in
-    software products. Why are they important to consider?
-\end{enumerate}
+% \begin{enumerate}
+%     \item What went well while writing this deliverable?
+%     \item What pain points did you experience during this deliverable, and how
+%     did you resolve them?
+%     \item Which of your listed risks had your team thought of before this
+%     deliverable, and which did you think of while doing this deliverable? For
+%     the latter ones (ones you thought of while doing the Hazard Analysis), how
+%     did they come about?
+%     \item Other than the risk of physical harm (some projects may not have any
+%     appreciable risks of this form), list at least 2 other types of risk in
+%     software products. Why are they important to consider?
+% \end{enumerate}
+
+\subsection*{Jake Finlay}
+
+\subsubsection*{What went well while writing this deliverable?}
+
+What went best was that we split up the work before we started writing. Every
+team member had their own assigned issues on GitHub. This made it easy to find
+what to work on next. It also made it clear who was responsible for each part
+of the document.
+
+Other than the pain points mentioned below, everything else went fine. Nothing
+else noteworthy to write here.
+
+\subsubsection*{What pain points did you experience during this deliverable,
+and how did you resolve them?}
+
+One pain point I experienced during this deliverable was that some sections
+depend on others. Some of my teammates were waiting on sections I was working
+on. To keep the team moving, I had to finish those sections first. This meant
+putting off other work that I had planned to complete.
+
+It was also hard to write content that my teammates had not already covered. I
+had to keep checking their pull requests and the PDFs produced by our CI
+pipeline. This was the only way to make sure I was not repeating something from
+another section. To solve this, I downloaded everyone's PDFs and kept them open
+on my second monitor. I read through them before I started writing. After that,
+writing my sections was fairly straightforward.
+
+The last pain point was linking the safety and security requirements to the
+hazards in the FMEA table. The order of the requirements and hazards was likely
+to change as everyone's work was merged. This would cause them to be
+mislabelled, or force a teammate to renumber all of their requirements and
+hazards by hand. To solve this, I created a unique identifier system. Each
+requirement and hazard is defined with its own identifier. Every reference
+links to that identifier instead of a number. If the order changes, the numbers
+and links update automatically. This made it much easier to link everything
+together and get the traceability I wanted. I plan to use the same system in
+the SRS when I start working on it.
+
+\subsection*{Group Answer(s)}
+
+\subsubsection*{Which of your listed risks had your team thought of before
+this deliverable, and which did you think of while doing this deliverable? For
+the latter ones (ones you thought of while doing the Hazard Analysis), how did
+they come about?}
+
+TODO: to be completed once all of the team's hazards and risks have been
+added to the document.
+
+\subsubsection*{Other than the risk of physical harm (some projects may not
+have any appreciable risks of this form), list at least 2 other types of risk
+in software products. Why are they important to consider?}
+
+Two other types of risk in software products are privacy risks and financial
+risks. Neither involves physical harm, but both can seriously affect the people
+who use a product and the organizations that build it.
+
+Privacy risks come from the personal data that software collects. Many
+products store names, locations, contact information and payment details. If
+this data is exposed through a breach or a design flaw, users can face
+identity theft, fraud, stalking or embarrassment. The harm falls on the users,
+yet they usually have no control over how their data is stored or protected.
+A breach can also lead to legal penalties for the organization and a lasting
+loss of trust in the product. These risks are especially important for our
+project, because our users are young children. Children cannot judge what
+information is safe to share, and their data is protected by stricter laws and
+app store rules. This is one reason our game is designed to work offline and
+to collect no personal information at all.
+
+Financial risks come from software failing to do its job correctly or failing
+to stay available. A bug in a payment system or a financial calculation can
+cost users or organizations money directly. Downtime can also bring a business
+to a halt, since many organizations rely on software for their daily
+operations. Because a single piece of software is often used by thousands of
+people at once, one failure can lead to large and widespread costs. Financial
+risk can also come from the design of a product itself. For example, games
+with in-app purchases can lead children to spend money without understanding
+it. Considering these risks early allows a team to design them out, rather
+than repairing the damage after the product is released.
 
 \end{document}
