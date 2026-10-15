@@ -45,6 +45,7 @@
 2026/09/27 & Ahsan Muzammil & Completed initial draft of Workflow plan, Coding Standards, and Reflection (Ahsan)\\
 2026/09/27 & Ethan McMehen & Completed Sections 5, 6, 7, Reflection \\
 2026/09/30 & Jake Finlay & Reduced PoC scope and added mitigation strategies for an unsuccessful PoC (peer review feedback) \\
+2026/10/14 & Jake Finlay & Updated PoC plan for the new game-based requirements (sections, levels, and quizzes) \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -805,122 +806,145 @@ Link to our GitHub Project: \href{https://github.com/orgs/team-hindsight/project
 
 \section{Proof of Concept Demonstration Plan}
 
-The proof of concept (PoC) demonstration will be a focused demonstration that
-addresses the three highest-priority risks to the project.
-The PoC will be a bare-bones walkthrough of one common procedure (receiving eye
-drops) that moves the user through each step of the procedure in order, using
-short helper text and a simple 3D scene of the clinic built in Unity with
-models made in Blender.
+The application will be a mobile game in which children learn about paediatric
+eye procedures by playing through levels. The game will be divided into
+sections, where each section covers one procedure and is made up of several
+levels. Quizzes and other short challenges are placed throughout the levels, so
+the child learns what will happen during the procedure as they play. The full
+game will also include character customization and a leaderboard to motivate
+children to keep playing.
 
-\noindent The PoC intentionally leaves out guide characters, narration,
-sound, detailed graphics, advanced animations, and any other paediatric procedures.
-Keeping the PoC this small lets the team focus on whether the content is
-correct, whether the overall flow suits children, and whether the team can
-build the application with the chosen technologies, before investing in
-detailed art and audio.
+\noindent The proof of concept (PoC) demonstration will implement one section of
+the game, covering one common procedure (receiving eye drops), with a small
+number of playable levels. Each level covers one or more steps of the procedure
+in the order they happen at the clinic (e.g., sitting in the chair, tilting the
+head back, the drops going in, blinking, and waiting for the drops to work).
+Each level includes a short gameplay challenge and ends with a quiz about what
+the child just learned. The main goal of the PoC is to show
+that a child can learn about the procedure by playing the game, while also
+addressing the three highest-priority risks to the project.
 
-\noindent The team expects to create two versions of the experience: one for
-children aged 5--7 and one for children aged 3--5. The PoC targets the 5--7
-version first. This version will use simple
-graphics and short text for the child to read, possibly with simple questions
-between steps to keep the child involved. The 3--5 version, which will need to
-rely less on reading, will be developed later using what is learned from the
-PoC.
+\noindent The PoC intentionally leaves out character customization, the
+leaderboard, narration, sound, detailed graphics, advanced animations, and any
+sections for other paediatric procedures. Keeping the PoC this small lets the
+team focus on whether the content is correct, whether the levels are fun and
+teach the procedure, and whether the team can build the game with the chosen
+technologies, before investing in the remaining game features, detailed art,
+and audio.
+
+\noindent The team expects to create two versions of the game: one for children
+aged 5--7 and one for children aged 3--5. The PoC targets the 5--7 version
+first. This version will use simple graphics and short text for the child to
+read. The 3--5 version, which will need to rely less on reading, will be
+developed later using what is learned from the PoC.
 
 \subsection{Risk 1: Implementing Clinically Accurate Procedure Content}
 
-The main part of the application is a set of walkthroughs that show real
-clinical procedures step by step. No team member has clinical training, so the
-team may not be able to build these walkthroughs correctly. For example, steps
-could be in the wrong order, details like eye drops stinging could be left out,
-or the equipment could look different from what is in the clinic. The content
-also needs to be easy for young children to understand. If the team gets this
-wrong, each procedure will need a lot of rework after clinician review, and the
-team may run out of time to build all the planned procedures.
+Although the game is meant to be fun, its purpose is to show children what will
+really happen during their procedure. No team member has clinical training, so
+the team may not be able to represent these procedures correctly in the levels
+and quizzes. For example, steps could be in the wrong order, details like eye
+drops stinging could be left out, the equipment could look different from what
+is in the clinic, or quiz answers could be wrong. Turning a procedure into
+gameplay also adds the risk of exaggerating or misrepresenting parts of it to
+make it more exciting. The content also needs to be easy for young children to
+understand. If the team gets this wrong, each section will need a lot of rework
+after clinician review, and the team may run out of time to build all the
+planned sections.
 
 \subsubsection*{What the PoC will demonstrate:}
 \begin{itemize}
-  \item The walkthrough presents every step of receiving eye drops in the order
-  it happens at the clinic (e.g., sitting in the chair, tilting the head back,
-  the drops going in, blinking, and waiting for the drops to work).
-  \item The 3D scene for each step shows the equipment and setting the child
+  \item The levels cover every step of receiving eye drops in the order it
+  happens at the clinic.
+  \item The visuals in each level show the equipment and setting the child
   will actually see at the clinic.
-  \item The helper text is honest about sensations (e.g., drops may feel cold or
-  sting briefly) while staying reassuring.
-  \item The helper text uses short sentences and familiar words that a child
-  aged 5--7 can read.
+  \item The gameplay in each level does not misrepresent the procedure (e.g., it
+  does not make the drops seem scary or skip steps to make a level shorter).
+  \item The quiz questions and answers are accurate and only cover what was
+  taught in the level.
+  \item The in-game text is honest about sensations (e.g., drops may feel cold
+  or sting briefly) while staying reassuring, and uses short sentences and
+  familiar words that a child aged 5--7 can read.
 \end{itemize}
 
 \subsubsection*{Success criteria:}
-The walkthrough is reviewed by a paediatric ophthalmology clinician before the
-demonstration. The team has the opportunity to show the PoC to a clinician
-early, so review can begin as soon as the walkthrough is drafted. The clinician
-confirms the walkthrough accurately reflects what a child experiences. The clinician may have some additional feedback for us but
-this will be good enough to revise and present the PoC.
+The levels and quizzes are reviewed by a paediatric ophthalmology clinician
+before the demonstration. The team has the opportunity to show the PoC to a
+clinician early, so review can begin as soon as the first level is drafted. The
+clinician confirms that the section accurately reflects what a child
+experiences. The clinician may have some additional feedback for us, but this
+will be good enough to revise and present the PoC.
 
 \subsection{Risk 2: Child Engagement and Usability}
 
 The target users are young children, many of whom cannot read yet, have short
-attention spans, and are still developing fine motor skills. If they cannot
-follow the application or lose interest partway through, they will not benefit
-from the preparation. Testing directly with children will likely require
+attention spans, and are still developing fine motor skills. The game needs to
+be fun enough that children want to keep playing, while still teaching them
+about the procedure. If the levels are too difficult, too slow, or not
+engaging, children will stop playing and will not benefit from the preparation.
+If the levels are fun but the learning is lost in the gameplay, the game will
+not meet its purpose. Testing directly with children will likely require
 research ethics approval, which will not be in place by the PoC date. The team
-therefore needs a quicker way to check that the application is likely to be
-engaging and usable for children, without testing with children directly.
+therefore needs a quicker way to check that the game is likely to be fun,
+usable, and educational for children, without testing with children directly.
 
 \subsubsection*{What the PoC will demonstrate:}
 \begin{itemize}
-  \item The walkthrough shows one step per screen, with a single large button to
-  move forward and touch targets sized for small fingers.
-  \item Each step pairs one or two short sentences of helper text with a simple
-  3D scene.
-  \item Simple questions between steps
-  keep the child involved. An incorrect answer gives a gentle hint instead of a
-  failure message.
-  \item The user can go back to a previous step at any time.
-  \item The full walkthrough can be completed in about three minutes or less,
-  to fit a young child's attention span.
+  \item Each level has a simple gameplay challenge with large touch targets
+  sized for small fingers and controls a young child can learn quickly.
+  \item The child moves through the section level by level, with the next level
+  unlocking after the previous one is completed.
+  \item Each level ends with a short quiz. An incorrect answer gives a gentle
+  hint instead of a failure message, so the child can try again.
+  \item The child can replay any completed level.
+  \item Each level can be completed in about two to three minutes, to fit a
+  young child's attention span.
 \end{itemize}
 
 \subsubsection*{Success criteria:}
 During the same review session used for Risk 1, the clinician, who sees young
-children every day, agrees that a young child would likely stay engaged and be
-able to follow the walkthrough (with the planned characters and visuals
-added), and identifies any points where a child would lose interest or get
-confused. The walkthrough is also checked against published guidelines for
-designing applications for young children (e.g., large touch targets, one
-action per screen, short sessions, forgiving interactions), with any gaps
-revised. The team ends with a list of concrete changes to make the walkthrough
-more engaging, and a clear path to testing with children.
+children every day, agrees that a young child would likely enjoy and be able to
+play the levels (with the planned characters, visuals, and remaining game
+features added), and identifies any points where a child would lose interest or
+get confused. The levels are also checked against published guidelines for
+designing applications for young children (e.g., large touch targets, short
+sessions, forgiving interactions), with any gaps revised. To show that the game
+teaches the procedure, a few people unfamiliar with the procedure (e.g., peers
+outside the team) play through the section and are then able to describe the
+steps of receiving eye drops and answer most quiz questions correctly. The team
+ends with a list of concrete changes to make the levels more engaging, and a
+clear path to testing with children.
 
 \subsection{Risk 3: Inexperience with Unfamiliar Technologies}
 
-The application will be built in Unity and is tentatively planned as a 3D
-mobile game, with 3D models created in Blender where suitable assets are not
-available on the Unity Asset Store. The team has limited experience with Unity
-and no significant experience with 3D modelling or rendering. There is a risk
-that learning these technologies takes longer than planned, or that the team
-cannot produce 3D content of sufficient quality in the time available, which
-would delay every later milestone.
+The game is expected to be built in Unity, which the team has limited
+experience with, and no team member has significant experience with game
+development or creating game art. The game also needs core systems, such as
+levels, level progression, and quizzes, that will be reused by every section.
+There is a risk that learning these technologies takes longer than planned, or
+that the team cannot produce gameplay and art of sufficient quality in the time
+available, which would delay every later milestone.
 
 \subsubsection*{What the PoC will demonstrate:}
 \begin{itemize}
-  \item At least one 3D model created by the team in Blender (e.g., an eye drop
-  bottle or an examination chair) is imported into Unity and rendered in the
-  walkthrough's clinic scene.
-  \item The camera moves between viewpoints in the 3D scene as the user moves
-  from one step to the next.
-  \item The walkthrough is built from Unity and runs on a physical mobile device.
+  \item Multiple playable levels, with the game moving from one level to the
+  next and saving the child's progress through the section.
+  \item A quiz system that is reused across levels, so that quizzes for future
+  levels and sections can be added without writing new code for each one.
+  \item The art used in the levels (e.g., the clinic setting and equipment)
+  displays correctly in the game.
+  \item The game runs on a physical mobile device.
   \item The PoC code passes the team's CI pipeline (formatting check and unit
   tests).
 \end{itemize}
 
 \subsubsection*{Success criteria:}
-The 3D scene renders correctly and runs smoothly on a physical mobile device,
-the team-made Blender model displays correctly in Unity, and the team can
-estimate how long it takes to create a model and set up a scene. This estimate
-will be used to confirm that 3D content is realistic for the remaining
-procedures.
+The levels run smoothly on a physical mobile device, the art displays
+correctly, progress is saved between levels, and the quiz system works in every
+level. The team can also estimate how long it takes to build a level, including
+its art. This estimate will be used to confirm that
+the planned number of sections and levels, along with character customization
+and the leaderboard, is realistic for the final game.
 
 \subsection{Consequences and Mitigation of an Unsuccessful PoC}
 
@@ -929,37 +953,38 @@ project and a potential mitigation strategy for each are as follows.
 
 \subsubsection*{If implementing accurate procedure content (Risk 1) is not resolved:}
 \begin{itemize}
-  \item \textbf{Consequence:} Each procedure would need several rounds of rework
+  \item \textbf{Consequence:} Each section would need several rounds of rework
   after clinician review, slowing development and reducing the number of
-  procedures the team can implement.
-  \item \textbf{Mitigation:} Seek additional clinical reviewers and base the
-  content more closely on existing patient education material from paediatric
-  eye clinics.
+  procedures the team can cover in the game.
+  \item \textbf{Mitigation:} Seek additional clinical reviewers, base the levels
+  and quizzes more closely on existing patient education material from
+  paediatric eye clinics, and keep the gameplay closer to the real steps of
+  each procedure.
 \end{itemize}
 
 \subsubsection*{If child engagement and usability (Risk 2) are not resolved:}
 \begin{itemize}
-  \item \textbf{Consequence:} The interaction design and structure of the
-  walkthroughs would need to be rethought before more procedures are built, and
-  the application may become a parent-led tool that is less engaging for the
-  child.
-  \item \textbf{Mitigation:} Simplify and shorten the walkthrough based on the
-  feedback received, and gather feedback again before building more procedures.
+  \item \textbf{Consequence:} The gameplay and level structure would need to be
+  rethought before more sections are built. If players do not learn about the
+  procedure, the game may be entertaining but fail to prepare children for
+  their appointment.
+  \item \textbf{Mitigation:} Simplify and shorten the levels based on the
+  feedback received, tie the gameplay and quizzes more directly to the steps of
+  the procedure, and gather feedback again before building more sections.
 \end{itemize}
 
 \subsubsection*{If inexperience with unfamiliar technologies (Risk 3) is not resolved:}
 \begin{itemize}
   \item \textbf{Consequence:} Development would take longer than planned, putting
-  later milestones at risk, and the application may not reach the intended
-  visual quality.
-  \item \textbf{Mitigation:} Switch to 2D graphics in Unity and rely on
-  ready-made assets from the Unity Asset Store instead of creating custom 3D
-  models.
+  later milestones at risk. The game may have fewer sections and levels, and may
+  not reach the intended visual quality.
+  \item \textbf{Mitigation:} Simplify the art style and the gameplay in each
+  level, and rely more on ready-made assets instead of creating custom art.
 \end{itemize}
 
 \noindent Whether or not the PoC succeeds, its results will be used to set the
-number of procedures covered, the interaction design, and the media approach
-(including whether to use 3D graphics).
+number of sections and levels in the game, the gameplay and quiz design, and
+the art and media approach.
 
 \section{Expected Technology}
 
