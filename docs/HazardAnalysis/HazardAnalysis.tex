@@ -506,9 +506,10 @@ frequently such as cultural or religious attire from their world
 dimensions of diversity (i.e. skin tone, hair texture, etc.)
 \bitem Ensure cosmetic rewards include cosmetics from a range of cultures 
 and religions
-& REFERENCE TO COME
+& \srref{CharacterDiversityInclusivity}
 & \hazdef{DiverseCharacterLibrary} \\
 \addlinespace
+% ------ The Game: Quizzes --------------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{Quizzes}{Quizzes}
 & Feedback function fails to reveal the correct answer after 
@@ -523,7 +524,8 @@ a test
 the result
 \bitem Show the correct answer immediately, have the child select it, then 
 offer a fresh retry with encouragement
-& COMING SOON
+\bitem Ensure that every quiz question has at least one correct answer
+& \srref{CorrectAnswerReveal}, \srref{AtLeastOneCorrectAnswer}
 & \hazdef{CorrectAnswerReveal} \\
 % ----- The Game - Progress and Rewards -------------------------------
 \addlinespace
@@ -613,19 +615,19 @@ pre-reader does not progress.
 & \bitem Show icon-based prompts automatically when narration turned off
 \bitem Show a parent/guardian directed prompt to restore the audio
 \bitem Pause on interruptions and continue at the same point
-& COMING SOON
+& \srref{NarrationMuted}
 & \hazdef{NarrationDisabledSetting} \\
 \addlinespace
-& Visual cues are disabled or unrendered
+& Visuals in gameplay are disabled or unrendered
 & The child experiences incomplete preparation because 
 narration could not convey spatial reasoning and/or the child 
 did not progress to next step of the game
-& \bitem Parent or guardian disables visual cueing in settings
-\bitem Child has low visual impairement and cannot perceive the cues
-& \bitem Keep visual cues always active during gameplay
+& \bitem Parent or guardian disables visual gameplay settings
+\bitem Child has low visual impairement and cannot perceive the gameplay cues
+& \bitem Keep visual gameplay cues and icons always active during gameplay
 \bitem Provide an accesibility mode with audio description for parent 
 selection for visually impaired children
-& COMING SOON
+& \srref{VisualCuesSetting}
 & \hazdef{VisualCuesDisabledSetting} \\
 % ------ The Game: Save Data ---------------------------------------------
 \fmeacomp{Game}{The Game}:\newline
@@ -640,7 +642,7 @@ or rewards causing confusion and conceding to continue
 good progress is not lost
 \bitem Show parent a message explaining problem and 
 that space needs to be freed
-& COMING SOON
+& \srref{SaveProgressRewardData}
 & \hazdef{SaveDataFailFreezingGameplay}
 \addlinespace
 
@@ -1032,7 +1034,110 @@ comfortable reduces avoidable distress while
 preserving the educational purpose of the game.
 
 \textit{Associated hazards:}
-\hazref{UnsafeAudioVisuals}
+\hazref{AccidentalInputSkipping}
+
+\textit{SRS:} TODO
+
+\item[\srdef{CharacterDiversityInclusivity}]
+\textbf{Assuring Game Characters and Cosmetic Rewards are Diverse and Inclusive}
+
+The player character library shall offer multiple dimensions of 
+diversity (e.g. skin tones, hair textures and styles, varied body types, 
+accessibility and medical-device options, gender expressions etc.) and 
+cosmetic rewards shall include items from a range of cultures and religions.
+
+\textit{Rationale:}
+Diverse and inclusive representation lets the child see themselves and their 
+world understanding to support their sense of belonging that carries into the 
+clinic making it a more comfortable environment.
+
+\textit{Associated hazards:}
+\hazref{DiverseCharacterLibrary}
+
+\textit{SRS:} TODO
+
+\item[\srdef{CorrectAnswerReveal}]
+\textbf{Revealing Correct Answers for Learning Benefit}
+
+After an incorrect selection, the game shall indicate all the correct answers
+within 1 second by at least two non-color cues (e.g., outline, icon, motion) 
+and narration, for the child to select any or all before proceeding with encouraging 
+feedback.
+
+\textit{Rationale:}
+Prevents the child from leaving a question unsure of the answer, 
+which reduces anxiety and reinforces learning in a format that supports 
+learning for color-blind children and pre-readers.
+
+\textit{Associated hazards:}
+\hazref{CorrectAnswerReveal}
+
+\textit{SRS:} TODO
+
+\item[\srdef{AtLeastOneCorrectAnswer}]
+\textbf{Ensure Quiz Questions have at least One Correct Answer}
+
+Every quiz question shall have at least one validated correct answer, 
+checked at build time with questions whose answer keys are invalidated 
+skipped and logged rather than shown.
+
+\textit{Rationale:}
+Addresses the data-defect cause and removes quiz questions that don't 
+match so the child never sees a question that cannot be answered correctly.
+
+\textit{Associated hazards:}
+\hazref{CorrectAnswerReveal}
+
+\textit{SRS:} TODO
+
+\item[\srdef{NarrationMuted}]
+\textbf{Guidance to fix Muted Narration}
+
+The game shall switch to visual icon guidance if narration cannot be 
+delivered and show a non-blocking, parent-directed prompt to fix it. 
+The game shall pause and resume at the same point only if audio or 
+visual interruptions (calls, notifications) occur.
+
+\textit{Rationale:}
+When narration issues surfaces, the problem is shared to the parent without 
+blocking children who cannot use audio (deaf children). By pausing for 
+spontaneous interruptions it ensures children do not miss content during the game.
+
+\textit{Associated hazards:}
+\hazref{NarrationDisabledSetting}
+
+\item[\srdef{VisualCuesSetting}]
+\textbf{Visual Cues Inclusion during Gameplay}
+
+Visual gameplay shall be active in all gameplay states and shall not be 
+disactivatable by the child with any setting to change the visual game 
+instructions parent-gated.
+
+\textit{Rationale:}
+Removes the cause where the child turns cues off intentionally or accidentally, 
+while still allowing a parent to adjust for accessibility needs.
+
+\textit{Associated hazards:}
+\hazref{VisualCuesDisabledSetting}
+
+\item[\srdef{SaveProgressRewardData}]
+\textbf{Save Progress and Reward Data}
+
+If a save fails, the game shall hold unsaved progress and 
+rewards in volatile memory and allow the child to continue 
+the current session. The game shall automatically retry the 
+save at defined intervals and when storage becomes available 
+(e.g., on app resume or after the parent confirms space was freed), 
+and shall clear the failure state once a save succeeds.
+
+\textit{Rationale:}
+To prevent the game from freezing because the save failed, this 
+ensures the child can continue to play the game only for the current session. 
+In-memory progress is only temporary, so the game must persist to save as 
+soon as possible to avoid the current progress being lost.
+
+\textit{Associated hazards:}
+\hazref{SaveDataFailFreezingGameplay}
 
 \textit{SRS:} TODO
 
