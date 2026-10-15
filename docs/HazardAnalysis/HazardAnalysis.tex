@@ -87,11 +87,11 @@ H\thehazard}
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
+2026/10/13 & Ahsan Muzammil & Completed section 4 (CA), section 5 and 6 (3 each), section 8 (only my AI uses), and Reflection\\
 2026/10/14 & Jake Finlay & Completed Section 3: System Boundaries and
 Components, added 3 entries to Section 5: Failure Mode and Effect Analysis,
 added 5 saftey requirements to Section 6: Safety and Security Requirements,
 added my AI disclosure and reflection \\
-2026/10/13 & Ahsan Muzammil & Completed section 4 (CA), section 5 and 6 (3 each), section 8 (only my AI uses), and Reflection\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -301,6 +301,47 @@ Table~\ref{tab:FMEA} is printed in landscape orientation.
 \endfoot
 \bottomrule
 \endlastfoot
+\fmeacomp{Game}{The Game}:\newline
+\compref{Gameplay}{Gameplay}
+& Incorrect answers or skipped exercises trigger
+negative feedback or penalties
+& The child experiences frustration or increased
+anxiety and may become reluctant to continue
+preparing for ophthalmology examinations
+& \bitem Game rewards are awarded based on answer
+accuracy rather than activity completion
+  \bitem Skipped exercises are treated as failures
+  \bitem Gameplay requires correct answers
+before allowing progression
+& \bitem Provide encouraging feedback for
+incorrect responses and skipped exercises
+  \bitem Allow children to skip exercises
+without losing previously earned rewards
+  \bitem Award level completion based on reaching
+the ending rather than answering correctly
+& \srref{NonPunitiveFeedback}
+& \hazdef{PunitiveFeedback}\\
+\addlinespace
+& Repeated or accidental touch inputs cause the game
+to skip important preparation information
+& The child may miss explanations about an
+ophthalmology procedure, resulting in confusion
+or increased anxiety during the actual examination
+& \bitem Multiple touch inputs are processed
+during a screen transition
+  \bitem Repeated tapping advances through
+several instructions unintentionally
+  \bitem Gameplay does not distinguish between
+a deliberate action and repeated inputs
+& \bitem Process only one navigation action
+per screen transition
+  \bitem Temporarily disable repeated inputs
+while transitioning between screens
+  \bitem Ensure that essential procedure
+information cannot be skipped accidentally
+& \srref{PreventAccidentalInput}
+& \hazdef{AccidentalInputSkipping}\\
+\addlinespace
 % ----- The Game: Educational Content ----------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{EducationalContent}{Educational Content}
@@ -343,6 +384,70 @@ examination
   procedures
 & \srref{ChildLifeReview}
 & \hazdef{Frightening}\\
+\addlinespace
+& The game does not clearly communicate that
+its content is educational rather than medical advice
+& Caregivers may mistake simulated procedures or
+game feedback for clinical guidance and rely on
+the application instead of consulting a clinician
+& \bitem The application presents realistic
+ophthalmology procedures
+  \bitem Educational content is presented
+without a clear explanation of its limitations
+  \bitem Caregivers are not informed of
+the application's intended purpose
+& \bitem Display an educational-use notice
+during initial setup
+  \bitem Require caregiver acknowledgment
+before accessing the application
+  \bitem Make the notice available in the
+caregiver procedure guide
+& \srref{MedicalDisclaimer}
+& \hazdef{MisinterpretedMedicalPurpose}\\
+% ----- Additional Hazards: The Game -------------------------------
+\addlinespace
+\fmeacomp{Game}{The Game}:\newline
+\compref{ProgressRewards}{Progress and Rewards}
+& Preparation levels become inaccessible until earlier
+levels are completed or sufficient points are earned
+& The child cannot access preparation for a procedure
+that may be required unexpectedly during an appointment,
+resulting in unfamiliarity and possible anxiety
+& \bitem Journey progression is implemented with
+mandatory level unlocking
+  \bitem Access to procedure games depends on
+  completion status or accumulated points
+& \bitem Make all procedure preparation levels
+accessible from the beginning
+  \bitem Use points and rewards for motivation
+rather than restricting access to educational games
+  \bitem Verify that every level can be opened
+regardless of previous completion
+& \srref{AllLevelsAccessible}
+& \hazdef{RestrictedLevelAccess}\\
+\addlinespace
+\fmeacomp{Game}{The Game}:\newline
+\compref{AudioVisuals}{Audio and Visuals}
+& Audio, animations, or visual effects continue
+playing after the child exits a preparation level
+& The child may become confused or distressed
+by sounds or visuals from an activity they
+have already left
+& \bitem Audio playback is not stopped
+when the level is exited
+  \bitem Ongoing animations or visual effects
+are not terminated during screen transitions
+  \bitem The exit function changes screens
+without stopping active game components
+& \bitem Stop all level-specific audio,
+animations, and visual effects upon exit
+  \bitem Ensure that no level-specific
+content continues after returning to
+the journey map
+  \bitem Test exiting during active
+audio playback and animations
+& \srref{StopAudioVisualsOnExit}
+& \hazdef{AudioVisualsContinueOnExit}\\
 \end{longtable}
 \end{landscape}
 
@@ -430,67 +535,128 @@ excitement are added to the medical content.
 
 \textit{SRS:} TODO
 
+
+\item[\srdef{AllLevelsAccessible}]
+\textbf{All Preparation Levels Must Remain Accessible}
+
+The game shall allow the child to access every
+ophthalmology preparation level regardless of
+whether previous levels have been completed.
+Journey points, completion status, and rewards
+shall not restrict access to preparation games.
+
+\textit{Rationale:}
+The procedures required during an ophthalmology
+appointment may change unexpectedly. Restricting
+access to later levels could prevent children from
+preparing for an examination they may need.
+Keeping all levels accessible allows children
+to explore the procedures in any order.
+
+\textit{Associated hazards:}
+\hazref{RestrictedLevelAccess}
+
+\textit{SRS:} TODO
+
+
+\item[\srdef{MedicalDisclaimer}]
+\textbf{Medical Disclaimer and Caregiver Acknowledgment}
+
+The game shall inform caregivers that the
+application is intended solely as an educational
+preparation aid and does not replace professional
+medical advice, diagnosis, or treatment.
+The game shall require caregiver acknowledgment
+of this notice before first use and make the
+notice accessible from the caregiver procedure guide.
+
+\textit{Rationale:}
+The game introduces children to ophthalmology
+procedures through interactive simulations.
+Without a clear explanation of its limitations,
+caregivers may mistake the educational content
+for professional medical guidance. Requiring
+acknowledgment communicates the application's
+intended purpose before use.
+
+\textit{Associated hazards:}
+\hazref{MisinterpretedMedicalPurpose}
+
+\textit{SRS:} TODO
+
+
+\item[\srdef{NonPunitiveFeedback}]
+\textbf{Encouraging Feedback Without Penalties}
+
+The game shall allow children to skip individual
+exercises without losing previously earned points,
+coins, or cosmetic rewards. Incorrect responses
+and skipped exercises shall not trigger negative
+feedback or prevent the child from completing
+the preparation level.
+
+\textit{Rationale:}
+The application aims to reduce anxiety associated
+with ophthalmology examinations. Penalizing children
+for incorrect answers or skipped exercises may
+cause frustration or discourage participation.
+Non-punitive feedback allows children to explore
+procedures at their own pace without pressure
+to perform correctly.
+
+\textit{Associated hazards:}
+\hazref{PunitiveFeedback}
+
+\textit{SRS:} TODO
+
+\item[\srdef{StopAudioVisualsOnExit}]
+\textbf{Termination of Audio and Visual Effects on Exit}
+
+When the child exits a preparation level, the game
+shall immediately stop all audio playback, animations,
+and visual effects associated with that level.
+No level-specific audio or visual activity shall
+continue after the child returns to the journey map.
+
+\textit{Rationale:}
+Children may choose to exit a preparation activity
+at any time. If audio or visual effects continue
+after exiting, the child may become confused or
+distressed by content from an activity they are
+no longer participating in. Stopping these
+components ensures that exiting the level
+fully ends the activity.
+
+\textit{Associated hazards:}
+\hazref{AudioVisualsContinueOnExit}
+
+\textit{SRS:} TODO
+
+\item[\srdef{PreventAccidentalInput}]
+\textbf{Prevention of Unintentional Gameplay Actions}
+
+The game shall prevent repeated touch inputs from
+triggering multiple navigation actions during a
+single screen transition. Essential procedure
+information shall not be skipped as a result
+of repeated or accidental touch inputs.
+
+\textit{Rationale:}
+Young children may repeatedly tap the screen
+while interacting with the game. If multiple
+inputs are processed unintentionally, the child
+may skip important explanations about an
+ophthalmology procedure. Preventing accidental
+navigation helps ensure children receive the
+necessary preparation information.
+
+\textit{Associated hazards:}
+\hazref{AccidentalInputSkipping}
+
+\textit{SRS:} TODO
 \end{itemize}
 
-\begin{enumerate}
-    \item \textbf{SR-1: Camera Unavailability Handling}
-    
-    If camera permission is denied, revoked, or the camera
-    is unavailable, the system shall notify the user and
-    provide an option to continue without camera based
-    tracking or exit the activity.
 
-    \textit{Rationale:}
-    Camera related failures should not prevent children
-    from accessing preparation activities or cause the
-    application to become unresponsive.
-
-    \textit{Associated hazards:} TODO \\
-    \textit{SRS:} TODO
-
-    \item \textbf{SR-2: Medical Disclaimer and Caregiver Acknowledgment}
-
-    The system shall inform caregivers that the application is intended
-    solely as a preparation aid and does not replace professional medical
-    advice, diagnosis, or treatment. The system shall require caregiver
-    acknowledgment of this notice before first use and make the notice
-    accessible from every caregiver guide.
-
-    \textit{Rationale:}
-    The application introduces children to common ophthalmology
-    procedures, which may lead caregivers to mistake its educational
-    content for professional medical guidance. Providing a clear
-    disclaimer and requiring acknowledgment helps communicate the
-    application's intended purpose and limitations, reducing the
-    risk of caregivers relying on it as a substitute for
-    professional medical care.
-
-    \textit{Associated hazards:} TODO \\
-    \textit{SRS:} TODO
-
-    \item \textbf{SR-3: Restriction of Medical Guidance}
-
-    The system shall not provide medical diagnoses, treatment
-    recommendations, medication dosage instructions, or instructions
-    encouraging users to perform medical procedures independently.
-    Educational descriptions of ophthalmology procedures shall be
-    permitted when reviewed and approved by qualified clinical
-    professionals.
-
-    \textit{Rationale:}
-    The application is designed to familiarize children with
-    ophthalmology procedures rather than provide medical guidance.
-    Without clear restrictions, children or caregivers may
-    misinterpret simulated procedures as instructions for performing
-    actual medical procedures. Restricting medical guidance while
-    allowing clinically approved educational content helps prevent
-    unsafe imitation and misleading information without limiting
-    the application's preparatory purpose.
-
-    \textit{Associated hazards:} TODO \\
-    \textit{SRS:} TODO
-
-\end{enumerate}
 
 
 \section{Roadmap}
@@ -519,23 +685,11 @@ hazard analysis.
 The following sections were assisted by AI:
 
 \begin{itemize}
-  \item \textbf{Critical Assumptions:} ChatGPT was used to brainstorm
-  potential assumptions regarding the application's operating environment,
-  intended users, and external dependencies. These suggestions were reviewed
-  and refined to ensure they were relevant to the project's scope.
-
   \item \textbf{FMEA Table:} Claude was used to help with the table formatting
   and the creation of a numbering system. This allowed us to quickly link the
   hazards to the security requirements without worrying about the order of
   which items appear first.
-
-  \item \textbf{Safety and Security Requirements:} ChatGPT was used to ensure
-  that additional safety and security requirements that were brainstormed
-  didn't already overlap with existing SRS NFRs.
-
-  \item \textbf{Document Formatting:} ChatGPT was used to assist with
-  converting and formatting written content into appropriate \LaTeX{}
-  structures, including lists, tables, and section organization.
+  
     \item \textbf{Critical Assumptions:}
     ChatGPT was used to brainstorm potential assumptions regarding
     the application's operating environment, intended users, and
@@ -628,11 +782,9 @@ and links update automatically. This made it much easier to link everything
 together and get the traceability I wanted. I plan to use the same system in
 the SRS when I start working on it.
 
-\subsubsection*{Ahsan Muzammil}
+\subsection*{Ahsan Muzammil}
 
-\begin{enumerate}
-    \item What went well while writing this deliverable? 
-    
+\subsubsection*{What went well while writing this deliverable?}
     Writing the Critical Assumptions section went well because
     it did not depend on other team members completing their
     sections first. This allowed me to work independently
@@ -641,9 +793,8 @@ the SRS when I start working on it.
     relevant to the system without having to wait for
     other parts of the report to be finalized.
 
-    \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-
+\subsubsection*{What pain points did you experience during this deliverable,
+and how did you resolve them?}
     One challenge was contributing to Section 5 (FMEA Diagram)
     and Section 6 (Additional Safety and Security Requirements).
     These sections depended on information from earlier sections,
@@ -659,15 +810,6 @@ the SRS when I start working on it.
     experience highlighted the importance of coordinating
     dependent tasks and communicating early to prevent
     delays in future deliverables.
-
-    \item Which of your listed risks had your team thought of before this
-    deliverable, and which did you think of while doing this deliverable? For
-    the latter ones (ones you thought of while doing the Hazard Analysis), how
-    did they come about?
-    \item Other than the risk of physical harm (some projects may not have any
-    appreciable risks of this form), list at least 2 other types of risk in
-    software products. Why are they important to consider?
-\end{enumerate}
 
 \subsection*{Group Answer(s)}
 
