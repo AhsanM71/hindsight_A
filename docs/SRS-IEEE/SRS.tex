@@ -833,29 +833,107 @@ Section~\ref{sec_Personas}.
 \end{itemize}
 
 % ============================================================== 
-\section{Stakeholder Requirements}
-\label{sec_StakeholderReqs}
+\section{Stakeholder Requirements} \label{sec_StakeholderReqs}
 
-\plt{Technology-independent requirements.  These come from statements made by
-the stakeholders.  You will find these through interviews and surveys.  They are
-often expressed in natural language.  They are not necessarily testable, but
-they should be verifiable.}
-
-\plt{The stakeholder requirements are numbered so that you can have traceability to other parts of your document.}
-
+The stakeholder requirements state, in the stakeholders' own terms and without reference
+to technology, what \progname{} must achieve. Each requirement is traced to its rationale from the elicitation sources in
+Appendix~\ref{sec_RESources} (Table \ref{tab:SRESources}).
 \noindent \begin{itemize}
 
-\item[SR\refstepcounter{srnum}\thesrnum \label{SR_Label1}] TODO
+% Objective Requirements
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label1}] Children shall be able to learn what happens during 
+each common paediatric eye clinic examination before their appointment.
 
-\item[SR\refstepcounter{srnum}\thesrnum \label{SR_Label2}] TODO
+\textbf{Rationale:} \hyperref[ER1]{ER1}, \hyperref[ER7]{ER7}
 
-\item[SR\refstepcounter{srnum}\thesrnum \label{SR_Label3}] TODO
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label2}] The preparation shall calm children and reduce anxiety.
+
+\textbf{Rationale:} \hyperref[ER1]{ER1}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label3}] The product shall be engaging and tailored for children
+aged \constref{MIN_AGE} to \constref{MAX_AGE}.
+
+\textbf{Rationale:} \hyperref[ER1]{ER1}, \hyperref[ER2]{ER2}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label4}] Families shall be able to prepare for the examinations 
+on their own at home and while at the clinic waiting room.
+
+\textbf{Rationale:} \hyperref[ER1]{ER1}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label5}] Preparation content shown to children shall match what 
+actually happens in the clinic, as confirmed by clinicians.
+
+\textbf{Rationale:} \hyperref[ER1]{ER1}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label6}] Children shall be told truthfully about unpleasant 
+sensations, such as drops that burn or bright lights in their eyes.
+
+\textbf{Rationale:} \hyperref[ER1]{ER1}, \hyperref[ER5]{ER5}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label7}] Families shall be able to access all preparation with 
+focus on the procedures planned for the child's own visit, as chosen by the clinician or family.
+
+\textbf{Rationale:} \hyperref[ER1]{ER1}, \hyperref[ER3]{ER3}, \hyperref[ER8]{ER8}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label8}] The product preparation shall include a journey with 
+different levels for children to earn and see their rewards for practicing.
+
+\textbf{Rationale:} \hyperref[ER1]{ER1}, \hyperref[ER8]{ER8}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label9}] Caregivers, clinicians and the evaluation study shall 
+be able to see which preparation activities a child has completed.
+
+\textbf{Rationale:} \hyperref[ER3]{ER3}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label10}] The product shall work on the phones and tablets that 
+families already own.
+
+\textbf{Rationale:} \hyperref[ER3]{ER3}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label11}] More clinic procedures shall be addable over time into 
+the existing interface.
+
+\textbf{Rationale:} \hyperref[ER5]{ER5}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label12}] The product shall include the ability to play as a 
+character customized by the child.
+
+\textbf{Rationale:} \hyperref[ER2]{ER2}, \hyperref[ER8]{ER8}
+
+% Legal/Ethic Oriented Requirements
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label13}] The product shall not hold personal health information 
+of families and such information shall stay in the clinic's existing secure systems.
+
+\textbf{Rationale:} \hyperref[ER6]{ER6}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label14}] Families shall understand that the product is a preparation 
+aid and not medical advice specified by the application.
+
+\textbf{Rationale:} \hyperref[ER4]{ER4}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label15}] The product shall include safe, age-appropriate content 
+free of advertising, purchases, frightening content.
+
+\textbf{Rationale:} \hyperref[ER2]{ER2}, \hyperref[ER3]{ER3}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label16}] The product shall comply with the rules and ethics for 
+children's apps set by App Store guidelines and regulatory body ethics specifications to discourage compulsive use designs.
+
+\textbf{Rationale:} \hyperref[ER3]{ER3}
+
+% Accessibility and Inclusion Requirements
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label17}] The product shall be accessible to children with visual 
+impairments, including those with dilated pupils, eye patches, or colour vision deficiency, as well as children who are deaf 
+or hard of hearing.
+
+\textbf{Rationale:} \hyperref[ER3]{ER3}, \hyperref[ER5]{ER5}
+
+\item[\textbf{STR\refstepcounter{srnum}\thesrnum:} \label{SR_Label18}] Children with pre-reader ability shall be able to use 
+the product.
+
+\textbf{Rationale:} \hyperref[ER2]{ER2}, \hyperref[ER3]{ER3}
 
 \end{itemize}
-
-\plt{You should give your SRs meaningful labels, so that you can refer to them
-in other parts of the SRS.  The label names should be meaningful mnemonics, not
-numbers.}
 
 % ============================================================== 
 \section{User Personas} \label{sec_Personas}
@@ -4495,7 +4573,7 @@ children's applications.
 
 \subsection{Appendix A: Additional Materials}
 
-\subsubsection{Requirements Elicitation Sources}
+\subsubsection{Requirements Elicitation Sources} \label{sec_RESources}
 
 Table \ref{tab:SRESources} lists the sources from which the stakeholder 
 requirements were elicited, with links to the GitHub issues that hold the meeting 
@@ -4517,7 +4595,7 @@ ID & Source and Date & Information Summary & SR Requirements \\
 \midrule
 \endhead
 
-ER1
+ER1\phantomsection\label{ER1}
 & Supervisor's Project Description (September 2026)
 & Children often experience anxiety during ophthalmology visits, 
 which can reduce cooperation and affect the quality of assessments. 
@@ -4528,30 +4606,35 @@ vision testing, eye drops, and slit-lamp examinations. Designed alongside
 clinicians, child-life specialists, parents, and children, we will pilot 
 and evaluate the app's usability, feasibility, anxiety reduction, 
 cooperation, and clinic efficiency.
-& TODO \\
-ER2
+& \hyperref[SR_Label1]{STR1}, \hyperref[SR_Label2]{STR2}, \hyperref[SR_Label3]{STR3}, 
+\hyperref[SR_Label4]{STR4}, \hyperref[SR_Label5]{STR5}, \hyperref[SR_Label6]{STR6}, 
+\hyperref[SR_Label7]{STR7}, \hyperref[SR_Label8]{STR8} \\
+ER2\phantomsection\label{ER2}
 & Supervisor Meeting 1 (2026/09/15) \href{https://github.com/team-hindsight/ophthamology-game/issues/1}{(\#1)}
 & Discussion of the age groups, whether
 difficulty should vary by age, and the
 structure of the game. The outcome is a target range of 
 \constref{MIN_AGE} to \constref{MAX_AGE} years with augmented 
 reality and personalization as stretch goals.
-& TODO \\
-ER3
+& \hyperref[SR_Label3]{STR3}, \hyperref[SR_Label12]{STR12}, \hyperref[SR_Label15]{STR15}, 
+\hyperref[SR_Label18]{STR18} \\
+ER3\phantomsection\label{ER3}
 & Stakeholder Elicitation in \href{https://team-hindsight.github.io/ophthamology-game/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem Statement and Goals} document (2026/09/28)
 & Ophthalmologists can evaluate the preparedness of the children through 
 the successful completion of the games. Personalization to the child's visit 
 is a stretch goal, regulatory bodies require the design process and product 
 to be safe and ethical for children; the app runs on iOS and Android phones 
 and tablets.
-& TODO \\
-ER4
+& \hyperref[SR_Label7]{STR7}, \hyperref[SR_Label9]{STR9}, \hyperref[SR_Label10]{STR10}, 
+\hyperref[SR_Label15]{STR15}, \hyperref[SR_Label16]{STR16}, \hyperref[SR_Label17]{STR17}, 
+\hyperref[SR_Label18]{STR18} \\
+ER4\phantomsection\label{ER4}
 & Hazard Analysis Lecture (2026/10/05) \href{https://github.com/team-hindsight/ophthamology-game/issues/136}{(\#136)}
 & Users might treat the game as medical
 advice. This should be written as a hazard with the mitigation strategy as a 
 "not official medical advice" disclaimer.
-& TODO \\
-ER5
+& \hyperref[SR_Label14]{STR14} \\
+ER5\phantomsection\label{ER5}
 & Supervisor Meeting 2 (Clinical Visit) (2026/10/07) \href{https://github.com/team-hindsight/ophthamology-game/issues/138}{(\#138)}
 & Procedures explained include: vision test with one eye covered, eye pressure, 
 dilating eye drops, slit-lamp, headlamp examination, colour vision book, prism 
@@ -4563,29 +4646,29 @@ are a major source of anxiety. Covering one eye is the best method for children
 to test one eye. The slit-lamp needs the head to stay very still. The supervisor 
 also specificied that an ethics board review will be needed for surveying and 
 testing the project at the clinic.
-& TODO \\
-ER6
+& \hyperref[SR_Label6]{STR6}, \hyperref[SR_Label11]{STR11}, \hyperref[SR_Label17]{STR17} \\
+ER6\phantomsection\label{ER6}
 & Teaching Assistant Informal Meeting (2026/10/07) \href{https://github.com/team-hindsight/ophthamology-game/issues/137}{(\#137)}
 & Children should just play the game, but clinicians use their existing system 
 to assign tests and host the personal information on their already secure system.
 Further elicitation is required from stakeholders to see if integration into 
 the existing system is possible.
-& TODO \\
-ER7
+& \hyperref[SR_Label13]{STR13},  \\
+ER7\phantomsection\label{ER7}
 & Literature Research
 & A study of 298 children undergoing cycloplegic eye examinations found that 26\% 
 experienced significant distress before receiving eye drops, while uncooperative 
 children were also more anxious and required more time to complete the 
 examination \cite{ChiaEtAl2015}.
-& TODO \\
-ER8
+& \hyperref[SR_Label1]{STR1} \\
+ER8\phantomsection\label{ER8}
 & Supervisor Email Correspondance (2026/10/13)
 & Supervisor specified a preferably design would include: full access to all 
 modules for children under the clinical assumption have that children will do 
 all of the scenarios even if it's not on the same day, the games presented as 
 a journey with different “levels” for the child with points and a score board at 
 the end, and selection of a unique character the child wants to play as.
-& TODO \\
+& \hyperref[SR_Label7]{STR7}, \hyperref[SR_Label8]{STR8}, \hyperref[SR_Label12]{STR12} \\
 
 \bottomrule
 \end{longtable}
