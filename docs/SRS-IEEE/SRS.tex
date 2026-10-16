@@ -33,7 +33,7 @@
 \usepackage{graphicx}
 \usepackage{colortbl}
 \usepackage{xr}
-\usepackage{hyperref}
+\usepackage[destlabel]{hyperref}
 \usepackage{longtable}
 \usepackage{xfrac}
 \usepackage{tabularx}
@@ -46,6 +46,7 @@
 \usepackage{parskip}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
+\usepackage{tcolorbox}
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -81,9 +82,62 @@
 \newcommand{\rthenfrnum}{NFR\thenfrnum}
 \newcommand{\nfrref}[1]{\hyperref[#1]{NFR\ref*{#1}}}
 
+% Shared look of the boxes in the formal model
+\tcbset{formalbox/.style={boxrule=0.6pt, arc=2pt, left=10pt, right=10pt,
+  top=8pt, bottom=8pt, toptitle=3pt, bottomtitle=3pt, before skip=14pt,
+  after skip=10pt, parbox=false,
+  before upper={\setlength{\parskip}{0.7em}}, fonttitle=\bfseries}}
+
+\newcounter{thmnum} %Theorem of the formal specification (T) Number
+\newcommand{\thmref}[1]{\hyperref[#1]{T\ref*{#1}}}
+% Boxed theorem: \begin{theorem}{Title}{label} ... \end{theorem}
+\newenvironment{theorem}[2]{%
+  \refstepcounter{thmnum}\label{#2}%
+  \tcolorbox[formalbox, colback=teal!7, colframe=teal!80!black,
+    title={Theorem T\thethmnum: #1}]%
+}{\endtcolorbox}
+
+\newcounter{defnum} %Definition of the formal specification (D) Number
+\newcommand{\defref}[1]{\hyperref[#1]{D\ref*{#1}}}
+% Boxed definition: \begin{definition}{Title}{label} ... \end{definition}
+\newenvironment{definition}[2]{%
+  \refstepcounter{defnum}\label{#2}%
+  \tcolorbox[formalbox, colback=blue!3, colframe=blue!45!black,
+    title={Definition D\thedefnum: #1}]%
+}{\endtcolorbox}
+% Boxed part of a definition (D8.1, D8.2, ...):
+% \begin{subdefinition}{Title}{label} ... \end{subdefinition}
+\newcounter{subdefnum}[defnum]
+\renewcommand{\thesubdefnum}{\thedefnum.\arabic{subdefnum}}
+\renewcommand{\theHsubdefnum}{\thedefnum.\arabic{subdefnum}}
+\newenvironment{subdefinition}[2]{%
+  \refstepcounter{subdefnum}\label{#2}%
+  \tcolorbox[formalbox, colback=blue!3, colframe=blue!45!black,
+    title={Definition D\thesubdefnum: #1}]%
+}{\endtcolorbox}
+% A value of the formal model, such as NotStarted or true
+\newcommand{\val}[1]{\ensuremath{\mathsf{#1}}}
+
+% Equations are numbered E1, E2, ... and cited as (E1)
+\renewcommand{\theequation}{E\arabic{equation}}
+
 \newcounter{lcnum} %Likely Change (LC) Number
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{\hyperref[#1]{LC\ref*{#1}}}
+
+% Links to the Hazard Analysis. Each link opens the published Hazard Analysis
+% PDF at the item, using the item's label as a named destination. The label
+% key chooses the destination and the number is the link text. The numbers
+% are written by hand because the two documents are built separately.
+%   \hasrref{MedicalDisclaimer}{10}         gives SR-10
+%   \hahazref{MisinterpretedMedicalPurpose}{2-6} gives H2-6
+%   \hazsr{MedicalDisclaimer}{10}{MisinterpretedMedicalPurpose}{2-6}
+%                                           gives SR-10 (H2-6)
+\newcommand{\haurl}{https://team-hindsight.github.io/ophthamology-game/HazardAnalysis/HazardAnalysis.pdf}
+\newcommand{\hadoc}[1]{\href{\haurl}{#1}}
+\newcommand{\hasrref}[2]{\href{\haurl\#nameddest=sr:#1}{SR-#2}}
+\newcommand{\hahazref}[2]{\href{\haurl\#nameddest=haz:#1}{H#2}}
+\newcommand{\hazsr}[4]{\hasrref{#1}{#2} (\hahazref{#3}{#4})}
 
 \newcommand{\constref}[1]{%
     \hyperref[const:#1]{\texttt{\detokenize{#1}}}%
@@ -506,10 +560,11 @@ each entity are listed below in terms of its inputs and outputs.
 \item \textbf{Caregiver:}
   \begin{itemize}
   \item Installs \progname{} and acknowledges the medical notice before first
-    use.
+    use (\rref{FR_RecordAck}).
   \item Enters local preferences, such as the child's optional nickname and age
-    group.
-  \item Confirms actions that cannot be undone, such as resetting saved data.
+    group (\rref{FR_Nickname}, \rref{FR_Preferences}).
+  \item Confirms actions that cannot be undone, such as resetting saved data
+    (\rref{FR_ResetJourney}).
   \item Reads the procedure guide and the notice.
   \item Supervises younger children as needed.
   \end{itemize}
@@ -545,13 +600,16 @@ each entity are listed below in terms of its inputs and outputs.
   \item Accepts only the touch inputs expected on the current screen.
   \item Ignores repeated or accidental touches that would skip procedure
     information.
-  \item Records progress, rewards, character choices and preferences.
+  \item Records progress, rewards, character choices and preferences
+    (Section~\ref{sec_FormalJourney}).
   \item Stores no identifying information or clinical records
     (\conref{C_PatientPrivacy}).
   \item Checks saved data when it is loaded. If the data is missing or invalid,
-    the application recovers without blocking access to any level.
+    the application recovers without blocking access to any level
+    (\rref{FR_CorruptData}).
   \item Stops all audio and animation of a level when the child exits it.
-  \item Keeps the child's progress when the application is interrupted.
+  \item Keeps the child's progress when the application is interrupted
+    (\rref{FR_Suspend}, \rref{FR_PersistState}).
   \item Never transmits data off the device (\nfrref{NFR_Privacy}).
   \end{itemize}
 \end{itemize}
@@ -566,8 +624,8 @@ However, its users are young children in a medical setting. Some failures can
 increase a child's anxiety or reduce cooperation at the appointment, which is
 the opposite of the application's purpose. Examples are inaccurate or
 frightening content, hidden sensations, punishing feedback, privacy failures,
-and a caregiver treating the game as medical advice. The Hazard Analysis
-document analyses these hazards. The resulting safety and security requirements
+and a caregiver treating the game as medical advice. The
+\hadoc{Hazard Analysis} document analyses these hazards. The resulting safety and security requirements
 are included in this SRS. Requirements that address these hazards receive a
 fuller rationale than other requirements.
 
@@ -666,6 +724,7 @@ fuller rationale than other requirements.
 
 % ============================================================== 
 \section{Stakeholder Requirements}
+\label{sec_StakeholderReqs}
 
 \plt{Technology-independent requirements.  These come from statements made by
 the stakeholders.  You will find these through interviews and surveys.  They are
@@ -830,6 +889,7 @@ setup or technical assistance.
 
 % ============================================================== 
 \section{Use Cases}
+\label{sec_UseCases}
 
 The following use cases describe how children and caregivers use
 \progname{} to explore ophthalmology preparation games through a
@@ -895,6 +955,10 @@ Caregiver
     the journey without creating an account.
 \end{itemize}
 
+\textbf{Functional Requirements}
+
+\rref{FR_MedicalNotice}, \rref{FR_RecordAck}.
+
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_ChooseCharacter}
 \subsection{\ucref{UC_ChooseCharacter}: Choose a Journey Character}
@@ -940,6 +1004,10 @@ Child
     \item The selected character appears in the child's journey.
     \item Game progress and reward balances remain unchanged.
 \end{itemize}
+
+\textbf{Functional Requirements}
+
+\rref{FR_ChooseCharacter}, \rref{FR_DiverseCharacters}.
 
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_SelectGame}
@@ -989,6 +1057,10 @@ Child
     \item No earlier level had to be completed or unlocked first.
 \end{itemize}
 
+\textbf{Functional Requirements}
+
+\rref{FR_JourneyMap}, \rref{FR_StartLevel}, \rref{FR_Replay}.
+
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_ProcedureInformation}
 \subsection{\ucref{UC_ProcedureInformation}: View a Caregiver Procedure Guide}
@@ -1032,6 +1104,10 @@ Caregiver
     the selected procedure.
     \item No diagnostic or treatment recommendation is produced.
 \end{itemize}
+
+\textbf{Functional Requirements}
+
+\rref{FR_MedicalNotice}, \rref{FR_ProcedureGuide}.
 
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_VisionGame}
@@ -1085,6 +1161,10 @@ Child
     \item The game does not measure visual acuity or provide
     clinical results.
 \end{itemize}
+
+\textbf{Functional Requirements}
+
+\rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches}.
 
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_EyeDropGame}
@@ -1141,6 +1221,10 @@ Child
     real medication or carry out the procedure independently.
 \end{itemize}
 
+\textbf{Functional Requirements}
+
+\rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_SpeakUp}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches}.
+
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_SlitLampGame}
 \subsection{\ucref{UC_SlitLampGame}: Play the Slit-Lamp Preparation Level}
@@ -1194,6 +1278,10 @@ Child
     \item The game does not measure the child's head movement or
     produce clinical measurements. Camera tracking is not assumed.
 \end{itemize}
+
+\textbf{Functional Requirements}
+
+\rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches}.
 
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_ExitGame}
@@ -1249,6 +1337,10 @@ Child
     \item No first completion reward is issued for the interruption.
 \end{itemize}
 
+\textbf{Functional Requirements}
+
+\rref{FR_ExitLevel}, \rref{FR_StopOnExit}, \rref{FR_ExitKeepsData}, \rref{FR_RestartAfterExit}, \rref{FR_RestartLevel}, \rref{FR_Suspend}, \rref{FR_PersistState}.
+
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_CompleteGame}
 \subsection{\ucref{UC_CompleteGame}: Receive a Level Completion Reward}
@@ -1287,7 +1379,8 @@ Child
     a cosmetic item rather than coins (for example, a star shaped
     accessory for the Eye-Drop level), the system adds that item
     directly to the child's inventory, displays its preview, and
-    offers a way to equip it. No coins are added for that reward.
+    offers a way to equip it. A level's reward may include coins, a
+    cosmetic item, both, or neither.
     \item \textbf{Skipped Exercises:} If the child reached the ending
     after skipping some exercises, the system still awards the
     predefined participation based reward.
@@ -1307,6 +1400,10 @@ Child
     \item Rewards represent participation, not visual ability
     or clinical readiness.
 \end{itemize}
+
+\textbf{Functional Requirements}
+
+\rref{FR_Replay}, \rref{FR_FirstReward}, \rref{FR_NoDuplicateReward}.
 
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_ViewProgress}
@@ -1359,6 +1456,10 @@ Child
     \item Viewing the scoreboard does not change progress or balances.
     \item Points represent participation, not clinical performance.
 \end{itemize}
+
+\textbf{Functional Requirements}
+
+\rref{FR_Scoreboard}.
 
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_PurchaseAccessory}
@@ -1414,6 +1515,10 @@ Child
     \item No real money payment, account, or Internet connection is used.
 \end{itemize}
 
+\textbf{Functional Requirements}
+
+\rref{FR_DiverseCharacters}, \rref{FR_Shop}, \rref{FR_Purchase}, \rref{FR_PurchaseRefused}, \rref{FR_NoRealMoney}.
+
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_EquipAccessory}
 \subsection{\ucref{UC_EquipAccessory}: Customize a Character with an Owned Accessory}
@@ -1467,6 +1572,10 @@ Child
     are unchanged by equipping or removing an item.
 \end{itemize}
 
+\textbf{Functional Requirements}
+
+\rref{FR_DiverseCharacters}, \rref{FR_Equip}.
+
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_AdjustPreferences}
 \subsection{\ucref{UC_AdjustPreferences}: Change a Saved Nickname}
@@ -1516,6 +1625,10 @@ Caregiver
     \item The nickname is not an account identifier or login credential.
 \end{itemize}
 
+\textbf{Functional Requirements}
+
+\rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Nickname}, \rref{FR_Preferences}, \rref{FR_AgeGroup}.
+
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_DeleteData}
 \subsection{\ucref{UC_DeleteData}: Reset the Local Journey Data}
@@ -1564,6 +1677,10 @@ Caregiver
     \item Built in game content and character catalogues remain
     installed and accessible; no network download is required.
 \end{itemize}
+
+\textbf{Functional Requirements}
+
+\rref{FR_ParentGate}, \rref{FR_ResetJourney}, \rref{FR_ClearAllData}.
 
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_OfflineUse}
@@ -1624,26 +1741,1452 @@ Child
     function without an Internet connection or external account.
 \end{itemize}
 
+\textbf{Functional Requirements}
+
+\rref{FR_PersistState}, \rref{FR_CorruptData}.
+
 % ============================================================== 
 \section{Functional Requirements}
-\plt{Functional requirements describe what the system should do.  They are typically
-expressed as a set of conditions or capabilities that the system must have.  These
-requirements are usually derived from the stakeholder requirements and use cases.}
+\label{sec_FR}
 
-\plt{Use SHALL statements. Requirements must be atomic, testable, and traceable.}
+The functional requirements state what \progname{} shall do. They refine the
+use cases of Section~\ref{sec_UseCases}.
 
-\noindent \begin{itemize}
+\progname{} presents a single journey. The journey has one level for each
+procedure, such as vision testing, eye drops, or the slit-lamp examination.
+Any level can be played at any time. Finishing a level for the first time gives
+a level reward.
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label1}:] The system shall ...
+This section has two parts. Section~\ref{sec_FormalSpec} first defines a
+formal model of the journey and of the player's progress.
+Section~\ref{sec_FRList} then states the functional requirements. A
+requirement may use a name from the model, and it then cites the definition or
+theorem it relies on. Table~\ref{tab:FormalTrace} traces the definitions and
+theorems to the requirements. Where a requirement and the model describe the
+same behaviour, the model is authoritative.
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label2}:] The system shall ...
+The format of each level is not yet decided. The model and the requirements
+therefore describe the journey and the progress through its levels, and not
+what happens inside a level.
 
-\item[FR\refstepcounter{reqnum}\thereqnum \label{FR_Label3}:] The system shall ...
+Several requirements come from the safety and security requirements of the
+\hadoc{Hazard Analysis}. Those requirements are stated here as functional requirements
+when they describe what the system does, and in
+Section~\ref{non-func-req} when they describe a quality of the system or the
+release process. Each requirement that comes from the Hazard Analysis has a
+\textbf{Hazard Analysis} line. The line names the safety and security
+requirement (SR) and the hazard (H) it addresses, using the numbering of the
+Hazard Analysis. Each SR and H number links to that item in the published
+Hazard Analysis. Table~\ref{tab:HA2FRtm} traces each safety and security
+requirement to the functional requirements.
+
+\subsection{Formal Model}
+\label{sec_FormalSpec}
+
+This subsection was added to the template. It formalizes how \progname{}
+records the player's progress through the journey. This is the most critical
+part of the application for two reasons. First, it is used every time a child
+plays. Second, an error here harms an anxious child. Examples are a reward that
+is lost or given twice, a level that is locked, or progress that disappears.
+
+The model is written in the style of a textbook. Names are first mapped to the
+data dictionary (Section~\ref{sec_FormalNames}). Definitions, numbered D1, D2,
+and so on, then fix the rules and the operations. A definition with several
+parts has numbered parts, such as \defref{def_OpStart} and
+\defref{def_OpFinish}. Theorems, numbered T1, T2, and so on, state the
+conclusions that the functional requirements depend on. Each theorem is
+followed by its proof and by the requirements it specifies. Definitions and
+theorems are shown in boxes, and their explanations are given outside the
+boxes. Equations are numbered E1, E2, and so on.
+
+\subsubsection{Notation}
+\label{sec_FormalNotation}
+
+Names in italics, such as $\mathit{coinBalance}$, are names in the model. They
+are English words so that they can be read without a lookup table. Values are
+written in a sans-serif font, such as \val{Completed}, so that they cannot be
+confused with names. Table~\ref{tab:FormalNotation} lists the symbols used.
+
+\begin{table}[H]
+\centering
+\caption{Notation of the formal model}
+\label{tab:FormalNotation}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ll}
+\toprule
+\textbf{Notation} & \textbf{Meaning}\\
+\midrule
+$\mathit{name}$ & A name in the model, such as $\mathit{coinBalance}$\\
+\val{Value} & A value, such as \val{Completed} or \val{true}\\
+$\mathbb{N}$ & The natural numbers, including $0$\\
+$\mathbb{B}$ & The Booleans, $\{\val{true}, \val{false}\}$\\
+\val{none} & A value meaning ``nothing'', different from every other value\\
+$f : X \to Y$ & $f$ gives a value $f(x)$ in $Y$ for every $x$ in $X$\\
+$f : X \rightharpoonup Y$ & $f$ gives a value in $Y$ for some elements of $X$\\
+$\mathrm{dom}\, f$ & The elements of $X$ for which $f$ gives a value\\
+$(x_1, \ldots, x_n)$ & A tuple of $n$ values, in a fixed order\\
+$\{x_1, \ldots, x_n\}$ & The set of the listed values\\
+$\{x \in X \mid P\}$ & The set of the elements $x$ of $X$ for which $P$
+  holds\\
+$\emptyset$ & The empty set\\
+$\in$, $\notin$ & Is an element of, is not an element of\\
+$\cup$, $\setminus$, $\subseteq$ & Union, difference, subset\\
+$|X|$ & The number of elements of the finite set $X$\\
+$\sum_{x \in X,\ P} f(x)$ & The sum of $f(x)$ over every $x$ in $X$ for which
+  $P$ holds\\
+$=$, $\neq$, $\leq$, $\geq$, $<$ & Equal, not equal, at most, at least,
+  less than\\
+$\wedge$, $\neg$ & And, not\\
+$\Rightarrow$, $\Leftrightarrow$ & Implies, if and only if\\
+$\begin{cases} a & \text{if } P\\ b & \text{otherwise} \end{cases}$ &
+  The value $a$ if $P$ holds, and $b$ otherwise\\
+$v'$ & The value of $v$ after an operation (read ``$v$ after'')\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Names and the Data Dictionary}
+\label{sec_FormalNames}
+
+Every name in the model represents an entity or attribute of the data
+dictionary (Table~\ref{tab:JourneyDataDictionary}). The names fall into two
+groups.
+
+The \emph{game content} is defined by the team and approved before release. It
+does not change while the application runs. Table~\ref{tab:ModelContent} lists
+its names.
+
+{\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}}
+\caption{Names for the game content}
+\label{tab:ModelContent}\\
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Data dictionary} & \textbf{Meaning}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Data dictionary} & \textbf{Meaning}\\
+\midrule
+\endhead
+$\mathit{Levels}$ & Finite, non-empty set & Procedure Game & The levels of the
+  journey. Each level is one procedure game.\\[3pt]
+$\mathit{levelNumber}$ & $\mathit{Levels} \to \mathbb{N}$ & Procedure Game:
+  level\_number & Position of a level in the suggested order\\[3pt]
+$\mathit{points}$ & $\mathit{Levels} \to \mathbb{N}$ & Reward Definition:
+  points\_awarded & Journey points for finishing a level the first
+  time\\[3pt]
+$\mathit{coinReward}$ & $\mathit{Levels} \to \mathbb{N}$ & Reward Definition:
+  coin\_amount & Coins for finishing a level the first time, or $0$\\[3pt]
+$\mathit{accessoryReward}$ & $\mathit{Levels} \to \mathit{Accessories} \cup
+  \{\val{none}\}$ & Reward Definition: reward\_\allowbreak accessory\_\allowbreak
+  id & Accessory for finishing a level the first time, or \val{none}\\[3pt]
+$\mathit{Accessories}$ & Finite set & Cosmetic Accessory & The cosmetic
+  accessories\\[3pt]
+$\mathit{Categories}$ & Finite set & Cosmetic Accessory: accessory\_category &
+  The accessory categories, such as hats and glasses\\[3pt]
+$\mathit{category}$ & $\mathit{Accessories} \to \mathit{Categories}$ &
+  Cosmetic Accessory: accessory\_category & Category of an accessory\\[3pt]
+$\mathit{price}$ & $\mathit{Accessories} \rightharpoonup \mathbb{N}$ &
+  Cosmetic Accessory: coin\_price & Coin price of an accessory sold in the
+  shop\\[3pt]
+$\mathit{Characters}$ & Finite set & Character & The characters the child can
+  choose\\
+\bottomrule
+\end{longtable}
+}
+
+An accessory that is not in $\mathrm{dom}\,\mathit{price}$ is not sold in the
+shop. It can only be received as a reward.
+
+A level reward may give coins, an accessory, both, or neither. A coin reward of
+$0$ means no coins, and an accessory reward of \val{none} means no accessory.
+
+The \emph{player state} is everything the application saves about the player's
+progress. Table~\ref{tab:ModelState} lists its six parts, in the order used by
+the $\mathit{playerState}$ tuple of \defref{def_Player}.
+
+\begin{table}[H]
+\centering
+\caption{The six parts of the player state, in tuple order}
+\label{tab:ModelState}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}}
+\toprule
+\textbf{Name} & \textbf{Type} & \textbf{Data dictionary} & \textbf{Meaning}\\
+\midrule
+$\mathit{status}$ & $\mathit{Levels} \to \mathit{Status}$ &
+  Game Progress: completion\_status & Status of each level\\[3pt]
+$\mathit{rewardClaimed}$ & $\mathit{Levels} \to \mathbb{B}$ &
+  Game Progress: reward\_claimed & Whether each level's reward has been
+  given\\[3pt]
+$\mathit{coinBalance}$ & $\mathbb{N}$ & Journey Progress: coin\_balance & Coins
+  the child can spend\\[3pt]
+$\mathit{owned}$ & Subset of $\mathit{Accessories}$ & Character Inventory:
+  owned\_\allowbreak accessory\_\allowbreak ids & Accessories the child
+  owns\\[3pt]
+$\mathit{equipped}$ & Subset of $\mathit{Accessories}$ & Character Inventory:
+  equipped\_\allowbreak accessory\_\allowbreak ids & Accessories the character
+  wears\\[3pt]
+$\mathit{character}$ & $\mathit{Characters} \cup \{\val{none}\}$ &
+  Local Preferences: selected\_\allowbreak character\_\allowbreak id & The
+  selected character, or \val{none}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Definitions}
+\label{sec_FormalJourney}
+
+The following definitions fix the rules of the game content and of the player
+state. Each box contains only the definition. The text before a box explains
+why it is needed, and the text after it explains how to read it.
+
+The journey map shows the levels in order of their level number, so no two
+levels may share a number.
+
+\begin{definition}{Unique level numbers}{def_LevelNumbers}
+For any two levels $\mathit{first}$ and $\mathit{second}$:
+\begin{equation}
+\mathit{levelNumber}(\mathit{first}) = \mathit{levelNumber}(\mathit{second})
+\Rightarrow \mathit{first} = \mathit{second}
+\label{eq_LevelNumbers}
+\end{equation}
+\end{definition}
+
+Each level has a status that records how far the child has got with it. The
+status is the completion\_status attribute of the data dictionary.
+
+\begin{definition}{Level status}{def_Status}
+\begin{equation}
+\mathit{Status} = \{\val{NotStarted}, \val{InProgress}, \val{Completed}\}
+\label{eq_Status}
+\end{equation}
+\end{definition}
+
+\val{NotStarted} means the level has never been started. \val{InProgress}
+means it has been started but not finished. \val{Completed} means it has been
+finished at least once.
+
+The player state collects the six parts of Table~\ref{tab:ModelState} into a
+single value, so that an operation can be described as a change from one
+player state to another.
+
+\begin{definition}{Player state}{def_Player}
+The player state is the tuple
+\begin{equation}
+\mathit{playerState} = (\mathit{status}, \mathit{rewardClaimed},
+\mathit{coinBalance}, \mathit{owned}, \mathit{equipped}, \mathit{character})
+\label{eq_Player}
+\end{equation}
+where
+\begin{align*}
+\mathit{status} &: \mathit{Levels} \to \mathit{Status} &
+\mathit{owned} &\subseteq \mathit{Accessories}\\
+\mathit{rewardClaimed} &: \mathit{Levels} \to \mathbb{B} &
+\mathit{equipped} &\subseteq \mathit{Accessories}\\
+\mathit{coinBalance} &\in \mathbb{N} &
+\mathit{character} &\in \mathit{Characters} \cup \{\val{none}\}
+\end{align*}
+\end{definition}
+
+The order of the six parts is fixed. Later definitions write a player state as
+a tuple in this order.
+
+The scoreboard shows three values. They are calculated from the player state
+and are not stored.
+
+\begin{definition}{Scoreboard values}{def_Scoreboard}
+\begin{equation}
+\mathit{totalPoints} = \sum_{\substack{\mathit{level} \in \mathit{Levels}\\
+  \mathit{rewardClaimed}(\mathit{level}) = \val{true}}}
+  \mathit{points}(\mathit{level})
+\label{eq_TotalPoints}
+\end{equation}
+\begin{equation}
+\mathit{completedLevels} = |\{\mathit{level} \in \mathit{Levels} \mid
+  \mathit{status}(\mathit{level}) = \val{Completed}\}|
+\label{eq_Completed}
+\end{equation}
+\begin{equation}
+\mathit{totalLevels} = |\mathit{Levels}|
+\label{eq_TotalLevels}
+\end{equation}
+\end{definition}
+
+$\mathit{totalPoints}$ adds up the points of every level whose reward has been
+given. $\mathit{completedLevels}$ counts the \val{Completed} levels.
+$\mathit{totalLevels}$ counts all levels. These are total\_points,
+completed\_levels and total\_levels in the data dictionary.
+
+A new installation starts with no progress. This is also the state that a
+reset returns to.
+
+\begin{definition}{New player state}{def_NewPlayer}
+\begin{equation}
+\mathit{newPlayerState} = (\mathit{allNotStarted}, \mathit{noneClaimed}, 0,
+\emptyset, \emptyset, \val{none})
+\label{eq_NewPlayer}
+\end{equation}
+where, for every level,
+\[
+\mathit{allNotStarted}(\mathit{level}) = \val{NotStarted}
+\quad\text{and}\quad
+\mathit{noneClaimed}(\mathit{level}) = \val{false}.
+\]
+\end{definition}
+
+Read in the order of \defref{def_Player}, every level is \val{NotStarted} with
+no reward given, the coin balance is $0$, the child owns and wears no
+accessories, and no character is selected.
+
+Not every tuple of the right types makes sense. For example, a level could be
+\val{Completed} without its reward being given, or the character could wear an
+accessory the child does not own. The following rules exclude such states.
+
+\begin{definition}{Valid player state}{def_Valid}
+A player state is \emph{valid} if and only if it satisfies
+\defref{def_ValidReward}, \defref{def_ValidOwned},
+\defref{def_ValidCategory} and \defref{def_ValidRewardOwned}.
+\end{definition}
+
+A level's reward is given at the same moment the level becomes
+\val{Completed}.
+
+\begin{subdefinition}{Rewards match status}{def_ValidReward}
+For every level:
+\[
+\mathit{rewardClaimed}(\mathit{level}) = \val{true} \Leftrightarrow
+\mathit{status}(\mathit{level}) = \val{Completed}
+\]
+\end{subdefinition}
+
+The character can only wear accessories that the child owns.
+
+\begin{subdefinition}{Only owned accessories are worn}{def_ValidOwned}
+\[
+\mathit{equipped} \subseteq \mathit{owned}
+\]
+\end{subdefinition}
+
+The character wears at most one accessory of each category, such as one hat.
+
+\begin{subdefinition}{One accessory per category}{def_ValidCategory}
+For any two worn accessories $a, b \in \mathit{equipped}$:
+\[
+\mathit{category}(a) = \mathit{category}(b) \Rightarrow a = b
+\]
+\end{subdefinition}
+
+An accessory received as a reward is owned by the child.
+
+\begin{subdefinition}{Reward accessories are owned}{def_ValidRewardOwned}
+For every level:
+\begin{align*}
+  & \mathit{rewardClaimed}(\mathit{level}) = \val{true} \wedge
+    \mathit{accessoryReward}(\mathit{level}) \neq \val{none}\\
+  \Rightarrow\ & \mathit{accessoryReward}(\mathit{level}) \in \mathit{owned}
+\end{align*}
+\end{subdefinition}
+
+An operation is an action that changes the player state. Each operation has a
+\emph{guard}, which is a condition that must hold for it to take effect, and
+an \emph{effect}, which gives new values for some parts of the player state.
+
+\begin{definition}{Operations}{def_Ops}
+For an operation with a guard and an effect, the player state after the
+operation is
+\[
+\mathit{playerState}' =
+\begin{cases}
+\text{$\mathit{playerState}$ with the effect applied} &
+  \text{if the guard holds}\\
+\mathit{playerState} & \text{otherwise}
+\end{cases}
+\]
+\end{definition}
+
+A primed name, such as $\mathit{coinBalance}'$, is the value after the
+operation. A part that the effect does not name keeps its value. For example,
+$\mathit{status}'(\mathit{level}) = \val{Completed}$ changes the status of that
+one level, and every other level keeps its status. The eight operations are
+\defref{def_OpStart} to \defref{def_OpReset}.
+
+\medskip
+$\mathit{start}(\mathit{level})$ is used when the child starts a level.
+
+\begin{subdefinition}{Start a level, $\mathit{start}(\mathit{level})$}{def_OpStart}
+\textit{Guard:} \val{true}.
+
+\textit{Effect:} if $\mathit{status}(\mathit{level}) \neq \val{Completed}$,
+then
+\[
+\mathit{status}'(\mathit{level}) = \val{InProgress}.
+\]
+\end{subdefinition}
+
+Every level can be started at any time. When the level is already
+\val{Completed}, the effect names no part, so the level stays \val{Completed}.
+
+$\mathit{finish}(\mathit{level})$ is used when the child reaches the end of a
+level.
+
+\begin{subdefinition}{Finish a level, $\mathit{finish}(\mathit{level})$}{def_OpFinish}
+\textit{Guard:} $\mathit{status}(\mathit{level}) = \val{InProgress}$.
+
+\textit{Effect:}
+\begin{align*}
+\mathit{status}'(\mathit{level}) &= \val{Completed}\\
+\mathit{rewardClaimed}'(\mathit{level}) &= \val{true}\\
+\mathit{coinBalance}' &= \mathit{coinBalance} +
+  \mathit{coinReward}(\mathit{level})\\
+\mathit{owned}' &= \mathit{owned} \cup
+  \big(\{\mathit{accessoryReward}(\mathit{level})\} \setminus
+  \{\val{none}\}\big)
+\end{align*}
+\end{subdefinition}
+
+The last line adds the level's reward accessory to the owned accessories.
+Removing \val{none} means that nothing is added when the level has no reward
+accessory, and a coin reward of $0$ adds no coins. So a level can reward
+coins, an accessory, both, or neither.
+
+$\mathit{exit}(\mathit{level})$ is used when the child leaves a level before
+its end.
+
+\begin{subdefinition}{Leave a level, $\mathit{exit}(\mathit{level})$}{def_OpExit}
+\textit{Guard:} \val{true}.
+
+\textit{Effect:} none, so $\mathit{playerState}' = \mathit{playerState}$.
+\end{subdefinition}
+
+$\mathit{buy}(\mathit{accessory})$ is used when the child buys an accessory in
+the shop.
+
+\begin{subdefinition}{Buy an accessory, $\mathit{buy}(\mathit{accessory})$}{def_OpBuy}
+\textit{Guard:}
+\[
+\mathit{accessory} \in \mathrm{dom}\,\mathit{price}
+\;\wedge\; \mathit{accessory} \notin \mathit{owned}
+\;\wedge\; \mathit{price}(\mathit{accessory}) \leq \mathit{coinBalance}
+\]
+
+\textit{Effect:}
+\begin{align*}
+\mathit{coinBalance}' &= \mathit{coinBalance} -
+  \mathit{price}(\mathit{accessory})\\
+\mathit{owned}' &= \mathit{owned} \cup \{\mathit{accessory}\}
+\end{align*}
+\end{subdefinition}
+
+The guard states that the accessory is sold, is not already owned, and costs at
+most the coin balance.
+
+$\mathit{equip}(\mathit{accessory})$ is used when the character puts on an
+accessory.
+
+\begin{subdefinition}{Wear an accessory, $\mathit{equip}(\mathit{accessory})$}{def_OpEquip}
+\textit{Guard:} $\mathit{accessory} \in \mathit{owned}$.
+
+\textit{Effect:}
+\[
+\mathit{equipped}' = \{b \in \mathit{equipped} \mid \mathit{category}(b) \neq
+\mathit{category}(\mathit{accessory})\} \cup \{\mathit{accessory}\}
+\]
+\end{subdefinition}
+
+The set on the left keeps every worn accessory $b$ whose category differs from
+the new accessory. Then the new accessory is added. So the new accessory
+replaces any worn accessory of the same category.
+
+$\mathit{unequip}(\mathit{accessory})$ is used when the character takes off an
+accessory.
+
+\begin{subdefinition}{Remove an accessory, $\mathit{unequip}(\mathit{accessory})$}{def_OpUnequip}
+\textit{Guard:} \val{true}.
+
+\textit{Effect:}
+\[
+\mathit{equipped}' = \mathit{equipped} \setminus \{\mathit{accessory}\}
+\]
+\end{subdefinition}
+
+The effect does not name $\mathit{owned}$, so the accessory is still owned.
+
+$\mathit{choose}(\mathit{newCharacter})$ is used when the child selects a
+character.
+
+\begin{subdefinition}{Choose a character, $\mathit{choose}(\mathit{newCharacter})$}{def_OpChoose}
+\textit{Guard:} $\mathit{newCharacter} \in \mathit{Characters}$.
+
+\textit{Effect:}
+\[
+\mathit{character}' = \mathit{newCharacter}
+\]
+\end{subdefinition}
+
+$\mathit{reset}$ is used when the caregiver resets the journey data.
+
+\begin{subdefinition}{Reset the journey, $\mathit{reset}$}{def_OpReset}
+\textit{Guard:} \val{true}.
+
+\textit{Effect:}
+\[
+\mathit{playerState}' = \mathit{newPlayerState}
+\]
+\end{subdefinition}
+
+$\mathit{newPlayerState}$ is given by \defref{def_NewPlayer}.
+
+\subsubsection{Theorems}
+\label{sec_FormalOps}
+
+The theorems below follow from the definitions. Each one states a conclusion
+that a functional requirement depends on. The tests in the VnV Plan will check
+them. Unless stated otherwise, each theorem assumes that the player state is
+valid before the operation (\defref{def_Valid}).
+\thmref{thm_KeepsValid} shows that this assumption always holds.
+
+\begin{theorem}{Every level can always be started}{thm_Start}
+For every level and every player state, $\mathit{start}(\mathit{level})$ takes
+effect, and afterwards
+\[
+\mathit{status}'(\mathit{level}) =
+\begin{cases}
+\val{Completed} & \text{if } \mathit{status}(\mathit{level}) =
+  \val{Completed}\\
+\val{InProgress} & \text{otherwise}
+\end{cases}
+\]
+\end{theorem}
+\textit{Proof.} The guard of $\mathit{start}$ is \val{true}, so it always
+takes effect. Its effect sets the status to \val{InProgress} unless it is
+\val{Completed}, in which case the status is not named and keeps its value
+(\defref{def_OpStart}). \hfill $\square$
+
+\textit{Specifies:} \rref{FR_StartLevel}, \rref{FR_Replay}.
+
+\begin{theorem}{Finishing a level gives its level reward}{thm_FirstFinish}
+If $\mathit{status}(\mathit{level}) = \val{InProgress}$, then after
+$\mathit{finish}(\mathit{level})$,
+\begin{align*}
+\mathit{status}'(\mathit{level}) &= \val{Completed}\\
+\mathit{totalPoints}' &= \mathit{totalPoints} + \mathit{points}(\mathit{level})\\
+\mathit{coinBalance}' &= \mathit{coinBalance} +
+  \mathit{coinReward}(\mathit{level})
+\end{align*}
+and if $\mathit{accessoryReward}(\mathit{level}) \neq \val{none}$, then
+$\mathit{accessoryReward}(\mathit{level}) \in \mathit{owned}'$.
+\end{theorem}
+\textit{Proof.} The guard holds, so the level becomes \val{Completed} and its
+reward becomes given (\defref{def_OpFinish}). The level was not
+\val{Completed}, so by \defref{def_ValidReward} its reward had not been given.
+By equation~\eqref{eq_TotalPoints}, $\mathit{totalPoints}$ now also counts this
+level, so it grows by $\mathit{points}(\mathit{level})$. The coin balance and
+the owned accessories change as stated by the effect. \hfill $\square$
+
+\textit{Specifies:} \rref{FR_LevelEnd}, \rref{FR_FirstReward}.
+
+\begin{theorem}{Finishing a completed level gives nothing}{thm_Replay}
+If $\mathit{status}(\mathit{level}) = \val{Completed}$, then after
+$\mathit{finish}(\mathit{level})$,
+\[
+\mathit{playerState}' = \mathit{playerState}.
+\]
+\end{theorem}
+\textit{Proof.} The guard requires the status to be \val{InProgress}, so it is
+false, and nothing changes (\defref{def_OpFinish}). \hfill $\square$
+
+\textit{Specifies:} \rref{FR_Replay}, \rref{FR_NoDuplicateReward}.
+
+\begin{theorem}{Leaving a level changes nothing}{thm_Exit}
+After $\mathit{exit}(\mathit{level})$,
+\[
+\mathit{playerState}' = \mathit{playerState}.
+\]
+\end{theorem}
+\textit{Proof.} This is the effect of $\mathit{exit}$
+(\defref{def_OpExit}). \hfill $\square$
+
+\textit{Specifies:} \rref{FR_ExitLevel}, \rref{FR_ExitKeepsData}.
+
+\begin{theorem}{Buying never makes the balance negative}{thm_Buy}
+If the guard of $\mathit{buy}(\mathit{accessory})$ holds, then afterwards
+\[
+\mathit{coinBalance}' = \mathit{coinBalance} -
+\mathit{price}(\mathit{accessory}) \geq 0
+\quad\text{and}\quad
+\mathit{accessory} \in \mathit{owned}'.
+\]
+If the guard does not hold, then $\mathit{playerState}' =
+\mathit{playerState}$.
+\end{theorem}
+\textit{Proof.} The guard includes $\mathit{price}(\mathit{accessory}) \leq
+\mathit{coinBalance}$, so the difference is at least $0$. The effect adds the
+accessory to $\mathit{owned}$. When the guard is false, nothing changes
+(\defref{def_OpBuy}). \hfill $\square$
+
+\textit{Specifies:} \rref{FR_Purchase}, \rref{FR_PurchaseRefused}.
+
+\begin{theorem}{Wearing an accessory keeps one per category}{thm_Equip}
+If $\mathit{accessory} \in \mathit{owned}$, then after
+$\mathit{equip}(\mathit{accessory})$,
+\[
+\mathit{accessory} \in \mathit{equipped}'
+\quad\text{and}\quad
+\mathit{owned}' = \mathit{owned},
+\]
+and at most one accessory of each category is worn.
+\end{theorem}
+\textit{Proof.} The effect adds the accessory to $\mathit{equipped}$ and keeps
+only the worn accessories of other categories (\defref{def_OpEquip}). By
+\defref{def_ValidCategory}, those accessories already had different categories
+from each other, so each category now has at most one worn accessory. The
+effect does not name $\mathit{owned}$, so it keeps its value.
+\hfill $\square$
+
+\textit{Specifies:} \rref{FR_Equip}.
+
+\begin{theorem}{Choosing a character changes only the character}{thm_Choose}
+If $\mathit{newCharacter} \in \mathit{Characters}$, then after
+$\mathit{choose}(\mathit{newCharacter})$,
+\[
+\mathit{character}' = \mathit{newCharacter},
+\]
+and every other part of the player state is unchanged.
+\end{theorem}
+\textit{Proof.} The effect names only $\mathit{character}$
+(\defref{def_OpChoose}). \hfill $\square$
+
+\textit{Specifies:} \rref{FR_ChooseCharacter}.
+
+\begin{theorem}{A reset erases the journey}{thm_Reset}
+After $\mathit{reset}$, every level is \val{NotStarted}, and
+\begin{gather*}
+\mathit{totalPoints}' = 0, \quad \mathit{completedLevels}' = 0, \quad
+\mathit{coinBalance}' = 0,\\
+\mathit{owned}' = \emptyset, \quad \mathit{character}' = \val{none}.
+\end{gather*}
+\end{theorem}
+\textit{Proof.} By \defref{def_OpReset}, $\mathit{playerState}' =
+\mathit{newPlayerState}$. By \defref{def_NewPlayer}, every level is
+\val{NotStarted} with no reward given, so equations~\eqref{eq_TotalPoints} and
+\eqref{eq_Completed} give $0$. The other values are read from the tuple in
+equation~\eqref{eq_NewPlayer}, in the order of \defref{def_Player}.
+\hfill $\square$
+
+\textit{Specifies:} \rref{FR_ResetJourney}.
+
+\begin{theorem}{Level status state machine}{thm_StatusMachine}
+The status of a level changes only along the arrows below. In particular, a
+\val{Completed} level stops being \val{Completed} only by $\mathit{reset}$.
+
+\begin{center}
+\begin{tikzpicture}[
+  font=\small,
+  state/.style={draw, rounded corners=6pt, minimum width=2.6cm,
+    minimum height=0.9cm, align=center, fill=blue!6},
+  tr/.style={-{Stealth[length=2.5mm]}, thick},
+  lbl/.style={font=\scriptsize, align=center}
+]
+\fill (-2.4, 0) circle (3pt);
+\node[state] (ns) at (0, 0) {\val{NotStarted}};
+\node[state] (ip) at (4.4, 0) {\val{InProgress}};
+\node[state] (c) at (8.8, 0) {\val{Completed}};
+\draw[tr] (-2.3, 0) -- (ns);
+\draw[tr] (ns) -- node[lbl, above] {$\mathit{start}$} (ip);
+\draw[tr] (ip) -- node[lbl, above] {$\mathit{finish}$} (c);
+\draw[tr] (ip) to[bend left=25] node[lbl, above] {$\mathit{reset}$} (ns);
+\draw[tr] (c) to[bend left=30] node[lbl, below] {$\mathit{reset}$} (ns);
+\end{tikzpicture}
+\end{center}
+\end{theorem}
+\textit{Proof.} By \defref{def_Ops}, only $\mathit{start}$, $\mathit{finish}$
+and $\mathit{reset}$ can change a status. $\mathit{start}$ changes only a
+status that is not \val{Completed}, and makes it \val{InProgress}
+(\defref{def_OpStart}). That is the arrow from \val{NotStarted}, or no change
+from \val{InProgress}. $\mathit{finish}$ takes effect only from
+\val{InProgress}, and makes the level \val{Completed} (\defref{def_OpFinish}).
+$\mathit{reset}$ makes every level \val{NotStarted} (\defref{def_OpReset}). No
+other change is possible. \hfill $\square$
+
+The figure omits operations that leave the status unchanged. For example,
+$\mathit{start}$ on a \val{Completed} level is a replay, and $\mathit{exit}$
+never changes a status.
+
+\textit{Specifies:} \rref{FR_StartLevel}, \rref{FR_Replay},
+\rref{FR_LevelEnd}, \rref{FR_ExitKeepsData}, \rref{FR_ResetJourney}.
+
+\begin{theorem}{Operations keep the player state valid}{thm_KeepsValid}
+$\mathit{newPlayerState}$ is valid. If the player state is valid before an
+operation, it is valid after the operation.
+\end{theorem}
+\textit{Proof.} In $\mathit{newPlayerState}$, no reward has been given and no
+level is \val{Completed}, so \defref{def_ValidReward} holds. No accessory is
+owned or worn, so \defref{def_ValidOwned}, \defref{def_ValidCategory} and
+\defref{def_ValidRewardOwned} hold. Each operation keeps the rules:
+\begin{itemize}
+\item $\mathit{start}$ changes a status only if it is not \val{Completed}. By
+  \defref{def_ValidReward}, that level's reward has not been given. The new
+  status, \val{InProgress}, is also not \val{Completed}, so
+  \defref{def_ValidReward} still holds.
+\item $\mathit{finish}$ sets the status to \val{Completed} and the reward to
+  given together, so \defref{def_ValidReward} holds. It adds the reward
+  accessory to $\mathit{owned}$ if there is one, so
+  \defref{def_ValidRewardOwned} holds. $\mathit{owned}$ only grows and
+  $\mathit{equipped}$ does not change, so \defref{def_ValidOwned} and
+  \defref{def_ValidCategory} hold.
+\item $\mathit{buy}$ only adds to $\mathit{owned}$, so
+  \defref{def_ValidOwned} and \defref{def_ValidRewardOwned} hold.
+\item $\mathit{equip}$ keeps \defref{def_ValidOwned}, because it adds only an
+  owned accessory, and keeps \defref{def_ValidCategory} by
+  \thmref{thm_Equip}.
+\item $\mathit{unequip}$ only removes from $\mathit{equipped}$, so
+  \defref{def_ValidOwned} and \defref{def_ValidCategory} hold.
+\item $\mathit{exit}$ and $\mathit{choose}$ change none of the parts used by
+  the rules. $\mathit{reset}$ gives $\mathit{newPlayerState}$, which is valid.
+  \hfill $\square$
+\end{itemize}
+
+\textit{Specifies:} \rref{FR_PersistState}, \rref{FR_CorruptData}.
+
+\begin{theorem}{Each reward is given at most once}{thm_Once}
+Between two resets, the reward of each level is given at most once.
+\end{theorem}
+\textit{Proof.} Only $\mathit{finish}(\mathit{level})$ gives a reward, and only
+when the level is \val{InProgress}. It makes the level \val{Completed}. By
+\thmref{thm_StatusMachine}, the level stays \val{Completed} until a reset, so
+the guard of $\mathit{finish}(\mathit{level})$ stays false. \hfill $\square$
+
+\textit{Specifies:} \rref{FR_FirstReward}, \rref{FR_NoDuplicateReward}.
+
+\begin{theorem}{Progress is lost only by a reset}{thm_NoLoss}
+For every operation other than $\mathit{reset}$:
+\begin{enumerate}
+\item[(a)] a \val{Completed} level stays \val{Completed},
+\item[(b)] $\mathit{totalPoints}' \geq \mathit{totalPoints}$,
+\item[(c)] $\mathit{owned} \subseteq \mathit{owned}'$, and
+\item[(d)] $\mathit{coinBalance}' < \mathit{coinBalance}$ only for
+  $\mathit{buy}$, in exchange for an accessory.
+\end{enumerate}
+\end{theorem}
+\textit{Proof.} Part (a) follows from \thmref{thm_StatusMachine}. For the
+others, check each operation in \defref{def_Ops}. $\mathit{finish}$ only sets
+rewards to given and adds coins or accessories. $\mathit{buy}$ lowers the coin
+balance and adds the bought accessory to $\mathit{owned}$. $\mathit{start}$,
+$\mathit{exit}$, $\mathit{equip}$, $\mathit{unequip}$ and $\mathit{choose}$
+change neither the rewards given, the coin balance, nor $\mathit{owned}$. By
+equation~\eqref{eq_TotalPoints}, $\mathit{totalPoints}$ depends only on the
+rewards given, so it does not decrease. \hfill $\square$
+
+\textit{Specifies:} \rref{FR_Replay}, \rref{FR_ExitKeepsData},
+\rref{FR_Equip}.
+
+\subsubsection{Traceability to the Functional Requirements}
+\label{sec_FormalTrace}
+
+Table~\ref{tab:FormalTrace} lists the functional requirements that each
+definition and theorem specifies. Each functional requirement also cites them
+in its \textbf{Traces} line.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.48\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}}
+\caption{Traceability between the formal model and the functional
+requirements}
+\label{tab:FormalTrace}\\
+\toprule
+\textbf{Definition or theorem} & \textbf{Functional requirements}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Definition or theorem} & \textbf{Functional requirements}\\
+\midrule
+\endhead
+\defref{def_LevelNumbers} Unique level numbers & \rref{FR_JourneyMap}\\
+\defref{def_Player} Player state & \rref{FR_PersistState},
+  \rref{FR_ExitKeepsData}\\
+\defref{def_Scoreboard} Scoreboard values & \rref{FR_Scoreboard}\\
+\defref{def_NewPlayer} New player state & \rref{FR_CorruptData},
+  \rref{FR_ResetJourney}\\
+\defref{def_Valid} Valid player state & \rref{FR_CorruptData}\\
+\defref{def_ValidCategory} One accessory per category & \rref{FR_Equip}\\
+\defref{def_OpStart} Start a level & \rref{FR_StartLevel}\\
+\defref{def_OpFinish} Finish a level & \rref{FR_LevelEnd}\\
+\defref{def_OpExit} Leave a level & \rref{FR_ExitLevel}, \rref{FR_StopOnExit}\\
+\defref{def_OpBuy} Buy an accessory & \rref{FR_Purchase}\\
+\defref{def_OpEquip} Wear an accessory & \rref{FR_Equip}\\
+\defref{def_OpUnequip} Remove an accessory & \rref{FR_Equip}\\
+\defref{def_OpChoose} Choose a character & \rref{FR_ChooseCharacter}\\
+\defref{def_OpReset} Reset the journey & \rref{FR_ResetJourney}\\
+\midrule
+\thmref{thm_Start} Every level can always be started & \rref{FR_StartLevel},
+  \rref{FR_Replay}\\
+\thmref{thm_FirstFinish} Finishing a level gives its level reward &
+  \rref{FR_LevelEnd}, \rref{FR_NoPenalty}, \rref{FR_FirstReward}\\
+\thmref{thm_Replay} Finishing a completed level gives nothing &
+  \rref{FR_Replay}, \rref{FR_NoDuplicateReward}\\
+\thmref{thm_Exit} Leaving a level changes nothing & \rref{FR_ExitLevel},
+  \rref{FR_ExitKeepsData}, \rref{FR_RestartLevel}\\
+\thmref{thm_Buy} Buying never makes the balance negative &
+  \rref{FR_Purchase}, \rref{FR_PurchaseRefused}\\
+\thmref{thm_Equip} Wearing an accessory keeps one per category &
+  \rref{FR_Equip}\\
+\thmref{thm_Choose} Choosing a character changes only the character &
+  \rref{FR_ChooseCharacter}\\
+\thmref{thm_Reset} A reset erases the journey & \rref{FR_ResetJourney}\\
+\thmref{thm_StatusMachine} Level status state machine & \rref{FR_StartLevel},
+  \rref{FR_Replay}, \rref{FR_LevelEnd}, \rref{FR_ExitKeepsData},
+  \rref{FR_ResetJourney}\\
+\thmref{thm_KeepsValid} Operations keep the player state valid &
+  \rref{FR_PersistState}, \rref{FR_CorruptData}\\
+\thmref{thm_Once} Each reward is given at most once & \rref{FR_FirstReward},
+  \rref{FR_NoDuplicateReward}\\
+\thmref{thm_NoLoss} Progress is lost only by a reset & \rref{FR_Replay},
+  \rref{FR_NoPenalty}, \rref{FR_ExitKeepsData},
+  \rref{FR_RestartLevel}, \rref{FR_Equip}\\
+\bottomrule
+\end{longtable}
+
+\subsection{Requirements}
+\label{sec_FRList}
+
+This subsection states the functional requirements, grouped by feature. Each
+requirement has a rationale and a \textbf{Traces} line. The \textbf{Traces}
+line lists the use cases the requirement refines and the definitions and
+theorems of Section~\ref{sec_FormalSpec} it relies on. A requirement that
+comes from the Hazard Analysis also has a \textbf{Hazard Analysis} line.
+
+\subsubsection{Setup}
+\label{sec_FRSetup}
+
+\begin{itemize}
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_MedicalNotice}:]
+Before first use, the system shall display a medical notice to the
+caregiver. The notice shall state that \progname{} is an educational
+preparation aid and does not replace professional medical advice, diagnosis,
+or treatment. The system shall not open the home screen until the caregiver
+acknowledges the notice. The notice shall also be available from the caregiver
+procedure guide (\rref{FR_ProcedureGuide}).
+
+\textbf{Rationale:} A caregiver could mistake the procedure content for medical guidance.
+Requiring an acknowledgement makes sure the caregiver has seen what the
+application is for before the child uses it.
+
+\textbf{Traces:} \ucref{UC_FirstUse}, \ucref{UC_ProcedureInformation}.
+
+\textbf{Hazard Analysis:} \hazsr{MedicalDisclaimer}{10}{MisinterpretedMedicalPurpose}{2-6}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_RecordAck}:]
+When the caregiver acknowledges the medical notice
+(\rref{FR_MedicalNotice}), the system shall store the acknowledgement
+locally. On later launches
+with a stored acknowledgement, the system shall open the home screen without
+displaying the notice.
+
+\textbf{Rationale:} The caregiver only needs to read the notice once. Showing
+it on every launch would slow down every session and teach caregivers to
+dismiss it without reading.
+
+\textbf{Traces:} \ucref{UC_FirstUse}.
+
+\textbf{Hazard Analysis:} \hazsr{MedicalDisclaimer}{10}{MisinterpretedMedicalPurpose}{2-6}.
 
 \end{itemize}
 
-\plt{The requirements are given labels so that they can be referenced in other
-parts of the SRS.  The label names should be meaningful mnemonics, not numbers.}
+\subsubsection{Journey Map and Levels}
+\label{sec_FRJourney}
+
+\begin{itemize}
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_JourneyMap}:]
+The system shall display a journey map that shows every level, one for each
+procedure, in order of level number (\defref{def_LevelNumbers}). Each level
+shall show its name, an illustration, and its status (\val{NotStarted},
+\val{InProgress}, or \val{Completed}).
+
+\textbf{Rationale:} The journey map is how the child chooses what to play. The
+status of each level shows the child and caregiver what has been done so far.
+
+\textbf{Traces:} \ucref{UC_SelectGame}, \defref{def_LevelNumbers}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_StartLevel}:]
+The system shall allow the child to select any level at any time. The
+status of the other levels, the journey points, and the rewards shall not
+restrict this choice (\thmref{thm_Start}). When the child selects a level, the
+system shall start it from the beginning and apply $\mathit{start}$
+(\defref{def_OpStart}). If the level was not \val{Completed}, its status shall
+become \val{InProgress}.
+
+\textbf{Rationale:} The procedures at an appointment can change at short
+notice. A locked level could stop a child from preparing for the procedure
+they actually need. Starting from the beginning gives the child the full
+context of the procedure each time. Recording \val{InProgress} shows on the
+journey map that the level has been tried.
+
+\textbf{Traces:} \ucref{UC_SelectGame}, \defref{def_OpStart},
+\thmref{thm_Start}, \thmref{thm_StatusMachine}.
+
+\textbf{Hazard Analysis:} \hazsr{AllLevelsAccessible}{11}{RestrictedLevelAccess}{2-9}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Replay}:]
+The system shall allow the child to replay a \val{Completed} level. The level
+shall remain \val{Completed} during and after the replay.
+
+\textbf{Rationale:} Repeating a level helps a child become familiar with a
+procedure. A replay must not undo the progress the child has already made.
+
+\textbf{Traces:} \ucref{UC_SelectGame}, \ucref{UC_CompleteGame},
+\thmref{thm_Start}, \thmref{thm_Replay}, \thmref{thm_StatusMachine},
+\thmref{thm_NoLoss}.
+
+\end{itemize}
+
+\subsubsection{Levels}
+\label{sec_FRGameplay}
+
+\begin{itemize}
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_LevelContent}:]
+Each level shall prepare the child for one ophthalmology procedure. It shall
+present at least one part of that procedure, such as a step of the procedure,
+a piece of equipment, or an instruction the child may be given.
+
+\textbf{Rationale:} The purpose of the journey is preparation. A level that
+does not relate to a procedure adds play time without preparing the child. The
+format of each level is not yet decided, so this requirement states only what
+a level must convey.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_DescribeSensations}:]
+Before a level shows a part of a procedure that the child may feel, such
+as cold, stinging, a bright light, pressure, or blurry vision, the system shall
+describe that sensation to the child. The description shall not be skippable.
+The system shall not state or imply that a procedure will not hurt or will not
+be uncomfortable.
+
+\textbf{Rationale:} A child who has been told about a sensation is not surprised by it at the
+appointment. A promise that nothing will be felt would be broken at the
+clinic, and the child would learn to distrust the people who prepared them.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\textbf{Hazard Analysis:} \hazsr{HonestSensations}{8}{SensationsHidden}{2-4}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ClinicsDiffer}:]
+Each level shall tell the child, in narration and pictures, that their
+doctor may do things a little differently from the game.
+
+\textbf{Rationale:} Procedures vary between patients, clinicians, and clinics. A child who
+expects small differences is less likely to be upset by them at the
+appointment.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\textbf{Hazard Analysis:} \hazsr{ClinicsDiffer}{6}{InaccurateProcedure}{2-3}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_SpeakUp}:]
+Before the end of each level, the system shall tell the child that they can
+tell the doctor if they feel worried or uncomfortable.
+
+\textbf{Rationale:} Knowing that they can speak up gives the child some
+control during the examination, which can reduce anxiety.
+
+\textbf{Traces:} \ucref{UC_EyeDropGame}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_LevelEnd}:]
+When the child reaches the end of a level, the system shall display an end of
+level screen and apply $\mathit{finish}$ (\defref{def_OpFinish}). The level's
+status shall become \val{Completed}.
+
+\textbf{Rationale:} A clear ending gives the child a sense of achievement.
+Recording the level as \val{Completed} lets the journey map and scoreboard
+show it.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}, \defref{def_OpFinish}, \thmref{thm_FirstFinish},
+\thmref{thm_StatusMachine}.
+
+\end{itemize}
+
+\subsubsection{Instructions and Feedback}
+\label{sec_FRInstructions}
+
+\begin{itemize}
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_SpokenInstructions}:]
+The system shall give every instruction to the child as narration together with
+a visual demonstration. No level shall require the child to read.
+
+\textbf{Rationale:} Most children aged 3 to 7 cannot read independently.
+Narration with a demonstration lets them follow without an adult reading to
+them.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_HintOnMiss}:]
+When a level asks the child to do something and the child does something else,
+the system shall give an encouraging hint and let the child try again.
+
+\textbf{Rationale:} A hint lets the child continue without help from an adult.
+Letting the child try again keeps the focus on learning rather than on getting
+it right the first time.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\textbf{Hazard Analysis:} \hazsr{NonPunitiveFeedback}{12}{PunitiveFeedback}{2-10}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_VisualCues}:]
+The visual cues that accompany every instruction
+(\rref{FR_SpokenInstructions}) shall be shown in every state of a level. The
+child shall not be able to turn them off. Any setting that changes them shall
+be available only in the caregiver settings (\rref{FR_ParentGate}).
+
+\textbf{Rationale:} Visual cues are the only guidance for a child who cannot hear the
+narration. A child could turn them off by accident and then be unable to
+continue.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}, \ucref{UC_AdjustPreferences}.
+
+\textbf{Hazard Analysis:} \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-13}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_NarrationFallback}:]
+When narration cannot be heard because the device is muted or its volume
+is off, the system shall continue to give every instruction through pictures,
+icons, and demonstrations. The system shall also show a prompt for the
+caregiver that explains how to turn the sound on. The prompt shall not stop
+the child from playing.
+
+\textbf{Rationale:} Turning the sound down must not cut the child off from the preparation
+content. Deaf children and children in a quiet waiting room also need to be
+able to play without sound.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\textbf{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-14}, \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-12}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_RevealAnswer}:]
+When the child gives an incorrect answer to a question, the system shall
+show every correct answer within \constref{ANSWER_REVEAL_MAX_S} second. The
+correct answers shall be marked with narration and with at least two cues that
+do not rely on colour, such as an outline, an icon, or motion. The child shall
+then be able to select a correct answer and receive encouraging feedback
+before the level continues.
+
+\textbf{Rationale:} A child who leaves a question unsure of the answer may stay worried about
+it. Cues that do not rely on colour or reading work for colour-blind children
+and pre-readers.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\textbf{Hazard Analysis:} \hazsr{CorrectAnswerReveal}{16}{CorrectAnswerReveal}{2-8}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ValidQuestions}:]
+When the application is built, the build process shall check that every
+question has at least one correct answer. A question without a valid correct
+answer shall be left out of the build and recorded in the build log, so that
+it is never shown to the child.
+
+\textbf{Rationale:} A question that cannot be answered correctly would leave the child stuck
+and confused. Checking the questions when the application is built removes
+the problem before release.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\textbf{Hazard Analysis:} \hazsr{AtLeastOneCorrectAnswer}{17}{CorrectAnswerReveal}{2-8}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_NoPenalty}:]
+The system shall allow the child to skip any exercise in a level.
+Skipping an exercise or giving an incorrect response shall not produce
+negative feedback and shall not remove any points, coins, or accessories. It
+shall not prevent the child from reaching the end of the level.
+
+\textbf{Rationale:} Penalties would make the game a new source of stress. Letting the child
+skip an exercise lets them explore a procedure at their own pace. The reward
+for finishing a level does not depend on the answers
+(\thmref{thm_FirstFinish}).
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}, \thmref{thm_FirstFinish},
+\thmref{thm_NoLoss}.
+
+\textbf{Hazard Analysis:} \hazsr{NonPunitiveFeedback}{12}{PunitiveFeedback}{2-10}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_IgnoreRepeatedTouches}:]
+During a screen transition, the system shall act on at most one
+navigation input. Further touches before the next screen is shown shall be
+ignored. Repeated or accidental touches shall not skip the narration of
+procedure information.
+
+\textbf{Rationale:} Young children often tap the screen many times. Without this rule, extra
+taps could skip the explanation of a procedure that the child needs to
+hear.
+
+\textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
+\ucref{UC_SlitLampGame}.
+
+\textbf{Hazard Analysis:} \hazsr{PreventAccidentalInput}{3}{AccidentalInputSkipping}{2-1}.
+
+\end{itemize}
+
+\subsubsection{Exiting and Interruptions}
+\label{sec_FRExit}
+
+\begin{itemize}
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ExitLevel}:]
+When the child selects the home control during a level, the system shall end
+the level, apply $\mathit{exit}$ (\defref{def_OpExit}), and return to the
+journey map.
+
+\textbf{Rationale:} A child who is upset or bored must be able to leave at any
+time. Returning to the journey map lets them choose another level.
+
+\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_OpExit}, \thmref{thm_Exit}.
+
+\textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_StopOnExit}:]
+When a level ends early, the system shall immediately stop all audio,
+animation, and visual effects of that level. None of them shall continue on the
+journey map.
+
+\textbf{Rationale:} Sounds or animations from a level the child has left could confuse or
+upset them. Stopping everything makes leaving a level feel complete.
+
+\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_OpExit}.
+
+\textbf{Hazard Analysis:} \hazsr{StopAudioVisualsOnExit}{13}{AudioVisualsContinueOnExit}{2-11}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ExitKeepsData}:]
+Leaving a level before its end shall not change the player state
+(\defref{def_Player}). In particular, it shall not give a reward or change the
+status of any level.
+
+\textbf{Rationale:} Leaving early is not a failure. If leaving cost the child
+progress, a child who is upset might feel pressure to keep playing.
+
+\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_Player}, \thmref{thm_Exit},
+\thmref{thm_StatusMachine}, \thmref{thm_NoLoss}.
+
+\textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_RestartAfterExit}:]
+When the child starts a level that was left before its end, or that was
+interrupted because the application closed, the level shall start again from
+the beginning.
+
+\textbf{Rationale:} Restarting from the beginning is simpler for a young child
+than resuming in the middle of a level they may not remember.
+
+\textbf{Traces:} \ucref{UC_ExitGame}.
+
+\textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_RestartLevel}:]
+From every screen of a level, the system shall offer a way to restart the
+level and a way to return to the journey map. Input that the level does not
+expect shall be ignored and shall not stop the level from continuing.
+Restarting a level shall keep all saved progress and rewards.
+
+\textbf{Rationale:} An unexpected input or an unfinished action must never leave the child in
+a state they cannot get out of. A restart that kept nothing would make the
+child lose what they had already earned.
+
+\textbf{Traces:} \ucref{UC_ExitGame}, \thmref{thm_Exit}, \thmref{thm_NoLoss}.
+
+\textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Suspend}:]
+When the device sends the application to the background, or when an
+interruption such as a phone call or a notification takes over the audio or
+the screen, the system shall pause all audio and animation. When the
+interruption ends, the system shall continue from where it paused.
+
+\textbf{Rationale:} A phone call or a locked screen should not make the child
+miss part of a level, and sound should not keep playing in the background.
+
+\textbf{Traces:} \ucref{UC_ExitGame}.
+
+\textbf{Hazard Analysis:} \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-12}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_PersistState}:]
+The system shall save the player state, $\mathit{playerState}$
+(\defref{def_Player}), on the device each time an operation changes it, before
+processing the next input. A save that fails or is interrupted shall leave the
+previously saved player state unchanged. When the application is launched
+again, the system shall restore the saved player state.
+
+\textbf{Rationale:} The child's progress and rewards must survive the
+application closing. Saving after every change means at most the current input
+can be lost. Keeping the previous save when a save fails means a failure never
+replaces valid progress with damaged data. \thmref{thm_KeepsValid} shows that every saved state is valid.
+
+\textbf{Traces:} \ucref{UC_ExitGame}, \ucref{UC_OfflineUse},
+\defref{def_Player}, \thmref{thm_KeepsValid}.
+
+\textbf{Hazard Analysis:} \hazsr{ReliableSaveData}{20}{SaveDataCorruption}{2-15}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_CorruptData}:]
+When the saved player state is missing, cannot be read, or is not valid
+(\defref{def_Valid}), the system shall replace it with the player state of a
+new installation, $\mathit{newPlayerState}$ (\defref{def_NewPlayer}), and
+continue without failing.
+
+\textbf{Rationale:} A crash on launch would leave the child with no access to
+any level. Starting again from a new player state keeps every level available.
+
+\textbf{Traces:} \ucref{UC_OfflineUse}, \defref{def_NewPlayer},
+\defref{def_Valid}, \thmref{thm_KeepsValid}.
+
+\textbf{Hazard Analysis:} \hazsr{ReliableSaveData}{20}{SaveDataCorruption}{2-15}.
+
+\end{itemize}
+
+\subsubsection{Rewards and Scoreboard}
+\label{sec_FRRewards}
+
+\begin{itemize}
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_FirstReward}:]
+When a level is finished for the first time, the system shall give its level
+reward. The reward is the level's journey points, together with its coins and
+its accessory if the level's reward definition includes them
+(Table~\ref{tab:ModelContent}). The system shall then display a reward screen
+showing what was earned.
+
+\textbf{Rationale:} Rewards are for reaching the end of a level, not for
+correct answers. A child who needed hints receives the same reward, so no
+child is left behind. Defining the reward per level, as coins, an accessory,
+both, or neither, lets the team tune the rewards without changing the
+requirement.
+
+\textbf{Traces:} \ucref{UC_CompleteGame}, \defref{def_OpFinish},
+\thmref{thm_FirstFinish}, \thmref{thm_Once}.
+
+\textbf{Hazard Analysis:} \hazsr{NonPunitiveFeedback}{12}{PunitiveFeedback}{2-10}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_NoDuplicateReward}:]
+When a level whose reward has already been given is finished again, the system
+shall congratulate the child without giving points, coins, or accessories.
+
+\textbf{Rationale:} Giving the same reward again would encourage the child to
+replay one level instead of exploring the journey, and would make the totals
+on the scoreboard meaningless.
+
+\textbf{Traces:} \ucref{UC_CompleteGame}, \thmref{thm_Replay},
+\thmref{thm_Once}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Scoreboard}:]
+The system shall display a personal scoreboard. For each level, it shall show
+the name, the status, and the points earned. It shall also show the values of
+\defref{def_Scoreboard}: the total journey points, the number of completed
+levels out of the total, and the coin balance. It shall show the selected
+character and the nickname if they are set. It shall not compare the child
+with other users.
+
+\textbf{Rationale:} The scoreboard shows the child what they have achieved.
+Comparing children would add pressure, which works against the goal of
+reducing anxiety.
+
+\textbf{Traces:} \ucref{UC_ViewProgress}, \defref{def_Scoreboard}.
+
+\end{itemize}
+
+\subsubsection{Characters and Accessories}
+\label{sec_FRCharacters}
+
+\begin{itemize}
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ChooseCharacter}:]
+The system shall display every character the child can choose. When the child
+confirms a character, the system shall apply $\mathit{choose}$
+(\defref{def_OpChoose}). Choosing a character shall change only the selected
+character.
+
+\textbf{Rationale:} Choosing a character gives the child a sense of ownership
+of the journey. Changing characters must not cost the child any progress or
+rewards.
+
+\textbf{Traces:} \ucref{UC_ChooseCharacter}, \defref{def_OpChoose},
+\thmref{thm_Choose}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_DiverseCharacters}:]
+The characters shall vary in skin tone, hair texture and style, body type,
+and gender expression. They shall include options with accessibility and
+medical devices, such as glasses, an eye patch, or a wheelchair. The
+accessories shall include items from a range of cultures and religions.
+
+\textbf{Rationale:} A child who can see themselves in a character feels that the game, and
+the clinic it prepares them for, is a place where they belong.
+
+\textbf{Traces:} \ucref{UC_ChooseCharacter}, \ucref{UC_PurchaseAccessory},
+\ucref{UC_EquipAccessory}.
+
+\textbf{Hazard Analysis:} \hazsr{CharacterDiversityInclusivity}{15}{DiverseCharacterLibrary}{2-7}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Shop}:]
+The system shall display a shop of every accessory that has a price
+(Table~\ref{tab:ModelContent}). Each accessory shall show a preview on the
+selected character, its price, and whether the child owns it.
+
+\textbf{Rationale:} Seeing a preview and the price lets the child decide what
+to save coins for. Marking owned accessories prevents the child from trying to
+buy something twice.
+
+\textbf{Traces:} \ucref{UC_PurchaseAccessory}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Purchase}:]
+When the child confirms the purchase of an accessory that is not owned and
+costs at most the coin balance, the system shall apply $\mathit{buy}$
+(\defref{def_OpBuy}). The price shall be subtracted from the coin balance, and
+the accessory shall be added to the owned accessories.
+
+\textbf{Rationale:} Buying turns the coins the child earned into a visible
+reward, which gives the child a reason to continue the journey.
+
+\textbf{Traces:} \ucref{UC_PurchaseAccessory}, \defref{def_OpBuy},
+\thmref{thm_Buy}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_PurchaseRefused}:]
+When the child tries to buy an accessory that is already owned or costs more
+than the coin balance, the system shall not change the player state. If the
+accessory is owned, the system shall offer to equip it. If it costs too much,
+the system shall show how many more coins are needed.
+
+\textbf{Rationale:} Telling the child why the purchase did not happen avoids
+confusion. Not changing anything means the coin balance can never become
+negative.
+
+\textbf{Traces:} \ucref{UC_PurchaseAccessory}, \thmref{thm_Buy}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Equip}:]
+The system shall allow the child to equip any owned accessory and to unequip
+any equipped accessory (\defref{def_OpEquip}, \defref{def_OpUnequip}). At most
+one accessory of each category shall be equipped at a time
+(\defref{def_ValidCategory}). Equipping or unequipping shall not remove any
+accessory from the owned accessories.
+
+\textbf{Rationale:} One accessory per category keeps the character's
+appearance sensible, for example one hat at a time. Keeping owned accessories
+means the child never loses something they earned.
+
+\textbf{Traces:} \ucref{UC_EquipAccessory}, \defref{def_ValidCategory},
+\defref{def_OpEquip}, \defref{def_OpUnequip}, \thmref{thm_Equip},
+\thmref{thm_NoLoss}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_NoRealMoney}:]
+The system shall not offer any purchase with real money.
+
+\textbf{Rationale:} Coins are earned only by playing. Real-money purchases
+would not be appropriate for young children and would conflict with app store
+policies for children's applications.
+
+\textbf{Traces:} \ucref{UC_PurchaseAccessory}.
+
+\end{itemize}
+
+\subsubsection{Caregiver Features}
+\label{sec_FRCaregiver}
+
+\begin{itemize}
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ParentGate}:]
+The system shall place the settings behind a parental gate, which is a
+task that an adult can complete but a child aged 3 to 7 is unlikely to
+complete. The child area shall not offer any setting.
+
+\textbf{Rationale:} Settings such as the audio and the visual cues decide whether the child
+can follow a level. A child who changed them by accident could be left unable
+to continue. App store policies for children's applications also expect a
+parental gate in front of adult functions.
+
+\textbf{Traces:} \ucref{UC_AdjustPreferences}, \ucref{UC_DeleteData}.
+
+\textbf{Hazard Analysis:} \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-13}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ProcedureGuide}:]
+The system shall provide a caregiver procedure guide. For each procedure, the
+guide shall explain what the child may experience and how the matching level
+presents it.
+
+\textbf{Rationale:} Many caregivers do not know what happens during these
+procedures. The guide helps them answer the child's questions and support the
+child at the appointment.
+
+\textbf{Traces:} \ucref{UC_ProcedureInformation}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Nickname}:]
+The settings shall allow the caregiver to enter, change, or clear an optional
+nickname. When no nickname is set, the system shall use wording that is not
+personalized.
+
+\textbf{Rationale:} A nickname makes the journey feel like the child's own. It
+is optional, and it does not need to be the child's real name, so the
+application does not need to collect identifying information.
+
+\textbf{Traces:} \ucref{UC_AdjustPreferences}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Preferences}:]
+The settings shall allow the caregiver to change the age group and the audio,
+display, and accessibility preferences. Each change shall take effect
+immediately.
+
+\textbf{Rationale:} Caregivers know what their child needs, such as a lower
+volume in a waiting room. Applying changes immediately lets the caregiver see
+the result before handing the device back.
+
+\textbf{Traces:} \ucref{UC_AdjustPreferences}.
+
+\textbf{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-14}, \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-13}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_AgeGroup}:]
+When an age group is set and a level provides content for that age group, the
+system shall present that content.
+
+\textbf{Rationale:} A three-year-old and a seven-year-old understand
+explanations differently. Content for the child's age group is easier to
+follow.
+
+\textbf{Traces:} \ucref{UC_AdjustPreferences}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ResetJourney}:]
+The settings shall allow the caregiver to reset the journey data. The system
+shall first state what will be erased and ask for confirmation. On
+confirmation, the system shall apply $\mathit{reset}$ (\defref{def_OpReset}),
+which returns the player state to that of a new installation,
+$\mathit{newPlayerState}$ (\defref{def_NewPlayer}), and shall clear the
+nickname. The notice acknowledgement shall be kept. On cancellation, no data
+shall change.
+
+\textbf{Rationale:} A reset lets a family start over, or pass the device to
+another child. The confirmation prevents accidental loss of progress. The
+acknowledgement is kept because the same caregiver has already read the
+notice.
+
+\textbf{Traces:} \ucref{UC_DeleteData}, \defref{def_NewPlayer},
+\defref{def_OpReset}, \thmref{thm_Reset}, \thmref{thm_StatusMachine}.
+
+\item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ClearAllData}:]
+The settings shall allow the caregiver to clear all local application data
+after confirmation. This shall erase the data of \rref{FR_ResetJourney} and the
+notice acknowledgement, so that the medical notice is shown again on the next
+launch.
+
+\textbf{Rationale:} A caregiver may want to remove everything the application
+has stored, for example before giving the device to someone else.
+
+\textbf{Traces:} \ucref{UC_DeleteData}.
+
+\end{itemize}
 
 % ============================================================== 
 \section{Data Requirements}
@@ -1671,7 +3214,8 @@ Journey points accumulate across completed games and are
 displayed on the personal scoreboard. In game coins are
 tracked separately and may be spent on cosmetic accessories.
 Rewards are granted upon the first completion of each game,
-including when individual exercises have been skipped.
+including when individual exercises have been skipped. A reward
+may include in game coins, a cosmetic accessory, both, or neither.
 
 
 \subsection{Major Data Entities}
@@ -1713,8 +3257,9 @@ The system manages the following major data entities:
     \item \textbf{Reward Definition:}
     Represents the predefined reward associated with
     the first completion of a procedure game.
-    Each reward includes journey points and either
-    in-game coins or a cosmetic accessory.
+    Each reward includes journey points, and may also
+    include in-game coins, a cosmetic accessory, both,
+    or neither.
     Rewards are based on game completion rather
     than the accuracy of individual responses.
 
@@ -1757,7 +3302,8 @@ Accessories owned and equipped by the child.
 
 When a game is completed for the first time, the system
 records its completion, awards the corresponding journey
-points, and grants either coins or a cosmetic accessory.
+points, and grants any coins and cosmetic accessory in
+its Reward Definition.
 Game Progress records whether the reward has been claimed
 to prevent duplicate rewards when a completed game is
 replayed.
@@ -1767,6 +3313,9 @@ records to calculate accumulated journey points and
 completed levels. The coin balance is maintained
 separately because coins may be spent in the
 character customization shop.
+
+Section~\ref{sec_FormalJourney} specifies formally how
+these entities change during play.
 
 
 \subsection{Data Dictionary}
@@ -1922,24 +3471,17 @@ completed for the first time. \\
 \midrule
 
 Reward Definition &
-reward\_type &
-Enumeration &
-Type of additional reward.
-Values: Coins, Cosmetic Accessory. \\
-\midrule
-
-Reward Definition &
 coin\_amount &
-Optional Non-negative Integer &
-Number of coins awarded when the reward
-type is Coins. \\
+Non-negative Integer &
+Number of coins awarded. A value of 0 means the
+reward includes no coins. \\
 \midrule
 
 Reward Definition &
 reward\_accessory\_id &
 Optional String &
-Identifier of the cosmetic accessory awarded
-when the reward type is Cosmetic Accessory. \\
+Identifier of the cosmetic accessory awarded. An
+absent value means the reward includes no accessory. \\
 \midrule
 
 Local Preferences &
@@ -2416,28 +3958,121 @@ flow is: Stakeholder Need -> Use Case -> Requirement}
 \plt{Further traceability to test cases and modules will be given in other
 documents.}
 
-\begin{longtable}{p{0.15\textwidth} p{0.15\textwidth} p{0.20\textwidth} p{0.20\textwidth}}
+Table~\ref{tab:SR2UC2FRtm} traces each use case to its functional
+requirements. The stakeholder requirements column will be added when
+Section~\ref{sec_StakeholderReqs} is complete.
 
+\begin{longtable}{p{0.30\textwidth} p{0.60\textwidth}}
+
+\caption{Traceability Between Use Cases and Functional Requirements}
+\label{tab:SR2UC2FRtm}\\
 \toprule
-Stakeholder Req & Use Case & Functional Req \\
+Use Case & Functional Requirements \\
 \midrule
-\srref{SR_Label1} & \ucref{UC_Label1} & \rref{FR_Label1} \\
+\endfirsthead
+\toprule
+Use Case & Functional Requirements \\
+\midrule
+\endhead
+\ucref{UC_FirstUse} & \rref{FR_MedicalNotice}, \rref{FR_RecordAck} \\
+\ucref{UC_ChooseCharacter} & \rref{FR_ChooseCharacter}, \rref{FR_DiverseCharacters} \\
+\ucref{UC_SelectGame} & \rref{FR_JourneyMap}, \rref{FR_StartLevel}, \rref{FR_Replay} \\
+\ucref{UC_ProcedureInformation} & \rref{FR_MedicalNotice}, \rref{FR_ProcedureGuide} \\
+\ucref{UC_VisionGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches} \\
+\ucref{UC_EyeDropGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_SpeakUp}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches} \\
+\ucref{UC_SlitLampGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches} \\
+\ucref{UC_ExitGame} & \rref{FR_ExitLevel}, \rref{FR_StopOnExit}, \rref{FR_ExitKeepsData}, \rref{FR_RestartAfterExit}, \rref{FR_RestartLevel}, \rref{FR_Suspend}, \rref{FR_PersistState} \\
+\ucref{UC_CompleteGame} & \rref{FR_Replay}, \rref{FR_FirstReward}, \rref{FR_NoDuplicateReward} \\
+\ucref{UC_ViewProgress} & \rref{FR_Scoreboard} \\
+\ucref{UC_PurchaseAccessory} & \rref{FR_DiverseCharacters}, \rref{FR_Shop}, \rref{FR_Purchase}, \rref{FR_PurchaseRefused}, \rref{FR_NoRealMoney} \\
+\ucref{UC_EquipAccessory} & \rref{FR_DiverseCharacters}, \rref{FR_Equip} \\
+\ucref{UC_AdjustPreferences} & \rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Nickname}, \rref{FR_Preferences}, \rref{FR_AgeGroup} \\
+\ucref{UC_DeleteData} & \rref{FR_ParentGate}, \rref{FR_ResetJourney}, \rref{FR_ClearAllData} \\
+\ucref{UC_OfflineUse} & \rref{FR_PersistState}, \rref{FR_CorruptData} \\
 \bottomrule
-
-\caption{Traceability Between Stakeholder Requirements, Use Cases, and
-Functional Requirements} \label{tab:SR2UC2FRtm}
 \end{longtable}
 
-\begin{longtable}{p{0.20\textwidth} p{0.20\textwidth}}
+Table~\ref{tab:FR2Rtm} lists the functional requirements that help satisfy a
+non-functional requirement. Functional requirements without a related
+non-functional requirement are omitted.
 
+\begin{longtable}{p{0.30\textwidth} p{0.60\textwidth}}
+
+\caption{Traceability Between Functional and Nonfunctional Requirements}
+\label{tab:FR2Rtm}\\
 \toprule
 Functional Req & Nonfunctional Req \\
 \midrule
-\rref{FR_Label1} & \nfrref{NFR_Accuracy} \\
+\endfirsthead
+\toprule
+Functional Req & Nonfunctional Req \\
+\midrule
+\endhead
+\rref{FR_MedicalNotice} & \nfrref{NFR_NoClaims} \\
+\rref{FR_JourneyMap} & \nfrref{NFR_Usability}, \nfrref{NFR_Colour} \\
+\rref{FR_DescribeSensations} & \nfrref{NFR_ChildSafe} \\
+\rref{FR_SpokenInstructions} & \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_AVSync}, \nfrref{NFR_Accessibility} \\
+\rref{FR_HintOnMiss} & \nfrref{NFR_Usability} \\
+\rref{FR_VisualCues} & \nfrref{NFR_Accessibility} \\
+\rref{FR_NarrationFallback} & \nfrref{NFR_Accessibility}, \nfrref{NFR_AudioSafety} \\
+\rref{FR_RevealAnswer} & \nfrref{NFR_Colour}, \nfrref{NFR_Accessibility} \\
+\rref{FR_IgnoreRepeatedTouches} & \nfrref{NFR_Responsiveness} \\
+\rref{FR_ExitLevel} & \nfrref{NFR_Exit} \\
+\rref{FR_StopOnExit} & \nfrref{NFR_Exit} \\
+\rref{FR_RestartLevel} & \nfrref{NFR_Exit}, \nfrref{NFR_Reliability} \\
+\rref{FR_Suspend} & \nfrref{NFR_Reliability} \\
+\rref{FR_PersistState} & \nfrref{NFR_Reliability}, \nfrref{NFR_Offline}, \nfrref{NFR_DataProtection} \\
+\rref{FR_CorruptData} & \nfrref{NFR_Reliability} \\
+\rref{FR_FirstReward} & \nfrref{NFR_Offline} \\
+\rref{FR_DiverseCharacters} & \nfrref{NFR_Inclusivity} \\
+\rref{FR_Purchase} & \nfrref{NFR_Offline} \\
+\rref{FR_NoRealMoney} & \nfrref{NFR_StoreCompliance} \\
+\rref{FR_ParentGate} & \nfrref{NFR_StoreCompliance} \\
+\rref{FR_ProcedureGuide} & \nfrref{NFR_Language}, \nfrref{NFR_NoClaims} \\
+\rref{FR_Nickname} & \nfrref{NFR_DataProtection}, \nfrref{NFR_Minimization} \\
+\rref{FR_Preferences} & \nfrref{NFR_Accessibility} \\
+\rref{FR_ResetJourney} & \nfrref{NFR_Minimization} \\
+\rref{FR_ClearAllData} & \nfrref{NFR_Minimization} \\
 \bottomrule
-\caption{Traceability Between Functional and Nonfunctional Requirements}
-\label{tab:FR2Rtm}
+\end{longtable}
 
+Table~\ref{tab:HA2FRtm} traces the safety and security requirements of the
+\hadoc{Hazard Analysis} to the functional requirements that satisfy them. The numbers
+of the safety and security requirements (SR) and of the hazards (H) are those
+of the Hazard Analysis. Safety and security requirements that describe a
+quality of the system or the release process, such as device temperature,
+performance, content review, data minimization, and third-party software, are
+satisfied by the non-functional requirements of Section~\ref{non-func-req} and are
+not listed here.
+
+\begin{longtable}{p{0.08\textwidth} p{0.08\textwidth} >{\raggedright\arraybackslash}p{0.40\textwidth} >{\raggedright\arraybackslash}p{0.32\textwidth}}
+
+\caption{Traceability Between the Hazard Analysis and Functional Requirements}
+\label{tab:HA2FRtm}\\
+\toprule
+SR & Hazard & Safety and Security Req & Functional Req \\
+\midrule
+\endfirsthead
+\toprule
+SR & Hazard & Safety and Security Req & Functional Req \\
+\midrule
+\endhead
+\hasrref{PreventAccidentalInput}{3} & \hahazref{AccidentalInputSkipping}{2-1} & Prevention of unintentional gameplay actions & \rref{FR_IgnoreRepeatedTouches} \\
+\hasrref{GameplayRecovery}{4} & \hahazref{GameplayStuck}{2-2} & Gameplay recovery & \rref{FR_ExitLevel}, \rref{FR_ExitKeepsData}, \rref{FR_RestartAfterExit}, \rref{FR_RestartLevel} \\
+\hasrref{ClinicsDiffer}{6} & \hahazref{InaccurateProcedure}{2-3} & Variation between clinics & \rref{FR_ClinicsDiffer} \\
+\hasrref{HonestSensations}{8} & \hahazref{SensationsHidden}{2-4} & Honest description of sensations & \rref{FR_DescribeSensations} \\
+\hasrref{MedicalDisclaimer}{10} & \hahazref{MisinterpretedMedicalPurpose}{2-6} & Medical disclaimer and caregiver acknowledgment & \rref{FR_MedicalNotice}, \rref{FR_RecordAck} \\
+\hasrref{AllLevelsAccessible}{11} & \hahazref{RestrictedLevelAccess}{2-9} & All preparation levels remain accessible & \rref{FR_StartLevel} \\
+\hasrref{NonPunitiveFeedback}{12} & \hahazref{PunitiveFeedback}{2-10} & Encouraging feedback without penalties & \rref{FR_HintOnMiss}, \rref{FR_NoPenalty}, \rref{FR_FirstReward} \\
+\hasrref{StopAudioVisualsOnExit}{13} & \hahazref{AudioVisualsContinueOnExit}{2-11} & Termination of audio and visual effects on exit & \rref{FR_StopOnExit} \\
+\hasrref{SafeAudioVisuals}{14} & \hahazref{UnsafeAudioVisuals}{2-14} & Safe audio and visual effects & \rref{FR_NarrationFallback}, \rref{FR_Preferences} \\
+\hasrref{CharacterDiversityInclusivity}{15} & \hahazref{DiverseCharacterLibrary}{2-7} & Diverse and inclusive characters and rewards & \rref{FR_DiverseCharacters} \\
+\hasrref{CorrectAnswerReveal}{16} & \hahazref{CorrectAnswerReveal}{2-8} & Revealing correct answers & \rref{FR_RevealAnswer} \\
+\hasrref{AtLeastOneCorrectAnswer}{17} & \hahazref{CorrectAnswerReveal}{2-8} & At least one correct answer & \rref{FR_ValidQuestions} \\
+\hasrref{NarrationMuted}{18} & \hahazref{NarrationDisabledSetting}{2-12} & Guidance for muted narration & \rref{FR_NarrationFallback}, \rref{FR_Suspend} \\
+\hasrref{VisualCuesSetting}{19} & \hahazref{VisualCuesDisabledSetting}{2-13} & Visual cues during gameplay & \rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Preferences} \\
+\hasrref{ReliableSaveData}{20} & \hahazref{SaveDataCorruption}{2-15} & Reliable save data handling & \rref{FR_PersistState}, \rref{FR_CorruptData} \\
+\bottomrule
 \end{longtable}
 
 % ============================================================== 
@@ -2458,7 +4093,53 @@ scope.
 
 \subsection{Functional Requirements}
 
-TODO
+Each functional requirement has its own rationale in Section~\ref{sec_FRList}.
+This subsection explains only the decisions that shape most of the
+requirements.
+
+The requirements follow the journey design recommended by the project
+supervisor (see the Data Requirements rationale below). The procedures needed
+at an appointment can change at short notice, so every level is open at all
+times and progress is recorded per level. The journey map, the rewards, the
+scoreboard, and the characters all build on this structure.
+
+The format of each level is not yet decided. The requirements therefore state
+what every level must convey and how the journey records progress, but not
+what happens inside a level. Requirements for the inside of each level will be
+added once the format is decided.
+
+The application must not become a new source of stress for a child who is
+already anxious. The application therefore has no failure states. Mistakes
+lead to hints, exercises can be skipped, rewards do not depend on answers, and
+the child can leave at any time without losing anything. Wherever a
+requirement could cost the child progress, it is written so that it does not.
+
+The users are children aged 3 to 7, most of whom cannot read. Every
+instruction is therefore given through narration and pictures, and nothing in
+the child area depends on reading. Everything that is not play, such as the
+medical notice, the settings, and deleting data, is placed in the caregiver
+area.
+
+The application works offline and stores only the player state on the device.
+No account, network, or personal information is needed. The requirements on
+saving, restoring, and resetting data all follow from this decision.
+
+The Hazard Analysis states its safety and security requirements at a general
+level. This SRS states them as specific, testable requirements. Those that
+describe what the system does are functional requirements, and each one names
+the safety and security requirement and the hazard it addresses. Those that
+describe a quality of the system or the release process are non-functional
+requirements.
+
+The journey and the player's progress are specified formally in
+Section~\ref{sec_FormalSpec}. They involve state over time, such as rewards
+given, levels started, and coins spent. Informal wording such as ``the reward
+is given once'' is easy to misread for this kind of behaviour. The player
+state is specified with discrete mathematics because it is a small set of
+values with clear operations. The status of each level is also shown as a
+state machine (\thmref{thm_StatusMachine}), because it is easiest to check as
+a picture. Every requirement can then cite exactly the part of the model it
+depends on.
 
 \subsection{Data Requirements}
 
@@ -2492,6 +4173,10 @@ game progress, journey progression, and rewards
 were introduced. All user data is stored locally to maintain
 offline functionality and minimize the collection of
 personal information.
+
+Rewards are defined flexibly. A level reward may include coins, a
+cosmetic accessory, both, or neither, so that the team and the
+supervisors can tune the rewards without changing the data model.
 
 \subsection{Non-Functional Requirements}
 
@@ -2697,6 +4382,10 @@ Constant & Value & Unit\\
 \texttt{UNAIDED\_RATE\_MIN}
 \label{const:UNAIDED_RATE_MIN}
 & 80 & \%\\
+
+\texttt{ANSWER\_REVEAL\_MAX\_S}
+\label{const:ANSWER_REVEAL_MAX_S}
+& 1 & s\\
 
 \end{longtable}
 
