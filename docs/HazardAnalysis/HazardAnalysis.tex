@@ -428,6 +428,38 @@ activity and may become frustrated or confused
 & \hazdef{GameplayStuck}\\
 \addlinespace
 
+& The child cannot understand an instruction or perform
+the interaction to continue
+& The child may become frustrated, leave the activity,
+or miss information though the game
+is running correctly
+& \bitem Instructions heavily depend on reading or use unfamiliar words
+  \bitem Touch targets are too tiny or gestures require too much accuracy
+  \bitem Interactions are not tested with the intended ages and abilities
+& \bitem Use short, familiar wording and narration with visual demonstrations
+  \bitem Make controls large and interactions forgiving
+  \bitem Test whether children across the target ages and abilities
+  can follow the instructions and use the controls
+& \srref{AccessibleInteraction}
+& \hazdef{InaccessibleInteraction}\\
+\addlinespace
+
+& A preparation level or the content it needs is
+unavailable without an internet connection
+& The child cannot complete preparation at home or in
+a waiting room where network connections could be poor/unavailable
+& \bitem Required assets are missing from the installation package
+  \bitem A level downloads content or waits for an external service
+  \bitem Offline testing uses content downloaded during an earlier session
+& \bitem Include every level and its required assets
+  in the installation
+  \bitem Remove network dependencies from preparation activities
+  \bitem Test every level offline from a fresh installation,
+  before any content has been downloaded during play
+& \srref{OfflinePreparation}
+& \hazdef{OfflineContentUnavailable}\\
+\addlinespace
+
 % ----- The Game: Educational Content ----------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{EducationalContent}{Educational Content}
@@ -637,6 +669,23 @@ visual effects
 & \srref{SafeAudioVisuals}
 & \hazdef{UnsafeAudioVisuals}\\
 \addlinespace
+
+& Narration describes a different procedure step
+from the animation being shown
+& The child may learn the wrong sequence or misunderstand
+what a piece of equipment does, leaving them confused
+or surprised at the appointment
+& \bitem Narration is paired with the wrong animation
+  \bitem Audio and animation start or move forward at different times
+  \bitem Audio and animation resume at different points after an interruption
+& \bitem Check that each narration matches the step being shown
+  \bitem Keep narration and animation synchronized during playback
+  \bitem Test that both resume together after interruptions
+  on iOS and Android devices
+& \srref{ConsistentAudioVisuals}
+& \hazdef{AudioVisualMismatch}\\
+\addlinespace
+
 % ------ The Game: Save Data ---------------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{SaveData}{Save Data}
@@ -718,6 +767,22 @@ first-party content
   \bitem Release only reviewed versions of assets
 & \srref{ThirdPartyAssetReview}
 & \hazdef{ThirdPartyAssetContent}\\
+\addlinespace
+
+& An included library sends data from the device
+& Usage data or device information may be disclosed
+without the family's knowledge, breaking the game's
+privacy protections
+& \bitem Analytics/diagnostic uploads are enabled in a library
+  \bitem A dependency update enables a network service
+  \bitem Testing checks offline play but not network activity
+  when connected
+& \bitem Remove network services the game does not need
+  \bitem Check dependency settings before release and after updates
+  \bitem Verify that the release build makes no requests
+  while connected, including after reconnecting
+& \srref{MinimalSaveData}, \srref{ThirdPartyValidation}
+& \hazdef{UnexpectedDataTransmission}\\
 \end{longtable}
 \end{landscape}
 
@@ -1006,7 +1071,7 @@ comfortable reduces avoidable distress while
 preserving the educational purpose of the game.
 
 \textit{Associated hazards:}
-\hazref{AccidentalInputSkipping}
+\hazref{UnsafeAudioVisuals}
 
 \textit{SRS:} TODO
 
@@ -1116,7 +1181,7 @@ unexpected application or device failures.
 \textit{SRS:} TODO
 
 \item[\srdef{MinimalSaveData}]
-\textbf{Minimization and Protection of Saved Data}
+\textbf{Minimization and Protection of Game Data}
 
 The game shall store only information required
 for offline gameplay and shall not store names,
@@ -1125,6 +1190,9 @@ personal information. Saved game data shall be
 stored using the platform's application storage
 mechanisms and shall not be intentionally exposed
 to other applications.
+The game, including all packaged third-party libraries,
+shall not transmit data or initiate network communication
+during use.
 
 \textit{Rationale:}
 The game does not require personal information
@@ -1133,9 +1201,12 @@ stored information reduces the potential impact
 of a privacy or security failure, particularly
 because the application is intended for young
 children.
+Keeping saved files private does not prevent a library
+from sending usage data off the device, so the restriction
+also applies to network activity.
 
 \textit{Associated hazards:}
-\hazref{SaveDataPrivacy}
+\hazref{SaveDataPrivacy}, \hazref{UnexpectedDataTransmission}
 
 \textit{SRS:} TODO
 
@@ -1157,7 +1228,7 @@ could cause crashes or incorrect behaviour in
 critical preparation activities.
 
 \textit{Associated hazards:}
-\hazref{ThirdPartyFailure}
+\hazref{ThirdPartyFailure}, \hazref{UnexpectedDataTransmission}
 
 \textit{SRS:} TODO
 
@@ -1184,6 +1255,65 @@ first-party content.
 \hazref{ThirdPartyAssetContent}
 
 \textit{SRS:} TODO
+
+\item[\srdef{AccessibleInteraction}]
+\textbf{Accessible, Age-Appropriate Interaction}
+
+The game shall present every preparation instruction through
+short, familiar narration and a visual demonstration, without
+requiring the child to read more than a few words. Controls shall be large enough
+and interactions forgiving enough for children aged 3--7 to use.
+
+\textit{Rationale:}
+A child can be unable to use a game that runs correctly.
+Small controls or instructions they cannot follow can stop
+preparation and leave the child frustrated or anxious.
+Instructions and interactions need to be tested with the
+intended ages and abilities, not just checked for game errors.
+
+\textit{Associated hazards:}
+\hazref{InaccessibleInteraction}
+
+\textit{SRS:} FR11, FR40, FR41; NFR3, NFR5--NFR8
+
+\item[\srdef{ConsistentAudioVisuals}]
+\textbf{Consistent Narration and Animation}
+
+During a preparation activity, narration and its visual
+demonstration shall describe the same step and
+remain synchronized. After an interruption, both shall
+resume from the same point.
+
+\textit{Rationale:}
+An accurate script and an accurate animation can still
+teach the wrong thing if they are played together at the
+wrong time. The child needs to hear the explanation that
+matches what they are seeing, including after an interruption.
+
+\textit{Associated hazards:}
+\hazref{AudioVisualMismatch}
+
+\textit{SRS:} FR24; NFR12 (start timing)
+
+\item[\srdef{OfflinePreparation}]
+\textbf{Offline Availability of Preparation Content}
+
+After installation, every level and all assets
+needed to complete it shall be available without an internet
+connection. Starting a level for the first time shall not
+require a download or a response from an external service.
+The release build shall be tested offline from a fresh
+installation.
+
+\textit{Rationale:}
+A family may open a level in a waiting room with no
+internet connection. Testing a fresh installation checks that all
+required content is actually included.
+
+\textit{Associated hazards:}
+\hazref{OfflineContentUnavailable}
+
+\textit{SRS:} C.5; NFR16, NFR18
 
 \end{itemize}
 
