@@ -687,6 +687,78 @@ fuller rationale than other requirements.
   end user of \progname{} should have an understanding of undergraduate Level 1
   Calculus and Physics.''}
 
+The users are different from the intended readers of this document Section~\ref{sec_IntendedReader}. 
+The characteristics below are used to set the non-functional usability requirements in 
+Section~\ref{sec_UsabilityReqs}. The characteristics are also illustrated by the personas in 
+Section~\ref{sec_Personas}.
+
+\subsubsection*{\textbf{Children}}
+
+\begin{itemize}
+    \item Aged \constref{MIN_AGE} to \constref{MAX_AGE} years. Many cannot read and older children 
+    read simple words. All instructions must therefore be spoken or narrated and shown with pictures
+    or visual guides.
+    \item Actively developing fine motor control. Children in this age range tap imprecisely, often 
+    with several fingers, and may tap repeatedly or not at all.
+    \item Have short attention spans, which grow with age.
+    \item May have reduced vision at the time of use because they are eye patients. Therefore, some 
+    wear patches or glasses. Additionally, in the waiting room their pupils may be dilated, 
+    making the screen look blurry and bright. Some have colour vision deficiencies.
+    \item May already be anxious about the appointment and respond strongly to praise and 
+    to perceived failure.
+    \item May be highly dependent on caregiver, making the child shy to other adults and the 
+    examinations necessary to take place during the appointment or try things on their own, like 
+    the EyeCanDo application in the waiting room.
+    \item The child may not have used technology before, making the digital game seem like a steep 
+    learning curve adding in a different element of anxiety or nervousness.
+\end{itemize}
+
+\subsubsection*{\textbf{Caregivers}}
+
+\begin{itemize}
+    \item Adults with varied education, technical experience and English proficiency. 
+    \item Adults with varied accesibility needs, like their own vision impairment (notable in an eye clinic).
+    \item They can operate a smartphone app store and read simple English instructions.
+    \item Often stressed or short of time and may use Hindsight in a busy waiting room alongside 
+    their child.
+    \item Have no clinical training.
+    \item Be tired after a full day of work, other activities, or general external factors (e.g. family 
+    illness, other child responsibilities) affecting level of patience.
+    \item They can legally consent to examinations, share medical history, or approve data collection 
+    on behalf of their children.
+\end{itemize}
+
+\subsubsection*{\textbf{Clinicians}}
+\begin{itemize}
+    \item Eye-care professionals with intensive clinical procedure knowledge.
+    \item Eye-care professionals who use and administer specialized equipment such as the slit-lamp, 
+    Optical Coherence Tomography (OCT) scanners for eye photos, eye drop medications, and other 
+    vision tests equipment.
+    \item Have relatively little time per patient as appointment slots are often full, so an 
+    introductory interaction of \progname{} with the patient must be within 1 minute.
+    \item Have large schedules packed with patient appointments or other healthcare responsibilities, 
+    so training in \progname{} must be within 5 minutes.
+    \item Experience frequent interruptions from restless children and have to face 
+    multiple caregiver questions.
+    \item Must abide by standards and ethics set by regulatory bodies regarding patient privacy, 
+    security, and personal information.
+\end{itemize}
+
+\subsubsection*{\textbf{Child-life Specialists}}
+\begin{itemize}
+    \item Certified and trained in child development, play, and medical care navigation.
+    \item Have clinical experience and clinical training.
+    \item Can share visibility of the child's coping plan with clinicians to everyone use 
+    consistent language and approaches for the child
+    \item They can operate a smartphone app store and read English instructions with 
+    professional fluency.
+    \item Provide information, support, and guidance to parents and family members about 
+    examinations and medical procedures \cite{mayoChildLifeSpecialist}.
+    \item Collaborative skills with the clinicians to coordinate and manage care \cite{mayoChildLifeSpecialist}.
+    \item Must abide by standards and ethics set by regulatory bodies regarding patient privacy, 
+    security, and personal information.
+\end{itemize}
+
 \subsection{System Constraints}
 
 \begin{itemize}
@@ -795,7 +867,7 @@ in other parts of the SRS.  The label names should be meaningful mnemonics, not
 numbers.}
 
 % ============================================================== 
-\section{User Personas}
+\section{User Personas} \label{sec_Personas}
 These are fictitious personas drafted from project documentation.
 Their individual characteristics are assumptions, that will be validated through further stakeholder interaction.
 
@@ -3752,7 +3824,7 @@ No image, animation, narration, or sound shall be frightening, or show pain or d
 
 \end{itemize}
 
-\subsection{Usability and Humanity Requirements}
+\subsection{Usability and Humanity Requirements} \label{sec_UsabilityReqs}
 
 \begin{itemize}
 
