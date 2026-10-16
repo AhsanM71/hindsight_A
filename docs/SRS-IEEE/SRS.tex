@@ -173,6 +173,7 @@
 2026/10/12 & Mohammad Bilal & Completed sections 1.1, 1.2, 2.1, \& contributed to 1.4 \\
 2026/10/13 & Ahsan Muzammil & Completed sections 2.2, 5, 7, \& contributed to section 10, Appendix D, and E \\
 2026/10/13 & Mohammad Bilal & Completed section 8, \& contributed to section 10, Appendix C, D \\
+2026/10/15 & Jake Finlay & Completed sections 2.3, 6 (including the formal model), 11, 12, \& contributed to section 10 and Appendix E \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -648,7 +649,7 @@ each entity are listed below in terms of its inputs and outputs.
   \item Ignores repeated or accidental touches that would skip procedure
     information.
   \item Records progress, rewards, character choices and preferences
-    (Section~\ref{sec_FormalJourney}).
+    (Section~\ref{sec_FormalSpec}).
   \item Stores no identifying information or clinical records
     (\conref{C_PatientPrivacy}).
   \item Checks saved data when it is loaded. If the data is missing or invalid,
@@ -1946,12 +1947,11 @@ Any level can be played at any time. Finishing a level for the first time gives
 a level reward.
 
 This section has two parts. Section~\ref{sec_FormalSpec} first defines a
-formal model of the journey and of the player's progress.
+formal model of the player's progress and rewards.
 Section~\ref{sec_FRList} then states the functional requirements. A
 requirement may use a name from the model, and it then cites the definition or
-theorem it relies on. Table~\ref{tab:FormalTrace} traces the definitions and
-theorems to the requirements. Where a requirement and the model describe the
-same behaviour, the model is authoritative.
+theorem it relies on. Where a requirement and the model describe the same
+behaviour, the model is authoritative.
 
 The format of each level is not yet decided. The model and the requirements
 therefore describe the journey and the progress through its levels, and not
@@ -1971,178 +1971,31 @@ requirement to the functional requirements.
 \subsection{Formal Model}
 \label{sec_FormalSpec}
 
-This subsection was added to the template. It formalizes how \progname{}
-records the player's progress through the journey. This is the most critical
-part of the application for two reasons. First, it is used every time a child
-plays. Second, an error here harms an anxious child. Examples are a reward that
-is lost or given twice, a level that is locked, or progress that disappears.
+This section formalizes the most critical
+part of \progname{}. This is the child's progress through the levels and the
+rewards for finishing them. It is used every time a child plays, and an error
+here harms an anxious child. Examples are a locked level, a reward that is lost
+or given twice, or progress that disappears. The shop, the characters and the
+accessories are not modelled. Their requirements are simple enough to state in
+words (Section~\ref{sec_FRCharacters}).
 
-The model is written in the style of a textbook. Names are first mapped to the
-data dictionary (Section~\ref{sec_FormalNames}). Definitions, numbered D1, D2,
-and so on, then fix the rules and the operations. A definition with several
-parts has numbered parts, such as \defref{def_OpStart} and
-\defref{def_OpFinish}. Theorems, numbered T1, T2, and so on, state the
-conclusions that the functional requirements depend on. Each theorem is
-followed by its proof and by the requirements it specifies. Definitions and
-theorems are shown in boxes, and their explanations are given outside the
-boxes. Equations are numbered E1, E2, and so on.
+Definitions (D1, D2, \ldots) fix the model. Theorems (T1, T2, \ldots) state the
+properties that the requirements depend on. Each theorem has a short proof and
+lists the requirements it specifies.
 
-\subsubsection{Notation}
-\label{sec_FormalNotation}
+\textbf{Notation.} Names in italics, such as $\mathit{coins}$, are names in the
+model. Values in a sans-serif font, such as \val{Completed}, are values.
+$\mathbb{N}$ is the natural numbers, including $0$. A primed name, such as
+$\mathit{coins}'$, is the value after an operation.
 
-Names in italics, such as $\mathit{coinBalance}$, are names in the model. They
-are English words so that they can be read without a lookup table. Values are
-written in a sans-serif font, such as \val{Completed}, so that they cannot be
-confused with names. Table~\ref{tab:FormalNotation} lists the symbols used.
-
-\begin{table}[H]
-\centering
-\caption{Notation of the formal model}
-\label{tab:FormalNotation}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{ll}
-\toprule
-\textbf{Notation} & \textbf{Meaning}\\
-\midrule
-$\mathit{name}$ & A name in the model, such as $\mathit{coinBalance}$\\
-\val{Value} & A value, such as \val{Completed} or \val{true}\\
-$\mathbb{N}$ & The natural numbers, including $0$\\
-$\mathbb{B}$ & The Booleans, $\{\val{true}, \val{false}\}$\\
-\val{none} & A value meaning ``nothing'', different from every other value\\
-$f : X \to Y$ & $f$ gives a value $f(x)$ in $Y$ for every $x$ in $X$\\
-$f : X \rightharpoonup Y$ & $f$ gives a value in $Y$ for some elements of $X$\\
-$\mathrm{dom}\, f$ & The elements of $X$ for which $f$ gives a value\\
-$(x_1, \ldots, x_n)$ & A tuple of $n$ values, in a fixed order\\
-$\{x_1, \ldots, x_n\}$ & The set of the listed values\\
-$\{x \in X \mid P\}$ & The set of the elements $x$ of $X$ for which $P$
-  holds\\
-$\emptyset$ & The empty set\\
-$\in$, $\notin$ & Is an element of, is not an element of\\
-$\cup$, $\setminus$, $\subseteq$ & Union, difference, subset\\
-$|X|$ & The number of elements of the finite set $X$\\
-$\sum_{x \in X,\ P} f(x)$ & The sum of $f(x)$ over every $x$ in $X$ for which
-  $P$ holds\\
-$=$, $\neq$, $\leq$, $\geq$, $<$ & Equal, not equal, at most, at least,
-  less than\\
-$\wedge$, $\neg$ & And, not\\
-$\Rightarrow$, $\Leftrightarrow$ & Implies, if and only if\\
-$\begin{cases} a & \text{if } P\\ b & \text{otherwise} \end{cases}$ &
-  The value $a$ if $P$ holds, and $b$ otherwise\\
-$v'$ & The value of $v$ after an operation (read ``$v$ after'')\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsubsection{Names and the Data Dictionary}
-\label{sec_FormalNames}
-
-Every name in the model represents an entity or attribute of the data
-dictionary (Table~\ref{tab:JourneyDataDictionary}). The names fall into two
-groups.
-
-The \emph{game content} is defined by the team and approved before release. It
-does not change while the application runs. Table~\ref{tab:ModelContent} lists
-its names.
-
-{\small
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}}
-\caption{Names for the game content}
-\label{tab:ModelContent}\\
-\toprule
-\textbf{Name} & \textbf{Type} & \textbf{Data dictionary} & \textbf{Meaning}\\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Name} & \textbf{Type} & \textbf{Data dictionary} & \textbf{Meaning}\\
-\midrule
-\endhead
-$\mathit{Levels}$ & Finite, non-empty set & Procedure Game & The levels of the
-  journey. Each level is one procedure game.\\[3pt]
-$\mathit{levelNumber}$ & $\mathit{Levels} \to \mathbb{N}$ & Procedure Game:
-  level\_number & Position of a level in the suggested order\\[3pt]
-$\mathit{points}$ & $\mathit{Levels} \to \mathbb{N}$ & Reward Definition:
-  points\_awarded & Journey points for finishing a level the first
-  time\\[3pt]
-$\mathit{coinReward}$ & $\mathit{Levels} \to \mathbb{N}$ & Reward Definition:
-  coin\_amount & Coins for finishing a level the first time, or $0$\\[3pt]
-$\mathit{accessoryReward}$ & $\mathit{Levels} \to \mathit{Accessories} \cup
-  \{\val{none}\}$ & Reward Definition: reward\_\allowbreak accessory\_\allowbreak
-  id & Accessory for finishing a level the first time, or \val{none}\\[3pt]
-$\mathit{Accessories}$ & Finite set & Cosmetic Accessory & The cosmetic
-  accessories\\[3pt]
-$\mathit{Categories}$ & Finite set & Cosmetic Accessory: accessory\_category &
-  The accessory categories, such as hats and glasses\\[3pt]
-$\mathit{category}$ & $\mathit{Accessories} \to \mathit{Categories}$ &
-  Cosmetic Accessory: accessory\_category & Category of an accessory\\[3pt]
-$\mathit{price}$ & $\mathit{Accessories} \rightharpoonup \mathbb{N}$ &
-  Cosmetic Accessory: coin\_price & Coin price of an accessory sold in the
-  shop\\[3pt]
-$\mathit{Characters}$ & Finite set & Character & The characters the child can
-  choose\\
-\bottomrule
-\end{longtable}
-}
-
-An accessory that is not in $\mathrm{dom}\,\mathit{price}$ is not sold in the
-shop. It can only be received as a reward.
-
-A level reward may give coins, an accessory, both, or neither. A coin reward of
-$0$ means no coins, and an accessory reward of \val{none} means no accessory.
-
-The \emph{player state} is everything the application saves about the player's
-progress. Table~\ref{tab:ModelState} lists its six parts, in the order used by
-the $\mathit{playerState}$ tuple of \defref{def_Player}.
-
-\begin{table}[H]
-\centering
-\caption{The six parts of the player state, in tuple order}
-\label{tab:ModelState}
-\small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}}
-\toprule
-\textbf{Name} & \textbf{Type} & \textbf{Data dictionary} & \textbf{Meaning}\\
-\midrule
-$\mathit{status}$ & $\mathit{Levels} \to \mathit{Status}$ &
-  Game Progress: completion\_status & Status of each level\\[3pt]
-$\mathit{rewardClaimed}$ & $\mathit{Levels} \to \mathbb{B}$ &
-  Game Progress: reward\_claimed & Whether each level's reward has been
-  given\\[3pt]
-$\mathit{coinBalance}$ & $\mathbb{N}$ & Journey Progress: coin\_balance & Coins
-  the child can spend\\[3pt]
-$\mathit{owned}$ & Subset of $\mathit{Accessories}$ & Character Inventory:
-  owned\_\allowbreak accessory\_\allowbreak ids & Accessories the child
-  owns\\[3pt]
-$\mathit{equipped}$ & Subset of $\mathit{Accessories}$ & Character Inventory:
-  equipped\_\allowbreak accessory\_\allowbreak ids & Accessories the character
-  wears\\[3pt]
-$\mathit{character}$ & $\mathit{Characters} \cup \{\val{none}\}$ &
-  Local Preferences: selected\_\allowbreak character\_\allowbreak id & The
-  selected character, or \val{none}\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsubsection{Definitions}
-\label{sec_FormalJourney}
-
-The following definitions fix the rules of the game content and of the player
-state. Each box contains only the definition. The text before a box explains
-why it is needed, and the text after it explains how to read it.
-
-The journey map shows the levels in order of their level number, so no two
-levels may share a number.
-
-\begin{definition}{Unique level numbers}{def_LevelNumbers}
-For any two levels $\mathit{first}$ and $\mathit{second}$:
-\begin{equation}
-\mathit{levelNumber}(\mathit{first}) = \mathit{levelNumber}(\mathit{second})
-\Rightarrow \mathit{first} = \mathit{second}
-\label{eq_LevelNumbers}
-\end{equation}
-\end{definition}
-
-Each level has a status that records how far the child has got with it. The
-status is the completion\_status attribute of the data dictionary.
+\textbf{Game content.} The team defines the game content before release, and it
+does not change while the application runs. $\mathit{Levels}$ is the finite,
+non-empty set of levels, one for each procedure (Procedure Game in the data
+dictionary). For each level, $\mathit{points}(\mathit{level}) \in \mathbb{N}$
+and $\mathit{coinReward}(\mathit{level}) \in \mathbb{N}$ are the journey points
+and coins for finishing it the first time (Reward Definition). A level reward
+may also include an accessory. It is given at the same moment as the coins, so
+every result below about coins also holds for it.
 
 \begin{definition}{Level status}{def_Status}
 \begin{equation}
@@ -2155,38 +2008,24 @@ status is the completion\_status attribute of the data dictionary.
 means it has been started but not finished. \val{Completed} means it has been
 finished at least once.
 
-The player state collects the six parts of Table~\ref{tab:ModelState} into a
-single value, so that an operation can be described as a change from one
-player state to another.
-
 \begin{definition}{Player state}{def_Player}
-The player state is the tuple
-\begin{equation}
-\mathit{playerState} = (\mathit{status}, \mathit{rewardClaimed},
-\mathit{coinBalance}, \mathit{owned}, \mathit{equipped}, \mathit{character})
-\label{eq_Player}
-\end{equation}
-where
-\begin{align*}
-\mathit{status} &: \mathit{Levels} \to \mathit{Status} &
-\mathit{owned} &\subseteq \mathit{Accessories}\\
-\mathit{rewardClaimed} &: \mathit{Levels} \to \mathbb{B} &
-\mathit{equipped} &\subseteq \mathit{Accessories}\\
-\mathit{coinBalance} &\in \mathbb{N} &
-\mathit{character} &\in \mathit{Characters} \cup \{\val{none}\}
-\end{align*}
+The player state is the pair
+$(\mathit{status}, \mathit{coins})$, where
+$\mathit{status} : \mathit{Levels} \to \mathit{Status}$ and
+$\mathit{coins} \in \mathbb{N}$.
+
+In the \emph{new player state}, $\mathit{status}(\mathit{level}) =
+\val{NotStarted}$ for every level, and $\mathit{coins} = 0$.
 \end{definition}
 
-The order of the six parts is fixed. Later definitions write a player state as
-a tuple in this order.
-
-The scoreboard shows three values. They are calculated from the player state
-and are not stored.
+These are completion\_status and coin\_balance in the data dictionary. A
+level's reward is given exactly when it becomes \val{Completed}, so
+reward\_claimed is \val{true} exactly when the status is \val{Completed}.
 
 \begin{definition}{Scoreboard values}{def_Scoreboard}
 \begin{equation}
 \mathit{totalPoints} = \sum_{\substack{\mathit{level} \in \mathit{Levels}\\
-  \mathit{rewardClaimed}(\mathit{level}) = \val{true}}}
+  \mathit{status}(\mathit{level}) = \val{Completed}}}
   \mathit{points}(\mathit{level})
 \label{eq_TotalPoints}
 \end{equation}
@@ -2195,374 +2034,42 @@ and are not stored.
   \mathit{status}(\mathit{level}) = \val{Completed}\}|
 \label{eq_Completed}
 \end{equation}
-\begin{equation}
-\mathit{totalLevels} = |\mathit{Levels}|
-\label{eq_TotalLevels}
-\end{equation}
 \end{definition}
 
-$\mathit{totalPoints}$ adds up the points of every level whose reward has been
-given. $\mathit{completedLevels}$ counts the \val{Completed} levels.
-$\mathit{totalLevels}$ counts all levels. These are total\_points,
-completed\_levels and total\_levels in the data dictionary.
-
-A new installation starts with no progress. This is also the state that a
-reset returns to.
-
-\begin{definition}{New player state}{def_NewPlayer}
-\begin{equation}
-\mathit{newPlayerState} = (\mathit{allNotStarted}, \mathit{noneClaimed}, 0,
-\emptyset, \emptyset, \val{none})
-\label{eq_NewPlayer}
-\end{equation}
-where, for every level,
-\[
-\mathit{allNotStarted}(\mathit{level}) = \val{NotStarted}
-\quad\text{and}\quad
-\mathit{noneClaimed}(\mathit{level}) = \val{false}.
-\]
-\end{definition}
-
-Read in the order of \defref{def_Player}, every level is \val{NotStarted} with
-no reward given, the coin balance is $0$, the child owns and wears no
-accessories, and no character is selected.
-
-Not every tuple of the right types makes sense. For example, a level could be
-\val{Completed} without its reward being given, or the character could wear an
-accessory the child does not own. The following rules exclude such states.
-
-\begin{definition}{Valid player state}{def_Valid}
-A player state is \emph{valid} if and only if it satisfies
-\defref{def_ValidReward}, \defref{def_ValidOwned},
-\defref{def_ValidCategory} and \defref{def_ValidRewardOwned}.
-\end{definition}
-
-A level's reward is given at the same moment the level becomes
-\val{Completed}.
-
-\begin{subdefinition}{Rewards match status}{def_ValidReward}
-For every level:
-\[
-\mathit{rewardClaimed}(\mathit{level}) = \val{true} \Leftrightarrow
-\mathit{status}(\mathit{level}) = \val{Completed}
-\]
-\end{subdefinition}
-
-The character can only wear accessories that the child owns.
-
-\begin{subdefinition}{Only owned accessories are worn}{def_ValidOwned}
-\[
-\mathit{equipped} \subseteq \mathit{owned}
-\]
-\end{subdefinition}
-
-The character wears at most one accessory of each category, such as one hat.
-
-\begin{subdefinition}{One accessory per category}{def_ValidCategory}
-For any two worn accessories $a, b \in \mathit{equipped}$:
-\[
-\mathit{category}(a) = \mathit{category}(b) \Rightarrow a = b
-\]
-\end{subdefinition}
-
-An accessory received as a reward is owned by the child.
-
-\begin{subdefinition}{Reward accessories are owned}{def_ValidRewardOwned}
-For every level:
-\begin{align*}
-  & \mathit{rewardClaimed}(\mathit{level}) = \val{true} \wedge
-    \mathit{accessoryReward}(\mathit{level}) \neq \val{none}\\
-  \Rightarrow\ & \mathit{accessoryReward}(\mathit{level}) \in \mathit{owned}
-\end{align*}
-\end{subdefinition}
-
-An operation is an action that changes the player state. Each operation has a
-\emph{guard}, which is a condition that must hold for it to take effect, and
-an \emph{effect}, which gives new values for some parts of the player state.
+These values are calculated from the player state and are not stored.
 
 \begin{definition}{Operations}{def_Ops}
-For an operation with a guard and an effect, the player state after the
-operation is
-\[
-\mathit{playerState}' =
-\begin{cases}
-\text{$\mathit{playerState}$ with the effect applied} &
-  \text{if the guard holds}\\
-\mathit{playerState} & \text{otherwise}
-\end{cases}
-\]
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}@{}}
+\textbf{Operation} & \textbf{Guard} & \textbf{Effect}\\
+\hline
+$\mathit{start}(\mathit{level})$ & always &
+  if $\mathit{status}(\mathit{level}) \neq \val{Completed}$, then
+  $\mathit{status}'(\mathit{level}) = \val{InProgress}$\\
+$\mathit{finish}(\mathit{level})$ &
+  $\mathit{status}(\mathit{level}) = \val{InProgress}$ &
+  $\mathit{status}'(\mathit{level}) = \val{Completed}$ and
+  $\mathit{coins}' = \mathit{coins} + \mathit{coinReward}(\mathit{level})$\\
+$\mathit{exit}(\mathit{level})$ & always & none\\
+$\mathit{reset}$ & always & the new player state\\
+\end{tabular}
 \end{definition}
 
-A primed name, such as $\mathit{coinBalance}'$, is the value after the
-operation. A part that the effect does not name keeps its value. For example,
-$\mathit{status}'(\mathit{level}) = \val{Completed}$ changes the status of that
-one level, and every other level keeps its status. The eight operations are
-\defref{def_OpStart} to \defref{def_OpReset}.
-
-\medskip
-$\mathit{start}(\mathit{level})$ is used when the child starts a level.
-
-\begin{subdefinition}{Start a level, $\mathit{start}(\mathit{level})$}{def_OpStart}
-\textit{Guard:} \val{true}.
-
-\textit{Effect:} if $\mathit{status}(\mathit{level}) \neq \val{Completed}$,
-then
-\[
-\mathit{status}'(\mathit{level}) = \val{InProgress}.
-\]
-\end{subdefinition}
-
-Every level can be started at any time. When the level is already
-\val{Completed}, the effect names no part, so the level stays \val{Completed}.
-
-$\mathit{finish}(\mathit{level})$ is used when the child reaches the end of a
-level.
-
-\begin{subdefinition}{Finish a level, $\mathit{finish}(\mathit{level})$}{def_OpFinish}
-\textit{Guard:} $\mathit{status}(\mathit{level}) = \val{InProgress}$.
-
-\textit{Effect:}
-\begin{align*}
-\mathit{status}'(\mathit{level}) &= \val{Completed}\\
-\mathit{rewardClaimed}'(\mathit{level}) &= \val{true}\\
-\mathit{coinBalance}' &= \mathit{coinBalance} +
-  \mathit{coinReward}(\mathit{level})\\
-\mathit{owned}' &= \mathit{owned} \cup
-  \big(\{\mathit{accessoryReward}(\mathit{level})\} \setminus
-  \{\val{none}\}\big)
-\end{align*}
-\end{subdefinition}
-
-The last line adds the level's reward accessory to the owned accessories.
-Removing \val{none} means that nothing is added when the level has no reward
-accessory, and a coin reward of $0$ adds no coins. So a level can reward
-coins, an accessory, both, or neither.
-
-$\mathit{exit}(\mathit{level})$ is used when the child leaves a level before
-its end.
-
-\begin{subdefinition}{Leave a level, $\mathit{exit}(\mathit{level})$}{def_OpExit}
-\textit{Guard:} \val{true}.
-
-\textit{Effect:} none, so $\mathit{playerState}' = \mathit{playerState}$.
-\end{subdefinition}
-
-$\mathit{buy}(\mathit{accessory})$ is used when the child buys an accessory in
-the shop.
-
-\begin{subdefinition}{Buy an accessory, $\mathit{buy}(\mathit{accessory})$}{def_OpBuy}
-\textit{Guard:}
-\[
-\mathit{accessory} \in \mathrm{dom}\,\mathit{price}
-\;\wedge\; \mathit{accessory} \notin \mathit{owned}
-\;\wedge\; \mathit{price}(\mathit{accessory}) \leq \mathit{coinBalance}
-\]
-
-\textit{Effect:}
-\begin{align*}
-\mathit{coinBalance}' &= \mathit{coinBalance} -
-  \mathit{price}(\mathit{accessory})\\
-\mathit{owned}' &= \mathit{owned} \cup \{\mathit{accessory}\}
-\end{align*}
-\end{subdefinition}
-
-The guard states that the accessory is sold, is not already owned, and costs at
-most the coin balance.
-
-$\mathit{equip}(\mathit{accessory})$ is used when the character puts on an
-accessory.
-
-\begin{subdefinition}{Wear an accessory, $\mathit{equip}(\mathit{accessory})$}{def_OpEquip}
-\textit{Guard:} $\mathit{accessory} \in \mathit{owned}$.
-
-\textit{Effect:}
-\[
-\mathit{equipped}' = \{b \in \mathit{equipped} \mid \mathit{category}(b) \neq
-\mathit{category}(\mathit{accessory})\} \cup \{\mathit{accessory}\}
-\]
-\end{subdefinition}
-
-The set on the left keeps every worn accessory $b$ whose category differs from
-the new accessory. Then the new accessory is added. So the new accessory
-replaces any worn accessory of the same category.
-
-$\mathit{unequip}(\mathit{accessory})$ is used when the character takes off an
-accessory.
-
-\begin{subdefinition}{Remove an accessory, $\mathit{unequip}(\mathit{accessory})$}{def_OpUnequip}
-\textit{Guard:} \val{true}.
-
-\textit{Effect:}
-\[
-\mathit{equipped}' = \mathit{equipped} \setminus \{\mathit{accessory}\}
-\]
-\end{subdefinition}
-
-The effect does not name $\mathit{owned}$, so the accessory is still owned.
-
-$\mathit{choose}(\mathit{newCharacter})$ is used when the child selects a
-character.
-
-\begin{subdefinition}{Choose a character, $\mathit{choose}(\mathit{newCharacter})$}{def_OpChoose}
-\textit{Guard:} $\mathit{newCharacter} \in \mathit{Characters}$.
-
-\textit{Effect:}
-\[
-\mathit{character}' = \mathit{newCharacter}
-\]
-\end{subdefinition}
-
-$\mathit{reset}$ is used when the caregiver resets the journey data.
-
-\begin{subdefinition}{Reset the journey, $\mathit{reset}$}{def_OpReset}
-\textit{Guard:} \val{true}.
-
-\textit{Effect:}
-\[
-\mathit{playerState}' = \mathit{newPlayerState}
-\]
-\end{subdefinition}
-
-$\mathit{newPlayerState}$ is given by \defref{def_NewPlayer}.
-
-\subsubsection{Theorems}
-\label{sec_FormalOps}
-
-The theorems below follow from the definitions. Each one states a conclusion
-that a functional requirement depends on. The tests in the VnV Plan will check
-them. Unless stated otherwise, each theorem assumes that the player state is
-valid before the operation (\defref{def_Valid}).
-\thmref{thm_KeepsValid} shows that this assumption always holds.
+$\mathit{start}$ is used when the child starts a level, $\mathit{finish}$ when
+the child reaches the end of a level, $\mathit{exit}$ when the child leaves a
+level early, and $\mathit{reset}$ when the caregiver resets the journey. If
+the guard is false, nothing changes. A part of the player state that the
+effect does not name keeps its value.
 
 \begin{theorem}{Every level can always be started}{thm_Start}
 For every level and every player state, $\mathit{start}(\mathit{level})$ takes
-effect, and afterwards
-\[
-\mathit{status}'(\mathit{level}) =
-\begin{cases}
-\val{Completed} & \text{if } \mathit{status}(\mathit{level}) =
-  \val{Completed}\\
-\val{InProgress} & \text{otherwise}
-\end{cases}
-\]
+effect. Afterwards the level is \val{Completed} if it was \val{Completed}
+before, and \val{InProgress} otherwise.
 \end{theorem}
-\textit{Proof.} The guard of $\mathit{start}$ is \val{true}, so it always
-takes effect. Its effect sets the status to \val{InProgress} unless it is
-\val{Completed}, in which case the status is not named and keeps its value
-(\defref{def_OpStart}). \hfill $\square$
+\textit{Proof.} The guard of $\mathit{start}$ is always true, and its effect is
+as stated (\defref{def_Ops}). \hfill $\square$
 
 \textit{Specifies:} \rref{FR_StartLevel}, \rref{FR_Replay}.
-
-\begin{theorem}{Finishing a level gives its level reward}{thm_FirstFinish}
-If $\mathit{status}(\mathit{level}) = \val{InProgress}$, then after
-$\mathit{finish}(\mathit{level})$,
-\begin{align*}
-\mathit{status}'(\mathit{level}) &= \val{Completed}\\
-\mathit{totalPoints}' &= \mathit{totalPoints} + \mathit{points}(\mathit{level})\\
-\mathit{coinBalance}' &= \mathit{coinBalance} +
-  \mathit{coinReward}(\mathit{level})
-\end{align*}
-and if $\mathit{accessoryReward}(\mathit{level}) \neq \val{none}$, then
-$\mathit{accessoryReward}(\mathit{level}) \in \mathit{owned}'$.
-\end{theorem}
-\textit{Proof.} The guard holds, so the level becomes \val{Completed} and its
-reward becomes given (\defref{def_OpFinish}). The level was not
-\val{Completed}, so by \defref{def_ValidReward} its reward had not been given.
-By equation~\eqref{eq_TotalPoints}, $\mathit{totalPoints}$ now also counts this
-level, so it grows by $\mathit{points}(\mathit{level})$. The coin balance and
-the owned accessories change as stated by the effect. \hfill $\square$
-
-\textit{Specifies:} \rref{FR_LevelEnd}, \rref{FR_FirstReward}.
-
-\begin{theorem}{Finishing a completed level gives nothing}{thm_Replay}
-If $\mathit{status}(\mathit{level}) = \val{Completed}$, then after
-$\mathit{finish}(\mathit{level})$,
-\[
-\mathit{playerState}' = \mathit{playerState}.
-\]
-\end{theorem}
-\textit{Proof.} The guard requires the status to be \val{InProgress}, so it is
-false, and nothing changes (\defref{def_OpFinish}). \hfill $\square$
-
-\textit{Specifies:} \rref{FR_Replay}, \rref{FR_NoDuplicateReward}.
-
-\begin{theorem}{Leaving a level changes nothing}{thm_Exit}
-After $\mathit{exit}(\mathit{level})$,
-\[
-\mathit{playerState}' = \mathit{playerState}.
-\]
-\end{theorem}
-\textit{Proof.} This is the effect of $\mathit{exit}$
-(\defref{def_OpExit}). \hfill $\square$
-
-\textit{Specifies:} \rref{FR_ExitLevel}, \rref{FR_ExitKeepsData}.
-
-\begin{theorem}{Buying never makes the balance negative}{thm_Buy}
-If the guard of $\mathit{buy}(\mathit{accessory})$ holds, then afterwards
-\[
-\mathit{coinBalance}' = \mathit{coinBalance} -
-\mathit{price}(\mathit{accessory}) \geq 0
-\quad\text{and}\quad
-\mathit{accessory} \in \mathit{owned}'.
-\]
-If the guard does not hold, then $\mathit{playerState}' =
-\mathit{playerState}$.
-\end{theorem}
-\textit{Proof.} The guard includes $\mathit{price}(\mathit{accessory}) \leq
-\mathit{coinBalance}$, so the difference is at least $0$. The effect adds the
-accessory to $\mathit{owned}$. When the guard is false, nothing changes
-(\defref{def_OpBuy}). \hfill $\square$
-
-\textit{Specifies:} \rref{FR_Purchase}, \rref{FR_PurchaseRefused}.
-
-\begin{theorem}{Wearing an accessory keeps one per category}{thm_Equip}
-If $\mathit{accessory} \in \mathit{owned}$, then after
-$\mathit{equip}(\mathit{accessory})$,
-\[
-\mathit{accessory} \in \mathit{equipped}'
-\quad\text{and}\quad
-\mathit{owned}' = \mathit{owned},
-\]
-and at most one accessory of each category is worn.
-\end{theorem}
-\textit{Proof.} The effect adds the accessory to $\mathit{equipped}$ and keeps
-only the worn accessories of other categories (\defref{def_OpEquip}). By
-\defref{def_ValidCategory}, those accessories already had different categories
-from each other, so each category now has at most one worn accessory. The
-effect does not name $\mathit{owned}$, so it keeps its value.
-\hfill $\square$
-
-\textit{Specifies:} \rref{FR_Equip}.
-
-\begin{theorem}{Choosing a character changes only the character}{thm_Choose}
-If $\mathit{newCharacter} \in \mathit{Characters}$, then after
-$\mathit{choose}(\mathit{newCharacter})$,
-\[
-\mathit{character}' = \mathit{newCharacter},
-\]
-and every other part of the player state is unchanged.
-\end{theorem}
-\textit{Proof.} The effect names only $\mathit{character}$
-(\defref{def_OpChoose}). \hfill $\square$
-
-\textit{Specifies:} \rref{FR_ChooseCharacter}.
-
-\begin{theorem}{A reset erases the journey}{thm_Reset}
-After $\mathit{reset}$, every level is \val{NotStarted}, and
-\begin{gather*}
-\mathit{totalPoints}' = 0, \quad \mathit{completedLevels}' = 0, \quad
-\mathit{coinBalance}' = 0,\\
-\mathit{owned}' = \emptyset, \quad \mathit{character}' = \val{none}.
-\end{gather*}
-\end{theorem}
-\textit{Proof.} By \defref{def_OpReset}, $\mathit{playerState}' =
-\mathit{newPlayerState}$. By \defref{def_NewPlayer}, every level is
-\val{NotStarted} with no reward given, so equations~\eqref{eq_TotalPoints} and
-\eqref{eq_Completed} give $0$. The other values are read from the tuple in
-equation~\eqref{eq_NewPlayer}, in the order of \defref{def_Player}.
-\hfill $\square$
-
-\textit{Specifies:} \rref{FR_ResetJourney}.
 
 \begin{theorem}{Level status state machine}{thm_StatusMachine}
 The status of a level changes only along the arrows below. In particular, a
@@ -2588,150 +2095,48 @@ The status of a level changes only along the arrows below. In particular, a
 \end{tikzpicture}
 \end{center}
 \end{theorem}
-\textit{Proof.} By \defref{def_Ops}, only $\mathit{start}$, $\mathit{finish}$
-and $\mathit{reset}$ can change a status. $\mathit{start}$ changes only a
-status that is not \val{Completed}, and makes it \val{InProgress}
-(\defref{def_OpStart}). That is the arrow from \val{NotStarted}, or no change
-from \val{InProgress}. $\mathit{finish}$ takes effect only from
-\val{InProgress}, and makes the level \val{Completed} (\defref{def_OpFinish}).
-$\mathit{reset}$ makes every level \val{NotStarted} (\defref{def_OpReset}). No
-other change is possible. \hfill $\square$
-
-The figure omits operations that leave the status unchanged. For example,
-$\mathit{start}$ on a \val{Completed} level is a replay, and $\mathit{exit}$
-never changes a status.
+\textit{Proof.} Read the effects in \defref{def_Ops}. $\mathit{start}$
+changes only a status that is not \val{Completed}, to \val{InProgress}.
+$\mathit{finish}$ changes only \val{InProgress}, to \val{Completed}.
+$\mathit{reset}$ makes every level \val{NotStarted}. $\mathit{exit}$ changes
+nothing. \hfill $\square$
 
 \textit{Specifies:} \rref{FR_StartLevel}, \rref{FR_Replay},
 \rref{FR_LevelEnd}, \rref{FR_ExitKeepsData}, \rref{FR_ResetJourney}.
 
-\begin{theorem}{Operations keep the player state valid}{thm_KeepsValid}
-$\mathit{newPlayerState}$ is valid. If the player state is valid before an
-operation, it is valid after the operation.
+\begin{theorem}{Each reward is given once}{thm_Once}
+Between two resets, the first $\mathit{finish}(\mathit{level})$ after the
+level is started adds $\mathit{points}(\mathit{level})$ to
+$\mathit{totalPoints}$ and $\mathit{coinReward}(\mathit{level})$ to
+$\mathit{coins}$. Every later $\mathit{finish}(\mathit{level})$ changes
+nothing.
 \end{theorem}
-\textit{Proof.} In $\mathit{newPlayerState}$, no reward has been given and no
-level is \val{Completed}, so \defref{def_ValidReward} holds. No accessory is
-owned or worn, so \defref{def_ValidOwned}, \defref{def_ValidCategory} and
-\defref{def_ValidRewardOwned} hold. Each operation keeps the rules:
-\begin{itemize}
-\item $\mathit{start}$ changes a status only if it is not \val{Completed}. By
-  \defref{def_ValidReward}, that level's reward has not been given. The new
-  status, \val{InProgress}, is also not \val{Completed}, so
-  \defref{def_ValidReward} still holds.
-\item $\mathit{finish}$ sets the status to \val{Completed} and the reward to
-  given together, so \defref{def_ValidReward} holds. It adds the reward
-  accessory to $\mathit{owned}$ if there is one, so
-  \defref{def_ValidRewardOwned} holds. $\mathit{owned}$ only grows and
-  $\mathit{equipped}$ does not change, so \defref{def_ValidOwned} and
-  \defref{def_ValidCategory} hold.
-\item $\mathit{buy}$ only adds to $\mathit{owned}$, so
-  \defref{def_ValidOwned} and \defref{def_ValidRewardOwned} hold.
-\item $\mathit{equip}$ keeps \defref{def_ValidOwned}, because it adds only an
-  owned accessory, and keeps \defref{def_ValidCategory} by
-  \thmref{thm_Equip}.
-\item $\mathit{unequip}$ only removes from $\mathit{equipped}$, so
-  \defref{def_ValidOwned} and \defref{def_ValidCategory} hold.
-\item $\mathit{exit}$ and $\mathit{choose}$ change none of the parts used by
-  the rules. $\mathit{reset}$ gives $\mathit{newPlayerState}$, which is valid.
-  \hfill $\square$
-\end{itemize}
+\textit{Proof.} The first $\mathit{finish}$ finds the level \val{InProgress},
+so it makes the level \val{Completed} and adds the coins (\defref{def_Ops}).
+By equation~\eqref{eq_TotalPoints}, $\mathit{totalPoints}$ now counts the
+level. By \thmref{thm_StatusMachine}, the level stays \val{Completed} until a
+reset, so the guard of every later $\mathit{finish}$ is false.
+\hfill $\square$
 
-\textit{Specifies:} \rref{FR_PersistState}, \rref{FR_CorruptData}.
-
-\begin{theorem}{Each reward is given at most once}{thm_Once}
-Between two resets, the reward of each level is given at most once.
-\end{theorem}
-\textit{Proof.} Only $\mathit{finish}(\mathit{level})$ gives a reward, and only
-when the level is \val{InProgress}. It makes the level \val{Completed}. By
-\thmref{thm_StatusMachine}, the level stays \val{Completed} until a reset, so
-the guard of $\mathit{finish}(\mathit{level})$ stays false. \hfill $\square$
-
-\textit{Specifies:} \rref{FR_FirstReward}, \rref{FR_NoDuplicateReward}.
+\textit{Specifies:} \rref{FR_LevelEnd}, \rref{FR_NoPenalty},
+\rref{FR_FirstReward}, \rref{FR_NoDuplicateReward}.
 
 \begin{theorem}{Progress is lost only by a reset}{thm_NoLoss}
-For every operation other than $\mathit{reset}$:
-\begin{enumerate}
-\item[(a)] a \val{Completed} level stays \val{Completed},
-\item[(b)] $\mathit{totalPoints}' \geq \mathit{totalPoints}$,
-\item[(c)] $\mathit{owned} \subseteq \mathit{owned}'$, and
-\item[(d)] $\mathit{coinBalance}' < \mathit{coinBalance}$ only for
-  $\mathit{buy}$, in exchange for an accessory.
-\end{enumerate}
+For $\mathit{start}$, $\mathit{finish}$ and $\mathit{exit}$, a \val{Completed}
+level stays \val{Completed}, $\mathit{totalPoints}' \geq \mathit{totalPoints}$,
+and $\mathit{coins}' \geq \mathit{coins}$. In particular, $\mathit{exit}$
+changes nothing.
 \end{theorem}
-\textit{Proof.} Part (a) follows from \thmref{thm_StatusMachine}. For the
-others, check each operation in \defref{def_Ops}. $\mathit{finish}$ only sets
-rewards to given and adds coins or accessories. $\mathit{buy}$ lowers the coin
-balance and adds the bought accessory to $\mathit{owned}$. $\mathit{start}$,
-$\mathit{exit}$, $\mathit{equip}$, $\mathit{unequip}$ and $\mathit{choose}$
-change neither the rewards given, the coin balance, nor $\mathit{owned}$. By
-equation~\eqref{eq_TotalPoints}, $\mathit{totalPoints}$ depends only on the
-rewards given, so it does not decrease. \hfill $\square$
+\textit{Proof.} The first part is \thmref{thm_StatusMachine}. Then
+$\mathit{totalPoints}$ cannot decrease, by equation~\eqref{eq_TotalPoints}.
+Only $\mathit{finish}$ changes $\mathit{coins}$, and it only adds to them.
+$\mathit{exit}$ has no effect (\defref{def_Ops}). \hfill $\square$
 
-\textit{Specifies:} \rref{FR_Replay}, \rref{FR_ExitKeepsData},
-\rref{FR_Equip}.
+Spending coins in the shop is not one of these operations, so this theorem
+does not cover it.
 
-\subsubsection{Traceability to the Functional Requirements}
-\label{sec_FormalTrace}
-
-Table~\ref{tab:FormalTrace} lists the functional requirements that each
-definition and theorem specifies. Each functional requirement also cites them
-in its \textbf{Traces} line.
-
-\begin{longtable}{>{\raggedright\arraybackslash}p{0.48\textwidth}>{\raggedright\arraybackslash}p{0.42\textwidth}}
-\caption{Traceability between the formal model and the functional
-requirements}
-\label{tab:FormalTrace}\\
-\toprule
-\textbf{Definition or theorem} & \textbf{Functional requirements}\\
-\midrule
-\endfirsthead
-\toprule
-\textbf{Definition or theorem} & \textbf{Functional requirements}\\
-\midrule
-\endhead
-\defref{def_LevelNumbers} Unique level numbers & \rref{FR_JourneyMap}\\
-\defref{def_Player} Player state & \rref{FR_PersistState},
-  \rref{FR_ExitKeepsData}\\
-\defref{def_Scoreboard} Scoreboard values & \rref{FR_Scoreboard}\\
-\defref{def_NewPlayer} New player state & \rref{FR_CorruptData},
-  \rref{FR_ResetJourney}\\
-\defref{def_Valid} Valid player state & \rref{FR_CorruptData}\\
-\defref{def_ValidCategory} One accessory per category & \rref{FR_Equip}\\
-\defref{def_OpStart} Start a level & \rref{FR_StartLevel}\\
-\defref{def_OpFinish} Finish a level & \rref{FR_LevelEnd}\\
-\defref{def_OpExit} Leave a level & \rref{FR_ExitLevel}, \rref{FR_StopOnExit}\\
-\defref{def_OpBuy} Buy an accessory & \rref{FR_Purchase}\\
-\defref{def_OpEquip} Wear an accessory & \rref{FR_Equip}\\
-\defref{def_OpUnequip} Remove an accessory & \rref{FR_Equip}\\
-\defref{def_OpChoose} Choose a character & \rref{FR_ChooseCharacter}\\
-\defref{def_OpReset} Reset the journey & \rref{FR_ResetJourney}\\
-\midrule
-\thmref{thm_Start} Every level can always be started & \rref{FR_StartLevel},
-  \rref{FR_Replay}\\
-\thmref{thm_FirstFinish} Finishing a level gives its level reward &
-  \rref{FR_LevelEnd}, \rref{FR_NoPenalty}, \rref{FR_FirstReward}\\
-\thmref{thm_Replay} Finishing a completed level gives nothing &
-  \rref{FR_Replay}, \rref{FR_NoDuplicateReward}\\
-\thmref{thm_Exit} Leaving a level changes nothing & \rref{FR_ExitLevel},
-  \rref{FR_ExitKeepsData}, \rref{FR_RestartLevel}\\
-\thmref{thm_Buy} Buying never makes the balance negative &
-  \rref{FR_Purchase}, \rref{FR_PurchaseRefused}\\
-\thmref{thm_Equip} Wearing an accessory keeps one per category &
-  \rref{FR_Equip}\\
-\thmref{thm_Choose} Choosing a character changes only the character &
-  \rref{FR_ChooseCharacter}\\
-\thmref{thm_Reset} A reset erases the journey & \rref{FR_ResetJourney}\\
-\thmref{thm_StatusMachine} Level status state machine & \rref{FR_StartLevel},
-  \rref{FR_Replay}, \rref{FR_LevelEnd}, \rref{FR_ExitKeepsData},
-  \rref{FR_ResetJourney}\\
-\thmref{thm_KeepsValid} Operations keep the player state valid &
-  \rref{FR_PersistState}, \rref{FR_CorruptData}\\
-\thmref{thm_Once} Each reward is given at most once & \rref{FR_FirstReward},
-  \rref{FR_NoDuplicateReward}\\
-\thmref{thm_NoLoss} Progress is lost only by a reset & \rref{FR_Replay},
-  \rref{FR_NoPenalty}, \rref{FR_ExitKeepsData},
-  \rref{FR_RestartLevel}, \rref{FR_Equip}\\
-\bottomrule
-\end{longtable}
+\textit{Specifies:} \rref{FR_Replay}, \rref{FR_NoPenalty},
+\rref{FR_ExitLevel}, \rref{FR_ExitKeepsData}, \rref{FR_RestartLevel}.
 
 \subsection{Requirements}
 \label{sec_FRList}
@@ -2787,21 +2192,22 @@ dismiss it without reading.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_JourneyMap}:]
 The system shall display a journey map that shows every level, one for each
-procedure, in order of level number (\defref{def_LevelNumbers}). Each level
-shall show its name, an illustration, and its status (\val{NotStarted},
+procedure, in order of level number. Each level
+shall show its name, an illustration, and its status (\defref{def_Status}:
+\val{NotStarted},
 \val{InProgress}, or \val{Completed}).
 
 \textbf{Rationale:} The journey map is how the child chooses what to play. The
 status of each level shows the child and caregiver what has been done so far.
 
-\textbf{Traces:} \ucref{UC_SelectGame}, \defref{def_LevelNumbers}.
+\textbf{Traces:} \ucref{UC_SelectGame}, \defref{def_Status}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_StartLevel}:]
 The system shall allow the child to select any level at any time. The
 status of the other levels, the journey points, and the rewards shall not
 restrict this choice (\thmref{thm_Start}). When the child selects a level, the
 system shall start it from the beginning and apply $\mathit{start}$
-(\defref{def_OpStart}). If the level was not \val{Completed}, its status shall
+(\defref{def_Ops}). If the level was not \val{Completed}, its status shall
 become \val{InProgress}.
 
 \textbf{Rationale:} The procedures at an appointment can change at short
@@ -2810,7 +2216,7 @@ they actually need. Starting from the beginning gives the child the full
 context of the procedure each time. Recording \val{InProgress} shows on the
 journey map that the level has been tried.
 
-\textbf{Traces:} \ucref{UC_SelectGame}, \defref{def_OpStart},
+\textbf{Traces:} \ucref{UC_SelectGame}, \defref{def_Ops},
 \thmref{thm_Start}, \thmref{thm_StatusMachine}.
 
 \textbf{Hazard Analysis:} \hazsr{AllLevelsAccessible}{11}{RestrictedLevelAccess}{2-9}.
@@ -2823,7 +2229,7 @@ shall remain \val{Completed} during and after the replay.
 procedure. A replay must not undo the progress the child has already made.
 
 \textbf{Traces:} \ucref{UC_SelectGame}, \ucref{UC_CompleteGame},
-\thmref{thm_Start}, \thmref{thm_Replay}, \thmref{thm_StatusMachine},
+\thmref{thm_Start}, \thmref{thm_StatusMachine},
 \thmref{thm_NoLoss}.
 
 \end{itemize}
@@ -2886,7 +2292,7 @@ control during the examination, which can reduce anxiety.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_LevelEnd}:]
 When the child reaches the end of a level, the system shall display an end of
-level screen and apply $\mathit{finish}$ (\defref{def_OpFinish}). The level's
+level screen and apply $\mathit{finish}$ (\defref{def_Ops}). The level's
 status shall become \val{Completed}.
 
 \textbf{Rationale:} A clear ending gives the child a sense of achievement.
@@ -2894,7 +2300,7 @@ Recording the level as \val{Completed} lets the journey map and scoreboard
 show it.
 
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
-\ucref{UC_SlitLampGame}, \defref{def_OpFinish}, \thmref{thm_FirstFinish},
+\ucref{UC_SlitLampGame}, \defref{def_Ops}, \thmref{thm_Once},
 \thmref{thm_StatusMachine}.
 
 \end{itemize}
@@ -3000,10 +2406,10 @@ shall not prevent the child from reaching the end of the level.
 \textbf{Rationale:} Penalties would make the game a new source of stress. Letting the child
 skip an exercise lets them explore a procedure at their own pace. The reward
 for finishing a level does not depend on the answers
-(\thmref{thm_FirstFinish}).
+(\thmref{thm_Once}).
 
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
-\ucref{UC_SlitLampGame}, \thmref{thm_FirstFinish},
+\ucref{UC_SlitLampGame}, \thmref{thm_Once},
 \thmref{thm_NoLoss}.
 
 \textbf{Hazard Analysis:} \hazsr{NonPunitiveFeedback}{12}{PunitiveFeedback}{2-10}.
@@ -3032,13 +2438,13 @@ hear.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ExitLevel}:]
 When the child selects the home control during a level, the system shall end
-the level, apply $\mathit{exit}$ (\defref{def_OpExit}), and return to the
+the level, apply $\mathit{exit}$ (\defref{def_Ops}), and return to the
 journey map.
 
 \textbf{Rationale:} A child who is upset or bored must be able to leave at any
 time. Returning to the journey map lets them choose another level.
 
-\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_OpExit}, \thmref{thm_Exit}.
+\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_Ops}, \thmref{thm_NoLoss}.
 
 \textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
 
@@ -3050,7 +2456,7 @@ journey map.
 \textbf{Rationale:} Sounds or animations from a level the child has left could confuse or
 upset them. Stopping everything makes leaving a level feel complete.
 
-\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_OpExit}.
+\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_Ops}.
 
 \textbf{Hazard Analysis:} \hazsr{StopAudioVisualsOnExit}{13}{AudioVisualsContinueOnExit}{2-11}.
 
@@ -3062,7 +2468,7 @@ status of any level.
 \textbf{Rationale:} Leaving early is not a failure. If leaving cost the child
 progress, a child who is upset might feel pressure to keep playing.
 
-\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_Player}, \thmref{thm_Exit},
+\textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_Player},
 \thmref{thm_StatusMachine}, \thmref{thm_NoLoss}.
 
 \textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
@@ -3089,7 +2495,7 @@ Restarting a level shall keep all saved progress and rewards.
 a state they cannot get out of. A restart that kept nothing would make the
 child lose what they had already earned.
 
-\textbf{Traces:} \ucref{UC_ExitGame}, \thmref{thm_Exit}, \thmref{thm_NoLoss}.
+\textbf{Traces:} \ucref{UC_ExitGame}, \thmref{thm_NoLoss}.
 
 \textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
 
@@ -3107,8 +2513,9 @@ miss part of a level, and sound should not keep playing in the background.
 \textbf{Hazard Analysis:} \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-12}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_PersistState}:]
-The system shall save the player state, $\mathit{playerState}$
-(\defref{def_Player}), on the device each time an operation changes it, before
+The system shall save the player state (\defref{def_Player}), the owned and
+equipped accessories, and the selected character on the device each time
+one of them changes, before
 processing the next input. A save that fails or is interrupted shall leave the
 previously saved player state unchanged. When the application is launched
 again, the system shall restore the saved player state.
@@ -3116,24 +2523,23 @@ again, the system shall restore the saved player state.
 \textbf{Rationale:} The child's progress and rewards must survive the
 application closing. Saving after every change means at most the current input
 can be lost. Keeping the previous save when a save fails means a failure never
-replaces valid progress with damaged data. \thmref{thm_KeepsValid} shows that every saved state is valid.
+replaces valid progress with damaged data.
 
 \textbf{Traces:} \ucref{UC_ExitGame}, \ucref{UC_OfflineUse},
-\defref{def_Player}, \thmref{thm_KeepsValid}.
+\defref{def_Player}.
 
 \textbf{Hazard Analysis:} \hazsr{ReliableSaveData}{20}{SaveDataCorruption}{2-15}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_CorruptData}:]
-When the saved player state is missing, cannot be read, or is not valid
-(\defref{def_Valid}), the system shall replace it with the player state of a
-new installation, $\mathit{newPlayerState}$ (\defref{def_NewPlayer}), and
-continue without failing.
+When the saved data is missing, cannot be read, or is not valid, the system
+shall replace it with the data of a new installation and continue without
+failing. That data is the new player state (\defref{def_Player}), no
+accessories, and no selected character.
 
 \textbf{Rationale:} A crash on launch would leave the child with no access to
 any level. Starting again from a new player state keeps every level available.
 
-\textbf{Traces:} \ucref{UC_OfflineUse}, \defref{def_NewPlayer},
-\defref{def_Valid}, \thmref{thm_KeepsValid}.
+\textbf{Traces:} \ucref{UC_OfflineUse}, \defref{def_Player}.
 
 \textbf{Hazard Analysis:} \hazsr{ReliableSaveData}{20}{SaveDataCorruption}{2-15}.
 
@@ -3147,8 +2553,7 @@ any level. Starting again from a new player state keeps every level available.
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_FirstReward}:]
 When a level is finished for the first time, the system shall give its level
 reward. The reward is the level's journey points, together with its coins and
-its accessory if the level's reward definition includes them
-(Table~\ref{tab:ModelContent}). The system shall then display a reward screen
+its accessory if the level's Reward Definition includes them. The system shall then display a reward screen
 showing what was earned.
 
 \textbf{Rationale:} Rewards are for reaching the end of a level, not for
@@ -3157,8 +2562,8 @@ child is left behind. Defining the reward per level, as coins, an accessory,
 both, or neither, lets the team tune the rewards without changing the
 requirement.
 
-\textbf{Traces:} \ucref{UC_CompleteGame}, \defref{def_OpFinish},
-\thmref{thm_FirstFinish}, \thmref{thm_Once}.
+\textbf{Traces:} \ucref{UC_CompleteGame}, \defref{def_Ops},
+\thmref{thm_Once}.
 
 \textbf{Hazard Analysis:} \hazsr{NonPunitiveFeedback}{12}{PunitiveFeedback}{2-10}.
 
@@ -3170,8 +2575,7 @@ shall congratulate the child without giving points, coins, or accessories.
 replay one level instead of exploring the journey, and would make the totals
 on the scoreboard meaningless.
 
-\textbf{Traces:} \ucref{UC_CompleteGame}, \thmref{thm_Replay},
-\thmref{thm_Once}.
+\textbf{Traces:} \ucref{UC_CompleteGame}, \thmref{thm_Once}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Scoreboard}:]
 The system shall display a personal scoreboard. For each level, it shall show
@@ -3196,16 +2600,14 @@ reducing anxiety.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ChooseCharacter}:]
 The system shall display every character the child can choose. When the child
-confirms a character, the system shall apply $\mathit{choose}$
-(\defref{def_OpChoose}). Choosing a character shall change only the selected
-character.
+confirms a character, the system shall select it. Choosing a character shall
+change only the selected character.
 
 \textbf{Rationale:} Choosing a character gives the child a sense of ownership
 of the journey. Changing characters must not cost the child any progress or
 rewards.
 
-\textbf{Traces:} \ucref{UC_ChooseCharacter}, \defref{def_OpChoose},
-\thmref{thm_Choose}.
+\textbf{Traces:} \ucref{UC_ChooseCharacter}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_DiverseCharacters}:]
 The characters shall vary in skin tone, hair texture and style, body type,
@@ -3222,8 +2624,7 @@ the clinic it prepares them for, is a place where they belong.
 \textbf{Hazard Analysis:} \hazsr{CharacterDiversityInclusivity}{15}{DiverseCharacterLibrary}{2-7}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Shop}:]
-The system shall display a shop of every accessory that has a price
-(Table~\ref{tab:ModelContent}). Each accessory shall show a preview on the
+The system shall display a shop of every accessory that has a price. Each accessory shall show a preview on the
 selected character, its price, and whether the child owns it.
 
 \textbf{Rationale:} Seeing a preview and the price lets the child decide what
@@ -3234,15 +2635,13 @@ buy something twice.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Purchase}:]
 When the child confirms the purchase of an accessory that is not owned and
-costs at most the coin balance, the system shall apply $\mathit{buy}$
-(\defref{def_OpBuy}). The price shall be subtracted from the coin balance, and
-the accessory shall be added to the owned accessories.
+costs at most the coin balance, the system shall subtract the price from the
+coin balance and add the accessory to the owned accessories.
 
 \textbf{Rationale:} Buying turns the coins the child earned into a visible
 reward, which gives the child a reason to continue the journey.
 
-\textbf{Traces:} \ucref{UC_PurchaseAccessory}, \defref{def_OpBuy},
-\thmref{thm_Buy}.
+\textbf{Traces:} \ucref{UC_PurchaseAccessory}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_PurchaseRefused}:]
 When the child tries to buy an accessory that is already owned or costs more
@@ -3254,22 +2653,19 @@ the system shall show how many more coins are needed.
 confusion. Not changing anything means the coin balance can never become
 negative.
 
-\textbf{Traces:} \ucref{UC_PurchaseAccessory}, \thmref{thm_Buy}.
+\textbf{Traces:} \ucref{UC_PurchaseAccessory}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Equip}:]
 The system shall allow the child to equip any owned accessory and to unequip
-any equipped accessory (\defref{def_OpEquip}, \defref{def_OpUnequip}). At most
-one accessory of each category shall be equipped at a time
-(\defref{def_ValidCategory}). Equipping or unequipping shall not remove any
+any equipped accessory. At most one accessory of each category shall be
+equipped at a time. Equipping or unequipping shall not remove any
 accessory from the owned accessories.
 
 \textbf{Rationale:} One accessory per category keeps the character's
 appearance sensible, for example one hat at a time. Keeping owned accessories
 means the child never loses something they earned.
 
-\textbf{Traces:} \ucref{UC_EquipAccessory}, \defref{def_ValidCategory},
-\defref{def_OpEquip}, \defref{def_OpUnequip}, \thmref{thm_Equip},
-\thmref{thm_NoLoss}.
+\textbf{Traces:} \ucref{UC_EquipAccessory}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_NoRealMoney}:]
 The system shall not offer any purchase with real money.
@@ -3349,10 +2745,10 @@ follow.
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ResetJourney}:]
 The settings shall allow the caregiver to reset the journey data. The system
 shall first state what will be erased and ask for confirmation. On
-confirmation, the system shall apply $\mathit{reset}$ (\defref{def_OpReset}),
-which returns the player state to that of a new installation,
-$\mathit{newPlayerState}$ (\defref{def_NewPlayer}), and shall clear the
-nickname. The notice acknowledgement shall be kept. On cancellation, no data
+confirmation, the system shall apply $\mathit{reset}$ (\defref{def_Ops}),
+which returns the player state to the new player state
+(\defref{def_Player}). It shall also remove all accessories, deselect the
+character, and clear the nickname. The notice acknowledgement shall be kept. On cancellation, no data
 shall change.
 
 \textbf{Rationale:} A reset lets a family start over, or pass the device to
@@ -3360,8 +2756,8 @@ another child. The confirmation prevents accidental loss of progress. The
 acknowledgement is kept because the same caregiver has already read the
 notice.
 
-\textbf{Traces:} \ucref{UC_DeleteData}, \defref{def_NewPlayer},
-\defref{def_OpReset}, \thmref{thm_Reset}, \thmref{thm_StatusMachine}.
+\textbf{Traces:} \ucref{UC_DeleteData}, \defref{def_Player},
+\defref{def_Ops}, \thmref{thm_StatusMachine}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ClearAllData}:]
 The settings shall allow the caregiver to clear all local application data
@@ -3502,8 +2898,8 @@ completed levels. The coin balance is maintained
 separately because coins may be spent in the
 character customization shop.
 
-Section~\ref{sec_FormalJourney} specifies formally how
-these entities change during play.
+Section~\ref{sec_FormalSpec} specifies formally how
+level progress and rewards change during play.
 
 
 \subsection{Data Dictionary}
@@ -4322,7 +3718,7 @@ requirements.
 
 The journey and the player's progress are specified formally in
 Section~\ref{sec_FormalSpec}. They involve state over time, such as rewards
-given, levels started, and coins spent. Informal wording such as ``the reward
+given, levels started, and coins earned. Informal wording such as ``the reward
 is given once'' is easy to misread for this kind of behaviour. The player
 state is specified with discrete mathematics because it is a small set of
 values with clear operations. The status of each level is also shown as a
@@ -4428,7 +3824,7 @@ the inside of a level.
 The set of procedures. Levels may be added, removed, or reordered as the
 supervisor confirms which procedures are most common.
 
-\textbf{Affects:} the game content (Table~\ref{tab:ModelContent}), the data
+\textbf{Affects:} the game content (Section~\ref{sec_FormalSpec}), the data
 dictionary (Table~\ref{tab:JourneyDataDictionary}), the procedure guide
 (\rref{FR_ProcedureGuide}), and the level use cases. The requirements and the
 formal model hold for any number of levels.
@@ -4444,15 +3840,14 @@ descriptions of a level may change after clinical and child-life review.
 The rewards. The points, coins, and accessory given by each level, and the
 price of each accessory, will be tuned during testing.
 
-\textbf{Affects:} the game content (Table~\ref{tab:ModelContent}) and the
+\textbf{Affects:} the game content (Section~\ref{sec_FormalSpec}) and the
 Reward Definition entity. A reward may already include coins, an accessory,
 both, or neither, so no requirement changes (\rref{FR_FirstReward}).
 
 \item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Characters}:]
 The characters, accessories, and accessory categories offered.
 
-\textbf{Affects:} the game content (Table~\ref{tab:ModelContent}),
-\rref{FR_ChooseCharacter}, \rref{FR_DiverseCharacters}, and \rref{FR_Shop}.
+\textbf{Affects:} \rref{FR_ChooseCharacter}, \rref{FR_DiverseCharacters}, and \rref{FR_Shop}.
 
 \item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Constants}:]
 The values of the symbolic constants, after usability testing, performance
@@ -4896,8 +4291,13 @@ Its use was mainly used in the following sections:
 
     \item In Section~\ref{sec_FR} (Functional Requirements), Opus 5.5 was used
     for \LaTeX{} formatting and for linking the requirements for traceability.
-    It was also used to format the tables, and the definitions and theorems
-    of the formal model.
+
+    \item In Section~\ref{sec_FormalSpec} (Formal Model), Opus 5.5 was used to
+    help brainstorm ideas for the formal model. The team selected which ideas
+    to keep. Opus 5.5 was then used to format the selected ideas in \LaTeX{}.
+    This included the formatting of the equations, definitions, and theorems.
+    Opus 5.5 also helped provide traceability between the formal model and
+    the functional requirements.
 
     \item In Section~\ref{sec_TraceMatrices} (Requirements Traceability
     Matrices), Opus 5.5 was used to generate the traceability tables and to
