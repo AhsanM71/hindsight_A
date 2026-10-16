@@ -125,6 +125,9 @@
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{\hyperref[#1]{LC\ref*{#1}}}
 
+\newcounter{ulcnum} %Unlikely Change (ULC) Number
+\newcommand{\ulcref}[1]{\hyperref[#1]{ULC\ref*{#1}}}
+
 % Links to the Hazard Analysis. Each link opens the published Hazard Analysis
 % PDF at the item, using the item's label as a named destination. The label
 % key chooses the destination and the number is the link text. The numbers
@@ -4216,22 +4219,165 @@ dependencies. Other requirements, including \nfrref{NFR_Inclusivity},
 \nfrref{NFR_StoreCompliance}, address inclusive content, the application's
 medical scope, and distribution requirements.
 
-\section{Likely Changes}    
+\section{Likely Changes}
+\label{sec_LikelyChanges}
+
+The following changes are expected during the project or after release. The
+design should make each of them easy to carry out
+(\nfrref{NFR_Maintainability}). Each change lists the parts of this document
+it affects.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with traceability to the entity that is likely to change.}
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_LevelFormat}:]
+The format of each level. The activities inside a level are not yet decided,
+and they will be chosen after prototyping and feedback from the supervisor.
+
+\textbf{Affects:} \rref{FR_LevelContent},
+Sections~\ref{sec_FRGameplay} and~\ref{sec_FRInstructions}. The formal model
+(Section~\ref{sec_FormalSpec}) is not affected because it does not describe
+the inside of a level.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Procedures}:]
+The set of procedures. Levels may be added, removed, or reordered as the
+supervisor confirms which procedures are most common.
+
+\textbf{Affects:} the game content (Table~\ref{tab:ModelContent}), the data
+dictionary (Table~\ref{tab:JourneyDataDictionary}), the procedure guide
+(\rref{FR_ProcedureGuide}), and the level use cases. The requirements and the
+formal model hold for any number of levels.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_ClinicalContent}:]
+The procedure content. The wording, images, step order, and sensation
+descriptions of a level may change after clinical and child-life review.
+
+\textbf{Affects:} the content of each level and of the procedure guide
+(\rref{FR_DescribeSensations}, \rref{FR_ProcedureGuide}).
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Rewards}:]
+The rewards. The points, coins, and accessory given by each level, and the
+price of each accessory, will be tuned during testing.
+
+\textbf{Affects:} the game content (Table~\ref{tab:ModelContent}) and the
+Reward Definition entity. A reward may already include coins, an accessory,
+both, or neither, so no requirement changes (\rref{FR_FirstReward}).
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Characters}:]
+The characters, accessories, and accessory categories offered.
+
+\textbf{Affects:} the game content (Table~\ref{tab:ModelContent}),
+\rref{FR_ChooseCharacter}, \rref{FR_DiverseCharacters}, and \rref{FR_Shop}.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Constants}:]
+The values of the symbolic constants, after usability testing, performance
+measurements, and clinician feedback.
+
+\textbf{Affects:} Table~\ref{tab:Constants} only. Requirements refer to the
+constants by name.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_AgeContent}:]
+Content for each age group. Levels may add separate content for younger and
+older children.
+
+\textbf{Affects:} \rref{FR_AgeGroup} and the content of each level.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Language}:]
+Additional languages, most likely French for families in Ontario.
+
+\textbf{Affects:} the narration and text of every level, the procedure guide,
+and \nfrref{NFR_Language}.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Platforms}:]
+The supported operating system versions and screen sizes.
+
+\textbf{Affects:} \nfrref{NFR_Portability} and \conref{C_MobilePlatforms}.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Hazards}:]
+The safety and security requirements. The Hazard Analysis will be revised as
+the design develops, and it may add, remove, or renumber requirements.
+
+\textbf{Affects:} the requirements that have a Hazard Analysis line, and
+Table~\ref{tab:HA2FRtm}.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Assets}:]
+The final art and audio, which will replace the placeholder assets used during
+development.
+
+\textbf{Affects:} the content only. The assets must still meet
+\nfrref{NFR_ChildSafe} and \nfrref{NFR_InstallSize}.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_AR}:]
+Augmented reality presentation of procedures, which is a stretch goal. It
+would require access to the camera.
+
+\textbf{Affects:} the level requirements, \nfrref{NFR_Installability}, and the
+Hazard Analysis.
+
+\item[\refstepcounter{lcnum}\textbf{LC\thelcnum}\label{LC_Personalization}:]
+Personalized preparation based on the child's appointment, which is a stretch
+goal.
+
+\textbf{Affects:} the journey requirements (Section~\ref{sec_FRJourney}), the
+caregiver settings (Section~\ref{sec_FRCaregiver}), and the data requirements
+(Section~\ref{sec_Data_Requirements}).
 
 \end{itemize}
 
-\section{Unlikely Changes}    
+\section{Unlikely Changes}
+\label{sec_UnlikelyChanges}
+
+The design can assume that the following will not change. Each one is stated
+with the reason it is considered stable.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_Users}:]
+The primary users are children aged 3 to 7 who are preparing for a paediatric
+eye appointment, supported by a caregiver. This is the purpose of the project.
+
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_Journey}:]
+\progname{} presents one journey with one level for each procedure, and every
+level is open at all times (\rref{FR_StartLevel}, \thmref{thm_Start}). The
+supervisor recommended this design because the procedures needed at an
+appointment can change at short notice.
+
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_NoFail}:]
+\progname{} has no failure states. Mistakes lead to hints, and exercises can be
+skipped without penalty (\rref{FR_HintOnMiss}, \rref{FR_NoPenalty}). This
+follows from the goal of reducing anxiety.
+
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_RewardOnce}:]
+Each level reward is given once, when the level is finished for the first time
+(\thmref{thm_Once}). The contents of a reward may change (\lcref{LC_Rewards}),
+but this rule will not.
+
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_Offline}:]
+\progname{} works offline and sends no data off the device
+(\conref{C_OfflineOperation}, \conref{C_NoNetworkCommunications}). Waiting
+rooms may have poor connectivity, and nothing needs to be transmitted.
+
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_NoPersonalInfo}:]
+\progname{} stores no personal or health information
+(\conref{C_PatientPrivacy}, \nfrref{NFR_Minimization}). Changing this would
+change the privacy and ethical basis of the project.
+
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_Mobile}:]
+\progname{} runs on phones and tablets with touch screens, and it is built
+with a cross-platform engine (\conref{C_MobilePlatforms},
+\conref{C_CrossPlatformEngine}). Families already own these devices, and
+dedicated hardware would defeat the goal of preparing at home.
+
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_NoClaims}:]
+\progname{} is an educational preparation aid. It makes no diagnostic or
+treatment claim (\nfrref{NFR_NoClaims}, \rref{FR_MedicalNotice}). A medical
+function would make it a medical device, which is outside the scope of the
+project.
+
+\item[\refstepcounter{ulcnum}\textbf{ULC\theulcnum}\label{ULC_NoRealMoney}:]
+\progname{} offers no purchases with real money and no advertising
+(\rref{FR_NoRealMoney}, \conref{C_StoreCompliance}). Both would be
+inappropriate for young children and conflict with app store policies for
+children's applications.
 
 \end{itemize}
 
