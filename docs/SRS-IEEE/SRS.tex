@@ -678,15 +678,6 @@ fuller rationale than other requirements.
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
-\plt{This section summarizes the knowledge/skills expected of the user.
-  Measuring usability, which is often a required non-function requirement,
-  requires knowledge of a typical user.  As mentioned above, the user is a
-  different role from the ``intended reader,'' as given in
-  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the
-  user characteristics should be specific an unambiguous.  For instance, ``The
-  end user of \progname{} should have an understanding of undergraduate Level 1
-  Calculus and Physics.''}
-
 The users are different from the intended readers of this document Section~\ref{sec_IntendedReader}. 
 The characteristics below are used to set the non-functional usability requirements in 
 Section~\ref{sec_UsabilityReqs}. The characteristics are also illustrated by the personas in 
@@ -4504,7 +4495,100 @@ children's applications.
 
 \subsection{Appendix A: Additional Materials}
 
-TODO
+\subsubsection{Requirements Elicitation Sources}
+
+Table \ref{tab:SRESources} lists the sources from which the stakeholder 
+requirements were elicited, with links to the GitHub issues that hold the meeting 
+notes. The “SR Requirements” column gives the trace from each source to the 
+stakeholder requirements in Section~\ref{sec_StakeholderReqs}.
+
+\begin{longtable}{p{0.05\textwidth} >{\raggedright\arraybackslash}p{0.27\textwidth} >{\raggedright\arraybackslash}p{0.38\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth}}
+
+\caption{Stakeholder Requirement Elicitation Sources}
+\label{tab:SRESources}\\
+
+\toprule
+ID & Source and Date & Information Summary & SR Requirements \\
+\midrule
+\endfirsthead
+
+\toprule
+ID & Source and Date & Information Summary & SR Requirements \\
+\midrule
+\endhead
+
+ER1
+& Supervisor's Project Description (September 2026)
+& Children often experience anxiety during ophthalmology visits, 
+which can reduce cooperation and affect the quality of assessments. 
+An interactive mobile application should prepare children for 
+appointments through age-appropriate games, letting children practice 
+at home and earn rewards, introducing common procedures, including 
+vision testing, eye drops, and slit-lamp examinations. Designed alongside 
+clinicians, child-life specialists, parents, and children, we will pilot 
+and evaluate the app's usability, feasibility, anxiety reduction, 
+cooperation, and clinic efficiency.
+& TODO \\
+ER2
+& Supervisor Meeting 1 (2026/09/15) \href{https://github.com/team-hindsight/ophthamology-game/issues/1}{(\#1)}
+& Discussion of the age groups, whether
+difficulty should vary by age, and the
+structure of the game. The outcome is a target range of 
+\constref{MIN_AGE} to \constref{MAX_AGE} years with augmented 
+reality and personalization as stretch goals.
+& TODO \\
+ER3
+& Stakeholder Elicitation in \href{https://team-hindsight.github.io/ophthamology-game/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem Statement and Goals} document (2026/09/28)
+& Ophthalmologists can evaluate the preparedness of the children through 
+the successful completion of the games. Personalization to the child's visit 
+is a stretch goal, regulatory bodies require the design process and product 
+to be safe and ethical for children; the app runs on iOS and Android phones 
+and tablets.
+& TODO \\
+ER4
+& Hazard Analysis Lecture (2026/10/05) \href{https://github.com/team-hindsight/ophthamology-game/issues/136}{(\#136)}
+& Users might treat the game as medical
+advice. This should be written as a hazard with the mitigation strategy as a 
+"not official medical advice" disclaimer.
+& TODO \\
+ER5
+& Supervisor Meeting 2 (Clinical Visit) (2026/10/07) \href{https://github.com/team-hindsight/ophthamology-game/issues/138}{(\#138)}
+& Procedures explained include: vision test with one eye covered, eye pressure, 
+dilating eye drops, slit-lamp, headlamp examination, colour vision book, prism 
+alignment test (essential before surgery), eye photos and OCT, glasses check, eye 
+patching. Observed sequence with an adult: history of medical issue, vision test,
+pupil check with headlamp, eye drops, slit lamp, finger-following test, 20-minute
+wait for dilation, headlamp examination. Other notes include: the drops burn and 
+are a major source of anxiety. Covering one eye is the best method for children 
+to test one eye. The slit-lamp needs the head to stay very still. The supervisor 
+also specificied that an ethics board review will be needed for surveying and 
+testing the project at the clinic.
+& TODO \\
+ER6
+& Teaching Assistant Informal Meeting (2026/10/07) \href{https://github.com/team-hindsight/ophthamology-game/issues/137}{(\#137)}
+& Children should just play the game, but clinicians use their existing system 
+to assign tests and host the personal information on their already secure system.
+Further elicitation is required from stakeholders to see if integration into 
+the existing system is possible.
+& TODO \\
+ER7
+& Literature Research
+& A study of 298 children undergoing cycloplegic eye examinations found that 26\% 
+experienced significant distress before receiving eye drops, while uncooperative 
+children were also more anxious and required more time to complete the 
+examination \cite{ChiaEtAl2015}.
+& TODO \\
+ER8
+& Supervisor Email Correspondance (2026/10/13)
+& Supervisor specified a preferably design would include: full access to all 
+modules for children under the clinical assumption have that children will do 
+all of the scenarios even if it's not on the same day, the games presented as 
+a journey with different “levels” for the child with points and a score board at 
+the end, and selection of a unique character the child wants to play as.
+& TODO \\
+
+\bottomrule
+\end{longtable}
 
 \subsection{Appendix B: Development Plan}
 
