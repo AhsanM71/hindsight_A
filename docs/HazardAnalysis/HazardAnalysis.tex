@@ -529,18 +529,6 @@ offer a fresh retry with encouragement
 \bitem Ensure that every quiz question has at least one correct answer
 & \srref{CorrectAnswerReveal}, \srref{AtLeastOneCorrectAnswer}
 & \hazdef{CorrectAnswerReveal} \\
-% ----- The Game - Progress and Rewards -------------------------------
-\addlinespace
-
-% ----- The Game: Quizzes ----------------------------------------------------
-\fmeacomp{Game}{The Game}:\newline
-\compref{Quizzes}{Quizzes}
-& TODO
-& TODO
-& TODO
-& TODO
-& TODO
-& TODO\\
 \addlinespace
 
 % ----- The Game: Progress and Rewards ---------------------------------------
@@ -634,20 +622,6 @@ selection for visually impaired children
 % ------ The Game: Save Data ---------------------------------------------
 \fmeacomp{Game}{The Game}:\newline
 \compref{SaveData}{Save Data}
-& Progress and rewards are not recorded because save operation fails 
-& The child stays in the same gameplay state with no update on progress
-or rewards causing confusion and conceding to continue
-& \bitem Device storage is full
-\bitem App closes or the battery dies leaving a corrupted save file
-& \bitem Show a narrated and icon based message to ask for parent help
-\bitem Write saves automatically at key gameplay checkpoints so the last 
-good progress is not lost
-\bitem Show parent a message explaining problem and 
-that space needs to be freed
-& \srref{SaveProgressRewardData}
-& \hazdef{SaveDataFailFreezingGameplay}
-\addlinespace
-
 & Sudden loud audio, excessive volume, or rapidly
 flashing visual effects cause discomfort or distress
 & The child may experience sensory discomfort,
@@ -667,9 +641,6 @@ visual effects
 & \hazdef{UnsafeAudioVisuals}\\
 \addlinespace
 
-% ----- The Game: Save Data --------------------------------------------------
-\fmeacomp{Game}{The Game}:\newline
-\compref{SaveData}{Save Data}
 & Saved progress becomes corrupted or is reset
 & The child loses completed levels, rewards, or
 settings and may become frustrated or believe
@@ -1122,25 +1093,6 @@ while still allowing a parent to adjust for accessibility needs.
 \textit{Associated hazards:}
 \hazref{VisualCuesDisabledSetting}
 
-\item[\srdef{SaveProgressRewardData}]
-\textbf{Save Progress and Reward Data}
-
-If a save fails, the game shall hold unsaved progress and 
-rewards in volatile memory and allow the child to continue 
-the current session. The game shall automatically retry the 
-save at defined intervals and when storage becomes available 
-(e.g., on app resume or after the parent confirms space was freed), 
-and shall clear the failure state once a save succeeds.
-
-\textit{Rationale:}
-To prevent the game from freezing because the save failed, this 
-ensures the child can continue to play the game only for the current session. 
-In-memory progress is only temporary, so the game must persist to save as 
-soon as possible to avoid the current progress being lost.
-
-\textit{Associated hazards:}
-\hazref{SaveDataFailFreezingGameplay}
-
 \textit{SRS:} TODO
 
 \item[\srdef{ReliableSaveData}]
@@ -1280,8 +1232,8 @@ The following sections were assisted by AI:
   \item In Section~\ref{sec_SR} (Safety and Security Requirements),
   ChatGPT was used to ensure that additional safety and security
   requirements that were brainstormed didn't already overlap with existing SRS 
-  NFRs.Claude was used to identify clear and concise wording for requirements 
-    descriptions.
+  NFRs. Claude was used to identify clear and concise wording for requirements 
+  descriptions.
 
   \item In Section~\ref{sec_FMEA} (FMEA) and Section~\ref{sec_SR} (Safety and Security Requirements),
   ChatGPT and Opus 5.5 were used for brainstorming and idea generation, which the team
@@ -1318,6 +1270,54 @@ Questions 1 and 2 were answered individually, while Questions 3 and 4 were
 answered as a team. The team responses are provided under Team Reflection,
 while the individual responses are provided under each respective team
 member's name.
+
+\subsection*{Ethan McMehen}
+
+\begin{enumerate}
+  \item \textbf{What went well while writing this deliverable?}
+  
+  I found what went well in writing this deliverable was identifying hazards and 
+  producing the associated safety and security requirements. At the stage when I 
+  began working, my teammate Jake wrote the System Components and Boundaries 
+  documentation. This clarified what our components for the application would be, 
+  making it easier to identify hazards that could arise in each of these components.
+  
+  I wrote hazards that stemmed from Quizzes, Save Data, and Educational Content which I 
+  was able to identify relatively easily because of the descriptions by Jake. Translating 
+  the hazard into a failure, effect, cause, mitigation also went well because that is 
+  a simplified pattern for me to think through the hazard and its solution. Then using 
+  the recommended solutions, I could dive into more detail about a safety requirement 
+  to generate to support the mitigation strategy and risk minimization of the hazard.
+
+  From this whole process, I learned how using FMEA is a great method to identify and 
+  document hazards. FMEA is also a strong tool to develop safety requirements directly 
+  connected to the scope and objectives of the project.
+  \item \textbf{What pain points did you experience during this deliverable,
+  and how did you resolve them?}
+
+  The two pain points I experienced was avoiding repetitiveness in my hazard and 
+  requirements generation. Since a couple of team members worked on the FMEA table and 
+  requirements before I did, I had to check their hazards and requirements in depth to 
+  avoid generating similar risks, hazards or requirements which took me about an hour 
+  to fully understand and comprehend their work. Only then was I able to work on my own 
+  elicitation. Additionally, the goal of safety and security requirements is to generate 
+  new requirements separate from the NFRs in the SRS to ensure these requirements 
+  directly connect to the hazards. From this, I also had to double check my new 
+  requirements with the NFRs to avoid repeating myself. Altogether, this took a lot of 
+  time and extreme attention to detail.
+
+  To solve these pain points, I wrote my own cross-reference notes. I identified the 
+  system components that the previous hazard and requirements written targeted. Then 
+  I used the remaining system components as my main set to write hazards and requirements 
+  for. This enabled me to avoid repeating my teammates while still finding original and 
+  positive work to contribute to the HA document. Regarding NFRs, I did just read 
+  through the NFRs side by side with my new requirements to ensure they were different.
+
+  From these pain points I learned that cross-referencing can be done well if I identify 
+  the overall classes of work previously done before me. That way I can focus on the 
+  potential holes that exist within the documentation. As a result, it means I perform 
+  meaningful work for our deliverable and I contribute overall to the team.
+\end{enumerate}
 
 \subsection*{Jake Finlay}
 
