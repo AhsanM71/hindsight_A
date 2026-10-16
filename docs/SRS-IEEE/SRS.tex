@@ -243,12 +243,56 @@ goals, such as augmented reality simulations and personalized preparation based 
 information, are outside the minimum required scope of the initial system.
 
 \subsection{Stakeholders}
+A stakeholder is anyone with an interest in the system and can be affected by the system. 
+Stakeholders are grouped below using the categories of the IEEE template. Members of the 
+development team are not listed because team members are not stakeholders of their own product.
 \begin{itemize}
-\item Customer
-\item End Users
-\item Project Sponsor
-\item Development Team
-\item Administrators
+\item \textbf{Customer \& Project Sponsor}
+
+A paediatric ophthalmology researcher and clinician who proposed 
+the project, and the paediatric eye clinic that will pilot the product. At the clinic, the customer
+and project supervisor need children who are prepared for their examinations and evidence of whether 
+the product works in reducing anxiety amongst their patients.
+
+\item \textbf{End Users}
+\begin{itemize}
+    \item Children aged \constref{MIN_AGE} to \constref{MAX_AGE} years with an upcoming eye appointment.
+    \item Caregivers (Parents, Guardians, other Adults) who will install the product on their device, set 
+    up the game and play the game alongside children.
+\end{itemize}
+
+\item \textbf{Clinicians}
+
+Paediatric ophthalmologists and ophthalmic technicians who perform the procedures. Clinicians 
+benefit from more calm and cooperative patients. They will also tell families which procedures children should 
+practice and review game design as the medical experts in the system.
+
+\item \textbf{Child-life Specialists}
+
+They are experts on how children navigate play and the process of medical care. 
+They review the language, imagery and age-appropriate design to advise on the mental, emotional, and social 
+needs of patients \cite{mayoChildLifeSpecialist}.
+
+\item \textbf{Regulatory and Ethics Bodies}
+
+The research ethics board that approves studies with children, privacy regulators, and the app store operators 
+(Apple and Google), whose policies for children's apps the product must satisfy.
+
+\item \textbf{Eye Clinics} 
+
+The eye care clinical system benefits when examinations take less time and fewer children need 
+to repeat appointments. Families with limited resources benefit by their children receiving the same preparation 
+for appointments through the free app. 
+
+\item \textbf{Other Paediatric Health-care Professionals} 
+
+Other paediatric health-care applications can reuse the approach as inspiration for their own tool, 
+such as family doctors performing check-ups.
+
+\item \textbf{Administrators} 
+
+Hindsight has no server, no accounts and no administration console, so there is no administrator role
+because it is not applicable to this system.
 \end{itemize}
 
 \subsection{Definitions and Acronyms} \label{sec_DefinitionsAndAcronyms}
@@ -4433,6 +4477,14 @@ Constant & Value & Unit\\
 
 \bottomrule
 \endlastfoot
+
+\texttt{MIN\_AGE}
+\label{const:MIN_AGE}
+& 3 & years\\
+
+\texttt{MAX\_AGE}
+\label{const:MAX_AGE}
+& 7 & years\\
 
 \texttt{ACTIVITY\_PAIR\_MAX\_MIN}
 \label{const:ACTIVITY_PAIR_MAX_MIN}
