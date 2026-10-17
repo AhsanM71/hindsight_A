@@ -214,8 +214,8 @@ ISO/IEC/IEEE 15288 \cite{ISOIECIEEE152882023} for systems life-cycle management.
 modifications to the original template to better suit the project's needs. In Section~\ref{non-func-req}
 (\termmark{nonfunctionalrequirementnfr}Non-Functional Requirements), the requirements are organized according to the Volere template provided
 in the course repository \cite{SmithCapTemplate}. The AI and Machine Learning Requirements section was
-also removed, as it is not applicable to the project.
-Terms and acronyms used in this document are defined in Section~\ref{sec_DefinitionsAndAcronyms}, which also links to where each one is defined or first used.
+also removed, as it is not applicable to the project. A Notations and Conventions section
+(Section~\ref{sec_NotationsConventions}) was added to explain the identifiers and symbolic constants.
 
 \subsection{Purpose}
 \label{purpose}
@@ -506,6 +506,50 @@ the Problem Statement document.
 
 Knowledge of clinical terms and processes are not a pre-requisite for the intended reader. Such terminology and processes are defined in
 Section~\ref{sec_DefinitionsAndAcronyms} and Section~\ref{sec_Scope}, respectively.
+
+\subsection{Notations and Conventions} \label{sec_NotationsConventions}
+
+\subsubsection*{Identifiers}
+
+Every constraint, requirement, use case, change, and formal definition has a
+unique identifier. Each identifier has a prefix that says what it is, followed
+by a number that is assigned in order of appearance, as in
+Table~\ref{tab:Identifiers}. Every use of an identifier outside its own
+definition is a link to that definition, so the reader can move in both
+directions between an item and the places that use it.
+
+\begin{table}[h]
+\caption{Identifier Prefixes}
+\label{tab:Identifiers}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\textbf{Prefix} & \textbf{Item} & \textbf{Where Defined} \\
+\midrule
+C & Constraint & Section~\ref{sec_Systen_Constraints} \\
+STR & Stakeholder requirement & Section~\ref{sec_StakeholderReqs} \\
+UC & Use case & Section~\ref{sec_UseCases} \\
+FR & Functional requirement & Section~\ref{sec_FRList} \\
+NFR & Non-functional requirement & Section~\ref{non-func-req} \\
+D, T & Definition and theorem of the formal model & Section~\ref{sec_FormalSpec} \\
+LC & Likely change & Section~\ref{sec_LikelyChanges} \\
+ULC & Unlikely change & Section~\ref{sec_UnlikelyChanges} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Identifiers written with a hyphen, such as SR-11 (a safety and security
+requirement) and H2-9 (a hazard), belong to the \hadoc{Hazard Analysis}. They
+link to the published Hazard Analysis and not to this document.
+
+\subsubsection*{Symbolic Constants}
+
+A value that several requirements depend on is given a symbolic constant. A
+constant is written in monospaced capital letters with underscores, such as
+\constref{TOUCH_TARGET_MIN}. Its name ends with the kind of bound, \texttt{MIN}
+or \texttt{MAX}, and, for a quantity that has a unit, the unit, such as
+\constref{INSTALL_SIZE_MAX_MB}. Each use of a constant is a link to its value in
+Table~\ref{tab:Constants}.
 
 % ============================================================== 
 \section{System Overview}
