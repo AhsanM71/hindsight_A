@@ -754,6 +754,7 @@ Section~\ref{sec_Personas}.
 \end{itemize}
 
 \subsection{System Constraints}
+\label{sec_Systen_Constraints}
 
 \begin{itemize}
     \item \progname{} shall operate on consumer smartphones and tablets running
@@ -939,7 +940,8 @@ the product.
 \end{itemize}
 
 % ============================================================== 
-\section{User Personas} \label{sec_Personas}
+\section{User Personas}
+\label{sec_Personas}
 These are fictitious personas drafted from project documentation.
 Their individual characteristics are assumptions, that will be validated through further stakeholder interaction.
 
@@ -3270,7 +3272,10 @@ practices are outlined below:
 
 The following non-functional requirements define the quality attributes
 and constraints of the application. Each requirement includes a rationale
-and a measurable fit criterion.
+and a measurable fit criterion. Each requirement may also include a \textbf{Traces} line that lists
+the functional requirements that help satisfy it. A requirement that comes from
+the \hadoc{Hazard Analysis} also has a \textbf{Hazard Analysis} line, in the
+same form as in Section~\ref{sec_FRList}.
 
 \subsection{Look and Feel Requirements}
 
@@ -3289,6 +3294,10 @@ No image, animation, narration, or sound shall be frightening, or show pain or d
 
 \textbf{Fit Criterion:} A child-life specialist reviews all content against a checklist, and no finding is unresolved at release.
 
+\textbf{Traces:} \rref{FR_DescribeSensations}.
+
+\textbf{Hazard Analysis:} \hazsr{ChildLifeReview}{9}{Frightening}{2-7}, \hazsr{ThirdPartyAssetReview}{23}{ThirdPartyAssetContent}{2-21}.
+
 \end{itemize}
 
 \subsection{Usability and Humanity Requirements} \label{sec_UsabilityReqs}
@@ -3302,6 +3311,8 @@ Every interactive element shall be at least \constref{TOUCH_TARGET_MIN} millimet
 
 \textbf{Fit Criterion:} Measured on each reference device, every interactive element meets this size.
 
+\textbf{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Exit}:]
 A control that returns to the home menu shall be reachable with one touch from every screen of an activity.
 
@@ -3309,11 +3320,19 @@ A control that returns to the home menu shall be reachable with one touch from e
 
 \textbf{Fit Criterion:} On every screen of every activity, a tester reaches the home menu with one touch.
 
+\textbf{Traces:} \rref{FR_ExitLevel}, \rref{FR_StopOnExit}, \rref{FR_RestartLevel}.
+
+\textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}, \hazsr{StopAudioVisualsOnExit}{13}{AudioVisualsContinueOnExit}{2-13}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Usability}:] A first-time user from the defined user characteristics shall be able to use the application's core features without reading instructions or receiving prior training.
 
 \textbf{Rationale:} The application is intended for use at home with little or no assistance. Users should be able to understand and interact with its core features independently, supporting engagement and reducing reliance on parental guidance.
 
 \textbf{Fit Criterion:} In usability testing, at least \constref{UNAIDED_RATE_MIN}\% of participants shall successfully complete a predefined core task without verbal assistance, with a median completion time of at most \constref{ACTIVITY_PAIR_MAX_MIN} minutes. Participants aged 3--4 may have a parent present who does not explain or guide the task.
+
+\textbf{Traces:} \rref{FR_JourneyMap}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}.
+
+\textbf{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Language}:]
 Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words and use words familiar to a child aged 3 to 7, and text in the adult area shall be at or below Grade \constref{ADULT_TEXT_MAX_GRADE} reading level.
@@ -3322,6 +3341,10 @@ Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words a
 
 \textbf{Fit Criterion:} A count over all scripts finds no narrated sentence over \constref{SENTENCE_MAX_WORDS} words, a child-life specialist finds no unfamiliar word, and a readability formula gives a grade of at most \constref{ADULT_TEXT_MAX_GRADE} for each adult-area text.
 
+\textbf{Traces:} \rref{FR_SpokenInstructions}, \rref{FR_ProcedureGuide}.
+
+\textbf{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Accessibility}:]
 The application shall meet the WCAG 2.2 Level AA success criteria that apply to a native mobile application.
 
@@ -3329,12 +3352,20 @@ The application shall meet the WCAG 2.2 Level AA success criteria that apply to 
 
 \textbf{Fit Criterion:} An accessibility audit against the applicable criteria finds no failure.
 
+\textbf{Traces:} \rref{FR_SpokenInstructions}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_Preferences}.
+
+\textbf{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}, \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-14}, \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-15}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Colour}:]
 Every state and prompt shall remain distinguishable without colour, and for users with common forms of colour vision deficiency.
 
 \textbf{Rationale:} Colour vision deficiency is common enough that some children and parents will have it, and it is more likely among users of an eye service. Relying on colour alone, for example green for correct and red for wrong, would hide information from them.
 
 \textbf{Fit Criterion:} Screens viewed under protanopia, deuteranopia, and tritanopia simulation show every state and choice as distinct by shape, position, or text as well as colour.
+
+\textbf{Traces:} \rref{FR_JourneyMap}, \rref{FR_RevealAnswer}.
+
+\textbf{Hazard Analysis:} \hazsr{CorrectAnswerReveal}{16}{CorrectAnswerReveal}{2-10}, \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
 \end{itemize}
 
@@ -3356,12 +3387,18 @@ The system shall respond visibly to a touch on an interactive element within \co
 
 \textbf{Fit Criterion:} At least \constref{RESPONSE_RATE_MIN}\% of measured touches on each low-spec device receive a visible response within \constref{RESPONSE_MAX_MS} milliseconds.
 
+\textbf{Traces:} \rref{FR_IgnoreRepeatedTouches}.
+
+\textbf{Hazard Analysis:} \hazsr{DevicePerformance}{2}{PoorPerformance}{1-2}, \hazsr{PreventAccidentalInput}{3}{AccidentalInputSkipping}{2-1}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Smoothness}:]
 Animation shall run at no fewer than \constref{FRAME_RATE_MIN} frames per second.
 
 \textbf{Rationale:} Choppy animation of a procedure would distract from what it shows.
 
 \textbf{Fit Criterion:} On each low-spec device, the frame rate is at least \constref{FRAME_RATE_MIN} frames per second for at least \constref{FRAME_RATE_COMPLIANCE_MIN}\% of the time over a full walkthrough and practice activity.
+
+\textbf{Hazard Analysis:} \hazsr{DevicePerformance}{2}{PoorPerformance}{1-2}.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_AVSync}:]
 Narration shall start within \constref{AV_SYNC_MAX_MS} milliseconds of the animation it accompanies.
@@ -3370,12 +3407,20 @@ Narration shall start within \constref{AV_SYNC_MAX_MS} milliseconds of the anima
 
 \textbf{Fit Criterion:} Measured on each reference device across all steps, no offset exceeds this value.
 
+\textbf{Traces:} \rref{FR_SpokenInstructions}.
+
+\textbf{Hazard Analysis:} \hazsr{ConsistentAudioVisuals}{25}{AudioVisualMismatch}{2-17}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_AudioSafety}:]
 No sound effect or music shall have a peak level above the peak level of the narration.
 
 \textbf{Rationale:} A sudden loud sound can frighten a child who is already anxious, and can be uncomfortable for small ears. Tying every sound to the narration level, which the parent sets with the device volume, avoids a sound that is louder than the voice.
 
 \textbf{Fit Criterion:} An audio analysis of all sound assets finds no exception.
+
+\textbf{Traces:} \rref{FR_NarrationFallback}.
+
+\textbf{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-16}.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Reliability}:]
 The application shall not crash or freeze during use.
@@ -3384,12 +3429,18 @@ The application shall not crash or freeze during use.
 
 \textbf{Fit Criterion:} At least \constref{CRASH_FREE_RATE_MIN}\% of at least \constref{TEST_SESSIONS_MIN} test sessions end without a crash or freeze.
 
+\textbf{Traces:} \rref{FR_RestartLevel}, \rref{FR_Suspend}, \rref{FR_PersistState}, \rref{FR_CorruptData}.
+
+\textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}, \hazsr{ReliableSaveData}{20}{SaveDataCorruption}{2-18}, \hazsr{ThirdPartyValidation}{22}{ThirdPartyFailure}{2-20}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_DeviceHeat}:]
 The application shall not cause the device temperature to exceed \constref{DEVICE_TEMP_MAX_C} degrees Celsius during use.
 
 \textbf{Rationale:} Young children may hold a device for long periods, and a device that becomes too hot can cause discomfort or minor injury. The limit is revisited after proof-of-concept measurements on low-spec devices.
 
 \textbf{Fit Criterion:} On each low-spec device, the device temperature stays at or below this value over a continuous session of at least \constref{HEAT_TEST_SESSION_MIN} minutes of gameplay.
+
+\textbf{Hazard Analysis:} \hazsr{DeviceResourceUse}{1}{DeviceOverheating}{1-1}.
 
 \end{itemize}
 
@@ -3404,6 +3455,10 @@ After installation, every function shall work with no network connection.
 
 \textbf{Fit Criterion:} The full functional test suite passes with the device in airplane mode.
 
+\textbf{Traces:} \rref{FR_PersistState}, \rref{FR_FirstReward}, \rref{FR_Purchase}.
+
+\textbf{Hazard Analysis:} \hazsr{OfflinePreparation}{26}{OfflineContentUnavailable}{2-4}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Portability}:]
 The application shall run on iOS \constref{MIN_IOS} and later and Android \constref{MIN_ANDROID} and later, on phones and tablets with screens from \constref{SCREEN_MIN_IN} to \constref{SCREEN_MAX_IN} inches.
 
@@ -3417,6 +3472,8 @@ A parent shall be able to install the application from the app store and reach t
 \textbf{Rationale:} Every extra step is a place where a parent may give up, and a required account would conflict with the decision to collect no personal data.
 
 \textbf{Fit Criterion:} On each reference device, a tester installs the application and reaches the home menu following only the store listing, with none of those steps required.
+
+\textbf{Hazard Analysis:} \hazsr{OfflinePreparation}{26}{OfflineContentUnavailable}{2-4}.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_InstallSize}:]
 The installed size of the application shall be at most \constref{INSTALL_SIZE_MAX_MB} megabytes.
@@ -3451,12 +3508,18 @@ Stored settings and progress shall be readable only by the application, using th
 
 \textbf{Fit Criterion:} On an unmodified test device, no other application and no file-sharing function can read the stored data.
 
+\textbf{Traces:} \rref{FR_PersistState}, \rref{FR_Nickname}.
+
+\textbf{Hazard Analysis:} \hazsr{MinimalSaveData}{21}{SaveDataPrivacy}{2-19}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Integrity}:]
 Every release build shall be digitally signed and distributed only through the Apple App Store and Google Play Store.
 
 \textbf{Rationale:} What children see must be what clinicians approved. A signed build from the official stores means the content cannot have been altered on the way to the device.
 
 \textbf{Fit Criterion:} The signature of each release build verifies with the team's signing key using the platform tools, and no other distribution channel is in use.
+
+\textbf{Hazard Analysis:} \hazsr{ClinicianApproval}{5}{InaccurateProcedure}{2-5}, \hazsr{ApprovedContent}{7}{InaccurateProcedure}{2-5}.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Privacy}:]
 The application shall not transmit any data off the device.
@@ -3465,12 +3528,18 @@ The application shall not transmit any data off the device.
 
 \textbf{Fit Criterion:} A network capture during a full test session shows no outbound request from the application.
 
+\textbf{Hazard Analysis:} \hazsr{MinimalSaveData}{21}{UnexpectedDataTransmission}{2-22}, \hazsr{ThirdPartyValidation}{22}{UnexpectedDataTransmission}{2-22}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Minimization}:]
 The application shall store only the nickname, age band, display settings, and progress record.
 
 \textbf{Rationale:} Data that is not stored cannot leak or be requested. Only these items are needed for the application to function.
 
 \textbf{Fit Criterion:} Inspection of the storage after a full test session finds only these items.
+
+\textbf{Traces:} \rref{FR_Nickname}, \rref{FR_ResetJourney}, \rref{FR_ClearAllData}.
+
+\textbf{Hazard Analysis:} \hazsr{MinimalSaveData}{21}{SaveDataPrivacy}{2-19}.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Immunity}:]
 Each release shall contain no third-party library with a publicly known vulnerability of high or critical severity.
@@ -3479,12 +3548,16 @@ Each release shall contain no third-party library with a publicly known vulnerab
 
 \textbf{Fit Criterion:} A dependency vulnerability scan run on each release build reports none of that severity.
 
+\textbf{Hazard Analysis:} \hazsr{ThirdPartyValidation}{22}{UnexpectedDataTransmission}{2-22}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_DependencyTesting}:]
 Every third-party library and engine component shall be fixed to an exact version, and each change to one shall be tested on a release build before it is included in a release.
 
 \textbf{Rationale:} The application depends on software the team does not control, and an unexpected update or incompatibility could cause crashes or wrong behaviour in the activities that prepare the child. Fixing versions means each release contains only what was tested.
 
 \textbf{Fit Criterion:} The dependency list gives an exact version for every third-party library and engine component, and the functional test suite passes on the release build after each dependency change, with no finding unresolved at release.
+
+\textbf{Hazard Analysis:} \hazsr{ThirdPartyValidation}{22}{ThirdPartyFailure}{2-20}.
 
 \end{itemize}
 
@@ -3499,6 +3572,10 @@ Content shall not assume a child's family structure, culture, religion, gender, 
 
 \textbf{Fit Criterion:} The review of child-facing content includes an inclusivity checklist, and no finding is unresolved at release.
 
+\textbf{Traces:} \rref{FR_DiverseCharacters}.
+
+\textbf{Hazard Analysis:} \hazsr{CharacterDiversityInclusivity}{15}{DiverseCharacterLibrary}{2-9}.
+
 \end{itemize}
 
 \subsection{Legal Requirements}
@@ -3512,12 +3589,18 @@ The application, its notices, and its store listings shall make no claim to diag
 
 \textbf{Fit Criterion:} Two team members and a clinician review every child-facing text, adult-facing text, and store listing against a checklist, and find no such claim.
 
+\textbf{Traces:} \rref{FR_MedicalNotice}, \rref{FR_ProcedureGuide}.
+
+\textbf{Hazard Analysis:} \hazsr{MedicalDisclaimer}{10}{MisinterpretedMedicalPurpose}{2-8}.
+
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Licensing}:]
 Every third-party asset and library shall have a recorded licence that permits redistribution under the project's chosen software licence.
 
 \textbf{Rationale:} Assets from a public store may forbid redistribution or require terms that conflict with the project's chosen licence. A removal for a licence breach would take the application away from families.
 
 \textbf{Fit Criterion:} The licence log lists every third-party asset and library with its licence, and has no gap.
+
+\textbf{Hazard Analysis:} \hazsr{ThirdPartyAssetReview}{23}{ThirdPartyAssetContent}{2-21}.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_StoreCompliance}:]
 The application shall meet the Apple and Google policies for children's applications listed in the project's standards table.
@@ -3526,24 +3609,14 @@ The application shall meet the Apple and Google policies for children's applicat
 
 \textbf{Fit Criterion:} Both app stores approve the release build for a children's audience, and every item on the pre-submission policy checklist passes.
 
+\textbf{Traces:} \rref{FR_NoRealMoney}, \rref{FR_ParentGate}.
+
 \end{itemize}
  
 
 % ============================================================== 
 \section{Requirements Traceability Matrices}
 \label{sec_TraceMatrices}
-
-\plt{The Requirements Traceability Matrix (RTM) is a table that shows the
-relationship between different types of requirements. It is used to ensure that
-all requirements are traceable and that no requirements are missed. The typical
-flow is: Stakeholder Need -> Use Case -> Requirement}
-
-\plt{There is also a traceability matrix between functional and nonfunctional
-  requirements. The purpose of some FRs is to satisfy NFRs.  Therefore, it is
-  important to show the relationship between the two.}
-
-\plt{Further traceability to test cases and modules will be given in other
-documents.}
 
 Table~\ref{tab:SR2UC2FRtm} traces each use case to its functional
 requirements. The stakeholder requirements column will be added when
@@ -3670,41 +3743,49 @@ Functional Req & Nonfunctional Req \\
 \end{longtable}
 
 Table~\ref{tab:HA2FRtm} traces the safety and security requirements of the
-\hadoc{Hazard Analysis} to the functional requirements that satisfy them. The numbers
+\hadoc{Hazard Analysis} to the functional requirements and the non-functional
+requirements of Section~\ref{non-func-req} that satisfy them. The numbers
 of the safety and security requirements (SR) and of the hazards (H) are those
-of the Hazard Analysis. Safety and security requirements that describe a
-quality of the system or the release process, such as device temperature,
-performance, content review, data minimization, and third-party software, are
-satisfied by the non-functional requirements of Section~\ref{non-func-req} and are
-not listed here.
+of the Hazard Analysis.
 
-\begin{longtable}{p{0.08\textwidth} p{0.08\textwidth} >{\raggedright\arraybackslash}p{0.40\textwidth} >{\raggedright\arraybackslash}p{0.32\textwidth}}
+\begin{longtable}{p{0.07\textwidth} p{0.09\textwidth} >{\raggedright\arraybackslash}p{0.23\textwidth} >{\raggedright\arraybackslash}p{0.22\textwidth} >{\raggedright\arraybackslash}p{0.23\textwidth}}
 
-\caption{Traceability Between the Hazard Analysis and Functional Requirements}
+\caption{Traceability Between the Hazard Analysis and Functional and Non-Functional Requirements}
 \label{tab:HA2FRtm}\\
 \toprule
-SR & Hazard & Safety and Security Req & Functional Req \\
+SR & Hazard & Safety and Security Req & Functional Req & Non-Functional Req \\
 \midrule
 \endfirsthead
 \toprule
-SR & Hazard & Safety and Security Req & Functional Req \\
+SR & Hazard & Safety and Security Req & Functional Req & Non-Functional Req \\
 \midrule
 \endhead
-\hasrref{PreventAccidentalInput}{3} & \hahazref{AccidentalInputSkipping}{2-1} & Prevention of unintentional gameplay actions & \rref{FR_IgnoreRepeatedTouches} \\
-\hasrref{GameplayRecovery}{4} & \hahazref{GameplayStuck}{2-2} & Gameplay recovery & \rref{FR_ExitLevel}, \rref{FR_ExitKeepsData}, \rref{FR_RestartAfterExit}, \rref{FR_RestartLevel} \\
-\hasrref{ClinicsDiffer}{6} & \hahazref{InaccurateProcedure}{2-3} & Variation between clinics & \rref{FR_ClinicsDiffer} \\
-\hasrref{HonestSensations}{8} & \hahazref{SensationsHidden}{2-4} & Honest description of sensations & \rref{FR_DescribeSensations} \\
-\hasrref{MedicalDisclaimer}{10} & \hahazref{MisinterpretedMedicalPurpose}{2-6} & Medical disclaimer and caregiver acknowledgment & \rref{FR_MedicalNotice}, \rref{FR_RecordAck} \\
-\hasrref{AllLevelsAccessible}{11} & \hahazref{RestrictedLevelAccess}{2-9} & All preparation levels remain accessible & \rref{FR_StartLevel} \\
-\hasrref{NonPunitiveFeedback}{12} & \hahazref{PunitiveFeedback}{2-10} & Encouraging feedback without penalties & \rref{FR_HintOnMiss}, \rref{FR_NoPenalty}, \rref{FR_FirstReward} \\
-\hasrref{StopAudioVisualsOnExit}{13} & \hahazref{AudioVisualsContinueOnExit}{2-11} & Termination of audio and visual effects on exit & \rref{FR_StopOnExit} \\
-\hasrref{SafeAudioVisuals}{14} & \hahazref{UnsafeAudioVisuals}{2-14} & Safe audio and visual effects & \rref{FR_NarrationFallback}, \rref{FR_Preferences} \\
-\hasrref{CharacterDiversityInclusivity}{15} & \hahazref{DiverseCharacterLibrary}{2-7} & Diverse and inclusive characters and rewards & \rref{FR_DiverseCharacters} \\
-\hasrref{CorrectAnswerReveal}{16} & \hahazref{CorrectAnswerReveal}{2-8} & Revealing correct answers & \rref{FR_RevealAnswer} \\
-\hasrref{AtLeastOneCorrectAnswer}{17} & \hahazref{CorrectAnswerReveal}{2-8} & At least one correct answer & \rref{FR_ValidQuestions} \\
-\hasrref{NarrationMuted}{18} & \hahazref{NarrationDisabledSetting}{2-12} & Guidance for muted narration & \rref{FR_NarrationFallback}, \rref{FR_Suspend} \\
-\hasrref{VisualCuesSetting}{19} & \hahazref{VisualCuesDisabledSetting}{2-13} & Visual cues during gameplay & \rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Preferences} \\
-\hasrref{ReliableSaveData}{20} & \hahazref{SaveDataCorruption}{2-15} & Reliable save data handling & \rref{FR_PersistState}, \rref{FR_CorruptData} \\
+\hasrref{DeviceResourceUse}{1} & \hahazref{DeviceOverheating}{1-1} & Device heat limit & -- & \nfrref{NFR_DeviceHeat} \\
+\hasrref{DevicePerformance}{2} & \hahazref{PoorPerformance}{1-2} & Device performance & -- & \nfrref{NFR_Responsiveness}, \nfrref{NFR_Smoothness} \\
+\hasrref{PreventAccidentalInput}{3} & \hahazref{AccidentalInputSkipping}{2-1} & Prevention of unintentional gameplay actions & \rref{FR_IgnoreRepeatedTouches} & \nfrref{NFR_Responsiveness} \\
+\hasrref{GameplayRecovery}{4} & \hahazref{GameplayStuck}{2-2} & Gameplay recovery & \rref{FR_ExitLevel}, \rref{FR_ExitKeepsData}, \rref{FR_RestartAfterExit}, \rref{FR_RestartLevel} & \nfrref{NFR_Exit}, \nfrref{NFR_Reliability} \\
+\hasrref{ClinicianApproval}{5} & \hahazref{InaccurateProcedure}{2-5} & Clinical approval of procedure content & -- & \nfrref{NFR_Integrity} \\
+\hasrref{ClinicsDiffer}{6} & \hahazref{InaccurateProcedure}{2-5} & Variation between clinics & \rref{FR_ClinicsDiffer} & -- \\
+\hasrref{ApprovedContent}{7} & \hahazref{InaccurateProcedure}{2-5} & Release of approved content only & -- & \nfrref{NFR_Integrity} \\
+\hasrref{HonestSensations}{8} & \hahazref{SensationsHidden}{2-6} & Honest description of sensations & \rref{FR_DescribeSensations} & \nfrref{NFR_ChildSafe} \\
+\hasrref{ChildLifeReview}{9} & \hahazref{SensationsHidden}{2-6}, \hahazref{Frightening}{2-7} & Child-life review of content & -- & \nfrref{NFR_ChildSafe}, \nfrref{NFR_Language} \\
+\hasrref{MedicalDisclaimer}{10} & \hahazref{MisinterpretedMedicalPurpose}{2-8} & Medical disclaimer and caregiver acknowledgment & \rref{FR_MedicalNotice}, \rref{FR_RecordAck} & \nfrref{NFR_NoClaims} \\
+\hasrref{AllLevelsAccessible}{11} & \hahazref{RestrictedLevelAccess}{2-11} & All preparation levels remain accessible & \rref{FR_StartLevel} & -- \\
+\hasrref{NonPunitiveFeedback}{12} & \hahazref{PunitiveFeedback}{2-12} & Encouraging feedback without penalties & \rref{FR_HintOnMiss}, \rref{FR_NoPenalty}, \rref{FR_FirstReward} & -- \\
+\hasrref{StopAudioVisualsOnExit}{13} & \hahazref{AudioVisualsContinueOnExit}{2-13} & Termination of audio and visual effects on exit & \rref{FR_StopOnExit} & \nfrref{NFR_Exit} \\
+\hasrref{SafeAudioVisuals}{14} & \hahazref{UnsafeAudioVisuals}{2-16} & Safe audio and visual effects & \rref{FR_NarrationFallback}, \rref{FR_Preferences} & \nfrref{NFR_AudioSafety} \\
+\hasrref{CharacterDiversityInclusivity}{15} & \hahazref{DiverseCharacterLibrary}{2-9} & Diverse and inclusive characters and rewards & \rref{FR_DiverseCharacters} & \nfrref{NFR_Inclusivity} \\
+\hasrref{CorrectAnswerReveal}{16} & \hahazref{CorrectAnswerReveal}{2-10} & Revealing correct answers & \rref{FR_RevealAnswer} & \nfrref{NFR_Colour}, \nfrref{NFR_Accessibility} \\
+\hasrref{AtLeastOneCorrectAnswer}{17} & \hahazref{CorrectAnswerReveal}{2-10} & At least one correct answer & \rref{FR_ValidQuestions} & -- \\
+\hasrref{NarrationMuted}{18} & \hahazref{NarrationDisabledSetting}{2-14} & Guidance for muted narration & \rref{FR_NarrationFallback}, \rref{FR_Suspend} & \nfrref{NFR_Accessibility} \\
+\hasrref{VisualCuesSetting}{19} & \hahazref{VisualCuesDisabledSetting}{2-15} & Visual cues during gameplay & \rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Preferences} & \nfrref{NFR_Accessibility} \\
+\hasrref{ReliableSaveData}{20} & \hahazref{SaveDataCorruption}{2-18} & Reliable save data handling & \rref{FR_PersistState}, \rref{FR_CorruptData} & \nfrref{NFR_Reliability} \\
+\hasrref{MinimalSaveData}{21} & \hahazref{SaveDataPrivacy}{2-19}, \hahazref{UnexpectedDataTransmission}{2-22} & Minimization and protection of game data & -- & \nfrref{NFR_Minimization}, \nfrref{NFR_DataProtection}, \nfrref{NFR_Privacy} \\
+\hasrref{ThirdPartyValidation}{22} & \hahazref{ThirdPartyFailure}{2-20}, \hahazref{UnexpectedDataTransmission}{2-22} & Third-party software validation & -- & \nfrref{NFR_DependencyTesting}, \nfrref{NFR_Immunity}, \nfrref{NFR_Privacy} \\
+\hasrref{ThirdPartyAssetReview}{23} & \hahazref{ThirdPartyAssetContent}{2-21} & Third-party asset review & -- & \nfrref{NFR_ChildSafe}, \nfrref{NFR_Licensing} \\
+\hasrref{AccessibleInteraction}{24} & \hahazref{InaccessibleInteraction}{2-3} & Accessible, age-appropriate interaction & \rref{FR_SpokenInstructions}, \rref{FR_Preferences}, \rref{FR_AgeGroup} & \nfrref{NFR_TouchTarget}, \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} \\
+\hasrref{ConsistentAudioVisuals}{25} & \hahazref{AudioVisualMismatch}{2-17} & Consistent narration and animation & \rref{FR_Suspend} & \nfrref{NFR_AVSync} \\
+\hasrref{OfflinePreparation}{26} & \hahazref{OfflineContentUnavailable}{2-4} & Offline availability of preparation content & -- & \nfrref{NFR_Offline}, \nfrref{NFR_Installability} \\
 \bottomrule
 \end{longtable}
 
@@ -4297,7 +4378,8 @@ Its use was mainly used in the following sections:
     \item In Section~\ref{non-func-req} (Non-Functional Requirements), Opus 5.5 was
     provided with stakeholder meeting notes, team assumptions, and preliminary requirements
     to generate an initial draft of the NFRs. The team then manually reviewed, refined,
-    and validated the generated requirements.
+    and validated the generated requirements. Opus 5.5 was also used to identify which
+    functional requirements and which safety requirements the non-functional requirement trace to.
 
     \item In Section~\ref{rationale} (Rationale), Opus 5.5 was used to identify connections
     and shared justifications across requirements, which the team then used to develop the section.
@@ -4320,18 +4402,19 @@ Its use was mainly used in the following sections:
     \item Opus 5.5 was used to identify constant values in Section~\ref{non-func-req} (Non-Functional Requirements),
     generate Table~\ref{tab:Constants}, and establish links between the constants.
 
-    \item In Section~2.5 (System Constraints), ChatGPT was used to improve
+    \item In Section~\ref{sec_Systen_Constraints} (System Constraints), ChatGPT was used to improve
     the clarity and conciseness of the system constraints written by the
     team member who authored the section. It also provided feedback on
     whether any of the constraints were too vague to be valid system constraints.
 
-    \item In Section~4 (User Personas), ChatGPT was used to review and
+    \item In Section~\ref{sec_User_Personas} (User Personas), ChatGPT was used to review and
     improve the personas written by the team member who authored the section.
     Specifically, ChatGPT was prompted to compare the initial draft against
     the VARIED (Vivid, Actionable, Real, Identifiable, Exact, Detailed) criteria
     from SFWRENG 3RA3 and provide feedback for the team member to integrate.
     Once the content of the personas was solidified, ChatGPT was used to
     refine the wording for a more professional presentation.
+
     \item In Section~\ref{sec_SystemContext} (System Context), Opus 5.5 was
     used to generate the system context diagram and to assist with \LaTeX{}
     formatting.
@@ -4397,7 +4480,7 @@ individual responses are provided under each respective team member's name.
     \item \textbf{How many requirements were inspired by client interactions
     or their proxies?}
 
-    A total of [number] requirements were inspired by discussions with our
+    Approximately 30 requirements were inspired by discussions with our
     clients, stakeholders, peers, or potential users. These interactions
     primarily informed our stakeholder requirements and the functional
     requirements derived from them, helping us understand the application's
