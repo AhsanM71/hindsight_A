@@ -4400,257 +4400,498 @@ the end, and selection of a unique character the child wants to play as.
 \subsection{Appendix B: Development Plan}
 \label{sec_DevelopmentPlan}
 
-This appendix describes the planned order for implementing and verifying the
-requirements of \progname{}. Table~\ref{tab:DevelopmentPhases} groups the work
-into six dated phases aligned with the milestones in Section~9 of the
+This appendix identifies requirement priorities and six implementation
+phases for \progname{}, following the milestones in
+Section~9 of the
 \href{https://team-hindsight.github.io/ophthamology-game/DevelopmentPlan/DevelopmentPlan.pdf}{Development Plan}.
-The dates are phase targets; individual requirements may be developed in
-parallel or moved within a phase as the team incorporates review feedback.
+Dates and coverage may be refined after the PoC, stakeholder feedback, and
+assessment of available resources. The tables distinguish planning,
+investigation, implementation, verification, and simulation.
 
-\textbf{Implementation priorities.} The highest priority is a safe, accessible
-preparation experience: accurate procedure content, understandable guidance,
-unrestricted level access, reliable local progress, and caregiver controls.
-Rewards are introduced with level completion so that progress remains
-consistent. The scoreboard, character selection, and accessory shop follow
-once the core journey works. All functional and non-functional requirements
-are expected to be completed during the course.
-The development order reflects dependencies
-between features, but all planned features
-must be included in the final application.
+\subsubsection*{Requirement priorities}
+
+Table~\ref{tab:DevelopmentPriorities} explains the highest-priority (P1),
+supporting (P2), and lower-priority (P3) requirements. Quality and safety
+safeguards apply whenever the associated features are developed. P3 applies
+only to the store-dependent and unavailable-device portions identified below.
 
 \begingroup
 \small
-\renewcommand{\arraystretch}{1.2}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}
->{\raggedright\arraybackslash}p{0.35\textwidth}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.13\textwidth}
+>{\raggedright\arraybackslash}p{0.46\textwidth}
 >{\raggedright\arraybackslash}p{0.35\textwidth}@{}}
-\caption{Implementation phases and associated course milestones}
-\label{tab:DevelopmentPhases}\\
+\caption{Requirement priorities and rationale}
+\label{tab:DevelopmentPriorities}\\
+
 \toprule
-\textbf{Phase and target period} & \textbf{Phase objective} &
-\textbf{Milestone alignment} \\
+\textbf{Priority} &
+\textbf{Linked requirements} &
+\textbf{Reason for priority} \\
 \midrule
 \endfirsthead
+
 \multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
 \toprule
-\textbf{Phase and target period} & \textbf{Phase objective} &
-\textbf{Milestone alignment} \\
+\textbf{Priority} &
+\textbf{Linked requirements} &
+\textbf{Reason for priority} \\
 \midrule
 \endhead
-\midrule
-\multicolumn{3}{r}{Continued on next page} \\
-\endfoot
+
 \bottomrule
 \endlastfoot
 
-\textbf{1: Foundations}\newline
-19 Oct.--2 Nov. 2026 &
-Identify major risks, prepare feasibility experiments, and plan the
-architecture and requirement verification. &
-SRS and Hazard Analysis Rev.~0: 19 Oct.\newline
-V\&V Plan Rev.~0: 2 Nov. \\
+P1: Core &
+\textbf{Truthful and safe preparation.}\newline
+\rref{FR_MedicalNotice},
+\rref{FR_RecordAck},
+\rref{FR_LevelContent},
+\rref{FR_DescribeSensations},
+\rref{FR_ClinicsDiffer},
+\rref{FR_SpeakUp},
+\rref{FR_NoRealMoney},
+\nfrref{NFR_ChildSafe},
+\nfrref{NFR_Language},
+\nfrref{NFR_Inclusivity},
+\nfrref{NFR_NoClaims} &
+These requirements are essential because the application's
+main purpose is to prepare children for eye examinations.
+The content must be accurate, age-appropriate, and
+reassuring without providing misleading medical guidance
+or requiring real-money purchases. \\
+
+P1: Core &
+\textbf{Understandable, forgiving interaction.}\newline
+\rref{FR_SpokenInstructions},
+\rref{FR_HintOnMiss},
+\rref{FR_VisualCues},
+\rref{FR_NarrationFallback},
+\rref{FR_RevealAnswer},
+\rref{FR_ValidQuestions},
+\rref{FR_NoPenalty},
+\rref{FR_IgnoreRepeatedTouches},
+\rref{FR_ExitLevel},
+\rref{FR_StopOnExit},
+\rref{FR_ExitKeepsData},
+\rref{FR_RestartAfterExit},
+\rref{FR_RestartLevel},
+\rref{FR_Suspend},
+\nfrref{NFR_TouchTarget},
+\nfrref{NFR_Exit},
+\nfrref{NFR_Usability},
+\nfrref{NFR_Accessibility},
+\nfrref{NFR_Colour},
+\nfrref{NFR_AudioSafety} &
+Children aged three to seven need clear instructions
+and accessible controls to use the application.
+They must also be able to make mistakes, skip exercises,
+and exit activities without penalties or losing progress.
+These features are necessary for a safe and
+stress-free experience. \\
+
+P1: Core &
+\textbf{Dependable access and caregiver control.}\newline
+\rref{FR_JourneyMap},
+\rref{FR_StartLevel},
+\rref{FR_Replay},
+\rref{FR_LevelEnd},
+\rref{FR_PersistState},
+\rref{FR_CorruptData},
+\rref{FR_ParentGate},
+\rref{FR_ProcedureGuide},
+\rref{FR_Preferences},
+\rref{FR_ResetJourney},
+\rref{FR_ClearAllData},
+\nfrref{NFR_Reliability},
+\nfrref{NFR_Offline},
+\nfrref{NFR_DataProtection},
+\nfrref{NFR_Privacy},
+\nfrref{NFR_Minimization} &
+Children must be able to access all preparation games
+without an Internet connection or completing earlier
+levels. Their progress must be saved reliably, while
+caregivers need control over application settings
+and stored information. These functions are essential
+for the application to work as intended. \\
+
+P2: Supporting &
+\textbf{Progress and personalization.}\newline
+\rref{FR_FirstReward},
+\rref{FR_NoDuplicateReward},
+\rref{FR_Scoreboard},
+\rref{FR_ChooseCharacter},
+\rref{FR_DiverseCharacters},
+\rref{FR_Shop},
+\rref{FR_Purchase},
+\rref{FR_PurchaseRefused},
+\rref{FR_Equip},
+\rref{FR_Nickname},
+\rref{FR_AgeGroup} &
+These features make the application more engaging
+by allowing children to earn rewards, track their
+achievements, and customize their characters.
+They are developed after the core gameplay and
+progress-saving functions they depend on.
+Basic rewards are introduced in Phase~3,
+followed by additional customization features. \\
+
+P3: Lower &
+\textbf{Actual publication and wider device coverage.}\newline
+Publication-dependent parts of
+\nfrref{NFR_Installability},
+\nfrref{NFR_InstallSize},
+\nfrref{NFR_Integrity},
+\nfrref{NFR_StoreCompliance};
+coverage beyond accessible devices in
+\nfrref{NFR_Portability}. &
+Actual app store publication requires external
+approval, while broader compatibility testing
+depends on access to additional devices.
+The team will prioritize completing and testing
+the application on available devices, simulate
+app store submission for the course, and attempt
+real publication if time permits. \\
+
+\end{longtable}
+\endgroup
+\subsubsection*{Phase 1: Foundations}
+
+\textbf{19 October--2 November 2026.}
+Identify the major risks related to educational content,
+user interactions, and media delivery, and prepare the
+experiments for the Proof of Concept (PoC). Arrange access
+to reviewers and establish the approval process for testing
+with children. The SRS and Hazard Analysis baseline is due
+on October~19, followed by the V\&V Plan on November~2.
+Table~\ref{tab:DevelopmentPhaseOne} outlines the design
+and planning activities, while application implementation
+will begin after the PoC. The system constraints
+(\conref{C_MobilePlatforms}--\conref{C_StoreCompliance})
+will guide these decisions, taking into account the
+device and app store scope described below.
+
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}
+>{\raggedright\arraybackslash}p{0.80\textwidth}@{}}
+\caption{Phase 1: Requirements addressed through planning}
+\label{tab:DevelopmentPhaseOne}\\
+\toprule
+\textbf{Requirement} & \textbf{Planned work} \\
 \midrule
-\textbf{2: Proof of concept}\newline
-3 Nov.--4 Dec. 2026 &
-Gather evidence that clinically suitable content, usable child interactions,
-and offline media delivery on both mobile platforms are feasible. &
-Design Rev.~$-1$ and Fall CD: 16 Nov.\newline
-PoC demonstration: by 4 Dec. \\
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Requirement} & \textbf{Planned work} \\
 \midrule
-\textbf{3: Core application}\newline
-5 Dec. 2026--\newline 18 Jan. 2027 &
-Use PoC findings to implement setup, local progress, the preparation journey,
-rewards, and caregiver controls. &
-Design Rev.~0: 18 Jan. \\
+\endhead
 \midrule
-\textbf{4: Complete feature set}\newline
-19 Jan.--11 Feb. 2027 &
-Integrate the scoreboard, character library, and accessory shop with saved
-progress and caregiver settings. &
-Revision~0 demonstration: by 11 Feb. \\
-\midrule
-\textbf{5: System verification}\newline
-12 Feb.--8 Mar. 2027 &
-Evaluate the complete application against all requirements and correct
-defects found through testing and review. &
-V\&V Report Rev.~0 and Winter CD: 8 Mar. \\
-\midrule
-\textbf{6: Final delivery}\newline
-9 Mar.--6 Apr. 2027 &
-Resolve remaining findings, prepare store releases, and finalize the
-demonstration and handover materials. &
-Final demonstration: by 21 Mar.\newline
-Final documentation: 31 Mar.\newline
-Expo: 6 Apr. \\
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\nfrref{NFR_Offline} & Plan locally packaged content and offline operation. \\
+\nfrref{NFR_Portability} & List accessible device models, OS versions, and screen sizes as the course test set. \\
+\nfrref{NFR_Maintainability} & Plan reusable procedure, guidance, and data components. \\
+\nfrref{NFR_DataProtection} & Choose private local storage for settings and progress. \\
+\nfrref{NFR_Integrity} & Identify development signing needs and the intended store workflow. \\
+\nfrref{NFR_Privacy} & Exclude network communication from the prototypes and application design. \\
+\nfrref{NFR_Minimization} & Define the permitted local data and retention rules. \\
+\nfrref{NFR_Immunity} & Plan dependency checks and review included libraries. \\
+\nfrref{NFR_DependencyTesting} & Select fixed dependency versions and define update checks. \\
+\nfrref{NFR_NoClaims} & Plan content review to keep the educational purpose clear. \\
+\nfrref{NFR_Licensing} & Start a licence and attribution record. \\
+\nfrref{NFR_StoreCompliance} & Identify child-facing safeguards and the simulated publication steps. \\
+Section~\ref{sec_Data_Requirements} & Plan the data entities, saving, retention, and deletion rules. \\
 \end{longtable}
 \endgroup
 
-\subsubsection*{Phase 1: Foundations}
-
-Identify the assumptions that could prevent the project from succeeding:
-the team's ability to produce clinically accurate, age-appropriate content,
-children's ability to understand the interactions, and reliable delivery of
-narrated media on iOS and Android. Define the experiments, review activities,
-measurements, and success criteria needed to investigate these risks in
-Phase~2. Arrange access to clinical and child-life reviewers and reference
-devices, and establish the approval process for any testing with children.
-
-Prepare a provisional cross-platform, offline architecture
-(\nfrref{NFR_Offline}--\nfrref{NFR_Portability}) and reusable components
-(\nfrref{NFR_Maintainability}), together with the local data model and
-retention rules in Section~\ref{sec_Data_Requirements}. Plan private storage,
-signing, data minimization, and dependency controls
-(\nfrref{NFR_DataProtection}--\nfrref{NFR_DependencyTesting}). Apply the
-prohibition on data transmission to all prototypes. Begin the content-claims
-review, licence log, and app-store policy checklist
-(\nfrref{NFR_NoClaims}--\nfrref{NFR_StoreCompliance}). All system constraints
-(\conref{C_MobilePlatforms}--\conref{C_StoreCompliance}) apply throughout
-development. The phase ends with an agreed risk-investigation plan and a
-V\&V Plan that defines how the application requirements will be checked.
-
 \subsubsection*{Phase 2: Proof of concept}
 
-Use focused experiments to determine whether the three major project risks
-can be overcome. Each experiment will include only the content and behaviour
-needed to investigate its risk; the experiments may be demonstrated
-independently. The PoC will be assessed through the following evidence:
+\textbf{3 November--4 December 2026.}
+Investigate whether the major project risks can be addressed
+through the independent experiments listed in
+Table~\ref{tab:DevelopmentPhaseTwo}. The linked requirements
+indicate what each experiment investigates rather than
+features that have been fully implemented. Privacy and
+offline safeguards shall be maintained throughout all
+experiments. Evaluate the results against the corresponding
+SRS requirements and project timeline. Approaches that do
+not demonstrate feasibility will be revised and tested again.
+Design Rev.~$-1$ and the Fall CD are due on November~16.
+By the December~4 PoC demonstration, the team will present
+the experimental evidence, design decisions, and the status
+of each identified risk. Risks will be classified as resolved,
+reduced, or still open, with any remaining work assigned
+to subsequent development phases.
 
-\begin{enumerate}
-    \item \textbf{Clinical accuracy and age-appropriate content.}
-    Prepare a short eye-drop script and storyboard and have a clinician and
-    child-life specialist review the procedure information, explanation of
-    sensations, language, and imagery. Record corrections, review rounds,
-    and turnaround time. Success requires a reviewed sample with no
-    outstanding content corrections and an estimate showing that the
-    remaining planned procedures can be prepared and reviewed within the
-    project timeline.
-
-    \item \textbf{Understandable interactions for young children.}
-    Build one representative interaction, such as matching a picture-based
-    vision symbol, with narration, visual cues, large touch targets, and
-    encouraging feedback. Use expert review and observed walkthroughs to
-    identify confusing instructions, difficult inputs, and points where help
-    is needed. Record task completion, time, and requested assistance.
-    Assess the results against the task-success and timing targets in
-    \nfrref{NFR_Usability}, recording the limits of the participant sample.
-    Testing with children requires the appropriate consent and ethics
-    approval; adult walkthroughs provide preliminary feedback. If direct
-    evidence from children is unavailable, retain child usability as an open
-    risk and record the approval and evaluation plan for Phase~5.
-
-    \item \textbf{Cross-platform delivery of offline media.}
-    Run a small standalone sample containing representative narration,
-    animation, and touch input on physical iOS and Android devices,
-    including an older or lower-spec device. Test in airplane mode and
-    measure touch response, frame rate, audio synchronization, and installed
-    size against the applicable SRS targets. Use the sample's media size to
-    estimate the full application's size. Success requires evidence that
-    the proposed media approach works on both platforms within the relevant
-    limits, or a revised approach that has been retested successfully.
-\end{enumerate}
-
-By December~4, 2026, present the review findings, observations, measurements,
-and resulting design decisions. Record whether each risk has been resolved,
-reduced, or remains open, together with any further action and its scheduled
-phase. Use these findings to confirm or revise the architecture, content
-scope, and interaction design before Phase~3. Journey navigation, saved
-progress, rewards, and the shop are scheduled for application implementation
-in later phases. PoC samples provide feasibility evidence; their associated
-requirements still require implementation and verification in the application.
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.38\textwidth}
+>{\raggedright\arraybackslash}p{0.58\textwidth}@{}}
+\caption{Phase 2: PoC experiments and investigated requirements}
+\label{tab:DevelopmentPhaseTwo}\\
+\toprule
+\textbf{Risk and linked requirements} & \textbf{Experiment and expected evidence} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Risk and linked requirements} & \textbf{Experiment and expected evidence} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\textbf{Clinical content}\newline \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_SpeakUp}, \nfrref{NFR_ChildSafe}, \nfrref{NFR_Language}, \nfrref{NFR_NoClaims} & Prepare a short eye-drop script and storyboard for clinician and child-life review. Record corrections, review rounds, and turnaround time. Seek a sample with no outstanding corrections and use the review effort to assess the feasible procedure scope. \\
+\textbf{Child interaction}\newline \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \nfrref{NFR_TouchTarget}, \nfrref{NFR_Usability}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} & Try one narrated, visually guided interaction, such as picture matching. Record task completion, time, and assistance. Expert and adult feedback is preliminary; child testing requires consent and ethics approval. Retain child usability as an open risk if target-user evidence is unavailable. \\
+\textbf{Offline media}\newline \nfrref{NFR_Startup}, \nfrref{NFR_Responsiveness}, \nfrref{NFR_Smoothness}, \nfrref{NFR_AVSync}, \nfrref{NFR_Offline}, \nfrref{NFR_Portability}, \nfrref{NFR_InstallSize} & Run a standalone narration, animation, and touch sample in airplane mode on accessible devices. Seek iOS, Android, and older hardware where available. Measure startup, response, frame rate, synchronization, and size; estimate full media size and record untested configurations. \\
+\end{longtable}
+\endgroup
 
 \subsubsection*{Phase 3: Core application}
 
-Using the PoC findings, implement the medical notice and stored
-acknowledgement (\rref{FR_MedicalNotice}--\rref{FR_RecordAck}), the local
-data model, reliable saving, and recovery from invalid data
-(\rref{FR_PersistState}--\rref{FR_CorruptData}). Build the parental gate
-(\rref{FR_ParentGate}) and enforce the exclusion of real-money purchases
-(\rref{FR_NoRealMoney}).
+\textbf{5 December 2026--18 January 2027.} Use the PoC findings to build setup
+and local storage first, then the preparation journey, guidance, recovery,
+completion rewards, and caregiver controls. Table~\ref{tab:DevelopmentPhaseThree}
+lists the planned implementation for each requirement. Content is reviewed
+before demonstration or release, while age-specific content is used where
+available. The Design Rev.~0 milestone is January~18; the target is a working
+core journey with its supporting quality controls, refined to the course scope.
 
-Next, implement the journey map, unrestricted level selection, and replay
-(\rref{FR_JourneyMap}--\rref{FR_Replay}). Develop the vision-testing,
-eye-drop, and slit-lamp levels with the required content safeguards and
-completion behaviour (\rref{FR_LevelContent}--\rref{FR_LevelEnd}). Add the
-shared narrated and visual guidance, hints, answer checking, skipping, and
-input handling (\rref{FR_SpokenInstructions}--\rref{FR_IgnoreRepeatedTouches}),
-followed by exit, restart, and interruption handling
-(\rref{FR_ExitLevel}--\rref{FR_Suspend}). Connect first-completion rewards
-and duplicate-reward prevention to the saved player state
-(\rref{FR_FirstReward}--\rref{FR_NoDuplicateReward}). Each procedure's
-content must be reviewed before inclusion in a demonstration or release.
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}
+>{\raggedright\arraybackslash}p{0.80\textwidth}@{}}
+\caption{Phase 3: Planned core implementation}
+\label{tab:DevelopmentPhaseThree}\\
+\toprule
+\textbf{Requirement} & \textbf{Planned implementation} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Requirement} & \textbf{Planned implementation} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\rref{FR_MedicalNotice} & Show the caregiver notice before first use and retain access through the guide. \\
+\rref{FR_RecordAck} & Store the acknowledgement locally and use it on later launches. \\
+\rref{FR_JourneyMap} & Show the planned procedure levels, illustrations, and progress states. \\
+\rref{FR_StartLevel} & Allow any level to start without progress or reward restrictions. \\
+\rref{FR_Replay} & Allow replay while keeping a completed level's status. \\
+\rref{FR_LevelContent} & Develop the planned vision-testing, eye-drop, and slit-lamp preparation content. \\
+\rref{FR_DescribeSensations} & Explain possible sensations honestly before showing them. \\
+\rref{FR_ClinicsDiffer} & Explain through narration and pictures that real procedures may differ. \\
+\rref{FR_SpeakUp} & Tell children they can express worry or discomfort to the doctor. \\
+\rref{FR_LevelEnd} & Display a clear ending and record the completed level. \\
+\rref{FR_SpokenInstructions} & Provide narrated instructions with visual demonstrations. \\
+\rref{FR_HintOnMiss} & Offer encouraging hints and another attempt after a mistake. \\
+\rref{FR_VisualCues} & Keep guidance visible and protect cue settings from accidental changes. \\
+\rref{FR_NarrationFallback} & Retain visual guidance when sound is unavailable and show a caregiver prompt. \\
+\rref{FR_RevealAnswer} & Reveal every correct answer promptly with narration and non-colour cues. \\
+\rref{FR_ValidQuestions} & Validate questions at build time and exclude those without a correct answer. \\
+\rref{FR_NoPenalty} & Allow exercises to be skipped without penalties or blocked completion. \\
+\rref{FR_IgnoreRepeatedTouches} & Accept one navigation input per transition and protect procedure narration. \\
+\rref{FR_ExitLevel} & Return to the journey map when the child selects the home control. \\
+\rref{FR_StopOnExit} & Stop the exited level's audio, animation, and visual effects. \\
+\rref{FR_ExitKeepsData} & Keep progress and rewards unchanged when a level ends early. \\
+\rref{FR_RestartAfterExit} & Start unfinished levels from the beginning after exit or closure. \\
+\rref{FR_RestartLevel} & Provide restart and exit controls while preserving saved progress. \\
+\rref{FR_Suspend} & Pause media during interruptions and resume when the interruption ends. \\
+\rref{FR_PersistState} & Save state changes locally and retain valid data if a save fails. \\
+\rref{FR_CorruptData} & Recover from missing or invalid saves using new-installation data. \\
+\rref{FR_FirstReward} & Record first-completion rewards and show what was earned. \\
+\rref{FR_NoDuplicateReward} & Congratulate replays without issuing the same reward again. \\
+\rref{FR_NoRealMoney} & Keep purchases limited to earned virtual currency. \\
+\rref{FR_ParentGate} & Place caregiver settings behind an adult gate. \\
+\rref{FR_ProcedureGuide} & Provide caregiver explanations of the procedures and matching levels. \\
+\rref{FR_Nickname} & Support an optional nickname and neutral wording when it is absent. \\
+\rref{FR_Preferences} & Apply caregiver changes to age, audio, display, and accessibility preferences. \\
+\rref{FR_AgeGroup} & Select age-specific content where the level provides it. \\
+\rref{FR_ResetJourney} & Confirm reset; clear progress and customization but retain notice acknowledgement. \\
+\rref{FR_ClearAllData} & Confirm deletion of all local data, including notice acknowledgement. \\
+\nfrref{NFR_Layout} & Use consistent control positions across the implemented screens. \\
+\nfrref{NFR_ChildSafe} & Review content for age suitability and resolve frightening or misleading material. \\
+\nfrref{NFR_TouchTarget} & Size interactive elements for the target users on accessible devices. \\
+\nfrref{NFR_Exit} & Keep a one-touch return control on activity screens. \\
+\nfrref{NFR_Usability} & Design core tasks for use without reading or prior training. \\
+\nfrref{NFR_Language} & Use short, familiar narration and readable caregiver text. \\
+\nfrref{NFR_Accessibility} & Apply the accessibility criteria relevant to the implemented mobile interface. \\
+\nfrref{NFR_Colour} & Distinguish states and prompts through cues beyond colour. \\
+\nfrref{NFR_Startup} & Measure and improve startup time on accessible devices. \\
+\nfrref{NFR_Responsiveness} & Provide prompt visible responses to touch. \\
+\nfrref{NFR_Smoothness} & Profile and improve animation frame rate on accessible devices. \\
+\nfrref{NFR_AVSync} & Synchronize narration with its accompanying animation. \\
+\nfrref{NFR_AudioSafety} & Keep effects and music within the narration's peak audio level. \\
+\nfrref{NFR_Reliability} & Address crashes and freezes as the core workflows are integrated. \\
+\nfrref{NFR_DeviceHeat} & Measure device temperature during sustained use where measurement is possible. \\
+\nfrref{NFR_Offline} & Package the content needed for the implemented functions to work offline. \\
+\nfrref{NFR_Portability} & Adapt and test the application on devices and OS versions the team can access. \\
+\nfrref{NFR_Installability} & Provide a development-installation path without accounts or extra content downloads. \\
+\nfrref{NFR_InstallSize} & Measure installed size locally and optimize media; store-reported evidence is deferred. \\
+\nfrref{NFR_Maintainability} & Build reusable level and content components and record change effort. \\
+\nfrref{NFR_DataProtection} & Use the platform's private application storage. \\
+\nfrref{NFR_Privacy} & Prevent outbound application and library communications. \\
+\nfrref{NFR_Minimization} & Limit stored information to the application's defined local data. \\
+\nfrref{NFR_Immunity} & Check dependencies for known high- or critical-severity vulnerabilities. \\
+\nfrref{NFR_DependencyTesting} & Fix dependency versions and test changes before including them. \\
+\nfrref{NFR_Inclusivity} & Review language, images, and character content for inclusive representation. \\
+\nfrref{NFR_NoClaims} & Keep application content and draft listings free of medical claims. \\
+\nfrref{NFR_Licensing} & Record redistribution licences and required notices for included materials. \\
+\nfrref{NFR_StoreCompliance} & Apply child-facing safeguards; plan the simulated publication workflow for Phase~6. \\
+\end{longtable}
+\endgroup
 
-Add the caregiver procedure guide and optional nickname
-(\rref{FR_ProcedureGuide}--\rref{FR_Nickname}). Complete the preferences and
-age-group selection behaviour (\rref{FR_Preferences}--\rref{FR_AgeGroup});
-age-group selection uses matching content where a level provides it, as
-specified by \rref{FR_AgeGroup}. Implement confirmed journey reset and
-full data deletion (\rref{FR_ResetJourney}--\rref{FR_ClearAllData}). Apply
-the interface, safety, accessibility, performance, and installation
-requirements as these features are built
-(\nfrref{NFR_Layout}--\nfrref{NFR_InstallSize}), including inclusive content
-(\nfrref{NFR_Inclusivity}). Implement the reusable architecture and the
-storage, privacy, and dependency controls planned in Phase~1
-(\nfrref{NFR_Maintainability}, \nfrref{NFR_DataProtection},
-\nfrref{NFR_Privacy}--\nfrref{NFR_DependencyTesting}). By the Design Rev.~0
-milestone, the target is a working preparation journey with caregiver
-controls and a design that describes the remaining feature integration.
+\subsubsection*{Phase 4: Feature integration}
 
-\subsubsection*{Phase 4: Complete feature set}
+\textbf{19 January--11 February 2027.} Add the engagement features in
+Table~\ref{tab:DevelopmentPhaseFour} to the working core for the Revision~0
+demonstration by February~11. Their scale and visual detail may be refined
+to the remaining time and feedback. Recheck saving, reward consistency,
+reset behaviour, and inclusivity as the new features are integrated.
 
-Implement the personal scoreboard (\rref{FR_Scoreboard}) using the saved
-level status, points, and coin balance. Add character selection and the
-diverse character and accessory library
-(\rref{FR_ChooseCharacter}--\rref{FR_DiverseCharacters}), followed by shop
-previews, purchasing, refused-purchase feedback, and equipping
-(\rref{FR_Shop}--\rref{FR_Equip}). This order allows the shop to use the
-reward and ownership data already in place. Recheck inclusivity, persistence,
-replay, and reset behaviour with the complete library. The Revision~0
-demonstration target is an integrated application containing all
-\rref{FR_MedicalNotice}--\rref{FR_ClearAllData}, with no placeholder
-behaviour counted as a completed requirement.
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}
+>{\raggedright\arraybackslash}p{0.80\textwidth}@{}}
+\caption{Phase 4: Planned feature integration}
+\label{tab:DevelopmentPhaseFour}\\
+\toprule
+\textbf{Requirement} & \textbf{Planned implementation or integration} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Requirement} & \textbf{Planned implementation or integration} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\rref{FR_Scoreboard} & Show personal level progress, points, and coins without user comparisons. \\
+\rref{FR_ChooseCharacter} & Allow character selection without changing progress or rewards. \\
+\rref{FR_DiverseCharacters} & Develop a diverse character and accessory library within the available scope. \\
+\rref{FR_Shop} & Show accessory previews, prices, and ownership. \\
+\rref{FR_Purchase} & Exchange earned coins for an unowned, affordable accessory. \\
+\rref{FR_PurchaseRefused} & Explain refused purchases without changing coins or ownership. \\
+\rref{FR_Equip} & Support owned accessories with one equipped item per category. \\
+\rref{FR_PersistState}, \rref{FR_ResetJourney}, \rref{FR_ClearAllData}, \nfrref{NFR_Inclusivity} & Extend saving, reset, deletion, and inclusive review to the added customization data. \\
+\end{longtable}
+\endgroup
 
 \subsubsection*{Phase 5: System verification}
 
-Run the V\&V Plan against every functional requirement and every
-non-functional fit criterion
-(\nfrref{NFR_Layout}--\nfrref{NFR_StoreCompliance}). Earlier phases introduce
-the quality requirements; this phase checks their coverage across the
-complete application. Include offline and reference-device testing,
-accessibility and content audits, performance and thermal measurements,
-interruption and save-failure tests, and privacy and dependency checks.
-Record maintainability evidence from changes made during development.
-Conduct usability evaluation with the required consent and ethics approval
-for any child participants. Adult walkthroughs can inform improvements but
-do not establish the child-usability fit criterion. Record results, fixes,
-and any outstanding acceptance evidence, including store approval, in the
-March~8 V\&V Report and Winter CD.
-Use Table~\ref{tab:SR2UC2FRtm} to trace this evidence to the stakeholder
-requirements, and review the intended outcomes with the supervisor and
-clinical and child-life stakeholders. Record any outcome, such as reduced
-anxiety, that still requires an ethically approved study to establish.
+\textbf{12 February--8 March 2027.} Evaluate the implemented requirements
+and applicable fit criteria using the V\&V Plan, with the focus areas in
+Table~\ref{tab:DevelopmentPhaseFive}. The V\&V Report Rev.~0 and Winter CD,
+due March~8, will record results, priority fixes, unmet targets, simulations,
+and untested configurations. Trace evidence to stakeholder requirements
+through Table~\ref{tab:SR2UC2FRtm}. Child participation requires consent and
+ethics approval; adult walkthroughs alone do not establish child usability
+or reduced anxiety.
+
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.35\textwidth}
+>{\raggedright\arraybackslash}p{0.61\textwidth}@{}}
+\caption{Phase 5: Requirements revisited for verification}
+\label{tab:DevelopmentPhaseFive}\\
+\toprule
+\textbf{Requirements} & \textbf{Verification focus} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Requirements} & \textbf{Verification focus} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\hyperref[sec_FRList]{Implemented functional requirements} & Exercise the implemented use cases, including completion, replay, purchases, restart, save failure, and deletion. \\
+\nfrref{NFR_Layout}, \nfrref{NFR_TouchTarget}, \nfrref{NFR_Exit}, \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} & Review usability and accessibility. Record task results and participant limitations; arrange approved child evaluation where possible. \\
+\nfrref{NFR_ChildSafe}, \nfrref{NFR_AudioSafety}, \nfrref{NFR_Inclusivity}, \nfrref{NFR_NoClaims} & Review clinical accuracy, language, imagery, audio levels, and inclusion with the appropriate reviewers. \\
+\nfrref{NFR_Startup}, \nfrref{NFR_Responsiveness}, \nfrref{NFR_Smoothness}, \nfrref{NFR_AVSync}, \nfrref{NFR_Reliability}, \nfrref{NFR_DeviceHeat} & Measure performance and reliability on accessible devices, recording any unavailable measurements. \\
+\nfrref{NFR_Offline}, \nfrref{NFR_Portability}, \nfrref{NFR_Installability}, \nfrref{NFR_InstallSize} & Test offline use, local installation, and size on the available test set; mark store-dependent or unavailable-device evidence separately. \\
+\nfrref{NFR_Maintainability}, \nfrref{NFR_DataProtection}, \nfrref{NFR_Privacy}, \nfrref{NFR_Minimization}, \nfrref{NFR_Immunity}, \nfrref{NFR_DependencyTesting} & Review change effort, private storage, retained data, network behaviour, and dependency checks. \\
+\nfrref{NFR_Integrity}, \nfrref{NFR_Licensing}, \nfrref{NFR_StoreCompliance} & Review signing, licence records, and policy checks; identify simulated or outstanding publication evidence. \\
+\end{longtable}
+\endgroup
 
 \subsubsection*{Phase 6: Final delivery}
 
-Resolve remaining review and test findings and rerun the affected checks
-before the final demonstration by March~21. Prepare digitally signed store
-builds, installation and size evidence, licence notices, and reviewed store
-listings; submit to both stores to obtain the remaining release evidence
-(\nfrref{NFR_Installability}--\nfrref{NFR_InstallSize},
-\nfrref{NFR_Integrity},
-\nfrref{NFR_NoClaims}--\nfrref{NFR_StoreCompliance}). Store approval depends
-on external review; record its status rather than treating submission as
-satisfaction of \nfrref{NFR_StoreCompliance}. Finalize the source code,
-requirements traceability, test evidence, user guidance, and outstanding
-limitations for March~31 documentation and the April~6 Expo.
+\textbf{9 March--6 April 2027.} Address priority findings and rerun affected
+checks for the final demonstration by March~21. Table~\ref{tab:DevelopmentPhaseSix}
+covers delivery evidence, including the simulated Apple App Store and Google
+Play workflow. Real submission may be attempted if time and account access
+permit, with lower priority than the core application. Finalize source code,
+user guidance, traceability, test evidence, and limitations for March~31
+documentation and the April~6 Expo.
 
-\textbf{Course scope and future work.} All requirements in this SRS are
-scheduled for implementation and verification during the course; none is
-planned to be simulated in the final application. Augmented reality and
-appointment-based personalization remain future work, consistent with
-Section~\ref{sec_Scope}, \lcref{LC_AR}, and \lcref{LC_Personalization}.
-If PoC results require a change to the planned procedures, platform support,
-or other commitments, the team will agree the revised scope with the
-supervisor and update this SRS, the V\&V Plan, and the phase assignments.
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}
+>{\raggedright\arraybackslash}p{0.80\textwidth}@{}}
+\caption{Phase 6: Delivery requirements and course evidence}
+\label{tab:DevelopmentPhaseSix}\\
+\toprule
+\textbf{Requirement} & \textbf{Planned delivery evidence} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Requirement} & \textbf{Planned delivery evidence} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+\nfrref{NFR_Installability} & Demonstrate development-build installation and a mock store installation flow; attempt actual store installation if time permits. \\
+\nfrref{NFR_InstallSize} & Report locally measured size; store-reported size remains pending actual publication. \\
+\nfrref{NFR_Integrity} & Check development-build signing and simulate official distribution steps; record any real submission separately. \\
+\nfrref{NFR_NoClaims} & Review application notices and draft store listings for the educational purpose. \\
+\nfrref{NFR_Licensing} & Finalize the licence log and required notices. \\
+\nfrref{NFR_StoreCompliance} & Demonstrate mock listings and the submission checklist; attempt real submission as a lower-priority task and report actual approval status. \\
+\end{longtable}
+\endgroup
+
+\textbf{Course scope and future work.}
+App store listings and submission procedures will be
+simulated for the course, while actual publication and
+approval may be completed as future work. The team will
+clearly distinguish simulated results from official
+approval. Device compatibility will be evaluated using
+the hardware, operating system versions, and screen sizes
+available to the team. Results from physical devices and
+emulators will be reported separately, and any untested
+configurations will be identified. Augmented reality and
+appointment-based personalization will remain future work
+(\lcref{LC_AR}, \lcref{LC_Personalization}). Any proposed
+changes to the project scope will be discussed with the
+supervisor, followed by updates to the affected requirements,
+development phases, and V\&V Plan. The final deliverables
+will clearly document any partially implemented features,
+simulated functionality, and work deferred to future development.
 
 \newpage
 \subsection{Appendix C: Values of Auxiliary Constants}
@@ -4841,8 +5082,8 @@ Its use was mainly used in the following sections:
 
     \item In Appendix~B (Section~\ref{sec_DevelopmentPlan}), ChatGPT was used
     to organize the existing requirements into implementation phases using
-    the Development Plan milestones and to draft the explanation and timeline
-    table in \LaTeX{}.
+    the Development Plan milestones and to draft the explanations, priority
+    justifications, and linked requirement tables in \LaTeX{}.
 
     \item Opus 5.5 was used to identify constant values in Section~\ref{non-func-req} (Non-Functional Requirements),
     generate Table~\ref{tab:Constants}, and establish links between the constants.
