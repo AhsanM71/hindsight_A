@@ -2929,6 +2929,7 @@ attributes associated with each entity.
 \midrule
 \endfirsthead
 
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continued from previous page} \\
 \toprule
 \textbf{Entity} &
 \textbf{Attribute} &
@@ -2936,6 +2937,13 @@ attributes associated with each entity.
 \textbf{Description} \\
 \midrule
 \endhead
+
+\midrule
+\multicolumn{4}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
 
 Procedure Game &
 game\_id &
@@ -3166,8 +3174,6 @@ Non-negative Integer &
 Current spendable balance of in-game coins.
 The balance increases when coins are earned
 and decreases when accessories are purchased. \\
-
-\bottomrule
 
 \end{longtable}
 
@@ -3622,19 +3628,29 @@ Table~\ref{tab:SR2UC2FRtm} traces each use case to its functional
 requirements. The stakeholder requirements column will be added when
 Section~\ref{sec_StakeholderReqs} is complete.
 
-\begin{longtable}{p{0.4\textwidth} p{0.1\textwidth} p{0.50\textwidth}}
+\begin{longtable}{p{0.35\textwidth} p{0.2\textwidth} p{0.4\textwidth}}
 
 \caption{Traceability Between Use Cases and Functional Requirements}
 \label{tab:SR2UC2FRtm}\\
 \toprule
-Stakeholder Requirement & Use Case & Functional Requirements \\
+\textbf{Stakeholder Requirements} & \textbf{Use Case} & \textbf{Functional Requirements} \\
 \midrule
 \endfirsthead
+
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
 \toprule
-Stakeholder Requirement & Use Case & Functional Requirements \\
+\textbf{Stakeholder Requirements} & \textbf{Use Case} & \textbf{Functional Requirements} \\
 \midrule
 \endhead
-\srref{SR_Label4}, \srref{SR_Label10}, \srref{SR_Label13}, \srref{SR_Label14} 
+
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\srref{SR_Label4}, \srref{SR_Label10}, \srref{SR_Label13}, \srref{SR_Label14}
 & \ucref{UC_FirstUse} & \rref{FR_MedicalNotice}, \rref{FR_RecordAck} \\
 
 \srref{SR_Label4}, \srref{SR_Label12}, \srref{SR_Label18} 
@@ -3695,7 +3711,6 @@ Stakeholder Requirement & Use Case & Functional Requirements \\
 
 \srref{SR_Label4}, \srref{SR_Label10}, \srref{SR_Label13}, \srref{SR_Label15} & \ucref{UC_OfflineUse} 
 & \rref{FR_PersistState}, \rref{FR_CorruptData} \\
-\bottomrule
 \end{longtable}
 
 Table~\ref{tab:FR2Rtm} lists the functional requirements that help satisfy a
@@ -3707,13 +3722,23 @@ non-functional requirement are omitted.
 \caption{Traceability Between Functional and Nonfunctional Requirements}
 \label{tab:FR2Rtm}\\
 \toprule
-Functional Req & Nonfunctional Req \\
+\textbf{Functional Req} & \textbf{Nonfunctional Req} \\
 \midrule
 \endfirsthead
+
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
 \toprule
-Functional Req & Nonfunctional Req \\
+\textbf{Functional Req} & \textbf{Nonfunctional Req} \\
 \midrule
 \endhead
+
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
 \rref{FR_MedicalNotice} & \nfrref{NFR_NoClaims} \\
 \rref{FR_JourneyMap} & \nfrref{NFR_Usability}, \nfrref{NFR_Colour} \\
 \rref{FR_DescribeSensations} & \nfrref{NFR_ChildSafe} \\
@@ -3739,7 +3764,6 @@ Functional Req & Nonfunctional Req \\
 \rref{FR_Preferences} & \nfrref{NFR_Accessibility} \\
 \rref{FR_ResetJourney} & \nfrref{NFR_Minimization} \\
 \rref{FR_ClearAllData} & \nfrref{NFR_Minimization} \\
-\bottomrule
 \end{longtable}
 
 Table~\ref{tab:HA2FRtm} traces the safety and security requirements of the
@@ -3753,13 +3777,23 @@ of the Hazard Analysis.
 \caption{Traceability Between the Hazard Analysis and Functional and Non-Functional Requirements}
 \label{tab:HA2FRtm}\\
 \toprule
-SR & Hazard & Safety and Security Req & Functional Req & Non-Functional Req \\
+\textbf{SR} & \textbf{Hazard} & \textbf{Safety and Security Req} & \textbf{Functional Req} & \textbf{Non-Functional Req} \\
 \midrule
 \endfirsthead
+
+\multicolumn{5}{c}{\tablename\ \thetable{} -- continued from previous page} \\
 \toprule
-SR & Hazard & Safety and Security Req & Functional Req & Non-Functional Req \\
+\textbf{SR} & \textbf{Hazard} & \textbf{Safety and Security Req} & \textbf{Functional Req} & \textbf{Non-Functional Req} \\
 \midrule
 \endhead
+
+\midrule
+\multicolumn{5}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
 \hasrref{DeviceResourceUse}{1} & \hahazref{DeviceOverheating}{1-1} & Device heat limit & -- & \nfrref{NFR_DeviceHeat} \\
 \hasrref{DevicePerformance}{2} & \hahazref{PoorPerformance}{1-2} & Device performance & -- & \nfrref{NFR_Responsiveness}, \nfrref{NFR_Smoothness} \\
 \hasrref{PreventAccidentalInput}{3} & \hahazref{AccidentalInputSkipping}{2-1} & Prevention of unintentional gameplay actions & \rref{FR_IgnoreRepeatedTouches} & \nfrref{NFR_Responsiveness} \\
@@ -3786,7 +3820,6 @@ SR & Hazard & Safety and Security Req & Functional Req & Non-Functional Req \\
 \hasrref{AccessibleInteraction}{24} & \hahazref{InaccessibleInteraction}{2-3} & Accessible, age-appropriate interaction & \rref{FR_SpokenInstructions}, \rref{FR_Preferences}, \rref{FR_AgeGroup} & \nfrref{NFR_TouchTarget}, \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} \\
 \hasrref{ConsistentAudioVisuals}{25} & \hahazref{AudioVisualMismatch}{2-17} & Consistent narration and animation & \rref{FR_Suspend} & \nfrref{NFR_AVSync} \\
 \hasrref{OfflinePreparation}{26} & \hahazref{OfflineContentUnavailable}{2-4} & Offline availability of preparation content & -- & \nfrref{NFR_Offline}, \nfrref{NFR_Installability} \\
-\bottomrule
 \end{longtable}
 
 % ============================================================== 
@@ -4230,23 +4263,23 @@ verifying the specified requirements.
 \label{tab:Constants}\\
 
 \toprule
-Constant & Value & Unit\\
+\textbf{Constant} & \textbf{Value} & \textbf{Unit} \\
 \midrule
 \endfirsthead
 
-\multicolumn{3}{c}%
-{{\tablename\ \thetable{} -- continued from previous page}}\\
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
 \toprule
-Constant & Value & Unit\\
+\textbf{Constant} & \textbf{Value} & \textbf{Unit} \\
 \midrule
 \endhead
 
 \midrule
-\multicolumn{3}{r}{{Continued on next page}}\\
+\multicolumn{3}{r}{Continued on next page} \\
 \endfoot
 
 \bottomrule
 \endlastfoot
+
 
 \texttt{ACTIVITY\_PAIR\_MAX\_MIN}
 \label{const:ACTIVITY_PAIR_MAX_MIN}
