@@ -75,6 +75,19 @@
 \newcommand{\ucref}[1]{\hyperref[#1]{UC\ref*{#1}}}
 \newcommand{\ucheading}[1]{UC\ref*{#1}}
 
+% Glossary support: \termmark{key} drops an invisible anchor at the place where a
+% term is first defined or used and records the section number it is in;
+% \termloc{key} (used in the glossary table) links back to that place.
+\makeatletter
+\newcommand{\termsecnum}{\ifnum\value{subsection}=0 \thesection\else\thesubsection\fi}
+\newcommand{\termmark}[1]{%
+  \hypertarget{term:#1}{}%
+  \protected@write\@auxout{}{\string\newlabel{termsec:#1}{{\termsecnum}{\thepage}{}{}{}}}%
+}
+\makeatother
+\newcommand{\termloc}[1]{\hyperlink{term:#1}{Section~\ref*{termsec:#1}}}
+\newcommand{\termlocref}[1]{\hyperref[#1]{Section~\ref*{#1}}}
+
 \newcounter{reqnum} %Functional Requirement (FR) Number
 \newcommand{\rthereqnum}{FR\thereqnum}
 \newcommand{\rref}[1]{\hyperref[#1]{FR\ref*{#1}}}
@@ -189,8 +202,8 @@
 \section{Introduction} 
 % ==============================================================
 
-This document is the Software Requirements Specification (SRS) for \progname{}, a mobile game
-that prepares children aged 3 to 7 years for paediatric ophthalmology appointments.
+This document is the \termmark{softwarerequirementsspecificationsrs}Software Requirements Specification (SRS) for \progname{}, a mobile game
+that prepares children aged 3 to 7 years for \termmark{paediatricophthalmology}paediatric ophthalmology appointments.
 This document defines the expected behaviour, scope, and requirements of \progname{},
 establishing a basis for implementation, verification, and validation by describing what the system
 is expected to accomplish and the conditions under which it will be used.
@@ -199,15 +212,16 @@ This document follows the IEEE SRS template provided in the course repository \c
 with guidance from ISO/IEC/IEEE 29148 \cite{ISOIECIEEE291482018} for requirements engineering and
 ISO/IEC/IEEE 15288 \cite{ISOIECIEEE152882023} for systems life-cycle management. The team made
 modifications to the original template to better suit the project's needs. In Section~\ref{non-func-req}
-(Non-Functional Requirements), the requirements are organized according to the Volere template provided
+(\termmark{nonfunctionalrequirementnfr}Non-Functional Requirements), the requirements are organized according to the Volere template provided
 in the course repository \cite{SmithCapTemplate}. The AI and Machine Learning Requirements section was
 also removed, as it is not applicable to the project.
+Terms and acronyms used in this document are defined in Section~\ref{sec_DefinitionsAndAcronyms}, which also links to where each one is defined or first used.
 
 \subsection{Purpose}
 \label{purpose}
 
 The purpose of \progname{} is to reduce anxiety and uncertainty in children before paediatric
-ophthalmology appointments by providing accessible, age-appropriate preparation for common eye
+ophthalmology appointments by providing \termmark{accessibility}accessible, age-appropriate preparation for common eye
 examination procedures. \progname{} aims to improve children's preparedness and willingness to participate while helping
 parents and healthcare professionals prepare them for appointments. Intended outcomes include
 reduced anxiety, improved cooperation, sustained engagement across the target age range,
@@ -220,11 +234,11 @@ rather than replaces, professional guidance and medical examinations.
 \progname{} is a mobile application intended to help children aged 3 to 7 years become familiar
 with common paediatric ophthalmology procedures before attending an appointment. The application
 will present preparation activities as age-appropriate interactive games that allow children to
-practice actions and learn what they may experience during an eye examination.
+practice actions and learn what they may experience during an \termmark{eyeexamination}eye examination.
 
 The primary users are children preparing for ophthalmology appointments, with parents or guardians
-supporting their use of the application. Ophthalmologists and child-life specialists are secondary
-stakeholders who may provide clinical and developmental guidance during development and may use
+supporting their use of the application. \termmark{ophthalmologist}Ophthalmologists and \termmark{childlifespecialist}child-life specialists are secondary
+\termmark{stakeholder}stakeholders who may provide clinical and developmental guidance during development and may use
 the application as part of a broader preparation process.
 
 The application will provide interactive activities corresponding to common ophthalmology
@@ -243,7 +257,7 @@ healthcare professionals.
 
 The initial system will focus on preparation for common ophthalmology procedures and will not
 attempt to cover every possible procedure or clinical situation. Features identified as stretch
-goals, such as augmented reality simulations and personalized preparation based on appointment
+goals, such as \termmark{augmentedrealityar}augmented reality simulations and personalized preparation based on appointment
 information, are outside the minimum required scope of the initial system.
 
 \subsection{Stakeholders}\label{sec_Stakeholders}
@@ -303,147 +317,175 @@ because it is not applicable to this system.
 
 \renewcommand{\arraystretch}{1.3}
 
-\begin{longtable}{@{}p{0.35\textwidth} p{0.62\textwidth}@{}}
+\begin{longtable}{@{}p{0.26\textwidth} p{0.47\textwidth} p{0.20\textwidth}@{}}
 \caption{Definitions and Acronyms}
 \label{tab:DefinitionsAndAcronyms}\\
 
 \toprule
-\textbf{Term} & \textbf{Definition} \\
+\textbf{Term} & \textbf{Definition} & \textbf{Location} \\
 \midrule
 \endfirsthead
 
-\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
 \toprule
-\textbf{Term} & \textbf{Definition} \\
+\textbf{Term} & \textbf{Definition} & \textbf{Location} \\
 \midrule
 \endhead
 
 \midrule
-\multicolumn{2}{r}{Continued on next page} \\
+\multicolumn{3}{r}{Continued on next page} \\
 \endfoot
 
 \bottomrule
 \endlastfoot
 
 Accessibility &
-The design of software so that people with different abilities can use it. \\
+The design of software so that people with different abilities can use it. &
+\termloc{accessibility} \\
 
 Android &
-A mobile operating system developed by Google. \\
+A mobile operating system developed by Google. &
+\termloc{android} \\
 
 Apple App Store &
-Apple's official platform for distributing applications to iOS devices. \\
-
-Assistive Technology &
-Hardware or software that helps people with disabilities interact with digital systems. \\
+Apple's official platform for distributing applications to iOS devices. &
+\termloc{appleappstore} \\
 
 Augmented Reality (AR) &
-Technology that overlays digital content onto the real world. \\
+Technology that overlays digital content onto the real world. &
+\termloc{augmentedrealityar} \\
 
 Character Inventory &
-The collection of cosmetic accessories that a child owns through in game purchases or direct rewards. \\
+The collection of cosmetic accessories that a child owns through in game purchases or direct rewards. &
+\termloc{characterinventory} \\
 
 Child-Life Specialist &
-A healthcare professional who helps children cope with medical experiences and procedures. \\
+A healthcare professional who helps children cope with medical experiences and procedures. &
+\termloc{childlifespecialist} \\
 
 Cosmetic Accessory &
-A virtual item, such as a hat or glasses, that changes a character's appearance without affecting gameplay or clinical preparation content. \\
+A virtual item, such as a hat or glasses, that changes a character's appearance without affecting gameplay or clinical preparation content. &
+\termloc{cosmeticaccessory} \\
 
 Cycloplegic Eye Examination &
-An eye examination using drops to temporarily relax the eye's focusing muscles and assess refractive error. \\
+An eye examination using drops to temporarily relax the eye's focusing muscles and assess refractive error. &
+\termloc{cycloplegiceyeexamination} \\
 
 Data Minimization &
-The practice of collecting and storing only the data necessary for a system's intended purpose. \\
+The practice of collecting and storing only the data necessary for a system's intended purpose. &
+\termloc{dataminimization} \\
+
+Definition (D) &
+A numbered, boxed statement in the Formal Model that fixes part of the model of the application. &
+\termloc{definitiond} \\
 
 Eye Drops &
-Liquid medication applied to the eyes, including drops used to dilate pupils or temporarily relax focusing muscles. \\
+Liquid medication applied to the eyes, including drops used to dilate pupils or temporarily relax focusing muscles. &
+\termloc{eyedrops} \\
 
 Eye Examination &
-A clinical assessment of eye health and vision. \\
+A clinical assessment of eye health and vision. &
+\termloc{eyeexamination} \\
 
 Fit Criterion &
-A measurable condition used to determine whether a requirement has been satisfied. \\
-
-First Completion Reward &
-A reward granted when a child completes a journey level for the first time. The reward may include journey points and either in game coins or a cosmetic accessory. \\
+A measurable condition used to determine whether a requirement has been satisfied. &
+\termloc{fitcriterion} \\
 
 Functional Requirement (FR) &
-A specification of a capability or behaviour the application must provide. \\
+A specification of a capability or behaviour the application must provide. &
+\termloc{functionalrequirementfr} \\
 
 Game Progress &
-The recorded completion status of a preparation game: Not Started, In Progress, or Completed. \\
-
-Grade-Level Readability &
-An estimate of the reading education level needed to understand a piece of text. \\
-
-In Game Coins &
-Virtual currency earned through gameplay that can be spent on character accessories. Coins have no real world monetary value. \\
+The recorded completion status of a preparation game: Not Started, In Progress, or Completed. &
+\termloc{gameprogress} \\
 
 iOS &
-Apple's mobile operating system for iPhone devices. \\
+Apple's mobile operating system for iPhone devices. &
+\termloc{ios} \\
 
 Journey Based Progression &
-A game structure in which children explore ophthalmology preparation games presented as levels within a journey. All levels remain accessible regardless of previous completion. \\
+A game structure in which children explore ophthalmology preparation games presented as levels within a journey. All levels remain accessible regardless of previous completion. &
+\termloc{journeybasedprogression} \\
 
 Journey Level &
-A stage within the preparation journey corresponding to a procedure game. Each level may contain multiple interactive exercises or rounds. \\
+A stage within the preparation journey corresponding to a procedure game. Each level may contain multiple interactive exercises or rounds. &
+\termloc{journeylevel} \\
 
 Journey Points &
-Points earned through participation in preparation games. They contribute to the child's overall score and are not reduced when in game currency is spent. \\
+Points earned through participation in preparation games. They contribute to the child's overall score and are not reduced when in game currency is spent. &
+\termloc{journeypoints} \\
+
+Likely Change (LC) &
+A change to the requirements or assumptions that is expected during the project or after release. &
+\termlocref{sec_LikelyChanges} \\
 
 Low-Spec Device &
-A device near the lower end of the application's supported hardware capabilities, used to evaluate performance under constrained conditions. \\
+A device near the lower end of the application's supported hardware capabilities, used to evaluate performance under constrained conditions. &
+\termloc{lowspecdevice} \\
 
 Non-Functional Requirement (NFR) &
-A specification of the application's quality attributes, performance expectations, or constraints. \\
+A specification of the application's quality attributes, performance expectations, or constraints. &
+\termloc{nonfunctionalrequirementnfr} \\
 
 Ophthalmologist &
-A physician specializing in eye health, vision, and eye conditions. \\
+A physician specializing in eye health, vision, and eye conditions. &
+\termloc{ophthalmologist} \\
 
 Paediatric Ophthalmology &
-The medical specialty focused on children's eye health and conditions. \\
+The medical specialty focused on children's eye health and conditions. &
+\termloc{paediatricophthalmology} \\
 
 Personally Identifiable Information (PII) &
-Information that can identify an individual directly or indirectly. \\
-
-Personal Scoreboard &
-A display of the child's individual journey progress, including completed levels, accumulated points, and available coins, without comparing results against other children. \\
+Information that can identify an individual directly or indirectly. &
+\termloc{personallyidentifiableinformationpii} \\
 
 Privacy &
-The protection of personal information and control over how it is collected, used, stored, and disclosed. \\
+The protection of personal information and control over how it is collected, used, stored, and disclosed. &
+\termloc{privacy} \\
 
 Procedure Game &
-An interactive game representing one ophthalmology procedure, such as vision testing, eye-drop administration, or slit-lamp examination. \\
-
-Refractive Error &
-A vision condition in which the eye does not focus light correctly on the retina. \\
+An interactive game representing one ophthalmology procedure, such as vision testing, eye-drop administration, or slit-lamp examination. &
+\termloc{proceduregame} \\
 
 Requirements Traceability Matrix (RTM) &
-A table linking stakeholder requirements, use cases, and functional and non-functional requirements to support consistency and completeness. \\
+A table linking stakeholder requirements, use cases, and functional and non-functional requirements to support consistency and completeness. &
+\termlocref{sec_TraceMatrices} \\
 
 Software Requirements Specification (SRS) &
-A document defining a software system's requirements, scope, behaviour, and constraints. \\
+A document defining a software system's requirements, scope, behaviour, and constraints. &
+\termloc{softwarerequirementsspecificationsrs} \\
 
 Stakeholder &
-An individual or organization that affects, is affected by, or has an interest in the system. \\
+An individual or organization that affects, is affected by, or has an interest in the system. &
+\termloc{stakeholder} \\
 
 Stakeholder Requirement (SR) &
-A statement of a stakeholder's needs or expectations. \\
+A statement of a stakeholder's needs or expectations. &
+\termlocref{sec_StakeholderReqs} \\
+
+Theorem (T) &
+A numbered property of the Formal Model that the functional requirements depend on. &
+\termloc{theoremt} \\
 
 Touch Target &
-The screen area that a user can tap to activate an interactive element. \\
+The screen area that a user can tap to activate an interactive element. &
+\termloc{touchtarget} \\
+
+Unlikely Change (ULC) &
+An assumption that the design can rely on because it is not expected to change. &
+\termlocref{sec_UnlikelyChanges} \\
 
 Use Case (UC) &
-A description of how an actor interacts with the application to achieve a goal. \\
+A description of how an actor interacts with the application to achieve a goal. &
+\termloc{usecaseuc} \\
 
-Verification and Validation (V\&V) &
-Processes for checking whether the system meets its specified requirements and satisfies user needs. \\
+Verification and Validation (VnV) Plan &
+A document describing how the system will be checked against its specified requirements and user needs. &
+\termloc{verificationandvalidationvnvplan} \\
 
 Web Content Accessibility Guidelines (WCAG) &
-Guidelines published by the World Wide Web Consortium (W3C) for making digital content more accessible. \\
-
-World Wide Web Consortium (W3C) &
-An international organization that develops standards and guidelines for the Web. \\
+Guidelines published by the World Wide Web Consortium (W3C) for making digital content more accessible. &
+\termloc{webcontentaccessibilityguidelineswcag} \\
 
 \end{longtable}
 
@@ -477,9 +519,9 @@ constraints.
 \label{problem-statement}
 
 Paediatric ophthalmology appointments can be stressful and unfamiliar for children.
-Procedures such as vision testing, eye drops, and slit-lamp examinations may cause anxiety, particularly when children do not know what to expect.
+Procedures such as vision testing, \termmark{eyedrops}eye drops, and slit-lamp examinations may cause anxiety, particularly when children do not know what to expect.
 This anxiety can make it difficult to cooperate during examinations, potentially affecting the quality and completeness of clinical assessments.
-For example, a study of 298 children undergoing cycloplegic eye examinations found that 26\% experienced significant distress before receiving eye drops,
+For example, a study of 298 children undergoing \termmark{cycloplegiceyeexamination}cycloplegic eye examinations found that 26\% experienced significant distress before receiving eye drops,
 while uncooperative children were also more anxious and required more time to complete the examination \cite{ChiaEtAl2015}.
 
 Children and their families therefore need adequate preparation for common ophthalmology procedures before attending an appointment.
@@ -603,7 +645,7 @@ each entity are listed below in terms of its inputs and outputs.
 \item \textbf{Child:}
   \begin{itemize}
   \item Provides touch input to choose a character, select levels, play the
-    procedure games and spend coins on cosmetic accessories.
+    \termmark{proceduregame}procedure games and spend coins on \termmark{cosmeticaccessory}cosmetic accessories.
   \item Receives the preparation content, feedback and rewards through
     pictures, animation and narration, without needing to read.
   \end{itemize}
@@ -674,7 +716,7 @@ claim (\nfrref{NFR_NoClaims}).
 However, its users are young children in a medical setting. Some failures can
 increase a child's anxiety or reduce cooperation at the appointment, which is
 the opposite of the application's purpose. Examples are inaccurate or
-frightening content, hidden sensations, punishing feedback, privacy failures,
+frightening content, hidden sensations, punishing feedback, \termmark{privacy}privacy failures,
 and a caregiver treating the game as medical advice. The
 \hadoc{Hazard Analysis} document analyses these hazards. The resulting safety and security requirements
 are included in this SRS. Requirements that address these hazards receive a
@@ -759,7 +801,7 @@ Section~\ref{sec_Personas}.
 
 \begin{itemize}
     \item \progname{} shall operate on consumer smartphones and tablets running
-    iOS or Android.
+    \termmark{ios}iOS or \termmark{android}Android.
     (C.\refstepcounter{connum}\theconnum\label{C_MobilePlatforms})
     \begin{itemize}
         \item \textbf{Rationale:} Patient families and clinics may use mobile devices running
@@ -827,7 +869,7 @@ Section~\ref{sec_Personas}.
         supports preparation without requiring identifying information.
     \end{itemize}
 
-    \item The iOS and Android releases of \progname{} shall comply with the Apple App Store and Google Play submission
+    \item The iOS and Android releases of \progname{} shall comply with the \termmark{appleappstore}Apple App Store and Google Play submission
     requirements, respectively, including applicable policies for applications meant for children, at time of submission.
     (C.\refstepcounter{connum}\theconnum\label{C_StoreCompliance})
     \begin{itemize}
@@ -1085,12 +1127,12 @@ setup or technical assistance.
 \section{Use Cases}
 \label{sec_UseCases}
 
-The following use cases describe how children and caregivers use
+The following \termmark{usecaseuc}use cases describe how children and caregivers use
 \progname{} to explore ophthalmology preparation games through a
 journey of levels. All procedure game levels remain accessible regardless
 of whether earlier levels have been completed. Children may choose a
-character, earn journey points, receive in game coins or cosmetic items,
-and use owned items to customize their character. The personal scoreboard
+character, earn \termmark{journeypoints}journey points, receive \termmark{ingamecoins}in game coins or cosmetic items,
+and use owned items to customize their character. The \termmark{personalscoreboard}personal scoreboard
 shows the child's own progress, not a ranking against other children.
 The reward amounts, character designs, available accessories, and specific
 gameplay interactions described below are initial design proposals that
@@ -1149,7 +1191,7 @@ Caregiver
     the journey without creating an account.
 \end{itemize}
 
-\textbf{Functional Requirements}
+\textbf{\termmark{functionalrequirementfr}Functional Requirements}
 
 \rref{FR_MedicalNotice}, \rref{FR_RecordAck}.
 
@@ -1196,7 +1238,7 @@ Child
 \textbf{Postconditions}
 \begin{itemize}
     \item The selected character appears in the child's journey.
-    \item Game progress and reward balances remain unchanged.
+    \item \termmark{gameprogress}Game progress and reward balances remain unchanged.
 \end{itemize}
 
 \textbf{Functional Requirements}
@@ -1240,7 +1282,7 @@ Child
     or Eye-Drop Preparation; the system opens that level's introduction.
     \item \textbf{Replay Completed Level:} The child selects a completed
     level; the system permits replay without resetting the completed
-    status or reissuing the first completion reward.
+    status or reissuing the \termmark{firstcompletionreward}first completion reward.
     \item \textbf{Return Home:} The child selects home before pressing
     play; no level status or reward balance changes.
 \end{itemize}
@@ -1621,7 +1663,7 @@ Child
     Eye-Drop Preparation, and Slit-Lamp Preparation levels.
     \item For each level, the system displays its name, level number,
     status (Not Started, In Progress, or Completed), and points earned.
-    \item Step 4 repeats until all journey levels are displayed.
+    \item Step 4 repeats until all \termmark{journeylevel}journey levels are displayed.
     \item The system calculates and displays total journey points
     and the number of completed levels out of the total available.
     \item The system separately displays the child's current
@@ -1984,7 +2026,7 @@ or given twice, or progress that disappears. The shop, the characters and the
 accessories are not modelled. Their requirements are simple enough to state in
 words (Section~\ref{sec_FRCharacters}).
 
-Definitions (D1, D2, \ldots) fix the model. Theorems (T1, T2, \ldots) state the
+\termmark{definitiond}Definitions (D1, D2, \ldots) fix the model. \termmark{theoremt}Theorems (T1, T2, \ldots) state the
 properties that the requirements depend on. Each theorem has a short proof and
 lists the requirements it specifies.
 
@@ -2782,7 +2824,7 @@ has stored, for example before giving the device to someone else.
 \label{sec_Data_Requirements}
 
 This section describes the information managed by \progname{}
-to support journey based progression, character customization,
+to support \termmark{journeybasedprogression}journey based progression, character customization,
 game completion tracking, rewards, and a personal scoreboard.
 The application does not require patient accounts or
 integration with clinical information systems. All user
@@ -2837,7 +2879,7 @@ The system manages the following major data entities:
     Cosmetic accessories do not affect gameplay
     performance or clinical preparation activities.
 
-    \item \textbf{Character Inventory:}
+    \item \textbf{\termmark{characterinventory}Character Inventory:}
     Represents the cosmetic accessories owned by the
     child and identifies which accessories are currently
     equipped on the selected character. Owned items
@@ -3181,7 +3223,7 @@ and decreases when accessories are purchased. \\
 
 \subsection{Privacy and Data Retention}
 
-\progname{} follows a data-minimization approach,
+\progname{} follows a \termmark{dataminimization}data-minimization approach,
 collecting and retaining only the information necessary
 to support character customization, journey progression,
 rewards, user preferences, and local game progress.
@@ -3192,7 +3234,7 @@ practices are outlined below:
 
     \item \textbf{Data Collection:}
     The application does not require patient accounts,
-    medical records, appointment details, or personally
+    medical records, appointment details, or \termmark{personallyidentifiableinformationpii}personally
     identifying information. Optional nicknames are
     used solely for personalization and do not need
     to correspond to the child's legal name.
@@ -3292,7 +3334,7 @@ same form as in Section~\ref{sec_FRList}.
 
 \textbf{Rationale:} Consistent control placement helps children locate and recognize controls without relying on text labels. Maintaining consistent positions across different activities and game features reduces confusion and supports independent navigation.
 
-\textbf{Fit Criterion:} A design review confirms that controls serving the same function remain within \constref{CONTROL_POSITION_TOLERANCE_MM} millimetres of their designated positions across all applicable screens.
+\textbf{\termmark{fitcriterion}Fit Criterion:} A design review confirms that controls serving the same function remain within \constref{CONTROL_POSITION_TOLERANCE_MM} millimetres of their designated positions across all applicable screens.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_ChildSafe}:]
 No image, animation, narration, or sound shall be frightening, or show pain or distress beyond the sensations in the approved script.
@@ -3353,7 +3395,7 @@ Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words a
 \textbf{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Accessibility}:]
-The application shall meet the WCAG 2.2 Level AA success criteria that apply to a native mobile application.
+The application shall meet the \termmark{webcontentaccessibilityguidelineswcag}WCAG 2.2 Level AA success criteria that apply to a native mobile application.
 
 \textbf{Rationale:} Children who attend an eye clinic may have low vision, and some will have hearing or motor differences. WCAG is the accepted benchmark \cite{WCAG22}, and the same duty applies in Ontario \cite{AODA2005}.
 
@@ -3383,7 +3425,7 @@ Every state and prompt shall remain distinguishable without colour, and for user
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Startup}:]
 The home menu shall appear within \constref{STARTUP_MAX_S} seconds of launch.
 
-\textbf{Rationale:} A child looking at a blank screen may lose interest before anything starts. Low-spec devices set the limit, and the value is revisited after proof-of-concept measurements.
+\textbf{Rationale:} A child looking at a blank screen may lose interest before anything starts. \termmark{lowspecdevice}Low-spec devices set the limit, and the value is revisited after proof-of-concept measurements.
 
 \textbf{Fit Criterion:} The median of \constref{STARTUP_TRIALS_MIN} cold starts on each low-spec device is at most \constref{STARTUP_MAX_S} seconds.
 
@@ -3471,7 +3513,7 @@ The application shall run on iOS \constref{MIN_IOS} and later and Android \const
 
 \textbf{Rationale:} Families use the devices they already own. These versions cover the large majority of devices in use by families and keep the supported range testable by a small team. A low-spec device is one released at least \constref{LOW_SPEC_AGE_YEARS} years before the test date that still supports the minimum version. The values are revisited after the proof of concept.
 
-\textbf{Fit Criterion:} The functional tests in the VnV Plan pass on every reference device.
+\textbf{Fit Criterion:} The functional tests in the \termmark{verificationandvalidationvnvplan}VnV Plan pass on every reference device.
 
 \item[\refstepcounter{nfrnum}\textbf{NFR\thenfrnum}\label{NFR_Installability}:]
 A parent shall be able to install the application from the app store and reach the home menu without creating an account, granting permissions, or downloading further content.
@@ -4581,7 +4623,7 @@ individual responses are provided under each respective team member's name.
 
         \item \textbf{Accessibility and usability testing:}
         We need to evaluate whether children and parents can use the
-        application effectively. This includes assessing touch targets,
+        application effectively. This includes assessing \termmark{touchtarget}touch targets,
         text readability, colour contrast, navigation, and alternative
         ways of presenting information to identify and address usability
         barriers.
