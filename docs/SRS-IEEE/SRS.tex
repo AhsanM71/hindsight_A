@@ -3772,13 +3772,13 @@ The application shall meet the Apple and Google policies for children's applicat
 \section{Requirements Traceability Matrices}
 \label{sec_TraceMatrices}
 
-Table~\ref{tab:SR2UC2FRtm} traces each use case to its functional
-requirements. The stakeholder requirements column will be added when
-Section~\ref{sec_StakeholderReqs} is complete.
+Table~\ref{tab:SR2UC2FRtm} traces each use case to the stakeholder
+requirements (Section~\ref{sec_StakeholderReqs}) that it addresses and to the
+functional requirements that refine it.
 
 \begin{longtable}{p{0.35\textwidth} p{0.2\textwidth} p{0.4\textwidth}}
 
-\caption{Traceability Between Use Cases and Functional Requirements}
+\caption{Traceability Between Stakeholder Requirements, Use Cases, and Functional Requirements}
 \label{tab:SR2UC2FRtm}\\
 \toprule
 \textbf{Stakeholder Requirements} & \textbf{Use Case} & \textbf{Functional Requirements} \\
@@ -4294,20 +4294,28 @@ requirements were elicited, with links to the GitHub issues that hold the meetin
 notes. The “SR Requirements” column gives the trace from each source to the 
 stakeholder requirements in Section~\ref{sec_StakeholderReqs}.
 
-\begin{longtable}{p{0.05\textwidth} >{\raggedright\arraybackslash}p{0.27\textwidth} >{\raggedright\arraybackslash}p{0.38\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth}}
+\begin{longtable}{@{}p{0.05\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}p{0.4\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth}@{}}
 
 \caption{Stakeholder Requirement Elicitation Sources}
 \label{tab:SRESources}\\
 
 \toprule
-ID & Source and Date & Information Summary & SR Requirements \\
+\textbf{ID} & \textbf{Source and Date} & \textbf{Information Summary} & \textbf{Stakeholder Requirements} \\
 \midrule
 \endfirsthead
 
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continued from previous page} \\
 \toprule
-ID & Source and Date & Information Summary & SR Requirements \\
+\textbf{ID} & \textbf{Source and Date} & \textbf{Information Summary} & \textbf{Stakeholder Requirements} \\
 \midrule
 \endhead
+
+\midrule
+\multicolumn{4}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
 
 ER1\phantomsection\label{ER1}
 & Supervisor's Project Description (September 2026)
@@ -4384,7 +4392,6 @@ a journey with different “levels” for the child with points and a score boar
 the end, and selection of a unique character the child wants to play as.
 & \srref{SR_Label7}, \srref{SR_Label8}, \srref{SR_Label12} \\
 
-\bottomrule
 \end{longtable}
 
 \newpage
