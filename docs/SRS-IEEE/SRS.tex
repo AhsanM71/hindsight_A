@@ -2236,6 +2236,8 @@ This subsection states the functional requirements, grouped by feature. Each
 requirement has a rationale and a \textbf{Traces} line. The \textbf{Traces}
 line lists the use cases the requirement refines and the definitions and
 theorems of Section~\ref{sec_FormalSpec} it relies on. A requirement that
+helps satisfy non-functional requirements also has a \textbf{Related NFRs} line
+that lists them. A requirement that
 comes from the Hazard Analysis also has a \textbf{Hazard Analysis} line.
 
 \subsubsection{Setup}
@@ -2256,6 +2258,8 @@ Requiring an acknowledgement makes sure the caregiver has seen what the
 application is for before the child uses it.
 
 \textbf{Traces:} \ucref{UC_FirstUse}, \ucref{UC_ProcedureInformation}.
+
+\textbf{Related NFRs:} \nfrref{NFR_NoClaims}.
 
 \textbf{Hazard Analysis:} \hazsr{MedicalDisclaimer}{10}{MisinterpretedMedicalPurpose}{2-6}.
 
@@ -2292,6 +2296,8 @@ shall show its name, an illustration, and its status (\defref{def_Status}:
 status of each level shows the child and caregiver what has been done so far.
 
 \textbf{Traces:} \ucref{UC_SelectGame}, \defref{def_Status}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Usability}, \nfrref{NFR_Colour}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_StartLevel}:]
 The system shall allow the child to select any level at any time. The
@@ -2357,6 +2363,8 @@ clinic, and the child would learn to distrust the people who prepared them.
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
 
+\textbf{Related NFRs:} \nfrref{NFR_ChildSafe}.
+
 \textbf{Hazard Analysis:} \hazsr{HonestSensations}{8}{SensationsHidden}{2-4}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ClinicsDiffer}:]
@@ -2412,6 +2420,8 @@ them.
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_AVSync}, \nfrref{NFR_Accessibility}.
+
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_HintOnMiss}:]
 When a level asks the child to do something and the child does something else,
 the system shall give an encouraging hint and let the child try again.
@@ -2422,6 +2432,8 @@ it right the first time.
 
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Usability}.
 
 \textbf{Hazard Analysis:} \hazsr{NonPunitiveFeedback}{12}{PunitiveFeedback}{2-10}.
 
@@ -2437,6 +2449,8 @@ continue.
 
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}, \ucref{UC_AdjustPreferences}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Accessibility}.
 
 \textbf{Hazard Analysis:} \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-13}.
 
@@ -2454,6 +2468,8 @@ able to play without sound.
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Accessibility}, \nfrref{NFR_AudioSafety}.
+
 \textbf{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-14}, \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-12}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_RevealAnswer}:]
@@ -2470,6 +2486,8 @@ and pre-readers.
 
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Colour}, \nfrref{NFR_Accessibility}.
 
 \textbf{Hazard Analysis:} \hazsr{CorrectAnswerReveal}{16}{CorrectAnswerReveal}{2-8}.
 
@@ -2518,6 +2536,8 @@ hear.
 \textbf{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Responsiveness}.
+
 \textbf{Hazard Analysis:} \hazsr{PreventAccidentalInput}{3}{AccidentalInputSkipping}{2-1}.
 
 \end{itemize}
@@ -2537,6 +2557,8 @@ time. Returning to the journey map lets them choose another level.
 
 \textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_Ops}, \thmref{thm_NoLoss}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Exit}.
+
 \textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_StopOnExit}:]
@@ -2548,6 +2570,8 @@ journey map.
 upset them. Stopping everything makes leaving a level feel complete.
 
 \textbf{Traces:} \ucref{UC_ExitGame}, \defref{def_Ops}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Exit}.
 
 \textbf{Hazard Analysis:} \hazsr{StopAudioVisualsOnExit}{13}{AudioVisualsContinueOnExit}{2-11}.
 
@@ -2588,6 +2612,8 @@ child lose what they had already earned.
 
 \textbf{Traces:} \ucref{UC_ExitGame}, \thmref{thm_NoLoss}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Exit}, \nfrref{NFR_Reliability}.
+
 \textbf{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Suspend}:]
@@ -2600,6 +2626,8 @@ interruption ends, the system shall continue from where it paused.
 miss part of a level, and sound should not keep playing in the background.
 
 \textbf{Traces:} \ucref{UC_ExitGame}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Reliability}.
 
 \textbf{Hazard Analysis:} \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-12}.
 
@@ -2619,6 +2647,8 @@ replaces valid progress with damaged data.
 \textbf{Traces:} \ucref{UC_ExitGame}, \ucref{UC_OfflineUse},
 \defref{def_Player}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Reliability}, \nfrref{NFR_Offline}, \nfrref{NFR_DataProtection}.
+
 \textbf{Hazard Analysis:} \hazsr{ReliableSaveData}{20}{SaveDataCorruption}{2-15}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_CorruptData}:]
@@ -2631,6 +2661,8 @@ accessories, and no selected character.
 any level. Starting again from a new player state keeps every level available.
 
 \textbf{Traces:} \ucref{UC_OfflineUse}, \defref{def_Player}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Reliability}.
 
 \textbf{Hazard Analysis:} \hazsr{ReliableSaveData}{20}{SaveDataCorruption}{2-15}.
 
@@ -2655,6 +2687,8 @@ requirement.
 
 \textbf{Traces:} \ucref{UC_CompleteGame}, \defref{def_Ops},
 \thmref{thm_Once}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Offline}.
 
 \textbf{Hazard Analysis:} \hazsr{NonPunitiveFeedback}{12}{PunitiveFeedback}{2-10}.
 
@@ -2712,6 +2746,8 @@ the clinic it prepares them for, is a place where they belong.
 \textbf{Traces:} \ucref{UC_ChooseCharacter}, \ucref{UC_PurchaseAccessory},
 \ucref{UC_EquipAccessory}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Inclusivity}.
+
 \textbf{Hazard Analysis:} \hazsr{CharacterDiversityInclusivity}{15}{DiverseCharacterLibrary}{2-7}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Shop}:]
@@ -2733,6 +2769,8 @@ coin balance and add the accessory to the owned accessories.
 reward, which gives the child a reason to continue the journey.
 
 \textbf{Traces:} \ucref{UC_PurchaseAccessory}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Offline}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_PurchaseRefused}:]
 When the child tries to buy an accessory that is already owned or costs more
@@ -2767,6 +2805,8 @@ policies for children's applications.
 
 \textbf{Traces:} \ucref{UC_PurchaseAccessory}.
 
+\textbf{Related NFRs:} \nfrref{NFR_StoreCompliance}.
+
 \end{itemize}
 
 \subsubsection{Caregiver Features}
@@ -2786,6 +2826,8 @@ parental gate in front of adult functions.
 
 \textbf{Traces:} \ucref{UC_AdjustPreferences}, \ucref{UC_DeleteData}.
 
+\textbf{Related NFRs:} \nfrref{NFR_StoreCompliance}.
+
 \textbf{Hazard Analysis:} \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-13}.
 
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ProcedureGuide}:]
@@ -2799,6 +2841,8 @@ child at the appointment.
 
 \textbf{Traces:} \ucref{UC_ProcedureInformation}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Language}, \nfrref{NFR_NoClaims}.
+
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Nickname}:]
 The settings shall allow the caregiver to enter, change, or clear an optional
 nickname. When no nickname is set, the system shall use wording that is not
@@ -2810,6 +2854,8 @@ application does not need to collect identifying information.
 
 \textbf{Traces:} \ucref{UC_AdjustPreferences}.
 
+\textbf{Related NFRs:} \nfrref{NFR_DataProtection}, \nfrref{NFR_Minimization}.
+
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_Preferences}:]
 The settings shall allow the caregiver to change the age group and the audio,
 display, and accessibility preferences. Each change shall take effect
@@ -2820,6 +2866,8 @@ volume in a waiting room. Applying changes immediately lets the caregiver see
 the result before handing the device back.
 
 \textbf{Traces:} \ucref{UC_AdjustPreferences}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Accessibility}.
 
 \textbf{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-14}, \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-13}.
 
@@ -2850,6 +2898,8 @@ notice.
 \textbf{Traces:} \ucref{UC_DeleteData}, \defref{def_Player},
 \defref{def_Ops}, \thmref{thm_StatusMachine}.
 
+\textbf{Related NFRs:} \nfrref{NFR_Minimization}.
+
 \item[\refstepcounter{reqnum}\textbf{FR\thereqnum}\label{FR_ClearAllData}:]
 The settings shall allow the caregiver to clear all local application data
 after confirmation. This shall erase the data of \rref{FR_ResetJourney} and the
@@ -2860,6 +2910,8 @@ launch.
 has stored, for example before giving the device to someone else.
 
 \textbf{Traces:} \ucref{UC_DeleteData}.
+
+\textbf{Related NFRs:} \nfrref{NFR_Minimization}.
 
 \end{itemize}
 
@@ -4527,7 +4579,7 @@ Its use was mainly used in the following sections:
     team member who authored the section. It also provided feedback on
     whether any of the constraints were too vague to be valid system constraints.
 
-    \item In Section~\ref{sec_User_Personas} (User Personas), ChatGPT was used to review and
+    \item In Section~\ref{sec_Personas} (User Personas), ChatGPT was used to review and
     improve the personas written by the team member who authored the section.
     Specifically, ChatGPT was prompted to compare the initial draft against
     the VARIED (Vivid, Actionable, Real, Identifiable, Exact, Detailed) criteria
