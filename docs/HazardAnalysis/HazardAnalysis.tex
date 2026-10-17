@@ -1318,9 +1318,310 @@ required content is actually included.
 \end{itemize}
 
 \section{Roadmap}
+\label{sec_Roadmap}
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+Table~\ref{tab:SafetyRoadmap} outlines when each SR will be
+implemented and verified. Proof of Concept (PoC) entries mean the goal is to
+have the functionality included in the prototype. Final Delivery entries are for the completed Capstone version.
+
+Requirements marked ``Capstone and Future'' will be implemented for the Capstone
+version and maintained as content and dependencies change.
+Future work includes expanding content and repeating reviews/testing. It does not mean that the implementation of
+these requirements is postponed.
+
+The review required by \srref{ChildLifeReview} is targeted for completion during
+Capstone, but it depends mainly on reviewer availability. If it cannot be done by the
+Final Delivery, it will be recorded as outstanding in the final documentation, and final release will remain dependent on
+that review.
+
+\begingroup
+\small
+\begin{longtable}{@{}L{0.20\textwidth}L{0.16\textwidth}L{0.27\textwidth}L{\dimexpr0.37\textwidth-6\tabcolsep\relax}@{}}
+\caption{Safety Requirements Roadmap}\label{tab:SafetyRoadmap}\\
+\toprule
+\textbf{Safety requirements} & \textbf{Capstone / Future} &
+\textbf{Planned deliverable} & \textbf{Rationale} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Safety requirements} & \textbf{Capstone / Future} &
+\textbf{Planned deliverable} & \textbf{Rationale} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{4}{r}{\textit{Continued on next page}}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\srref{DeviceResourceUse}\newline Device heat limit
+& Capstone
+& \textbf{PoC:} Measure heat during gameplay on team devices.
+  
+  \textbf{Final Delivery:} Complete extended gameplay tests against the decided upon
+  temperature limit.
+& Early measurements highlight intensive processing before more content is
+  added. Longer tests will be needed once the game is fully available, since a short
+  demonstration will not show how warm the device gets over time.\\
+\addlinespace
+
+\srref{DevicePerformance}\newline Device performance
+& Capstone
+& \textbf{PoC:} Demonstrate responsive gameplay and smooth animation on team devices.
+  \textbf{Final Delivery:} Verify the decided upon performance targets across the completed
+  game and reference devices.
+& Smooth performance is part of the PoC plan. Testing it early on helps
+  to choose an approach that may work well on the devices families have, while final
+  testing checks the effect of all the content.\\
+\addlinespace
+
+\srref{PreventAccidentalInput}\newline Unintentional actions
+& Capstone
+& \textbf{PoC:} Protect prototype navigation from repeated taps.
+
+  \textbf{Final Delivery:} Apply input protection to all transitions and verify
+  that repeated taps cannot skip essential content.
+& Children need to be able to navigate the PoC without accidentally skipping
+  explanations. Applying the same behaviour across the full game
+  ensures that all activities provide the same protection.\\
+\addlinespace
+
+\srref{GameplayRecovery}\newline Gameplay recovery
+& Capstone
+& \textbf{PoC:} Provide basic exit and restart capabilities.
+
+  \textbf{Final Delivery:} Complete recovery paths that preserve progress
+  and test unexpected inputs from every gameplay state.
+& Getting stuck would prevent the PoC from being evaluated properly. Full recovery
+  needs to be in place before final testing so that it can checked alongside
+  progress, rewards, and remaining activities.\\
+\addlinespace
+
+\srref{ClinicianApproval}\newline Clinical approval
+& Capstone
+& \textbf{PoC:} Record clinician approval of the demonstrated procedures.
+
+  \textbf{Final Delivery:} Obtain recorded approval for every included procedure.
+& The PoC is meant to show that accurate content can be produced and reviewed
+  in a reasonable amount of time. The remaining procedures need the same review before
+  release.\\
+\addlinespace
+
+\srref{ClinicsDiffer}\newline Variation between clinics
+& Capstone
+& \textbf{PoC:} Include an age-appropriate explanation that the doctor may do
+  things differently.
+
+  \textbf{Final Delivery:} Verify that every level includes this explanation.
+& This message belongs in the first walkthrough because it affects what the child
+  expects during the appointment. It is also needed for each new level added.\\
+\addlinespace
+
+\srref{ApprovedContent}\newline Approved content only
+& Capstone and Future
+& \textbf{PoC:} Start content version and approval records.
+
+  \textbf{Final Delivery:} Check that released content matches the versions approved
+  by reviewers.
+
+  \textbf{Future:} Review changes again before release.
+& Keeping approval records from the start makes it easier to track what was
+  reviewed. This needs to continue after capstone because new wording, art, or
+  procedures can change content that was approved previously.\\
+\addlinespace
+
+\srref{HonestSensations}\newline Honest sensations
+& Capstone
+& \textbf{PoC:} Include honest sensation descriptions in the walkthrough.
+
+  \textbf{Final Delivery:} Verify descriptions and their timing in every applicable
+  procedure step.
+& The eye drop walkthrough is central to the PoC, so explaining sensations cannot
+  wait until release. Checking all procedures later ensures that new
+  content provides the same level of detail.\\
+\addlinespace
+
+\srref{ChildLifeReview}\newline Child-life review
+& Capstone and Future
+& \textbf{Capstone:} Seek a reviewer early on, before Final Delivery and release.
+
+  \textbf{Future:} Review new or changed content before release.
+& Reviewer availability may affect the timeline, so we need to arrange this early.
+  The review supports the goal of reducing anxiety and is already required before
+  release. If it is delayed, it still remains a requirement.\\
+\addlinespace
+
+\srref{MedicalDisclaimer}\newline Medical disclaimer
+& Capstone
+& \textbf{Final Delivery:} Implement the caregiver notice.
+& The notice is part of the application's setup flow. Testing it with the rest
+  of the game checks that caregivers see it prior to use.\\
+\addlinespace
+
+\srref{AllLevelsAccessible}\newline All levels accessible
+& Capstone
+& \textbf{PoC:} Allow included activity to be selected without completing
+  another.
+
+  \textbf{Final Delivery:} Verify that every level remains accessible regardless of
+  progress or rewards.
+& Open access is part of the planned design. It should work in the PoC,
+  then be checked again once progress and rewards are added.\\
+\addlinespace
+
+\srref{NonPunitiveFeedback}\newline Encouraging feedback
+& Capstone
+& \textbf{PoC:} Give encouraging and helpful feedback for incorrect actions.
+
+  \textbf{Final Delivery:} Complete individual activity skipping and reward protection, and verify
+  that mistakes or skipped exercises do not result in penalties.
+& Encouragement is already promised in the PoC plan and supports the purpose of
+  reducing anxiety. The wider checks become possible once the game has more features (such as rewards) to test together.\\
+\addlinespace
+
+\srref{StopAudioVisualsOnExit}\newline Stop effects on exit
+& Capstone
+& \textbf{PoC:} Stop activity audio and animation when it is exited.
+
+  \textbf{Final Delivery:} Verify that every level stops all associated effects on exit.
+& The PoC already includes narration, animation, and navigation, so it needs this
+  behaviour from the start. Each later activity needs to be checked as well since it may
+  introduce different effects.\\
+\addlinespace
+
+\srref{SafeAudioVisuals}\newline Safe audio and visuals
+& Capstone
+& \textbf{PoC:} Avoid harsh audio and flashing visuals.
+
+  \textbf{Final Delivery:} Complete audio controls and visual access to essential
+  information, and review all effects.
+& The prototype should already be comfortable to use. Completing the controls
+  before final testing allows checking of muted gameplay, while the final asset review
+  covers sounds and visuals added later on.\\
+\addlinespace
+
+\srref{CharacterDiversityInclusivity}\newline Inclusive characters and rewards
+& Capstone and Future
+& \textbf{Final Delivery:} Provide a manageable character and accessory collection that is diverse.
+
+  \textbf{Future:} Expand the range of characters and cosmetics.
+& A smaller collection can cover the promised representation within
+  the Capstone timeline. More options can be added later.\\
+\addlinespace
+
+\srref{CorrectAnswerReveal}\newline Correct answer reveal
+& Capstone
+& \textbf{Final Delivery:} Implement correct answer
+  reveal with narration and non-colour cues. Verify timing, cues, and feedback for all questions.
+& Showing the answer is part of how a question teaches the child, so it should be
+  implemented with the question system.\\
+\addlinespace
+
+\srref{AtLeastOneCorrectAnswer}\newline Valid quiz answers
+& Capstone and Future
+& \textbf{Final Delivery:} Add answer validation that excludes and logs invalid questions.
+
+  \textbf{Future:} Run it for every build as questions change.
+& The validation needs to exist when questions are first added so that invalid
+  questions cannot reach the child. Keeping the check in the build process also
+  covers future content.\\
+\addlinespace
+
+\srref{NarrationMuted}\newline Muted narration and interruptions
+& Capstone
+& \textbf{Final Delivery:} Implement visual guidance, a caregiver prompt,
+  and handling for pausing/resuming. Test muted audio and interruptions on team devices.
+& These behaviours need to work with for all activities. Testing them on team devices helps to find platform differences and
+  check that children do not miss any instructions.\\
+\addlinespace
+
+\srref{VisualCuesSetting}\newline Visual guidance
+& Capstone
+& \textbf{PoC:} Provide visual guidance during the included activities.
+
+  \textbf{Final Delivery:} Complete caregiver settings and verify that guidance
+  remains available in every gameplay state.
+& Visual guidance is a core part of making the game usable for children who cannot read.\\
+\addlinespace
+
+\srref{ReliableSaveData}\newline Reliable saved progress
+& Capstone
+& \textbf{Final Delivery:} Implement save validation, protection of progress, and recovery. Test failed saves
+and subsequent application launches.
+& Save handling needs to be tested with progress and rewards, rather than added
+  at the end. Testing it during development allows testing of failure cases that may
+  not appear during normal demonstrations.\\
+\addlinespace
+
+\srref{MinimalSaveData}\newline Data protection and no networking
+& Capstone and Future
+& \textbf{PoC:} Establish minimal local data storage and no network communication.
+
+  \textbf{Final Delivery:} Inspect stored data and check for outbound requests (including from libraries).
+
+  \textbf{Future:} Repeat checks after future changes.
+& These are existing data constraints on how the game is built, so they need to guide
+  development right away.\\
+\addlinespace
+
+\srref{ThirdPartyValidation}\newline Third-party software
+& Capstone and Future
+& \textbf{Final Delivery:} Test dependencies in the release build.
+
+  \textbf{Future:} Test dependency changes before release.
+& Dependency updates can change behaviour during and after Capstone, so the same testing needs to
+  continue whenever dependencies change.\\
+\addlinespace
+
+\srref{ThirdPartyAssetReview}\newline Third-party assets
+& Capstone and Future
+& \textbf{PoC:} Review the assets used in the prototype.
+
+  \textbf{Final Delivery:} Complete review of every included asset.
+
+  \textbf{Future:} Review additions and replacements before release.
+& External assets affect what the child sees and hears. Reviewing them as they are introduced avoids unsuitable
+  material making its way into the game.\\
+\addlinespace
+
+\srref{AccessibleInteraction}\newline Accessible interaction
+& Capstone and Future
+& \textbf{PoC:} Demonstrate narrated and visual instructions, appropriately sized controls, and
+  forgiving interactions.
+
+  \textbf{Final Delivery:} Complete usability and accessibility checks.
+
+  \textbf{Future:} Reassess content and interactions that change.
+& Usability is one of the main points the PoC is intended to test. Early feedback helps shape the remaining activities,
+while later checks confirm that the game and future additions remain usable for the intended age groups.\\
+\addlinespace
+
+\srref{ConsistentAudioVisuals}\newline Narration and animation
+& Capstone and Future
+& \textbf{PoC:} Demonstrate synchronized narration and animation.
+
+  \textbf{Final Delivery:} Verify every procedure step, including after interruptions.
+
+  \textbf{Future:} Repeat checks when changes are made to audio, visual, etc.
+& Synchronization is a part of the PoC plan. Checking it again with
+  final content and after changes helps ensure the child always hears the
+  explanation that matches the step shown.\\
+\addlinespace
+
+\srref{OfflinePreparation}\newline Offline preparation
+& Capstone and Future
+& \textbf{PoC:} Demonstrate the included activities in an offline mode.
+
+  \textbf{Final Delivery:} Test every level offline from a fresh install.
+
+  \textbf{Future:} Repeat the check for releases with new/changed content.
+& Offline operation is a key part of the project's scope. Testing with a fresh install checks that all assets are packaged with
+the game, including content added after the PoC.\\
+\end{longtable}
+\endgroup
 
 \newpage{}
 
