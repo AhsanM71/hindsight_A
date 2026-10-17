@@ -309,7 +309,7 @@ goals, such as \termmark{augmentedrealityar}augmented reality simulations and pe
 information, are outside the minimum required scope of the initial system.
 
 \subsection{Stakeholders}\label{sec_Stakeholders}
-A stakeholder is anyone with an interest in the system and can be affected by the system. 
+A stakeholder is anyone who has an interest in the system or can be affected by it. 
 Stakeholders are grouped below using the categories of the IEEE template. Members of the 
 development team are not listed because team members are not stakeholders of their own product.
 \begin{itemize}
@@ -329,8 +329,7 @@ the product works in reducing anxiety amongst their patients.
 
 \item \textbf{Clinicians}
 
-Paediatric ophthalmologists and ophthalmic technicians who perform the procedures. Clinicians 
-benefit from more calm and cooperative patients. They will also tell families which procedures children should 
+Paediatric ophthalmologists and ophthalmic technicians who perform the procedures. Clinicians benefit from calmer and more cooperative patients. They will also tell families which procedures children should 
 practice and review game design as the medical experts in the system.
 
 \item \textbf{Child-life Specialists}
@@ -352,13 +351,12 @@ for appointments through the free app.
 
 \item \textbf{Other Paediatric Health-care Professionals} 
 
-Other paediatric health-care applications can reuse the approach as inspiration for their own tool, 
-such as family doctors performing check-ups.
+Other paediatric health-care professionals, such as family doctors performing check-ups, can reuse the approach as inspiration for their own tools.
 
 \item \textbf{Administrators} 
 
-Hindsight has no server, no accounts and no administration console, so there is no administrator role
-because it is not applicable to this system.
+\progname{} has no server, no accounts and no administration console. There is
+therefore no administrator role.
 \end{itemize}
 
 \subsection{Definitions and Acronyms} \label{sec_DefinitionsAndAcronyms}
@@ -404,7 +402,7 @@ Technology that overlays digital content onto the real world. &
 \termloc{augmentedrealityar} \\
 
 Character Inventory &
-The collection of cosmetic accessories that a child owns through in game purchases or direct rewards. &
+The collection of cosmetic accessories that a child owns through in-game purchases or direct rewards. &
 \termloc{characterinventory} \\
 
 Child-Life Specialist &
@@ -435,6 +433,10 @@ Eye Examination &
 A clinical assessment of eye health and vision. &
 \termloc{eyeexamination} \\
 
+First Completion Reward &
+The journey points, and any coins or accessory, given when a level is finished for the first time. &
+\termloc{firstcompletionreward} \\
+
 Fit Criterion &
 A measurable condition used to determine whether a requirement has been satisfied. &
 \termloc{fitcriterion} \\
@@ -447,11 +449,15 @@ Game Progress &
 The recorded completion status of a preparation game: Not Started, In Progress, or Completed. &
 \termloc{gameprogress} \\
 
+In-Game Coins &
+A virtual currency earned by finishing levels and spent on cosmetic accessories. It cannot be bought with real money. &
+\termloc{ingamecoins} \\
+
 iOS &
 Apple's mobile operating system for iPhone devices. &
 \termloc{ios} \\
 
-Journey Based Progression &
+Journey-Based Progression &
 A game structure in which children explore ophthalmology preparation games presented as levels within a journey. All levels remain accessible regardless of previous completion. &
 \termloc{journeybasedprogression} \\
 
@@ -460,7 +466,7 @@ A stage within the preparation journey corresponding to a procedure game. Each l
 \termloc{journeylevel} \\
 
 Journey Points &
-Points earned through participation in preparation games. They contribute to the child's overall score and are not reduced when in game currency is spent. &
+Points earned through participation in preparation games. They contribute to the child's overall score and are not reduced when in-game currency is spent. &
 \termloc{journeypoints} \\
 
 Likely Change (LC) &
@@ -482,6 +488,10 @@ A physician specializing in eye health, vision, and eye conditions. &
 Paediatric Ophthalmology &
 The medical specialty focused on children's eye health and conditions. &
 \termloc{paediatricophthalmology} \\
+
+Personal Scoreboard &
+A screen that shows one child's own level statuses, points, and coins, without comparison to other children. &
+\termloc{personalscoreboard} \\
 
 Personally Identifiable Information (PII) &
 Information that can identify an individual directly or indirectly. &
@@ -507,7 +517,7 @@ Stakeholder &
 An individual or organization that affects, is affected by, or has an interest in the system. &
 \termloc{stakeholder} \\
 
-Stakeholder Requirement (SR) &
+Stakeholder Requirement (STR) &
 A statement of a stakeholder's needs or expectations. &
 \termlocref{sec_StakeholderReqs} \\
 
@@ -546,13 +556,13 @@ engineering/computer science program. This is so the reader can understand the m
 and terminology (e.g., Functional vs. Non-Functional Requirements) used.
 \item An understanding of discrete mathematics, at least at the level of an undergraduate course in a software engineering/computer science program.
 This is so the reader can understand the notation used in formal specifications of the system's behaviour.
-\item Familiarity with touchscreens and mobile applications/games, at a general level expected of someone whose interacted
+\item Familiarity with touchscreens and mobile applications/games, at a general level expected of someone who has interacted
 with such applications as a consumer.
 \item Familiarity with the problem the system is attempting to address, at a level which can be achieved from reading
 the Problem Statement document.
 \end{itemize}
 
-Knowledge of clinical terms and processes are not a pre-requisite for the intended reader. Such terminology and processes are defined in
+Knowledge of clinical terms and processes is not a prerequisite for the intended reader. Such terminology and processes are defined in
 Section~\ref{sec_DefinitionsAndAcronyms} and Section~\ref{sec_Scope}, respectively.
 
 \subsection{Notations and Conventions} \label{sec_NotationsConventions}
@@ -582,6 +592,9 @@ NFR & Non-functional requirement & Section~\ref{non-func-req} \\
 D, T & Definition and theorem of the formal model & Section~\ref{sec_FormalSpec} \\
 LC & Likely change & Section~\ref{sec_LikelyChanges} \\
 ULC & Unlikely change & Section~\ref{sec_UnlikelyChanges} \\
+ER & Elicitation source of the stakeholder requirements & Appendix~\ref{sec_RESources} \\
+P1, P2, P3 & Requirement priority & Appendix~\ref{sec_DevelopmentPlan} \\
+E & Equation of the formal model & Section~\ref{sec_FormalSpec} \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -626,9 +639,9 @@ This project addresses the need for an accessible, child-friendly way to help ch
 
 \progname{} is an interactive mobile application designed to help
 children aged 3--7 feel more comfortable and prepared for paediatric
-ophthalmology appointments. Through age appropriate games and activities,
+ophthalmology appointments. Through age-appropriate games and activities,
 the application introduces children to common procedures, including
-vision testing, eye drop administration, and slit lamp examinations.
+vision testing, eye-drop administration, and slit-lamp examinations.
 By allowing children and their families to become familiar with these
 procedures before their appointments, \progname{} aims to reduce
 anxiety, improve cooperation during examinations, and support a
@@ -648,7 +661,7 @@ The primary goals of \progname{} are:
     during procedures.
 
     \item \textbf{Maintain Engagement Across Age Groups:}
-    Provide engaging and age appropriate activities that encourage
+    Provide engaging and age-appropriate activities that encourage
     children across the target age range to actively participate
     in their preparation.
 
@@ -817,7 +830,7 @@ fuller rationale than other requirements.
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
-The users are different from the intended readers of this document Section~\ref{sec_IntendedReader}. 
+The users are different from the intended readers of this document (Section~\ref{sec_IntendedReader}). 
 The characteristics below are used to set the non-functional usability requirements in 
 Section~\ref{sec_UsabilityReqs}. The characteristics are also illustrated by the personas in 
 Section~\ref{sec_Personas}.
@@ -825,8 +838,7 @@ Section~\ref{sec_Personas}.
 \subsubsection*{\textbf{Children}}
 
 \begin{itemize}
-    \item Aged 3 to 7 years. Many cannot read and older children 
-    read simple words. All instructions must therefore be spoken or narrated and shown with pictures
+    \item Aged 3 to 7 years. Many cannot read, and older children may read only simple words. All instructions must therefore be spoken or narrated and shown with pictures
     or visual guides.
     \item Actively developing fine motor control. Children in this age range tap imprecisely, often 
     with several fingers, and may tap repeatedly or not at all.
@@ -836,23 +848,23 @@ Section~\ref{sec_Personas}.
     making the screen look blurry and bright. Some have colour vision deficiencies.
     \item May already be anxious about the appointment and respond strongly to praise and 
     to perceived failure.
-    \item May be highly dependent on caregiver, making the child shy to other adults and the 
-    examinations necessary to take place during the appointment or try things on their own, like 
-    the EyeCanDo application in the waiting room.
-    \item The child may not have used technology before, making the digital game seem like a steep 
-    learning curve adding in a different element of anxiety or nervousness.
+    \item May be highly dependent on their caregiver. This can make the child shy with other
+    adults, reluctant to take part in the examinations at the appointment, and reluctant to try
+    things on their own, such as using \progname{} in the waiting room.
+    \item The child may not have used technology before. The game may then have a steep
+    learning curve, which adds its own anxiety or nervousness.
 \end{itemize}
 
 \subsubsection*{\textbf{Caregivers}}
 
 \begin{itemize}
     \item Adults with varied education, technical experience and English proficiency. 
-    \item Adults with varied accesibility needs, like their own vision impairment (notable in an eye clinic).
+    \item Adults with varied accessibility needs, like their own vision impairment (notable in an eye clinic).
     \item They can operate a smartphone app store and read simple English instructions.
-    \item Often stressed or short of time and may use Hindsight in a busy waiting room alongside 
+    \item Often stressed or short of time and may use \progname{} in a busy waiting room alongside 
     their child.
     \item Have no clinical training.
-    \item Be tired after a full day of work, other activities, or general external factors (e.g. family 
+    \item May be tired after a full day of work, other activities, or general external factors (e.g. family 
     illness, other child responsibilities) affecting level of patience.
     \item They can legally consent to examinations, share medical history, or approve data collection 
     on behalf of their children.
@@ -862,10 +874,8 @@ Section~\ref{sec_Personas}.
 \begin{itemize}
     \item Eye-care professionals with intensive clinical procedure knowledge.
     \item Eye-care professionals who use and administer specialized equipment such as the slit-lamp, 
-    Optical Coherence Tomography (OCT) scanners for eye photos, eye drop medications, and other 
-    vision tests equipment.
-    \item Have relatively little time per patient as appointment slots are often full, so an 
-    introductory interaction of \progname{} with the patient must be within 1 minute.
+    Optical Coherence Tomography (OCT) scanners for eye photos, eye-drop medications, and other vision test equipment.
+    \item Have relatively little time per patient as appointment slots are often full, so introducing \progname{} to a patient must take at most 1 minute.
     \item Have large schedules packed with patient appointments or other healthcare responsibilities, 
     so training in \progname{} must be within 5 minutes.
     \item Experience frequent interruptions from restless children and have to face 
@@ -878,13 +888,13 @@ Section~\ref{sec_Personas}.
 \begin{itemize}
     \item Certified and trained in child development, play, and medical care navigation.
     \item Have clinical experience and clinical training.
-    \item Can share visibility of the child's coping plan with clinicians to everyone use 
-    consistent language and approaches for the child
+    \item Can share the child's coping plan with clinicians so that everyone uses
+    consistent language and approaches with the child.
     \item They can operate a smartphone app store and read English instructions with 
     professional fluency.
     \item Provide information, support, and guidance to parents and family members about 
     examinations and medical procedures \cite{mayoChildLifeSpecialist}.
-    \item Collaborative skills with the clinicians to coordinate and manage care \cite{mayoChildLifeSpecialist}.
+    \item Collaborate with clinicians to coordinate and manage care \cite{mayoChildLifeSpecialist}.
     \item Must abide by standards and ethics set by regulatory bodies regarding patient privacy, 
     security, and personal information.
 \end{itemize}
@@ -1024,8 +1034,8 @@ families already own.
 
 \textit{Rationale:} \hyperref[ER3]{ER3}
 
-\item[\strdef{STR_11}] More clinic procedures shall be addable over time into 
-the existing interface.
+\item[\strdef{STR_11}] It shall be possible to add more clinic procedures to the existing interface
+over time.
 
 \textit{Rationale:} \hyperref[ER5]{ER5}
 
@@ -1040,18 +1050,19 @@ of families and such information shall stay in the clinic's existing secure syst
 
 \textit{Rationale:} \hyperref[ER6]{ER6}
 
-\item[\strdef{STR_14}] Families shall understand that the product is a preparation 
-aid and not medical advice specified by the application.
+\item[\strdef{STR_14}] Families shall understand that the product is a preparation
+aid and does not give medical advice.
 
 \textit{Rationale:} \hyperref[ER4]{ER4}
 
 \item[\strdef{STR_15}] The product shall include safe, age-appropriate content 
-free of advertising, purchases, frightening content.
+free of advertising, real-money purchases, and frightening content.
 
 \textit{Rationale:} \hyperref[ER2]{ER2}, \hyperref[ER3]{ER3}
 
 \item[\strdef{STR_16}] The product shall comply with the rules and ethics for 
-children's apps set by App Store guidelines and regulatory body ethics specifications to discourage compulsive use designs.
+children's apps set by app store guidelines and regulatory ethics bodies, including avoiding designs
+that encourage compulsive use.
 
 \textit{Rationale:} \hyperref[ER3]{ER3}
 
@@ -1074,7 +1085,7 @@ the product.
 \section{User Personas}
 \label{sec_Personas}
 These are fictitious personas drafted from project documentation.
-Their individual characteristics are assumptions, that will be validated through further stakeholder interaction.
+Their individual characteristics are assumptions that will be validated through further stakeholder interaction.
 
 \subsection{Persona 1: Four-Year-Old Paediatric Patient}
 \begin{itemize}
@@ -1150,7 +1161,7 @@ explain anything he does not understand.
 
 \item \textbf{Frustrations:}
 \begin{itemize}
-    \item Products for her childern with unclear setup instructions or unexplained terminology.
+    \item Products for her children with unclear setup instructions or unexplained terminology.
     \item Being unsure how to explain unfamiliar things in language
     Noah understands.
     \item Activities that require lengthy involvement or continuous adult
@@ -1207,7 +1218,7 @@ stages shown and how sensations are described. He also may briefly demonstrate a
 \item \textbf{Technical Ability:} Daniel is comfortable using standard
 clinical software at work and mobile applications in daily life. He can 
 install and navigate the preparation application on a mobile device, review its activities,
-and demonstrate them to patients and parents. He needs application navigation that allows him find a relevant activity without much
+and demonstrate them to patients and parents. He needs application navigation that allows him to find a relevant activity without much
 setup or technical assistance.
 \end{itemize}
 
@@ -1220,7 +1231,7 @@ The following \termmark{usecaseuc}use cases describe how children and caregivers
 \progname{} to explore ophthalmology preparation games through a
 journey of levels. All procedure game levels remain accessible regardless
 of whether earlier levels have been completed. Children may choose a
-character, earn \termmark{journeypoints}journey points, receive \termmark{ingamecoins}in game coins or cosmetic items,
+character, earn \termmark{journeypoints}journey points, receive \termmark{ingamecoins}in-game coins or cosmetic items,
 and use owned items to customize their character. The \termmark{personalscoreboard}personal scoreboard
 shows the child's own progress, not a ranking against other children.
 The reward amounts, character designs, available accessories, and specific
@@ -1371,7 +1382,7 @@ Child
     or Eye-Drop Preparation; the system opens that level's introduction.
     \item \textbf{Replay Completed Level:} The child selects a completed
     level; the system permits replay without resetting the completed
-    status or reissuing the \termmark{firstcompletionreward}first completion reward.
+    status or reissuing the \termmark{firstcompletionreward}first-completion reward.
     \item \textbf{Return Home:} The child selects home before pressing
     play; no level status or reward balance changes.
 \end{itemize}
@@ -1450,7 +1461,7 @@ Child
 
 \textbf{Main Success Scenario}
 \begin{enumerate}
-    \item The system plays a child friendly introduction showing
+    \item The system plays a child-friendly introduction showing
     how a clinician may ask a child to identify symbols during
     a vision test.
     \item The system explains the matching activity using narration
@@ -1462,9 +1473,9 @@ Child
     or acknowledges the skipped round without penalty.
     \item Steps 3--5 repeat with different symbols until every
     required matching round has been attempted or skipped.
-    \item The system displays the end of level screen and records
+    \item The system displays the end-of-level screen and records
     the Vision Testing level as Completed.
-    \item The system initiates the first completion reward process
+    \item The system initiates the first-completion reward process
     described in \ucref{UC_CompleteGame}.
 \end{enumerate}
 
@@ -1475,13 +1486,13 @@ Child
     \item \textbf{Skip Round:} The system advances to the next symbol
     without requiring a correct response.
     \item \textbf{Exit Early:} The child selects home before the final
-    round, the system returns to the journey map and retains an
+    round. The system returns to the journey map and retains an
     In Progress status rather than marking the level Completed.
 \end{itemize}
 
 \textbf{Postconditions}
 \begin{itemize}
-    \item If the end of level screen was reached, the level is
+    \item If the end-of-level screen was reached, the level is
     marked Completed even when some rounds were skipped.
     \item The game does not measure visual acuity or provide
     clinical results.
@@ -1523,8 +1534,8 @@ Child
     \item The system explains that the child may tell the clinician
     if they feel worried or uncomfortable during an examination.
     \item The system marks the Eye-Drop Preparation level Completed
-    and opens its end of level reward screen.
-    \item The system initiates the first completion reward process
+    and opens its end-of-level reward screen.
+    \item The system initiates the first-completion reward process
     described in \ucref{UC_CompleteGame}.
 \end{enumerate}
 
@@ -1534,7 +1545,7 @@ Child
     and allows a retry or skip.
     \item \textbf{Uncomfortable with Animation:} The child skips the
     administration animation and continues to the concluding message.
-    \item \textbf{Exit Early:} The child selects home, the game
+    \item \textbf{Exit Early:} The child selects home. The game
     stops and remains In Progress rather than Completed.
 \end{itemize}
 
@@ -1583,7 +1594,7 @@ Child
     or chooses to skip it.
     \item The system shows an encouraging examination ending
     animation and marks the level Completed.
-    \item The system initiates the first completion reward process
+    \item The system initiates the first-completion reward process
     described in \ucref{UC_CompleteGame}.
 \end{enumerate}
 
@@ -1628,7 +1639,7 @@ Child
     to stop playing.
     \item The child selects the visible home control.
     \item The system stops the matching interaction, its narration,
-    animations, and game specific input processing.
+    animations, and game-specific input processing.
     \item The system records the Vision Testing level as In Progress
     unless it had previously been completed.
     \item The system returns the child to the journey map.
@@ -1646,7 +1657,7 @@ Child
     an animation, the system stops the animation and audio before
     displaying the journey map.
     \item \textbf{Replay:} When the child reselects an interrupted
-    level, it restarts at its introduction, the level is not
+    level, it restarts at its introduction. The level is not
     falsely recorded as Completed.
     \item \textbf{Device Interruption:} If the application is closed
     during a level, reopening it restores access to the journey
@@ -1659,7 +1670,7 @@ Child
     interactions.
     \item The child's saved rewards and other completed levels
     remain unchanged.
-    \item No first completion reward is issued for the interruption.
+    \item No first-completion reward is issued for the interruption.
 \end{itemize}
 
 \textbf{Functional Requirements}
@@ -1678,7 +1689,7 @@ Child
 \begin{itemize}
     \item The child has reached the ending of a procedure game level
     after attempting or skipping its exercises.
-    \item The system has a predefined first completion reward for
+    \item The system has a predefined first-completion reward for
     the level.
 \end{itemize}
 
@@ -1686,11 +1697,11 @@ Child
 \begin{enumerate}
     \item The child reaches the end of the Vision Testing level.
     \item The system records the level as Completed and checks
-    whether its first completion reward was previously claimed.
+    whether its first-completion reward was previously claimed.
     \item Because the reward is unclaimed, the system adds the
     level's journey points to the child's personal total.
     \item The system awards the Vision Testing level's predefined
-    quantity of in game coins and adds them to the child's coin balance.
+    quantity of in-game coins and adds them to the child's coin balance.
     \item The system displays a reward screen showing the journey
     points earned, the coins received, and the updated coin balance.
     \item The child selects continue.
@@ -1701,24 +1712,24 @@ Child
 \textbf{Alternative Flows}
 \begin{itemize}
     \item \textbf{Direct Cosmetic Reward:} If the level's reward is
-    a cosmetic item rather than coins (for example, a star shaped
+    a cosmetic item rather than coins (for example, a star-shaped
     accessory for the Eye-Drop level), the system adds that item
     directly to the child's inventory, displays its preview, and
     offers a way to equip it. A level's reward may include coins, a
     cosmetic item, both, or neither.
     \item \textbf{Skipped Exercises:} If the child reached the ending
     after skipping some exercises, the system still awards the
-    predefined participation based reward.
+    predefined participation-based reward.
     \item \textbf{Replay Completed Level:} If the child completes an
     already rewarded level again, the system congratulates the child
     but does not award duplicate points, coins, or cosmetic items.
     \item \textbf{Exit Before Ending:} If the child exits before the
-    ending, the system does not issue the first completion reward.
+    ending, the system does not issue the first-completion reward.
 \end{itemize}
 
 \textbf{Postconditions}
 \begin{itemize}
-    \item The first completion reward is recorded only once for
+    \item The first-completion reward is recorded only once for
     the level.
     \item Journey points and coin balance or owned cosmetic items
     are updated locally as appropriate.
@@ -1797,7 +1808,7 @@ Child
 \textbf{Preconditions}
 \begin{itemize}
     \item A character is selected and the application is open.
-    \item The child has earned enough in game coins for at least
+    \item The child has earned enough in-game coins for at least
     one accessory in the cosmetic shop.
 \end{itemize}
 
@@ -1805,7 +1816,7 @@ Child
 \begin{enumerate}
     \item The child selects the character shop from the journey map.
     \item The system displays cosmetic accessories, such as hats
-    and glasses, with visual previews and prices in in game coins.
+    and glasses, with visual previews and prices in in-game coins.
     \item The child selects an unowned hat.
     \item The system displays the hat on the selected character,
     its coin price, and the child's current coin balance.
@@ -1935,7 +1946,7 @@ Caregiver
 \textbf{Alternative Flows}
 \begin{itemize}
     \item \textbf{Clear Nickname:} The caregiver removes all text;
-    the system uses default, non personalized wording.
+    the system uses default, non-personalized wording.
     \item \textbf{Cancel Edit:} If the caregiver cancels without saving,
     the previously saved nickname remains unchanged.
     \item \textbf{Other Preference:} The caregiver may change
@@ -1999,7 +2010,7 @@ Caregiver
 \textbf{Postconditions}
 \begin{itemize}
     \item The selected locally stored journey data has been erased.
-    \item Built in game content and character catalogues remain
+    \item Built-in game content and character catalogues remain
     installed and accessible; no network download is required.
 \end{itemize}
 
@@ -2037,7 +2048,7 @@ Child
     the system gives feedback and proceeds through the rounds.
     \item The child reaches the ending of the level.
     \item The system updates the level status and awards any
-    unclaimed first completion journey points and coins locally.
+    unclaimed first-completion journey points and coins locally.
     \item The child opens the personal scoreboard and sees the
     updated level status, points, and coin balance.
     \item The child opens character customization and sees
@@ -2047,12 +2058,12 @@ Child
 \textbf{Alternative Flows}
 \begin{itemize}
     \item \textbf{Other Level:} The child selects Eye-Drop or
-    Slit-Lamp Preparation; its built in content also works offline.
+    Slit-Lamp Preparation; its built-in content also works offline.
     \item \textbf{Offline Purchase:} The child purchases a cosmetic
     item using sufficient locally recorded coins; the balance and
     inventory update without contacting an external server.
     \item \textbf{Exit Early:} The child exits before the level ending;
-    the level remains In Progress and no first completion reward
+    the level remains In Progress and no first-completion reward
     is issued.
     \item \textbf{Connection Lost Midgame:} If a connection is
     disabled while the application is already running, gameplay,
@@ -2468,6 +2479,8 @@ them.
 
 \textit{Related NFRs:} \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_AVSync}, \nfrref{NFR_Accessibility}.
 
+\textit{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
+
 \item[\frdef{FR_HintOnMiss}]
 When a level asks the child to do something and the child does something else,
 the system shall give an encouraging hint and let the child try again.
@@ -2675,7 +2688,7 @@ miss part of a level, and sound should not keep playing in the background.
 
 \textit{Related NFRs:} \nfrref{NFR_Reliability}.
 
-\textit{Hazard Analysis:} \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-14}.
+\textit{Hazard Analysis:} \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-14}, \hazsr{ConsistentAudioVisuals}{25}{AudioVisualMismatch}{2-17}.
 
 \item[\frdef{FR_PersistState}]
 The system shall save the player state (\defref{def_Player}), the owned and
@@ -2915,7 +2928,7 @@ the result before handing the device back.
 
 \textit{Related NFRs:} \nfrref{NFR_Accessibility}.
 
-\textit{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-16}, \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-15}.
+\textit{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-16}, \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-15}, \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
 \item[\frdef{FR_AgeGroup}]
 When an age group is set and a level provides content for that age group, the
@@ -2926,6 +2939,8 @@ explanations differently. Content for the child's age group is easier to
 follow.
 
 \textit{Traces:} \ucref{UC_AdjustPreferences}.
+
+\textit{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
 \item[\frdef{FR_ResetJourney}]
 The settings shall allow the caregiver to reset the journey data. The system
@@ -2967,7 +2982,7 @@ has stored, for example before giving the device to someone else.
 \label{sec_Data_Requirements}
 
 This section describes the information managed by \progname{}
-to support \termmark{journeybasedprogression}journey based progression, character customization,
+to support \termmark{journeybasedprogression}journey-based progression, character customization,
 game completion tracking, rewards, and a personal scoreboard.
 The application does not require patient accounts or
 integration with clinical information systems. All user
@@ -2981,7 +2996,7 @@ rather than as separate data entities.
 
 All levels remain accessible regardless of whether previous
 levels have been completed. Children can earn journey points,
-receive in game coins or cosmetic accessories, and use
+receive in-game coins or cosmetic accessories, and use
 their rewards to customize a selected character.
 
 Journey points accumulate across completed games and are
@@ -2989,7 +3004,7 @@ displayed on the personal scoreboard. In game coins are
 tracked separately and may be spent on cosmetic accessories.
 Rewards are granted upon the first completion of each game,
 including when individual exercises have been skipped. A reward
-may include in game coins, a cosmetic accessory, both, or neither.
+may include in-game coins, a cosmetic accessory, both, or neither.
 
 
 \subsection{Major Data Entities}
@@ -3017,7 +3032,7 @@ The system manages the following major data entities:
     \item \textbf{Cosmetic Accessory:}
     Represents a virtual item, such as a hat or glasses,
     used to customize a character's appearance.
-    Accessories may be purchased using in game coins
+    Accessories may be purchased using in-game coins
     or received directly as game completion rewards.
     Cosmetic accessories do not affect gameplay
     performance or clinical preparation activities.
@@ -3057,7 +3072,7 @@ The system manages the following major data entities:
     \item \textbf{Journey Progress:}
     Represents the child's overall progression across
     all preparation games, including accumulated journey
-    points, completed levels, and the current in game
+    points, completed levels, and the current in-game
     coin balance. Total journey points and completed
     levels are calculated from Game Progress records,
     while the spendable coin balance is maintained
@@ -3498,7 +3513,7 @@ No image, animation, narration, or sound shall be frightening, or show pain or d
 \begin{reqlist}{NFR}
 
 \item[\nfrdef{NFR_TouchTarget}]
-Every interactive element shall be at least \constref{TOUCH_TARGET_MIN} millimetres wide and high on screen.
+Every interactive element shall have a \termmark{touchtarget}touch target at least \constref{TOUCH_TARGET_MIN} millimetres wide and high on screen.
 
 \textit{Rationale:} The Apple and Android guidance minimums are about 7 mm and 9 mm \cite{AppleHIG, MaterialDesign}. Children aged 3 to 7 have less precise motor control, so a larger size is used. The value is to be confirmed in usability testing.
 
@@ -3536,7 +3551,7 @@ Every narrated sentence shall have at most \constref{SENTENCE_MAX_WORDS} words a
 
 \textit{Traces:} \rref{FR_SpokenInstructions}, \rref{FR_ProcedureGuide}.
 
-\textit{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
+\textit{Hazard Analysis:} \hazsr{ChildLifeReview}{9}{Frightening}{2-7}, \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
 \item[\nfrdef{NFR_Accessibility}]
 The application shall meet the \termmark{webcontentaccessibilityguidelineswcag}WCAG 2.2 Level AA success criteria that apply to a native mobile application.
@@ -3550,7 +3565,7 @@ The application shall meet the \termmark{webcontentaccessibilityguidelineswcag}W
 \textit{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}, \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-14}, \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-15}.
 
 \item[\nfrdef{NFR_Colour}]
-Every state and prompt shall remain distinguishable without colour, and for users with common forms of colour vision deficiency.
+Every state and prompt shall remain distinguishable without colour, including for users with common forms of colour vision deficiency.
 
 \textit{Rationale:} Colour vision deficiency is common enough that some children and parents will have it, and it is more likely among users of an eye service. Relying on colour alone, for example green for correct and red for wrong, would hide information from them.
 
@@ -4003,7 +4018,7 @@ of the Hazard Analysis.
 \hasrref{VisualCuesSetting}{19} & \hahazref{VisualCuesDisabledSetting}{2-15} & Visual cues during gameplay & \rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Preferences} & \nfrref{NFR_Accessibility} \\
 \hasrref{ReliableSaveData}{20} & \hahazref{SaveDataCorruption}{2-18} & Reliable save data handling & \rref{FR_PersistState}, \rref{FR_CorruptData} & \nfrref{NFR_Reliability} \\
 \hasrref{MinimalSaveData}{21} & \hahazref{SaveDataPrivacy}{2-19}, \hahazref{UnexpectedDataTransmission}{2-22} & Minimization and protection of game data & -- & \nfrref{NFR_Minimization}, \nfrref{NFR_DataProtection}, \nfrref{NFR_Privacy} \\
-\hasrref{ThirdPartyValidation}{22} & \hahazref{ThirdPartyFailure}{2-20}, \hahazref{UnexpectedDataTransmission}{2-22} & Third-party software validation & -- & \nfrref{NFR_DependencyTesting}, \nfrref{NFR_Immunity}, \nfrref{NFR_Privacy} \\
+\hasrref{ThirdPartyValidation}{22} & \hahazref{ThirdPartyFailure}{2-20}, \hahazref{UnexpectedDataTransmission}{2-22} & Third-party software validation & -- & \nfrref{NFR_Reliability}, \nfrref{NFR_DependencyTesting}, \nfrref{NFR_Immunity}, \nfrref{NFR_Privacy} \\
 \hasrref{ThirdPartyAssetReview}{23} & \hahazref{ThirdPartyAssetContent}{2-21} & Third-party asset review & -- & \nfrref{NFR_ChildSafe}, \nfrref{NFR_Licensing} \\
 \hasrref{AccessibleInteraction}{24} & \hahazref{InaccessibleInteraction}{2-3} & Accessible, age-appropriate interaction & \rref{FR_SpokenInstructions}, \rref{FR_Preferences}, \rref{FR_AgeGroup} & \nfrref{NFR_TouchTarget}, \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} \\
 \hasrref{ConsistentAudioVisuals}{25} & \hahazref{AudioVisualMismatch}{2-17} & Consistent narration and animation & \rref{FR_Suspend} & \nfrref{NFR_AVSync} \\
@@ -4080,18 +4095,17 @@ depends on.
 
 The data requirements were developed by considering how
 ophthalmology procedures and their preparation games should
-be represented. Initially, the team considered a one to many
-relationship where each procedure could have multiple
+be represented. Initially, the team considered a one-to-many relationship where each procedure could have multiple
 preparation activities. However, since the team had not established
 whether multiple distinct games would be developed for
-each procedure, a simpler one to one relationship was selected.
+each procedure, a simpler one-to-one relationship was selected.
 Each procedure is represented by one game, which may contain
 multiple smaller exercises or rounds.
 
 The team also considered two approaches for selecting preparation
 games: allowing caregivers to manually choose games based
 on clinical recommendations, or having caregivers enter a
-clinician provided code to automatically select the appropriate
+clinician-provided code to automatically select the appropriate
 games. The team consulted the project supervisor to determine
 which approach would be more practical in a clinical setting.
 
@@ -4226,7 +4240,7 @@ The supported operating system versions and screen sizes.
 
 \item[\lcdef{LC_Hazards}]
 The safety and security requirements. The Hazard Analysis will be revised as
-the design develops, and it may add, remove, or renumber requirements.
+the design develops, and this may add, remove, or renumber requirements.
 
 \textit{Affects:} the requirements that have a Hazard Analysis line, and
 Table~\ref{tab:HA2FRtm}.
@@ -4254,9 +4268,9 @@ caregiver settings (Section~\ref{sec_FRCaregiver}), and the data requirements
 (Section~\ref{sec_Data_Requirements}).
 
 \item[\lcdef{LC_Stakeholders}]
-The stakeholder requirements can expand once more interviews and elicitation is conducted with the 
+The stakeholder requirements can expand once more interviews and elicitation are conducted with the 
 primary stakeholders (children, caregivers) after ethics board approval. The stakeholder requirements 
-will also be revised as the design develops, and it may add, remove, or renumber requirements.
+will also be revised as the design develops, and this may add, remove, or renumber requirements.
 
 \textit{Affects:} Stakeholder Requirements in Section~\ref{sec_StakeholderReqs}.
 
@@ -4331,7 +4345,7 @@ children's applications.
 
 Table \ref{tab:SRESources} lists the sources from which the stakeholder 
 requirements were elicited, with links to the GitHub issues that hold the meeting 
-notes. The “SR Requirements” column gives the trace from each source to the 
+notes. The ``Stakeholder Requirements'' column gives the trace from each source to the 
 stakeholder requirements in Section~\ref{sec_StakeholderReqs}.
 
 \begin{longtable}{@{}p{0.05\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}p{0.4\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth}@{}}
@@ -4384,7 +4398,7 @@ ER3\phantomsection\label{ER3}
 & Stakeholder Elicitation in \href{https://team-hindsight.github.io/ophthamology-game/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem Statement and Goals} document (2026/09/28)
 & Ophthalmologists can evaluate the preparedness of the children through 
 the successful completion of the games. Personalization to the child's visit 
-is a stretch goal, regulatory bodies require the design process and product 
+is a stretch goal. Regulatory bodies require the design process and product 
 to be safe and ethical for children; the app runs on iOS and Android phones 
 and tablets.
 & \strref{STR_7}, \strref{STR_9}, \strref{STR_10},
@@ -4406,7 +4420,7 @@ pupil check with headlamp, eye drops, slit lamp, finger-following test, 20-minut
 wait for dilation, headlamp examination. Other notes include: the drops burn and 
 are a major source of anxiety. Covering one eye is the best method for children 
 to test one eye. The slit-lamp needs the head to stay very still. The supervisor 
-also specificied that an ethics board review will be needed for surveying and 
+also specified that an ethics board review will be needed for surveying and 
 testing the project at the clinic.
 & \strref{STR_6}, \strref{STR_11}, \strref{STR_17} \\
 ER6\phantomsection\label{ER6}
@@ -4424,12 +4438,12 @@ children were also more anxious and required more time to complete the
 examination \cite{ChiaEtAl2015}.
 & \strref{STR_1} \\
 ER8\phantomsection\label{ER8}
-& Supervisor Email Correspondance (2026/10/13)
-& Supervisor specified a preferably design would include: full access to all 
-modules for children under the clinical assumption have that children will do 
-all of the scenarios even if it's not on the same day, the games presented as 
-a journey with different “levels” for the child with points and a score board at 
-the end, and selection of a unique character the child wants to play as.
+& Supervisor Email Correspondence (2026/10/13)
+& The supervisor described a preferred design with three parts. Children have
+full access to all modules, because clinically they will do all of the
+scenarios, even if not on the same day. The games are presented as a journey
+with different ``levels'', with points and a scoreboard at the end. The child
+selects a unique character to play as.
 & \strref{STR_7}, \strref{STR_8}, \strref{STR_12} \\
 
 \end{longtable}
@@ -5102,7 +5116,7 @@ simulated, or postponed for future development.
 This appendix lists the auxiliary constants used throughout the
 requirements specification. These constants define quantitative
 thresholds, performance targets, platform compatibility requirements,
-and other fixed values referenced by the requirements. Centralising
+and other fixed values referenced by the requirements. Centralizing
 these values provides a single reference point for interpreting and
 verifying the specified requirements.
 
@@ -5247,7 +5261,7 @@ verifying the specified requirements.
 ChatGPT and Claude were used as supporting tools during the preparation of
 this document, primarily to assist with \LaTeX{} formatting,
 improving wording and clarity, and organizing information.
-Its use was mainly used in the following sections:
+They were used in the following sections:
 
 \begin{itemize}
     \item In the sections listed below, the ideas and content
@@ -5255,14 +5269,14 @@ Its use was mainly used in the following sections:
     grammar, and flow while preserving the team's original meaning and decisions.
 
     \begin{itemize}
-        \item Sections ~\ref{purpose}, ~\ref{sec_Scope}, and ~\ref{problem-statement}
+        \item Sections~\ref{purpose}, \ref{sec_Scope}, and~\ref{problem-statement}
     \end{itemize}
 
     \item In Section~\ref{non-func-req} (Non-Functional Requirements), Opus 5.5 was
     provided with stakeholder meeting notes, team assumptions, and preliminary requirements
     to generate an initial draft of the NFRs. The team then manually reviewed, refined,
     and validated the generated requirements. Opus 5.5 was also used to identify which
-    functional requirements and which safety requirements the non-functional requirement trace to.
+    functional requirements and which safety requirements each non-functional requirement traces to.
 
     \item In Section~\ref{rationale} (Rationale), Opus 5.5 was used to identify connections
     and shared justifications across requirements, which the team then used to develop the section.
@@ -5321,11 +5335,10 @@ Its use was mainly used in the following sections:
     Matrices), Opus 5.5 was used to generate the traceability tables and to
     link the requirements together.
 
-    \item In Section~\ref{sec_Stakeholders} and Section~\ref{SecUserCharacteristics} Opus 
+    \item In Section~\ref{sec_Stakeholders} and Section~\ref{SecUserCharacteristics}, Opus 
     5.5 was used to brainstorm the descriptions of stakeholders and their characteristics 
-    using previous stakeholder definitions from Problem Statement and Goals document. The 
-    descriptions included drew inspiration from the results, with heavy editing and reviewing
-    of the AI generated content.
+    using previous stakeholder definitions from Problem Statement and Goals document. The included descriptions drew on these results, with heavy editing and review
+    of the AI-generated content.
 
     \item In Section~\ref{sec_StakeholderReqs}, Opus 5.5 was provided with stakeholder 
     meeting notes, preliminary requirements, the project description and problem statement 
@@ -5334,7 +5347,7 @@ Its use was mainly used in the following sections:
 
     \item In Section~\ref{sec_TraceMatrices}, Opus 5.5 was used to generate the traceability 
     between stakeholder requirements and use cases. These traceability connections were thoroughly 
-    checked one at a time by the team to assure alignment between the two.
+    checked one at a time by the team to ensure alignment between the two.
 
 \end{itemize}
 
@@ -5436,7 +5449,7 @@ individual responses are provided under each respective team member's name.
 
         \item \textbf{Accessibility and usability testing:}
         We need to evaluate whether children and parents can use the
-        application effectively. This includes assessing \termmark{touchtarget}touch targets,
+        application effectively. This includes assessing touch targets,
         text readability, colour contrast, navigation, and alternative
         ways of presenting information to identify and address usability
         barriers.
@@ -5661,7 +5674,7 @@ individual responses are provided under each respective team member's name.
     which was not enough time to confirm every requirement
     and design decision with our supervisors. Since our
     supervisors are busy medical professionals, our meetings
-    mainly focused on high level decisions rather than every
+    mainly focused on high-level decisions rather than every
     individual feature. As a result, we had to make
     assumptions and document some requirements based on
     functionality we anticipated implementing, even though
@@ -5925,35 +5938,34 @@ individual responses are provided under each respective team member's name.
     writing process. Since I had the stakeholder and user characteristics 
     parts of the document, which I previously worked on in the Problem 
     Statement and Goals, I had the organization to complete my 3 sections well.
-    Writing the stakeholders and user characteristics sections, with inspiraton 
+    Writing the stakeholders and user characteristics sections, with inspiration 
     from the previous document was straightforward. I also found that making the 
     requirements was clear too.
 
     I found the structure of this deliverable also useful. Every requirement has 
-    a specific code that make it easy to track and reference work throughout the 
+    a specific code that makes it easy to track and reference work throughout the 
     document. Writing in tables also went well because of this, since any traceability 
     matrices or other tables were clear to write using all of the acronyms for the 
     requirements. 
     
     I also found our team communication went well in this deliverable because we were 
-    able to effectively communicate our thoughts of the game from stakeholder information. 
-    We applied the results of these discussions from our Discord into the work, making 
-    it aligned in our theories and concepts in each requirements section.
+    able to effectively communicate our thoughts about the game from stakeholder information. 
+    We applied the results of these discussions from our Discord into the work, which kept our ideas and concepts aligned across the requirements sections.
 
     \item \textbf{What pain points did you experience during this
     deliverable, and how did you resolve them?}
 
     The biggest pain point for me was traceability. This involves ensuring everything is 
-    connected whilst not repeating itself. Since each of us were taking a requirements section 
+    connected whilst not repeating itself. Since each of us was taking a requirements section 
     it is easy to duplicate requirements or generate requirements classes. This meant that after 
     writing the requirements, I first had to check if there were duplicates. Then I had to 
     connect all the requirements together to ensure traceability. This took a very long time, 
     a huge amount of focus, and constant communication with the team.
 
-    I solved this pain point by using Claude (Opus 5.5) to carry the heavy lifting in performing 
-    the original traceability mappings. After receiving a list of the mappings, I crossed referenced 
+    I solved this pain point by using Claude (Opus 5.5) to do the heavy lifting in performing 
+    the original traceability mappings. After receiving a list of the mappings, I cross-referenced 
     the work against each other. In my specific instance, I had to map the stakeholder requirements 
-    to the use cases. To do this effectively, I used the Claude list and read through the Use case 
+    to the use cases. To do this effectively, I used the Claude list and read through the use case 
     and every requirement that connected to it to ensure there actually was a connection. After validating 
     all of this work, I included it in the table for additional review later.
 
@@ -5961,7 +5973,7 @@ individual responses are provided under each respective team member's name.
     need to acquire?}
 
     I would like to acquire knowledge in two of the areas we described in the team answer. Firstly,
-    knowldge in paediatric ophthalmology and clinical procedures. Secondly, in child development and 
+    knowledge in paediatric ophthalmology and clinical procedures. Secondly, in child development and 
     child-friendly design for the video game. As the team liaison, it is my responsibility to hold 
     communication between the stakeholders and the team. This means I will be a key communicator and 
     organizer of client visits (with the supervisor), validation testing procedures with the primary 
@@ -5978,19 +5990,17 @@ individual responses are provided under each respective team member's name.
     knowledge or master this skill, and why?}
     I will take two approaches to acquire the knowledge for our project. The first is constant
     communication. I will strive to maintain communication through the mediums we have learned 
-    about in 3RA3 and 4HC3. This includes emails with supervisors and clinicians, survey and 
-    questionnaires for children, parents, and ophthalmologists, and in-person visits to the clinic
+    about in 3RA3 and 4HC3. This includes emails with supervisors and clinicians, surveys and questionnaires for children, parents, and ophthalmologists, and in-person visits to the clinic
     to gain real life experience, connections, and knowledge of the experiences of our stakeholders.
     In this way, I will ensure that our team will get feedback and data to guide our development 
     and improve the application to ensure we follow stakeholder requirements. All of this will 
-    be achievable too, once our team acquires HiREB approved study to officially permit us to 
+    be achievable too, once our team's study is approved by the Hamilton Integrated Research Ethics Board (HiREB), which will officially permit us to 
     collect data and participate in direct communication methods with patients. Our team is 
     currently working to achieve this ethics status.
 
     The second approach is research. To understand clinical procedures and examinations the children 
     will experience, research through procedure guides or YouTube videos is my plan. I think this is 
-    an effect plan because our supervisor has already sent a YouTube video to learn about a procedure 
-    showing us that we can gain surface level knowledge from such sources. In conclusion, I think 
+    an effective plan because our supervisor has already sent a YouTube video to learn about a procedure, which showed us that we can gain surface level knowledge from such sources. In conclusion, I think 
     my communication techniques and research background can guide me to acquire the knowledge base 
     needed while simultaneously developing my communication skills.
 
