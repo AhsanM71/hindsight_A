@@ -4559,16 +4559,86 @@ real publication if time permits. \\
 
 \end{longtable}
 \endgroup
+\subsubsection*{Overall phase schedule}
+
+Table~\ref{tab:DevelopmentPhases} summarizes the phase targets and their
+course milestones. The following phase tables provide the requirement-level
+detail for this schedule.
+
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}
+>{\raggedright\arraybackslash}p{0.37\textwidth}
+>{\raggedright\arraybackslash}p{0.34\textwidth}@{}}
+\caption{Overall development phases and course milestones}
+\label{tab:DevelopmentPhases}\\
+\toprule
+\textbf{Phase and target period} & \textbf{Phase objective} &
+\textbf{Milestone alignment} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Phase and target period} & \textbf{Phase objective} &
+\textbf{Milestone alignment} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\textbf{1: Foundations}\newline
+19 Oct.--2 Nov. 2026 &
+Identify major risks, prepare feasibility experiments, and plan the
+architecture and verification approach. &
+SRS and Hazard Analysis Rev.~0: 19 Oct.\newline
+V\&V Plan Rev.~0: 2 Nov. \\
+\midrule
+\textbf{2: Proof of concept}\newline
+3 Nov.--4 Dec. 2026 &
+Investigate content, child-interaction, and offline-media risks through
+independent experiments on accessible devices. &
+Design Rev.~$-1$ and Fall CD: 16 Nov.\newline
+PoC demonstration: by 4 Dec. \\
+\midrule
+\textbf{3: Core application}\newline
+5 Dec. 2026--\newline 18 Jan. 2027 &
+Use PoC findings to implement setup, local progress, the preparation journey,
+basic rewards, and caregiver controls. &
+Design Rev.~0: 18 Jan. \\
+\midrule
+\textbf{4: Feature integration}\newline
+19 Jan.--11 Feb. 2027 &
+Integrate the scoreboard, characters, and accessory shop with saved progress
+and caregiver settings. &
+Revision~0 demonstration: by 11 Feb. \\
+\midrule
+\textbf{5: System verification}\newline
+12 Feb.--8 Mar. 2027 &
+Evaluate implemented features on accessible devices, address priority
+defects, and record remaining coverage gaps. &
+V\&V Report Rev.~0 and Winter CD: 8 Mar. \\
+\midrule
+\textbf{6: Final delivery}\newline
+9 Mar.--6 Apr. 2027 &
+Finalize the demonstration and handover evidence, simulate store workflows,
+and attempt real publication if time permits. &
+Final demonstration: by 21 Mar.\newline
+Final documentation: 31 Mar.\newline
+Expo: 6 Apr. \\
+\end{longtable}
+\endgroup
+
 \subsubsection*{Phase 1: Foundations}
 
-\textbf{19 October--2 November 2026.}
 Identify the major risks related to educational content,
 user interactions, and media delivery, and prepare the
 experiments for the Proof of Concept (PoC). Arrange access
 to reviewers and establish the approval process for testing
-with children. The SRS and Hazard Analysis baseline is due
-on October~19, followed by the V\&V Plan on November~2.
-Table~\ref{tab:DevelopmentPhaseOne} outlines the design
+with children. Table~\ref{tab:DevelopmentPhaseOne} outlines the design
 and planning activities, while application implementation
 will begin after the PoC. The system constraints
 (\conref{C_MobilePlatforms}--\conref{C_StoreCompliance})
@@ -4614,7 +4684,6 @@ Section~\ref{sec_Data_Requirements} & Plan the data entities, saving, retention,
 
 \subsubsection*{Phase 2: Proof of concept}
 
-\textbf{3 November--4 December 2026.}
 Investigate whether the major project risks can be addressed
 through the independent experiments listed in
 Table~\ref{tab:DevelopmentPhaseTwo}. The linked requirements
@@ -4624,7 +4693,6 @@ offline safeguards shall be maintained throughout all
 experiments. Evaluate the results against the corresponding
 SRS requirements and project timeline. Approaches that do
 not demonstrate feasibility will be revised and tested again.
-Design Rev.~$-1$ and the Fall CD are due on November~16.
 By the December~4 PoC demonstration, the team will present
 the experimental evidence, design decisions, and the status
 of each identified risk. Risks will be classified as resolved,
@@ -4660,12 +4728,12 @@ to subsequent development phases.
 
 \subsubsection*{Phase 3: Core application}
 
-\textbf{5 December 2026--18 January 2027.} Use the PoC findings to build setup
+Use the PoC findings to build setup
 and local storage first, then the preparation journey, guidance, recovery,
 completion rewards, and caregiver controls. Table~\ref{tab:DevelopmentPhaseThree}
 lists the planned implementation for each requirement. Content is reviewed
 before demonstration or release, while age-specific content is used where
-available. The Design Rev.~0 milestone is January~18; the target is a working
+available. The target for this phase is a working
 core journey with its supporting quality controls, refined to the course scope.
 
 \begingroup
@@ -4759,9 +4827,9 @@ core journey with its supporting quality controls, refined to the course scope.
 
 \subsubsection*{Phase 4: Feature integration}
 
-\textbf{19 January--11 February 2027.} Add the engagement features in
+Add the engagement features in
 Table~\ref{tab:DevelopmentPhaseFour} to the working core for the Revision~0
-demonstration by February~11. Their scale and visual detail may be refined
+demonstration. Their scale and visual detail may be refined
 to the remaining time and feedback. Recheck saving, reward consistency,
 reset behaviour, and inclusivity as the new features are integrated.
 
@@ -4799,14 +4867,17 @@ reset behaviour, and inclusivity as the new features are integrated.
 
 \subsubsection*{Phase 5: System verification}
 
-\textbf{12 February--8 March 2027.} Evaluate the implemented requirements
-and applicable fit criteria using the V\&V Plan, with the focus areas in
-Table~\ref{tab:DevelopmentPhaseFive}. The V\&V Report Rev.~0 and Winter CD,
-due March~8, will record results, priority fixes, unmet targets, simulations,
-and untested configurations. Trace evidence to stakeholder requirements
-through Table~\ref{tab:SR2UC2FRtm}. Child participation requires consent and
-ethics approval; adult walkthroughs alone do not establish child usability
-or reduced anxiety.
+Evaluate the completed requirements and their
+corresponding fit criteria according to the V\&V Plan,
+focusing on the areas outlined in
+Table~\ref{tab:DevelopmentPhaseFive}.
+Use Table~\ref{tab:SR2UC2FRtm} to link the testing
+results to the stakeholder requirements.
+Testing with children will require appropriate
+consent and ethics approval. Testing with adults
+alone will not be sufficient to demonstrate that
+the application is usable by children or that
+it reduces their anxiety.
 
 \begingroup
 \small
@@ -4841,13 +4912,12 @@ or reduced anxiety.
 
 \subsubsection*{Phase 6: Final delivery}
 
-\textbf{9 March--6 April 2027.} Address priority findings and rerun affected
-checks for the final demonstration by March~21. Table~\ref{tab:DevelopmentPhaseSix}
+Address priority findings and rerun affected
+checks for the final demonstration. Table~\ref{tab:DevelopmentPhaseSix}
 covers delivery evidence, including the simulated Apple App Store and Google
 Play workflow. Real submission may be attempted if time and account access
 permit, with lower priority than the core application. Finalize source code,
-user guidance, traceability, test evidence, and limitations for March~31
-documentation and the April~6 Expo.
+user guidance, traceability, test evidence, and limitations for Expo.
 
 \begingroup
 \small
@@ -4880,22 +4950,112 @@ documentation and the April~6 Expo.
 \endgroup
 
 \textbf{Course scope and future work.}
-App store listings and submission procedures will be
-simulated for the course, while actual publication and
-approval may be completed as future work. The team will
-clearly distinguish simulated results from official
-approval. Device compatibility will be evaluated using
-the hardware, operating system versions, and screen sizes
-available to the team. Results from physical devices and
-emulators will be reported separately, and any untested
-configurations will be identified. Augmented reality and
-appointment-based personalization will remain future work
-(\lcref{LC_AR}, \lcref{LC_Personalization}). Any proposed
-changes to the project scope will be discussed with the
-supervisor, followed by updates to the affected requirements,
-development phases, and V\&V Plan. The final deliverables
-will clearly document any partially implemented features,
-simulated functionality, and work deferred to future development.
+Table~\ref{tab:DevelopmentCourseScope} outlines the
+limitations of the course project and possible future
+improvements, along with their related requirements
+and likely changes. For future improvements, the
+referenced functional requirements indicate which
+existing application features could be expanded.
+
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}
+>{\raggedright\arraybackslash}p{0.29\textwidth}
+>{\raggedright\arraybackslash}p{0.47\textwidth}@{}}
+
+\caption{Course scope, simulations, and future work}
+\label{tab:DevelopmentCourseScope}\\
+
+\toprule
+\textbf{Scope item} &
+\textbf{Related requirements and likely changes} &
+\textbf{Course treatment and future work} \\
+\midrule
+\endfirsthead
+
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Scope item} &
+\textbf{Related requirements and likely changes} &
+\textbf{Course treatment and future work} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\textbf{Store distribution} &
+\nfrref{NFR_Installability},
+\nfrref{NFR_InstallSize},
+\nfrref{NFR_Integrity},
+\nfrref{NFR_StoreCompliance},
+\conref{C_StoreCompliance} &
+The team will simulate the app store listing and
+submission process during the course. Actual
+publication will be attempted if time permits,
+but completing the application will take priority.
+Simulated submissions will be clearly distinguished
+from official app store approval. Installation
+testing, application size measurements, digital
+signing, and child safety requirements will
+still be addressed during the course. \\
+\midrule
+
+\textbf{Device coverage} &
+\nfrref{NFR_Portability},
+\conref{C_MobilePlatforms},
+\lcref{LC_Platforms} &
+The team will develop and test the application
+using the devices, operating system versions,
+and screen sizes available during the course.
+Testing results from physical devices and
+emulators will be reported separately.
+Any devices or configurations that could not
+be tested will be identified, with additional
+compatibility testing left for future work. \\
+\midrule
+
+\textbf{Augmented reality} &
+\lcref{LC_AR};
+related content:
+\rref{FR_LevelContent} &
+Augmented reality features will not be developed
+during the course. The team will focus on
+implementing the existing preparation games
+without augmented reality. Adding AR simulations
+to provide a more immersive experience may be
+considered in future development and would
+require additional design and testing. \\
+\midrule
+
+\textbf{Appointment-based personalization} &
+\lcref{LC_Personalization};
+related features:
+\rref{FR_JourneyMap},
+\rref{FR_Preferences},
+\rref{FR_AgeGroup} &
+Personalizing preparation activities based on
+the procedures expected during a child's
+appointment will be left for future development.
+During the course, all preparation games will
+remain accessible to every child. The application
+will still support local caregiver preferences
+and age-appropriate content where available. \\
+
+\end{longtable}
+\endgroup
+
+Any proposed changes to the project scope will be
+discussed with the supervisor. The team will then
+update the relevant requirements, development phases,
+and V\&V Plan accordingly. The final deliverables will
+clearly identify features that were partially implemented,
+simulated, or postponed for future development.
 
 \newpage
 \subsection{Appendix C: Values of Auxiliary Constants}
