@@ -266,6 +266,9 @@ modifications to the original template to better suit the project's needs. In Se
 in the course repository \cite{SmithCapTemplate}. The AI and Machine Learning Requirements section was
 also removed, as it is not applicable to the project. A Notations and Conventions section
 (Section~\ref{sec_NotationsConventions}) was added to explain the identifiers and symbolic constants.
+A Standards, Laws, and Regulations section (Section~\ref{sec_Standards}) was added to list the standards,
+laws, and regulations that apply to the project and the requirements that address them
+(Table~\ref{tab:Standards}).
 
 \subsection{Purpose}
 \label{purpose}
@@ -344,6 +347,7 @@ needs of patients \cite{mayoChildLifeSpecialist}.
 
 The research ethics board that approves studies with children, privacy regulators, and the app store operators 
 (Apple and Google), whose policies for children's apps the product must satisfy.
+Table~\ref{tab:Standards} lists the standards and regulations.
 
 \item \textbf{Eye Clinics} 
 
@@ -1040,12 +1044,81 @@ requirements, respectively, including applicable policies for applications meant
 
 \textit{Rationale:} These marketplaces are the planned distribution
 channels through which families and clinics will install the application. Compliance
-with their submission requirements is necessary for distribution to the target users.
+with their submission requirements is necessary for distribution to the target users. The policies are listed in
+Table~\ref{tab:Standards}.
 
 \textit{Stakeholder Requirements:} \strref{STR_15}, \strref{STR_16}.
 
 \textit{Refined by:} \nfrref{NFR_StoreCompliance}, which gives the fit criterion.
 \end{reqlist}
+
+\subsection{Standards, Laws, and Regulations}
+\label{sec_Standards}
+
+Table~\ref{tab:Standards} lists the standards, laws, and regulations that apply
+to \progname{}, or that were considered, and the requirements that address
+them.
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.28\textwidth} >{\raggedright\arraybackslash}p{0.40\textwidth} >{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\caption{Applicable Standards, Laws, and Regulations}
+\label{tab:Standards}\\
+
+\toprule
+\textbf{Source} & \textbf{Relevance} & \textbf{Addressed By} \\
+\midrule
+\endfirsthead
+
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Source} & \textbf{Relevance} & \textbf{Addressed By} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+ISO/IEC/IEEE 29148 \cite{ISOIECIEEE291482018} and
+ISO/IEC/IEEE 15288 \cite{ISOIECIEEE152882023}
+& Guidance for requirements engineering and for systems life-cycle management.
+& The structure of this document \\
+
+Web Content Accessibility Guidelines 2.2, Level AA \cite{WCAG22}
+& Accessibility benchmark for children with low vision, hearing, or motor differences. Success criterion 2.3.1 limits flashing content.
+& \nfrref{NFR_Accessibility}, \nfrref{NFR_Flashing} \\
+
+Accessibility for Ontarians with Disabilities Act, 2005 \cite{AODA2005}
+& Accessibility duty in Ontario.
+& \nfrref{NFR_Accessibility} \\
+
+Health Canada guidance on software as a medical device \cite{HealthCanadaSaMD}
+& Software that claims to diagnose, screen, treat, or monitor a condition may be regulated as a medical device. The application is an educational aid and makes no such claim.
+& \nfrref{NFR_NoClaims}, \rref{FR_MedicalNotice} \\
+
+Personal Information Protection and Electronic Documents Act (PIPEDA)
+& Canadian privacy law for personal information. The application collects none.
+& \conref{C_PatientPrivacy}, \nfrref{NFR_Privacy}, \nfrref{NFR_Minimization} \\
+
+Personal Health Information Protection Act, 2004 (PHIPA)
+& Ontario law for personal health information held by clinics. The application holds none and does not connect to clinic systems.
+& \conref{C_PatientPrivacy} \\
+
+Apple App Review Guidelines \cite{AppleGuidelines}
+& Rules for children's applications (Kids Category) that must be met for distribution on the Apple App Store.
+& \conref{C_StoreCompliance}, \nfrref{NFR_StoreCompliance} \\
+
+Google Play Developer Program Policies \cite{GooglePlayPolicy}
+& Policies for children's applications (Families policy) that must be met for distribution on Google Play.
+& \conref{C_StoreCompliance}, \nfrref{NFR_StoreCompliance} \\
+
+MIT licence and the licences of third-party assets and libraries
+& Conditions for using and redistributing the application's code and assets.
+& \conref{C_ApplicationLicensing}, \conref{C_RepositoryLicensing}, \nfrref{NFR_Licensing} \\
+
+\end{longtable}
 
 % ==============================================================
 \newpage
