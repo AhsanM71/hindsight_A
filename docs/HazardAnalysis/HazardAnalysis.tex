@@ -1830,33 +1830,75 @@ member's name.
 
 \begin{enumerate}
     \item \textbf{What went well while writing this deliverable?}
-    
-    Writing the Critical Assumptions section went well because
-    it did not depend on other team members completing their
-    sections first. This allowed me to work independently
-    and complete my assigned section without delays.
-    I was able to identify and document the assumptions
-    relevant to the system without having to wait for
-    other parts of the report to be finalized.
+
+      One aspect that went well was how the team organized
+      and divided the work. By creating and assigning GitHub
+      issues early, everyone had a clear understanding of
+      their responsibilities and what needed to be completed.
+      This also allowed us to track each team member's
+      progress and check that the workload was distributed
+      fairly. Having clearly assigned tasks helped us avoid
+      confusion and made it easier to coordinate our
+      contributions throughout the deliverable.
+
+      Another positive aspect was the review process.
+      Team members reviewed each other's contributions
+      within a reasonable amount of time, which helped
+      us identify mistakes, provide feedback, and merge
+      changes without significant delays. This was
+      particularly helpful because the Hazard Analysis
+      required consistency between the identified hazards,
+      their causes, recommended actions, and the
+      corresponding safety and security requirements.
+
+      Writing the Critical Assumptions section also went
+      well because it did not depend on other team members
+      completing their sections first. This allowed me to
+      work independently and complete my assigned section
+      without delays. I was able to identify and document
+      the assumptions relevant to the system while the
+      rest of the team continued working on other sections.
 
     \item \textbf{What pain points did you experience during this deliverable,
     and how did you resolve them?}
 
-    One challenge was contributing to Section 5 (FMEA Diagram)
-    and Section 6 (Additional Safety and Security Requirements).
-    These sections depended on information from earlier sections,
-    particularly the System Boundary and Components section.
-    Since those sections were still being developed, I could
-    not contribute to Sections 5 and 6 as early as I had planned.
+      One challenge was contributing to Section 5
+      (Failure Mode and Effects Analysis) and Section 6
+      (Safety and Security Requirements). These sections
+      depended on information from earlier sections,
+      particularly the System Boundaries and Components
+      section. Since those sections were still being
+      developed, I could not begin my contributions
+      as early as I had planned.
 
-    To resolve this, I communicated with the teammates
-    responsible for the dependent sections and asked them
-    to prioritize completing their work so I could proceed
-    with my contributions. In the meantime, I focused on
-    completing the Critical Assumptions section. This
-    experience highlighted the importance of coordinating
-    dependent tasks and communicating early to prevent
-    delays in future deliverables.
+      To resolve this, I communicated with the teammates
+      responsible for the dependent sections and asked
+      them to prioritize completing their work so I
+      could proceed with mine. In the meantime, I focused
+      on completing the Critical Assumptions section.
+      This allowed me to continue making progress rather
+      than waiting for the other sections to be finished.
+
+      Another challenge was having to reconsider some of the
+      hazards after receiving feedback from our supervisor.
+      For example, the supervisor recommended that all
+      preparation games remain accessible rather than
+      requiring children to unlock levels through progression.
+      This highlighted a risk where children might be unable
+      to prepare for a procedure because they had not
+      completed earlier levels. As a result, I identified
+      the restricted level access hazard
+      (\hazref{RestrictedLevelAccess}) and added a
+      corresponding safety requirement to ensure that
+      all preparation levels remain accessible regardless
+      of the child's progress.
+
+      This required revisiting the application's design
+      and ensuring that the FMEA and safety requirements
+      reflected the supervisor's feedback. Although this
+      took additional time, it helped me understand how
+      stakeholder feedback can reveal risks that were
+      not initially considered.
 \end{enumerate}
 
 \subsection*{Mohammad Bilal}
@@ -1956,12 +1998,122 @@ member's name.
     \setcounter{enumi}{2}
 
     \item \textbf{Which of your listed risks had your team thought of before
-    this deliverable, and which did you think of while doing this deliverable? For
-    the latter ones (ones you thought of while doing the Hazard Analysis), how did
-    they come about?}
+    this deliverable, and which did you think of while doing this deliverable?
+    For the latter ones (ones you thought of while doing the Hazard Analysis),
+    how did they come about?}
 
-    TODO: to be completed once all of the team's hazards and risks have been
-    added to the document.
+    Before completing the Hazard Analysis, the team had
+    already considered several risks related to the
+    application's purpose and target users. These included
+    inaccurate representations of ophthalmology procedures
+    (\hazref{InaccurateProcedure}), frightening educational
+    content (\hazref{Frightening}), and interactions that
+    young children may find difficult to understand or use
+    (\hazref{InaccessibleInteraction}). The team had also
+    considered risks involving the privacy of locally stored
+    information (\hazref{SaveDataPrivacy}) and the
+    unavailability of preparation activities without an
+    internet connection (\hazref{OfflineContentUnavailable}).
+    These concerns had influenced the application's
+    requirements before the Hazard Analysis began.
+
+    During the Failure Mode and Effects Analysis (FMEA),
+    the team identified additional hazards by examining
+    how individual system components could fail and how
+    those failures might affect children or caregivers.
+    Table~\ref{tab:TeamHazardReflection} identifies
+    the hazards considered by each team member during
+    the analysis and explains how they were identified.
+
+    \begin{longtable}{@{}
+        p{0.17\linewidth}
+        p{0.32\linewidth}
+        p{0.42\linewidth}
+    @{}}
+
+    \caption{Hazards Identified During the FMEA}
+    \label{tab:TeamHazardReflection}\\
+
+    \toprule
+    \textbf{Team Member} &
+    \textbf{Hazards Identified} &
+    \textbf{How the Hazards Were Identified} \\
+    \midrule
+    \endfirsthead
+
+    \toprule
+    \textbf{Team Member} &
+    \textbf{Hazards Identified} &
+    \textbf{How the Hazards Were Identified} \\
+    \midrule
+    \endhead
+
+    Ahsan Muzammil &
+    \hazref{PunitiveFeedback}: Penalties for incorrect
+    answers or skipped exercises.
+
+    \hazref{AccidentalInputSkipping}: Repeated touch
+    inputs skipping important information.
+
+    \hazref{MisinterpretedMedicalPurpose}: Educational
+    content mistaken for medical guidance.
+
+    \hazref{RestrictedLevelAccess}: Preparation levels
+    becoming inaccessible.
+
+    \hazref{AudioVisualsContinueOnExit}: Audio and
+    visual effects continuing after exiting a level.
+    &
+    These hazards were identified by reviewing the
+    gameplay and journey based use cases (from SRS document) alongside
+    the system components. Considering how children
+    might interact with the games highlighted the
+    possibility of accidental repeated inputs and
+    negative feedback causing frustration.
+    Reviewing the educational purpose of the
+    application highlighted the risk of caregivers
+    mistaking the content for medical advice.
+    The supervisor's recommendation that all
+    preparation games remain accessible helped
+    identify the risk of restricted level access.
+    Finally, reviewing the use case (from SRS document) for exiting
+    a preparation level highlighted the possibility
+    of audio and animations continuing after the
+    child had left the activity. \\
+    \midrule
+
+    Jake Finlay &
+    TODO
+    &
+    TODO \\
+    \midrule
+
+    Ethan McMehen &
+    TODO
+    &
+    TODO \\
+    \midrule
+
+    Mohammad Bilal &
+    TODO
+    &
+    TODO \\
+    \midrule
+
+    Jackson Beach &
+    TODO
+    &
+    TODO \\
+
+    \bottomrule
+    \end{longtable}
+
+    The FMEA helped the team move beyond identifying
+    general risks and examine specific failures that
+    could occur during gameplay. By considering the
+    causes and effects of each failure, the team was
+    able to develop additional safety and security
+    requirements to reduce these risks.
 
     \item \textbf{Other than the risk of physical harm (some projects may not
     have any appreciable risks of this form), list at least 2 other types of risk
