@@ -954,6 +954,8 @@ at home and in clinic without assuming a particular platform.
 
 \textit{Stakeholder Requirements:} \strref{STR_10}.
 
+\textit{Refined by:} \nfrref{NFR_Portability}, which gives the fit criterion.
+
 \item[\cdef{C_ApplicationLicensing}]
 Third-party assets and libraries included in \progname{} shall have
 licenses allowing their use and redistribution within the application.
@@ -964,6 +966,8 @@ MIT license, while third-party materials have their own licensing.
 These conditions must be satisfied when the application is released.
 
 \textit{Stakeholder Requirements:} \strref{STR_16}.
+
+\textit{Refined by:} \nfrref{NFR_Licensing}, which gives the fit criterion.
 
 \item[\cdef{C_RepositoryLicensing}]
 Third-party materials present in the \progname{} GitHub
@@ -999,6 +1003,8 @@ in clinic, where connectivity may be poor or unavailable.
 
 \textit{Stakeholder Requirements:} \strref{STR_4}.
 
+\textit{Refined by:} \nfrref{NFR_Offline}, which gives the fit criterion.
+
 \item[\cdef{C_NoNetworkCommunications}]
 \progname{} shall operate as a standalone local application and shall
 not initiate network communications during operation, including
@@ -1013,6 +1019,8 @@ preparation modules).
 
 \textit{Stakeholder Requirements:} \strref{STR_13}.
 
+\textit{Refined by:} \nfrref{NFR_Privacy}, which gives the fit criterion.
+
 \item[\cdef{C_PatientPrivacy}]
 \progname{} shall not request, collect, or store identifying
 information or clinical records, and shall not integrate with clinic
@@ -1024,6 +1032,8 @@ supports preparation without requiring identifying information.
 
 \textit{Stakeholder Requirements:} \strref{STR_13}.
 
+\textit{Refined by:} \nfrref{NFR_Minimization}, which gives the fit criterion.
+
 \item[\cdef{C_StoreCompliance}]
 The iOS and Android releases of \progname{} shall comply with the \termmark{appleappstore}Apple App Store and Google Play submission
 requirements, respectively, including applicable policies for applications meant for children, at time of submission.
@@ -1033,6 +1043,8 @@ channels through which families and clinics will install the application. Compli
 with their submission requirements is necessary for distribution to the target users.
 
 \textit{Stakeholder Requirements:} \strref{STR_15}, \strref{STR_16}.
+
+\textit{Refined by:} \nfrref{NFR_StoreCompliance}, which gives the fit criterion.
 \end{reqlist}
 
 % ==============================================================
@@ -1116,7 +1128,7 @@ families already own.
 
 \textit{Rationale:} \hyperref[ER3]{ER3}
 
-\textit{Refined by:} \ucref{UC_FirstUse}, \ucref{UC_OfflineUse}, \nfrref{NFR_Startup}, \nfrref{NFR_Portability}, \nfrref{NFR_InstallSize}, \conref{C_MobilePlatforms}, \conref{C_CrossPlatformEngine}.
+\textit{Refined by:} \ucref{UC_FirstUse}, \ucref{UC_OfflineUse}, \nfrref{NFR_Startup}, \nfrref{NFR_InstallSize}, \nfrref{NFR_Portability}, \conref{C_MobilePlatforms}, \conref{C_CrossPlatformEngine}.
 
 \item[\strdef{STR_11}] It shall be possible to add more clinic procedures to the existing interface
 over time.
@@ -1152,7 +1164,7 @@ free of advertising, real-money purchases, and frightening content.
 
 \textit{Rationale:} \hyperref[ER2]{ER2}, \hyperref[ER3]{ER3}
 
-\textit{Refined by:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame}, \ucref{UC_SlitLampGame}, \ucref{UC_PurchaseAccessory}, \ucref{UC_OfflineUse}, \nfrref{NFR_ChildSafe}, \nfrref{NFR_Flashing}, \nfrref{NFR_AudioSafety}, \nfrref{NFR_DeviceHeat}, \nfrref{NFR_StoreCompliance}, \conref{C_StoreCompliance}.
+\textit{Refined by:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame}, \ucref{UC_SlitLampGame}, \ucref{UC_PurchaseAccessory}, \ucref{UC_OfflineUse}, \nfrref{NFR_ChildSafe}, \nfrref{NFR_AudioSafety}, \nfrref{NFR_Flashing}, \nfrref{NFR_DeviceHeat}, \nfrref{NFR_StoreCompliance}, \conref{C_StoreCompliance}.
 
 \item[\strdef{STR_16}] The product shall comply with the rules and ethics for 
 children's apps set by app store guidelines and regulatory ethics bodies, including avoiding designs
@@ -2120,7 +2132,7 @@ Caregiver
 
 \textbf{Functional Requirements}
 
-\rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Nickname}, \rref{FR_Preferences}, \rref{FR_AgeGroup}.
+\rref{FR_AgeGroup}, \rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Nickname}, \rref{FR_Preferences}.
 
 % ------------------------------------------------------------
 \refstepcounter{ucnum}\label{UC_DeleteData}
@@ -2414,8 +2426,7 @@ $\mathit{finish}$ changes only \val{InProgress}, to \val{Completed}.
 $\mathit{reset}$ makes every level \val{NotStarted}. $\mathit{exit}$ changes
 nothing. \hfill $\square$
 
-\textit{Specifies:} \rref{FR_StartLevel}, \rref{FR_Replay},
-\rref{FR_LevelEnd}, \rref{FR_ExitKeepsData}, \rref{FR_ResetJourney}.
+\textit{Specifies:} \rref{FR_StartLevel}, \rref{FR_Replay}, \rref{FR_LevelEnd}, \rref{FR_ExitKeepsData}, \rref{FR_ResetJourney}.
 
 \begin{theorem}{Each reward is given once}{thm_Once}
 Between two resets, the first $\mathit{finish}(\mathit{level})$ after the
@@ -2431,8 +2442,7 @@ level. By \thmref{thm_StatusMachine}, the level stays \val{Completed} until a
 reset, so the guard of every later $\mathit{finish}$ is false.
 \hfill $\square$
 
-\textit{Specifies:} \rref{FR_LevelEnd}, \rref{FR_NoPenalty},
-\rref{FR_FirstReward}, \rref{FR_NoDuplicateReward}.
+\textit{Specifies:} \rref{FR_LevelEnd}, \rref{FR_NoPenalty}, \rref{FR_FirstReward}, \rref{FR_NoDuplicateReward}.
 
 \begin{theorem}{Progress is lost only by a reset}{thm_NoLoss}
 For $\mathit{start}$, $\mathit{finish}$ and $\mathit{exit}$, a \val{Completed}
@@ -2448,8 +2458,7 @@ $\mathit{exit}$ has no effect (\defref{def_Ops}). \hfill $\square$
 Spending coins in the shop is not one of these operations, so this theorem
 does not cover it.
 
-\textit{Specifies:} \rref{FR_Replay}, \rref{FR_NoPenalty},
-\rref{FR_ExitLevel}, \rref{FR_ExitKeepsData}, \rref{FR_RestartLevel}.
+\textit{Specifies:} \rref{FR_Replay}, \rref{FR_NoPenalty}, \rref{FR_ExitLevel}, \rref{FR_ExitKeepsData}, \rref{FR_RestartLevel}.
 
 \subsection{Requirements}
 \label{sec_FRList}
@@ -2502,7 +2511,7 @@ dismiss it without reading.
 
 \end{reqlist}
 
-\subsubsection{Journey Map and Levels}
+\subsubsection{Journey Map}
 \label{sec_FRJourney}
 
 \begin{reqlist}{FR}
@@ -2519,7 +2528,7 @@ status of each level shows the child and caregiver what has been done so far.
 
 \textit{Traces:} \ucref{UC_SelectGame}, \defref{def_Status}.
 
-\textit{Related NFRs:} \nfrref{NFR_Usability}, \nfrref{NFR_Colour}, \nfrref{NFR_ClinicianUse}.
+\textit{Related NFRs:} \nfrref{NFR_Usability}, \nfrref{NFR_ClinicianUse}, \nfrref{NFR_Colour}.
 
 \item[\frdef{FR_StartLevel}]
 The system shall allow the child to select any level at any time. The
@@ -2555,7 +2564,7 @@ procedure. A replay must not undo the progress the child has already made.
 
 \end{reqlist}
 
-\subsubsection{Levels}
+\subsubsection{Level Content}
 \label{sec_FRGameplay}
 
 \begin{reqlist}{FR}
@@ -2574,6 +2583,23 @@ a level must convey.
 \ucref{UC_SlitLampGame}.
 
 \textit{Related NFRs:} \nfrref{NFR_ClinicalAccuracy}.
+
+\item[\frdef{FR_AgeGroup}]
+The age group, which the caregiver sets (\rref{FR_Preferences}), shall be
+either 3 to 4 years or 5 to 7 years, or not set.
+When an age group is set and a level provides content for that age group, the
+system shall present that content. Otherwise, the system shall present the
+level's default content.
+
+\textit{Rationale:} A three-year-old and a seven-year-old understand
+explanations differently. Content for the child's age group is easier to
+follow. The supervisor discussed whether content should vary by age
+(\hyperref[ER2]{ER2}), and the two groups match the split used in
+\nfrref{NFR_Usability}. Default content means that every level always has content to show.
+
+\textit{Traces:} \ucref{UC_AdjustPreferences}.
+
+\textit{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
 \item[\frdef{FR_DescribeSensations}]
 Before a level shows a part of a procedure that the child may feel, such
@@ -2650,7 +2676,7 @@ them.
 \textit{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
 
-\textit{Related NFRs:} \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_AVSync}, \nfrref{NFR_Accessibility}.
+\textit{Related NFRs:} \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_AVSync}.
 
 \textit{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
@@ -2709,20 +2735,20 @@ able to play without sound.
 \item[\frdef{FR_RevealAnswer}]
 When the child selects an incorrect answer to a \termmark{question}question,
 the system shall
-show every correct answer within \constref{ANSWER_REVEAL_MAX_S} second. The
-correct answers shall be marked with narration and with at least two cues that
-do not rely on colour, such as an outline, an icon, or motion. The child shall
-then be able to select a correct answer and receive encouraging feedback
-before the level continues.
+show every correct answer and mark it with narration and a visual cue. The
+child shall then be able to select a correct answer and receive encouraging
+feedback before the level continues.
 
-\textit{Rationale:} A child who leaves a question unsure of the answer may stay worried about
-it. Cues that do not rely on colour or reading work for colour-blind children
-and pre-readers.
+\textit{Rationale:} A child who leaves a question unsure of the answer may stay
+worried about it. Letting the child select the correct answer ends the
+question on a success. How quickly the answer appears and how its cues work
+without colour are qualities of this behaviour, given in
+\nfrref{NFR_Responsiveness} and \nfrref{NFR_Colour}.
 
 \textit{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
 
-\textit{Related NFRs:} \nfrref{NFR_Colour}, \nfrref{NFR_Accessibility}.
+\textit{Related NFRs:} \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour}, \nfrref{NFR_Responsiveness}.
 
 \textit{Hazard Analysis:} \hazsr{CorrectAnswerReveal}{16}{CorrectAnswerReveal}{2-10}.
 
@@ -2762,14 +2788,18 @@ for finishing a level does not depend on the answers
 During a screen transition, the system shall act on at most one
 navigation input. Further touches before the next screen is shown shall be
 ignored. While the narration of procedure information is playing, touches
-outside the skip control shall not skip or shorten it. The skip control shall
+outside the skip control, the home control, and the restart control shall not
+skip or shorten it. The home and restart controls shall keep working during
+narration (\rref{FR_ExitLevel}, \rref{FR_RestartLevel}). The skip control shall
 act only after it has been held for \constref{SKIP_HOLD_MIN_S} second, and it
 shall not skip a sensation description (\rref{FR_DescribeSensations}).
 
 \textit{Rationale:} Young children often tap the screen many times. Without this rule, extra
 taps could skip the explanation of a procedure that the child needs to
 hear. A hold separates a deliberate skip from a repeated tap, which a rule
-about ``accidental'' touches alone could not.
+about ``accidental'' touches alone could not. The home and restart controls
+are exempt so that a child who is upset can still leave the level with one
+touch (\nfrref{NFR_Exit}).
 
 \textit{Traces:} \ucref{UC_VisionGame}, \ucref{UC_EyeDropGame},
 \ucref{UC_SlitLampGame}.
@@ -2800,9 +2830,9 @@ time. Returning to the journey map lets them choose another level.
 \textit{Hazard Analysis:} \hazsr{GameplayRecovery}{4}{GameplayStuck}{2-2}.
 
 \item[\frdef{FR_StopOnExit}]
-When a level ends early, the system shall immediately stop all audio,
-animation, and visual effects of that level. None of them shall continue on the
-journey map.
+When a level ends early, the system shall stop all audio, animation, and
+visual effects of that level before the journey map is shown. None of them
+shall continue on the journey map.
 
 \textit{Rationale:} Sounds or animations from a level the child has left could confuse or
 upset them. Stopping everything makes leaving a level feel complete.
@@ -2869,6 +2899,13 @@ miss part of a level, and sound should not keep playing in the background.
 
 \textit{Hazard Analysis:} \hazsr{NarrationMuted}{18}{NarrationDisabledSetting}{2-14}, \hazsr{ConsistentAudioVisuals}{25}{AudioVisualMismatch}{2-17}.
 
+\end{reqlist}
+
+\subsubsection{Saving and Restoring Progress}
+\label{sec_FRSaving}
+
+\begin{reqlist}{FR}
+
 \item[\frdef{FR_PersistState}]
 The system shall save the player state (\defref{def_Player}), the owned and
 equipped accessories, and the selected character on the device each time
@@ -2926,7 +2963,7 @@ requirement.
 \textit{Traces:} \ucref{UC_CompleteGame}, \defref{def_Ops},
 \thmref{thm_Once}.
 
-\textit{Related NFRs:} \nfrref{NFR_Offline}, \nfrref{NFR_NoPressure}.
+\textit{Related NFRs:} \nfrref{NFR_NoPressure}, \nfrref{NFR_Offline}.
 
 \textit{Hazard Analysis:} \hazsr{NonPunitiveFeedback}{12}{PunitiveFeedback}{2-12}.
 
@@ -2972,7 +3009,7 @@ shall use a default character.
 \textit{Rationale:} Choosing a character gives the child a sense of ownership
 of the journey. Changing characters must not cost the child any progress or
 rewards. A default character means that a child who has not chosen one, or
-whose data was reset (\rref{FR_ResetJourney}, \rref{FR_CorruptData}), is
+whose data was reset (\rref{FR_CorruptData}, \rref{FR_ResetJourney}), is
 never blocked from a level.
 
 \textit{Traces:} \ucref{UC_ChooseCharacter}.
@@ -3090,7 +3127,7 @@ child at the appointment.
 
 \textit{Traces:} \ucref{UC_ProcedureInformation}.
 
-\textit{Related NFRs:} \nfrref{NFR_Language}, \nfrref{NFR_NoClaims}, \nfrref{NFR_ClinicalAccuracy}.
+\textit{Related NFRs:} \nfrref{NFR_Language}, \nfrref{NFR_ClinicalAccuracy}, \nfrref{NFR_NoClaims}.
 
 \item[\frdef{FR_Nickname}]
 The settings shall allow the caregiver to enter, change, or clear an optional
@@ -3109,7 +3146,8 @@ application does not need to collect identifying information.
 The settings shall allow the caregiver to change the age group
 (\rref{FR_AgeGroup}), the narration volume, the music and sound-effect volume,
 the size of the visual cues, and whether motion effects are reduced. Each
-change shall take effect immediately.
+change shall take effect while the settings are still open, without
+restarting the application.
 
 \textit{Rationale:} Caregivers know what their child needs, such as a lower
 volume in a waiting room. Applying changes immediately lets the caregiver see
@@ -3120,22 +3158,6 @@ the result before handing the device back.
 \textit{Related NFRs:} \nfrref{NFR_Accessibility}.
 
 \textit{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-16}, \hazsr{VisualCuesSetting}{19}{VisualCuesDisabledSetting}{2-15}, \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
-
-\item[\frdef{FR_AgeGroup}]
-The age group shall be either 3 to 4 years or 5 to 7 years, or not set.
-When an age group is set and a level provides content for that age group, the
-system shall present that content. Otherwise, the system shall present the
-level's default content.
-
-\textit{Rationale:} A three-year-old and a seven-year-old understand
-explanations differently. Content for the child's age group is easier to
-follow. The supervisor discussed whether content should vary by age
-(\hyperref[ER2]{ER2}), and the two groups match the split used in
-\nfrref{NFR_Usability}. Default content means that every level always has content to show.
-
-\textit{Traces:} \ucref{UC_AdjustPreferences}.
-
-\textit{Hazard Analysis:} \hazsr{AccessibleInteraction}{24}{InaccessibleInteraction}{2-3}.
 
 \item[\frdef{FR_ResetJourney}]
 The settings shall allow the caregiver to reset the journey data. The system
@@ -3711,17 +3733,6 @@ No image, animation, narration, or sound shall be frightening, or show pain or d
 
 \textit{Stakeholder Requirements:} \strref{STR_2}, \strref{STR_6}, \strref{STR_15}.
 
-\item[\nfrdef{NFR_Flashing}]
-No content shall flash more than \constref{FLASH_MAX_PER_S} times in any one-second period.
-
-\textit{Rationale:} Flashing content can trigger seizures in people with photosensitive epilepsy. This is the limit of WCAG 2.2 success criterion 2.3.1, Three Flashes or Below Threshold \cite{WCAG22}. It is applied to all content, without the exception for small flashing areas, because a young child may hold the device close to their face.
-
-\textit{Fit Criterion:} Every animation and video is checked with a photosensitive-epilepsy analysis tool, and no sequence exceeds the limit.
-
-\textit{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-16}.
-
-\textit{Stakeholder Requirements:} \strref{STR_15}.
-
 \end{reqlist}
 
 \subsection{Usability and Humanity Requirements} \label{sec_UsabilityReqs}
@@ -3740,7 +3751,7 @@ Every interactive element shall have a \termmark{touchtarget}touch target at lea
 \textit{Stakeholder Requirements:} \strref{STR_3}, \strref{STR_17}.
 
 \item[\nfrdef{NFR_Exit}]
-A home control that returns to the journey map shall be reachable with one touch from every screen of a level.
+Leaving a level for the journey map (\rref{FR_ExitLevel}, \rref{FR_RestartLevel}) shall take one touch from every screen of the level.
 
 \textit{Rationale:} A child or parent who chooses the wrong activity, or wants to stop, needs a way out that does not depend on reading. Without one, the child may feel trapped, which works against the goal of reassurance.
 
@@ -3813,11 +3824,11 @@ The application shall meet the \termmark{webcontentaccessibilityguidelineswcag}W
 \textit{Stakeholder Requirements:} \strref{STR_17}.
 
 \item[\nfrdef{NFR_Colour}]
-Every state and prompt shall remain distinguishable without colour, including for users with common forms of colour vision deficiency.
+Every state and prompt shall remain distinguishable without colour, including for users with common forms of colour vision deficiency. A correct answer shown by \rref{FR_RevealAnswer} shall be marked with at least two cues that do not rely on colour, such as an outline, an icon, or motion.
 
-\textit{Rationale:} Colour vision deficiency is common enough that some children and parents will have it, and it is more likely among users of an eye service. Relying on colour alone, for example green for correct and red for wrong, would hide information from them.
+\textit{Rationale:} Colour vision deficiency is common enough that some children and parents will have it, and it is more likely among users of an eye service. Relying on colour alone, for example green for correct and red for wrong, would hide information from them. A revealed answer needs two such cues because it must stand out from the other choices for a child who can neither read nor tell the colours apart.
 
-\textit{Fit Criterion:} Screens viewed under protanopia, deuteranopia, and tritanopia simulation show every state and choice as distinct by shape, position, or text as well as colour.
+\textit{Fit Criterion:} Screens viewed under protanopia, deuteranopia, and tritanopia simulation show every state and choice as distinct by shape, position, or text as well as colour, and every revealed answer carries at least two cues that remain visible in all three simulations.
 
 \textit{Traces:} \rref{FR_JourneyMap}, \rref{FR_RevealAnswer}.
 
@@ -3841,15 +3852,15 @@ The home screen shall appear within \constref{STARTUP_MAX_S} seconds of launch.
 \textit{Stakeholder Requirements:} \strref{STR_3}, \strref{STR_10}.
 
 \item[\nfrdef{NFR_Responsiveness}]
-The system shall respond visibly to a touch on an interactive element within \constref{RESPONSE_MAX_MS} milliseconds.
+The system shall respond visibly to a touch on an interactive element within \constref{RESPONSE_MAX_MS} milliseconds. After an incorrect answer, the correct answer (\rref{FR_RevealAnswer}) shall appear within \constref{ANSWER_REVEAL_MAX_S} second.
 
-\textit{Rationale:} About 0.1 seconds is the longest delay that feels instant to a user \cite{Nielsen1993}. A child who sees no reaction will tap again, which the activities then have to handle.
+\textit{Rationale:} About 0.1 seconds is the longest delay that feels instant to a user \cite{Nielsen1993}. A child who sees no reaction will tap again, which the activities then have to handle. A correct answer that appears too late is no longer linked to the question in the child's mind.
 
-\textit{Fit Criterion:} At least \constref{RESPONSE_RATE_MIN}\% of measured touches on each low-spec device receive a visible response within \constref{RESPONSE_MAX_MS} milliseconds.
+\textit{Fit Criterion:} At least \constref{RESPONSE_RATE_MIN}\% of measured touches on each low-spec device receive a visible response within \constref{RESPONSE_MAX_MS} milliseconds, and every measured answer reveal on each low-spec device appears within \constref{ANSWER_REVEAL_MAX_S} second.
 
-\textit{Traces:} \rref{FR_IgnoreRepeatedTouches}.
+\textit{Traces:} \rref{FR_RevealAnswer}, \rref{FR_IgnoreRepeatedTouches}.
 
-\textit{Hazard Analysis:} \hazsr{DevicePerformance}{2}{PoorPerformance}{1-2}, \hazsr{PreventAccidentalInput}{3}{AccidentalInputSkipping}{2-1}.
+\textit{Hazard Analysis:} \hazsr{DevicePerformance}{2}{PoorPerformance}{1-2}, \hazsr{PreventAccidentalInput}{3}{AccidentalInputSkipping}{2-1}, \hazsr{CorrectAnswerReveal}{16}{CorrectAnswerReveal}{2-10}.
 
 \textit{Stakeholder Requirements:} \strref{STR_2}.
 
@@ -3877,19 +3888,6 @@ Narration shall start within \constref{AV_SYNC_MAX_MS} milliseconds of the anima
 
 \textit{Stakeholder Requirements:} \strref{STR_1}.
 
-\item[\nfrdef{NFR_ClinicalAccuracy}]
-Every level and every entry of the procedure guide shall be approved by a paediatric ophthalmologist, as matching the procedure at the clinic, before it is released. Content that changes after approval shall be approved again.
-
-\textit{Rationale:} Children and caregivers rely on the game to show what will really happen (\strref{STR_5}), and the team has no clinical training. A record of approval for each version shows that the released content is the content that was approved. \nfrref{NFR_Integrity} then makes sure it is not changed on the way to the device.
-
-\textit{Fit Criterion:} For each release, an approval record signed by a paediatric ophthalmologist lists every level and guide entry at its released version, with no finding unresolved.
-
-\textit{Traces:} \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_ProcedureGuide}.
-
-\textit{Hazard Analysis:} \hazsr{ClinicianApproval}{5}{InaccurateProcedure}{2-5}, \hazsr{ApprovedContent}{7}{InaccurateProcedure}{2-5}.
-
-\textit{Stakeholder Requirements:} \strref{STR_1}, \strref{STR_5}, \strref{STR_6}.
-
 \item[\nfrdef{NFR_AudioSafety}]
 No sound effect or music shall have a peak level above the peak level of the narration.
 
@@ -3902,6 +3900,17 @@ No sound effect or music shall have a peak level above the peak level of the nar
 \textit{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-16}.
 
 \textit{Stakeholder Requirements:} \strref{STR_2}, \strref{STR_15}.
+
+\item[\nfrdef{NFR_Flashing}]
+No content shall flash more than \constref{FLASH_MAX_PER_S} times in any one-second period.
+
+\textit{Rationale:} Flashing content can trigger seizures in people with photosensitive epilepsy. This is the limit of WCAG 2.2 success criterion 2.3.1, Three Flashes or Below Threshold \cite{WCAG22}. It is applied to all content, without the exception for small flashing areas, because a young child may hold the device close to their face.
+
+\textit{Fit Criterion:} Every animation and video is checked with a photosensitive-epilepsy analysis tool, and no sequence exceeds the limit.
+
+\textit{Hazard Analysis:} \hazsr{SafeAudioVisuals}{14}{UnsafeAudioVisuals}{2-16}.
+
+\textit{Stakeholder Requirements:} \strref{STR_15}.
 
 \item[\nfrdef{NFR_Reliability}]
 At least \constref{CRASH_FREE_RATE_MIN}\% of sessions shall end without a crash or freeze.
@@ -3917,11 +3926,11 @@ At least \constref{CRASH_FREE_RATE_MIN}\% of sessions shall end without a crash 
 \textit{Stakeholder Requirements:} \strref{STR_2}.
 
 \item[\nfrdef{NFR_DeviceHeat}]
-The application shall not cause the surface temperature of the device, where it is held, to exceed \constref{DEVICE_TEMP_MAX_C} degrees Celsius during use.
+The application shall not cause the temperature of the back or any edge of the device, where a child holds it, to exceed \constref{DEVICE_TEMP_MAX_C} degrees Celsius during use.
 
 \textit{Rationale:} Young children may hold a device for long periods, and a device that becomes too hot can cause discomfort or minor injury. The limit is revisited after proof-of-concept measurements on low-spec devices.
 
-\textit{Fit Criterion:} On each low-spec device, a surface thermometer at the hottest point of the back of the device reads at or below this value throughout a continuous session of at least \constref{HEAT_TEST_SESSION_MIN} minutes of gameplay.
+\textit{Fit Criterion:} On each low-spec device, a surface thermometer reads the back and every edge of the device, and the hottest of these readings is at or below this value throughout a continuous session of at least \constref{HEAT_TEST_SESSION_MIN} minutes of gameplay.
 
 \textit{Hazard Analysis:} \hazsr{DeviceResourceUse}{1}{DeviceOverheating}{1-1}.
 
@@ -3936,7 +3945,7 @@ The application shall not cause the surface temperature of the device, where it 
 \item[\nfrdef{NFR_Offline}]
 After installation, every function shall work with no network connection.
 
-\textit{Rationale:} Hospital waiting rooms often have poor connectivity, and that is a place where the application is useful. A network dependency would also raise privacy questions.
+\textit{Rationale:} Hospital waiting rooms often have poor connectivity, and that is a place where the application is useful. A network dependency would also raise privacy questions. This requirement makes \conref{C_OfflineOperation} measurable.
 
 \textit{Fit Criterion:} The full functional test suite passes with the device in airplane mode.
 
@@ -3945,15 +3954,6 @@ After installation, every function shall work with no network connection.
 \textit{Hazard Analysis:} \hazsr{OfflinePreparation}{26}{OfflineContentUnavailable}{2-4}.
 
 \textit{Stakeholder Requirements:} \strref{STR_4}.
-
-\item[\nfrdef{NFR_Portability}]
-The application shall run on iOS \constref{MIN_IOS} and later and Android \constref{MIN_ANDROID} and later, on phones and tablets with screens from \constref{SCREEN_MIN_IN} to \constref{SCREEN_MAX_IN} inches.
-
-\textit{Rationale:} Families use the devices they already own. These versions cover the large majority of devices in use by families and keep the supported range testable by a small team. The performance requirements are measured on \termmark{lowspecdevice}low-spec devices, so that their limits hold for the oldest devices that families still use. The values are revisited after the proof of concept.
-
-\textit{Fit Criterion:} The functional tests in the \termmark{verificationandvalidationvnvplan}VnV Plan pass on every \termmark{referencedevice}reference device.
-
-\textit{Stakeholder Requirements:} \strref{STR_10}.
 
 \item[\nfrdef{NFR_Installability}]
 A parent shall be able to install the application from the app store and reach the home screen without creating an account, granting permissions, or downloading further content.
@@ -3975,6 +3975,19 @@ The installed size of the application shall be at most \constref{INSTALL_SIZE_MA
 
 \textit{Stakeholder Requirements:} \strref{STR_4}, \strref{STR_10}.
 
+\item[\nfrdef{NFR_ClinicalAccuracy}]
+Every level and every entry of the procedure guide shall be approved by a paediatric ophthalmologist, as matching the procedure at the clinic, before it is released. Content that changes after approval shall be approved again.
+
+\textit{Rationale:} Children and caregivers rely on the game to show what will really happen (\strref{STR_5}), and the team has no clinical training. A record of approval for each version shows that the released content is the content that was approved. \nfrref{NFR_Integrity} then makes sure it is not changed on the way to the device.
+
+\textit{Fit Criterion:} For each release, an approval record signed by a paediatric ophthalmologist lists every level and guide entry at its released version, with no finding unresolved.
+
+\textit{Traces:} \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_ProcedureGuide}.
+
+\textit{Hazard Analysis:} \hazsr{ClinicianApproval}{5}{InaccurateProcedure}{2-5}, \hazsr{ApprovedContent}{7}{InaccurateProcedure}{2-5}.
+
+\textit{Stakeholder Requirements:} \strref{STR_1}, \strref{STR_5}, \strref{STR_6}.
+
 \end{reqlist}
 
 \subsection{Maintainability and Support Requirements}
@@ -3989,6 +4002,26 @@ The effort to make any likely change in the Likely Changes section shall be less
 \textit{Fit Criterion:} The recorded effort for each such change made during the project is within this fraction.
 
 \textit{Stakeholder Requirements:} \strref{STR_11}.
+
+\item[\nfrdef{NFR_Portability}]
+The application shall run on iOS \constref{MIN_IOS} and later and Android \constref{MIN_ANDROID} and later, on phones and tablets with screens from \constref{SCREEN_MIN_IN} to \constref{SCREEN_MAX_IN} inches.
+
+\textit{Rationale:} Families use the devices they already own. These versions cover the large majority of devices in use by families and keep the supported range testable by a small team. The performance requirements are measured on \termmark{lowspecdevice}low-spec devices, so that their limits hold for the oldest devices that families still use. The values are revisited after the proof of concept. This requirement makes \conref{C_MobilePlatforms} measurable.
+
+\textit{Fit Criterion:} The functional tests in the \termmark{verificationandvalidationvnvplan}VnV Plan pass on every \termmark{referencedevice}reference device.
+
+\textit{Stakeholder Requirements:} \strref{STR_10}.
+
+\item[\nfrdef{NFR_DependencyTesting}]
+Every third-party library and engine component shall be fixed to an exact version, and each change to one shall be tested on a release build before it is included in a release.
+
+\textit{Rationale:} The application depends on software the team does not control, and an unexpected update or incompatibility could cause crashes or wrong behaviour in the activities that prepare the child. Fixing versions means each release contains only what was tested.
+
+\textit{Fit Criterion:} The dependency list gives an exact version for every third-party library and engine component, and the functional test suite passes on the release build after each dependency change, with no finding unresolved at release.
+
+\textit{Hazard Analysis:} \hazsr{ThirdPartyValidation}{22}{ThirdPartyFailure}{2-20}.
+
+\textit{Stakeholder Requirements:} \strref{STR_2}.
 
 \end{reqlist}
 
@@ -4023,7 +4056,7 @@ Every release build shall be digitally signed and distributed only through the A
 \item[\nfrdef{NFR_Privacy}]
 The application shall not transmit any data off the device.
 
-\textit{Rationale:} Not collecting data removes most of the privacy and legal exposure for a service aimed at children, who cannot consent, and the application does not need any data to work. Evaluation measures are collected separately, with consent.
+\textit{Rationale:} Not collecting data removes most of the privacy and legal exposure for a service aimed at children, who cannot consent, and the application does not need any data to work. Evaluation measures are collected separately, with consent. This requirement makes \conref{C_NoNetworkCommunications} measurable.
 
 \textit{Fit Criterion:} A network capture during a full test session shows no outbound request from the application.
 
@@ -4034,7 +4067,7 @@ The application shall not transmit any data off the device.
 \item[\nfrdef{NFR_Minimization}]
 The application shall store only the attributes of the Local Preferences, Character Inventory, Game Progress, and Journey Progress entities in the data dictionary (Table~\ref{tab:JourneyDataDictionary}).
 
-\textit{Rationale:} Data that is not stored cannot leak or be requested. Only these items are needed for the application to function.
+\textit{Rationale:} Data that is not stored cannot leak or be requested. Only these items are needed for the application to function. This requirement makes \conref{C_PatientPrivacy} measurable.
 
 \textit{Fit Criterion:} Inspection of the storage after a full test session finds no other data.
 
@@ -4054,17 +4087,6 @@ Each release shall contain no third-party library with a publicly known vulnerab
 \textit{Hazard Analysis:} \hazsr{ThirdPartyValidation}{22}{UnexpectedDataTransmission}{2-22}.
 
 \textit{Stakeholder Requirements:} \strref{STR_13}.
-
-\item[\nfrdef{NFR_DependencyTesting}]
-Every third-party library and engine component shall be fixed to an exact version, and each change to one shall be tested on a release build before it is included in a release.
-
-\textit{Rationale:} The application depends on software the team does not control, and an unexpected update or incompatibility could cause crashes or wrong behaviour in the activities that prepare the child. Fixing versions means each release contains only what was tested.
-
-\textit{Fit Criterion:} The dependency list gives an exact version for every third-party library and engine component, and the functional test suite passes on the release build after each dependency change, with no finding unresolved at release.
-
-\textit{Hazard Analysis:} \hazsr{ThirdPartyValidation}{22}{ThirdPartyFailure}{2-20}.
-
-\textit{Stakeholder Requirements:} \strref{STR_2}.
 
 \end{reqlist}
 
@@ -4087,7 +4109,7 @@ Content shall not assume a child's family structure, culture, religion, gender, 
 
 \end{reqlist}
 
-\subsection{Legal Requirements}
+\subsection{Compliance Requirements}
 
 \begin{reqlist}{NFR}
 
@@ -4107,7 +4129,7 @@ The application, its notices, and its store listings shall make no claim to diag
 \item[\nfrdef{NFR_Licensing}]
 Every third-party asset and library shall have a recorded licence that permits redistribution under the project's chosen software licence.
 
-\textit{Rationale:} Assets from a public store may forbid redistribution or require terms that conflict with the project's chosen licence. A removal for a licence breach would take the application away from families.
+\textit{Rationale:} Assets from a public store may forbid redistribution or require terms that conflict with the project's chosen licence. A removal for a licence breach would take the application away from families. This requirement makes \conref{C_ApplicationLicensing} measurable.
 
 \textit{Fit Criterion:} The licence log lists every third-party asset and library with its licence, and has no gap.
 
@@ -4118,7 +4140,7 @@ Every third-party asset and library shall have a recorded licence that permits r
 \item[\nfrdef{NFR_StoreCompliance}]
 The application shall meet the policies for children's applications of both app stores: the Kids Category rules of the App Store Review Guidelines \cite{AppleGuidelines} and the Families policy of Google Play \cite{GooglePlayPolicy}.
 
-\textit{Rationale:} The application is aimed at children, and the policies call for parental gates and limit advertising, outside links, and third-party data collection \cite{AppleGuidelines, GooglePlayPolicy}. Non-compliance would lead to rejection or removal.
+\textit{Rationale:} The application is aimed at children, and the policies call for parental gates and limit advertising, outside links, and third-party data collection \cite{AppleGuidelines, GooglePlayPolicy}. Non-compliance would lead to rejection or removal. This requirement makes the children's-application part of \conref{C_StoreCompliance} measurable.
 
 \textit{Fit Criterion:} Both app stores approve the release build for a children's audience, and every item on the pre-submission policy checklist passes.
 
@@ -4176,28 +4198,18 @@ functional requirements that refine it.
 
 \strref{STR_1}, \strref{STR_2}, \strref{STR_3}, \strref{STR_4}, \strref{STR_5}, 
 \strref{STR_6}, \strref{STR_7}, \strref{STR_15}, \strref{STR_17}, \strref{STR_18} 
-& \ucref{UC_VisionGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, 
-\rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, 
-\rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, 
-\rref{FR_IgnoreRepeatedTouches} \\
+& \ucref{UC_VisionGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches} \\
 
 \strref{STR_1}, \strref{STR_2}, \strref{STR_3}, \strref{STR_4}, \strref{STR_5}, 
 \strref{STR_6}, \strref{STR_7}, \strref{STR_15}, \strref{STR_17}, \strref{STR_18} 
-& \ucref{UC_EyeDropGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, 
-\rref{FR_SpeakUp}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, 
-\rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, 
-\rref{FR_IgnoreRepeatedTouches} \\
+& \ucref{UC_EyeDropGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_SpeakUp}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches} \\
 
 \strref{STR_1}, \strref{STR_2}, \strref{STR_3}, \strref{STR_4}, \strref{STR_5}, 
 \strref{STR_6}, \strref{STR_7}, \strref{STR_15}, \strref{STR_17}, \strref{STR_18} 
-& \ucref{UC_SlitLampGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, 
-\rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, 
-\rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, 
-\rref{FR_IgnoreRepeatedTouches} \\
+& \ucref{UC_SlitLampGame} & \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_LevelEnd}, \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \rref{FR_NarrationFallback}, \rref{FR_RevealAnswer}, \rref{FR_ValidQuestions}, \rref{FR_NoPenalty}, \rref{FR_IgnoreRepeatedTouches} \\
 
 \strref{STR_2}, \strref{STR_7}, \strref{STR_9} 
-& \ucref{UC_ExitGame} & \rref{FR_ExitLevel}, \rref{FR_StopOnExit}, \rref{FR_ExitKeepsData}, 
-\rref{FR_RestartAfterExit}, \rref{FR_RestartLevel}, \rref{FR_Suspend}, \rref{FR_PersistState} \\
+& \ucref{UC_ExitGame} & \rref{FR_ExitLevel}, \rref{FR_StopOnExit}, \rref{FR_ExitKeepsData}, \rref{FR_RestartAfterExit}, \rref{FR_RestartLevel}, \rref{FR_Suspend}, \rref{FR_PersistState} \\
 
 \strref{STR_3}, \strref{STR_8}, \strref{STR_9}, \strref{STR_16} 
 & \ucref{UC_CompleteGame} & \rref{FR_Replay}, \rref{FR_FirstReward}, \rref{FR_NoDuplicateReward} \\
@@ -4206,18 +4218,15 @@ functional requirements that refine it.
 & \ucref{UC_ViewProgress} & \rref{FR_Scoreboard} \\
 
 \strref{STR_3}, \strref{STR_8}, \strref{STR_12}, \strref{STR_15}, \strref{STR_16} 
-& \ucref{UC_PurchaseAccessory} & \rref{FR_DiverseCharacters}, \rref{FR_Shop}, \rref{FR_Purchase}, 
-\rref{FR_PurchaseRefused}, \rref{FR_NoRealMoney} \\
+& \ucref{UC_PurchaseAccessory} & \rref{FR_DiverseCharacters}, \rref{FR_Shop}, \rref{FR_Purchase}, \rref{FR_PurchaseRefused}, \rref{FR_NoRealMoney} \\
 
 \strref{STR_3}, \strref{STR_8}, \strref{STR_12} 
 & \ucref{UC_EquipAccessory} & \rref{FR_DiverseCharacters}, \rref{FR_Equip} \\
 
 \strref{STR_3}, \strref{STR_13}, \strref{STR_16}, \strref{STR_17} 
-& \ucref{UC_AdjustPreferences} & \rref{FR_VisualCues}, \rref{FR_ParentGate}, 
-\rref{FR_Nickname}, \rref{FR_Preferences}, \rref{FR_AgeGroup} \\
+& \ucref{UC_AdjustPreferences} & \rref{FR_AgeGroup}, \rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Nickname}, \rref{FR_Preferences} \\
 
-\strref{STR_13}, \strref{STR_16} & \ucref{UC_DeleteData} & \rref{FR_ParentGate}, \rref{FR_ResetJourney}, 
-\rref{FR_ClearAllData} \\
+\strref{STR_13}, \strref{STR_16} & \ucref{UC_DeleteData} & \rref{FR_ParentGate}, \rref{FR_ResetJourney}, \rref{FR_ClearAllData} \\
 
 \strref{STR_4}, \strref{STR_10}, \strref{STR_13}, \strref{STR_15} & \ucref{UC_OfflineUse} 
 & \rref{FR_PersistState}, \rref{FR_CorruptData} \\
@@ -4259,12 +4268,12 @@ requirement is refined by at least one use case or non-functional requirement.
 \strref{STR_7} & \nfrref{NFR_ClinicianUse} & -- \\
 \strref{STR_8} & \nfrref{NFR_NoPressure} & -- \\
 \strref{STR_9} & -- & -- \\
-\strref{STR_10} & \nfrref{NFR_Startup}, \nfrref{NFR_Portability}, \nfrref{NFR_InstallSize} & \conref{C_MobilePlatforms}, \conref{C_CrossPlatformEngine} \\
+\strref{STR_10} & \nfrref{NFR_Startup}, \nfrref{NFR_InstallSize}, \nfrref{NFR_Portability} & \conref{C_MobilePlatforms}, \conref{C_CrossPlatformEngine} \\
 \strref{STR_11} & \nfrref{NFR_Maintainability} & -- \\
 \strref{STR_12} & \nfrref{NFR_Inclusivity} & -- \\
 \strref{STR_13} & \nfrref{NFR_DataProtection}, \nfrref{NFR_Privacy}, \nfrref{NFR_Minimization}, \nfrref{NFR_Immunity} & \conref{C_NoNetworkCommunications}, \conref{C_PatientPrivacy} \\
 \strref{STR_14} & \nfrref{NFR_NoClaims} & -- \\
-\strref{STR_15} & \nfrref{NFR_ChildSafe}, \nfrref{NFR_Flashing}, \nfrref{NFR_AudioSafety}, \nfrref{NFR_DeviceHeat}, \nfrref{NFR_StoreCompliance} & \conref{C_StoreCompliance} \\
+\strref{STR_15} & \nfrref{NFR_ChildSafe}, \nfrref{NFR_AudioSafety}, \nfrref{NFR_Flashing}, \nfrref{NFR_DeviceHeat}, \nfrref{NFR_StoreCompliance} & \conref{C_StoreCompliance} \\
 \strref{STR_16} & \nfrref{NFR_NoPressure}, \nfrref{NFR_Integrity}, \nfrref{NFR_Licensing}, \nfrref{NFR_StoreCompliance} & \conref{C_ApplicationLicensing}, \conref{C_RepositoryLicensing}, \conref{C_StoreCompliance} \\
 \strref{STR_17} & \nfrref{NFR_TouchTarget}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} & -- \\
 \strref{STR_18} & \nfrref{NFR_Layout}, \nfrref{NFR_Usability}, \nfrref{NFR_Language} & -- \\
@@ -4297,16 +4306,16 @@ non-functional requirement are omitted.
 \endlastfoot
 
 \rref{FR_MedicalNotice} & \nfrref{NFR_NoClaims} \\
-\rref{FR_JourneyMap} & \nfrref{NFR_Usability}, \nfrref{NFR_Colour}, \nfrref{NFR_ClinicianUse} \\
+\rref{FR_JourneyMap} & \nfrref{NFR_Usability}, \nfrref{NFR_ClinicianUse}, \nfrref{NFR_Colour} \\
 \rref{FR_StartLevel} & \nfrref{NFR_ClinicianUse} \\
 \rref{FR_LevelContent} & \nfrref{NFR_ClinicalAccuracy} \\
 \rref{FR_DescribeSensations} & \nfrref{NFR_ChildSafe}, \nfrref{NFR_ClinicalAccuracy} \\
 \rref{FR_ClinicsDiffer} & \nfrref{NFR_ClinicalAccuracy} \\
-\rref{FR_SpokenInstructions} & \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_AVSync}, \nfrref{NFR_Accessibility} \\
+\rref{FR_SpokenInstructions} & \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_AVSync} \\
 \rref{FR_HintOnMiss} & \nfrref{NFR_Usability} \\
 \rref{FR_VisualCues} & \nfrref{NFR_Accessibility} \\
 \rref{FR_NarrationFallback} & \nfrref{NFR_Accessibility}, \nfrref{NFR_AudioSafety} \\
-\rref{FR_RevealAnswer} & \nfrref{NFR_Colour}, \nfrref{NFR_Accessibility} \\
+\rref{FR_RevealAnswer} & \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour}, \nfrref{NFR_Responsiveness} \\
 \rref{FR_IgnoreRepeatedTouches} & \nfrref{NFR_Responsiveness} \\
 \rref{FR_ExitLevel} & \nfrref{NFR_Exit} \\
 \rref{FR_StopOnExit} & \nfrref{NFR_Exit} \\
@@ -4314,13 +4323,13 @@ non-functional requirement are omitted.
 \rref{FR_Suspend} & \nfrref{NFR_Reliability} \\
 \rref{FR_PersistState} & \nfrref{NFR_Reliability}, \nfrref{NFR_Offline}, \nfrref{NFR_DataProtection} \\
 \rref{FR_CorruptData} & \nfrref{NFR_Reliability} \\
-\rref{FR_FirstReward} & \nfrref{NFR_Offline}, \nfrref{NFR_NoPressure} \\
+\rref{FR_FirstReward} & \nfrref{NFR_NoPressure}, \nfrref{NFR_Offline} \\
 \rref{FR_NoDuplicateReward} & \nfrref{NFR_NoPressure} \\
 \rref{FR_DiverseCharacters} & \nfrref{NFR_Inclusivity} \\
 \rref{FR_Purchase} & \nfrref{NFR_Offline} \\
 \rref{FR_NoRealMoney} & \nfrref{NFR_StoreCompliance} \\
 \rref{FR_ParentGate} & \nfrref{NFR_StoreCompliance} \\
-\rref{FR_ProcedureGuide} & \nfrref{NFR_Language}, \nfrref{NFR_NoClaims}, \nfrref{NFR_ClinicalAccuracy} \\
+\rref{FR_ProcedureGuide} & \nfrref{NFR_Language}, \nfrref{NFR_ClinicalAccuracy}, \nfrref{NFR_NoClaims} \\
 \rref{FR_Nickname} & \nfrref{NFR_DataProtection}, \nfrref{NFR_Minimization} \\
 \rref{FR_Preferences} & \nfrref{NFR_Accessibility} \\
 \rref{FR_ResetJourney} & \nfrref{NFR_Minimization} \\
@@ -4370,15 +4379,15 @@ of the Hazard Analysis.
 \hasrref{StopAudioVisualsOnExit}{13} & \hahazref{AudioVisualsContinueOnExit}{2-13} & Termination of audio and visual effects on exit & \rref{FR_StopOnExit} & \nfrref{NFR_Exit} \\
 \hasrref{SafeAudioVisuals}{14} & \hahazref{UnsafeAudioVisuals}{2-16} & Safe audio and visual effects & \rref{FR_NarrationFallback}, \rref{FR_Preferences} & \nfrref{NFR_AudioSafety}, \nfrref{NFR_Flashing} \\
 \hasrref{CharacterDiversityInclusivity}{15} & \hahazref{DiverseCharacterLibrary}{2-9} & Diverse and inclusive characters and rewards & \rref{FR_DiverseCharacters} & \nfrref{NFR_Inclusivity} \\
-\hasrref{CorrectAnswerReveal}{16} & \hahazref{CorrectAnswerReveal}{2-10} & Revealing correct answers & \rref{FR_RevealAnswer} & \nfrref{NFR_Colour}, \nfrref{NFR_Accessibility} \\
+\hasrref{CorrectAnswerReveal}{16} & \hahazref{CorrectAnswerReveal}{2-10} & Revealing correct answers & \rref{FR_RevealAnswer} & \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour}, \nfrref{NFR_Responsiveness} \\
 \hasrref{AtLeastOneCorrectAnswer}{17} & \hahazref{CorrectAnswerReveal}{2-10} & At least one correct answer & \rref{FR_ValidQuestions} & -- \\
 \hasrref{NarrationMuted}{18} & \hahazref{NarrationDisabledSetting}{2-14} & Guidance for muted narration & \rref{FR_NarrationFallback}, \rref{FR_Suspend} & \nfrref{NFR_Accessibility} \\
 \hasrref{VisualCuesSetting}{19} & \hahazref{VisualCuesDisabledSetting}{2-15} & Visual cues during gameplay & \rref{FR_VisualCues}, \rref{FR_ParentGate}, \rref{FR_Preferences} & \nfrref{NFR_Accessibility} \\
 \hasrref{ReliableSaveData}{20} & \hahazref{SaveDataCorruption}{2-18} & Reliable save data handling & \rref{FR_PersistState}, \rref{FR_CorruptData} & \nfrref{NFR_Reliability} \\
-\hasrref{MinimalSaveData}{21} & \hahazref{SaveDataPrivacy}{2-19}, \hahazref{UnexpectedDataTransmission}{2-22} & Minimization and protection of game data & -- & \nfrref{NFR_Minimization}, \nfrref{NFR_DataProtection}, \nfrref{NFR_Privacy} \\
-\hasrref{ThirdPartyValidation}{22} & \hahazref{ThirdPartyFailure}{2-20}, \hahazref{UnexpectedDataTransmission}{2-22} & Third-party software validation & -- & \nfrref{NFR_Reliability}, \nfrref{NFR_DependencyTesting}, \nfrref{NFR_Immunity}, \nfrref{NFR_Privacy} \\
+\hasrref{MinimalSaveData}{21} & \hahazref{SaveDataPrivacy}{2-19}, \hahazref{UnexpectedDataTransmission}{2-22} & Minimization and protection of game data & -- & \nfrref{NFR_DataProtection}, \nfrref{NFR_Privacy}, \nfrref{NFR_Minimization} \\
+\hasrref{ThirdPartyValidation}{22} & \hahazref{ThirdPartyFailure}{2-20}, \hahazref{UnexpectedDataTransmission}{2-22} & Third-party software validation & -- & \nfrref{NFR_Reliability}, \nfrref{NFR_DependencyTesting}, \nfrref{NFR_Privacy}, \nfrref{NFR_Immunity} \\
 \hasrref{ThirdPartyAssetReview}{23} & \hahazref{ThirdPartyAssetContent}{2-21} & Third-party asset review & -- & \nfrref{NFR_ChildSafe}, \nfrref{NFR_Licensing} \\
-\hasrref{AccessibleInteraction}{24} & \hahazref{InaccessibleInteraction}{2-3} & Accessible, age-appropriate interaction & \rref{FR_SpokenInstructions}, \rref{FR_Preferences}, \rref{FR_AgeGroup} & \nfrref{NFR_TouchTarget}, \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} \\
+\hasrref{AccessibleInteraction}{24} & \hahazref{InaccessibleInteraction}{2-3} & Accessible, age-appropriate interaction & \rref{FR_AgeGroup}, \rref{FR_SpokenInstructions}, \rref{FR_Preferences} & \nfrref{NFR_TouchTarget}, \nfrref{NFR_Usability}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} \\
 \hasrref{ConsistentAudioVisuals}{25} & \hahazref{AudioVisualMismatch}{2-17} & Consistent narration and animation & \rref{FR_Suspend} & \nfrref{NFR_AVSync} \\
 \hasrref{OfflinePreparation}{26} & \hahazref{OfflineContentUnavailable}{2-4} & Offline availability of preparation content & -- & \nfrref{NFR_Offline}, \nfrref{NFR_Installability} \\
 \end{longtable}
@@ -4493,8 +4502,8 @@ requirement rationales are provided alongside their respective requirements.
 
 The main non-functional requirements support three priorities: child-friendly
 interaction, reliable use, and privacy. Since the application is designed for
-children aged 3 to 7, requirements such as \nfrref{NFR_TouchTarget},
-\nfrref{NFR_Layout}, and \nfrref{NFR_Usability} ensure that activities are
+children aged 3 to 7, requirements such as \nfrref{NFR_Layout},
+\nfrref{NFR_TouchTarget}, and \nfrref{NFR_Usability} ensure that activities are
 easy to navigate and complete. \nfrref{NFR_ChildSafe} and
 \nfrref{NFR_Language} ensure that the content is appropriate for the target
 age group, and \nfrref{NFR_ClinicalAccuracy} ensures that it matches what
@@ -4523,8 +4532,7 @@ the information stored, \nfrref{NFR_Privacy} prevents data from being
 transmitted off the device, and \nfrref{NFR_DataProtection} protects
 locally stored data. \nfrref{NFR_Integrity} and \nfrref{NFR_Immunity}
 help protect the application from unauthorized changes and vulnerable
-dependencies. Other requirements, including \nfrref{NFR_Inclusivity},
-\nfrref{NFR_NoClaims}, \nfrref{NFR_Licensing}, and
+dependencies. Other requirements, including \nfrref{NFR_Inclusivity}, \nfrref{NFR_NoClaims}, \nfrref{NFR_Licensing}, and
 \nfrref{NFR_StoreCompliance}, address inclusive content, the application's
 medical scope, and distribution requirements.
 
@@ -4661,8 +4669,7 @@ appointment can change at short notice.
 \item[\ulcdef{ULC_NoFail}]
 \progname{} has no failure states. A wrong action leads to a hint, a wrong
 answer leads to the correct answer being shown, and exercises can be skipped
-without penalty (\rref{FR_HintOnMiss}, \rref{FR_RevealAnswer},
-\rref{FR_NoPenalty}). This
+without penalty (\rref{FR_HintOnMiss}, \rref{FR_RevealAnswer}, \rref{FR_NoPenalty}). This
 follows from the goal of reducing anxiety.
 
 \item[\ulcdef{ULC_RewardOnce}]
@@ -4873,10 +4880,10 @@ P1: Core &
 \rref{FR_SpeakUp},
 \rref{FR_NoRealMoney},
 \nfrref{NFR_ChildSafe},
-\nfrref{NFR_ClinicalAccuracy},
-\nfrref{NFR_Flashing},
 \nfrref{NFR_NoPressure},
 \nfrref{NFR_Language},
+\nfrref{NFR_Flashing},
+\nfrref{NFR_ClinicalAccuracy},
 \nfrref{NFR_Inclusivity},
 \nfrref{NFR_NoClaims} &
 These requirements are essential because the application's
@@ -4942,6 +4949,7 @@ for the application to work as intended. \\
 
 P2: Supporting &
 \textbf{Progress and personalization.}\newline
+\rref{FR_AgeGroup},
 \rref{FR_FirstReward},
 \rref{FR_NoDuplicateReward},
 \rref{FR_Scoreboard},
@@ -4951,8 +4959,7 @@ P2: Supporting &
 \rref{FR_Purchase},
 \rref{FR_PurchaseRefused},
 \rref{FR_Equip},
-\rref{FR_Nickname},
-\rref{FR_AgeGroup} &
+\rref{FR_Nickname} &
 These features make the application more engaging
 by allowing children to earn rewards, track their
 achievements, and customize their characters.
@@ -5088,14 +5095,14 @@ device and app store scope described below.
 \bottomrule
 \endlastfoot
 \nfrref{NFR_Offline} & Plan locally packaged content and offline operation. \\
-\nfrref{NFR_Portability} & List accessible device models, OS versions, and screen sizes as the course test set. \\
 \nfrref{NFR_Maintainability} & Plan reusable procedure, guidance, and data components. \\
+\nfrref{NFR_Portability} & List accessible device models, OS versions, and screen sizes as the course test set. \\
+\nfrref{NFR_DependencyTesting} & Select fixed dependency versions and define update checks. \\
 \nfrref{NFR_DataProtection} & Choose private local storage for settings and progress. \\
 \nfrref{NFR_Integrity} & Identify development signing needs and the intended store workflow. \\
 \nfrref{NFR_Privacy} & Exclude network communication from the prototypes and application design. \\
 \nfrref{NFR_Minimization} & Define the permitted local data and retention rules. \\
 \nfrref{NFR_Immunity} & Plan dependency checks and review included libraries. \\
-\nfrref{NFR_DependencyTesting} & Select fixed dependency versions and define update checks. \\
 \nfrref{NFR_NoClaims} & Plan content review to keep the educational purpose clear. \\
 \nfrref{NFR_Licensing} & Start a licence and attribution record. \\
 \nfrref{NFR_StoreCompliance} & Identify child-facing safeguards and the simulated publication steps. \\
@@ -5143,7 +5150,7 @@ to subsequent development phases.
 \endlastfoot
 \textbf{Clinical content}\newline \rref{FR_LevelContent}, \rref{FR_DescribeSensations}, \rref{FR_ClinicsDiffer}, \rref{FR_SpeakUp}, \nfrref{NFR_ChildSafe}, \nfrref{NFR_Language}, \nfrref{NFR_NoClaims} & Prepare a short eye-drop script and storyboard for clinician and child-life review. Record corrections, review rounds, and turnaround time. Seek a sample with no outstanding corrections and use the review effort to assess the feasible procedure scope. \\
 \textbf{Child interaction}\newline \rref{FR_SpokenInstructions}, \rref{FR_HintOnMiss}, \rref{FR_VisualCues}, \nfrref{NFR_TouchTarget}, \nfrref{NFR_Usability}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} & Try one narrated, visually guided interaction, such as picture matching. Record task completion, time, and assistance. Expert and adult feedback is preliminary; child testing requires consent and ethics approval. Retain child usability as an open risk if target-user evidence is unavailable. \\
-\textbf{Offline media}\newline \nfrref{NFR_Startup}, \nfrref{NFR_Responsiveness}, \nfrref{NFR_Smoothness}, \nfrref{NFR_AVSync}, \nfrref{NFR_Offline}, \nfrref{NFR_Portability}, \nfrref{NFR_InstallSize} & Run a standalone narration, animation, and touch sample in airplane mode on accessible devices. Seek iOS, Android, and older hardware where available. Measure startup, response, frame rate, synchronization, and size; estimate full media size and record untested configurations. \\
+\textbf{Offline media}\newline \nfrref{NFR_Startup}, \nfrref{NFR_Responsiveness}, \nfrref{NFR_Smoothness}, \nfrref{NFR_AVSync}, \nfrref{NFR_Offline}, \nfrref{NFR_InstallSize}, \nfrref{NFR_Portability} & Run a standalone narration, animation, and touch sample in airplane mode on accessible devices. Seek iOS, Android, and older hardware where available. Measure startup, response, frame rate, synchronization, and size; estimate full media size and record untested configurations. \\
 \end{longtable}
 \endgroup
 
@@ -5184,6 +5191,7 @@ core journey with its supporting quality controls, refined to the course scope.
 \rref{FR_StartLevel} & Allow any level to start without progress or reward restrictions. \\
 \rref{FR_Replay} & Allow replay while keeping a completed level's status. \\
 \rref{FR_LevelContent} & Develop the planned vision-testing, eye-drop, and slit-lamp preparation content. \\
+\rref{FR_AgeGroup} & Select age-specific content where the level provides it. \\
 \rref{FR_DescribeSensations} & Explain possible sensations honestly before showing them. \\
 \rref{FR_ClinicsDiffer} & Explain through narration and pictures that real procedures may differ. \\
 \rref{FR_SpeakUp} & Tell children they can express worry or discomfort to the doctor. \\
@@ -5211,12 +5219,10 @@ core journey with its supporting quality controls, refined to the course scope.
 \rref{FR_ProcedureGuide} & Provide caregiver explanations of the procedures and matching levels. \\
 \rref{FR_Nickname} & Support an optional nickname and neutral wording when it is absent. \\
 \rref{FR_Preferences} & Apply caregiver changes to age, audio, display, and accessibility preferences. \\
-\rref{FR_AgeGroup} & Select age-specific content where the level provides it. \\
 \rref{FR_ResetJourney} & Confirm reset; clear progress and customization but retain notice acknowledgement. \\
 \rref{FR_ClearAllData} & Confirm deletion of all local data, including notice acknowledgement. \\
 \nfrref{NFR_Layout} & Use consistent control positions across the implemented screens. \\
 \nfrref{NFR_ChildSafe} & Review content for age suitability and resolve frightening or misleading material. \\
-\nfrref{NFR_Flashing} & Check animations for flashing above the limit. \\
 \nfrref{NFR_TouchTarget} & Size interactive elements for the target users on accessible devices. \\
 \nfrref{NFR_Exit} & Keep a one-touch return control on activity screens. \\
 \nfrref{NFR_Usability} & Design core tasks for use without reading or prior training. \\
@@ -5229,20 +5235,21 @@ core journey with its supporting quality controls, refined to the course scope.
 \nfrref{NFR_Responsiveness} & Provide prompt visible responses to touch. \\
 \nfrref{NFR_Smoothness} & Profile and improve animation frame rate on accessible devices. \\
 \nfrref{NFR_AVSync} & Synchronize narration with its accompanying animation. \\
-\nfrref{NFR_ClinicalAccuracy} & Record clinician approval of each level and guide entry before demonstration or release. \\
 \nfrref{NFR_AudioSafety} & Keep effects and music within the narration's peak audio level. \\
+\nfrref{NFR_Flashing} & Check animations for flashing above the limit. \\
 \nfrref{NFR_Reliability} & Address crashes and freezes as the core workflows are integrated. \\
 \nfrref{NFR_DeviceHeat} & Measure device temperature during sustained use where measurement is possible. \\
 \nfrref{NFR_Offline} & Package the content needed for the implemented functions to work offline. \\
-\nfrref{NFR_Portability} & Adapt and test the application on devices and OS versions the team can access. \\
 \nfrref{NFR_Installability} & Provide a development-installation path without accounts or extra content downloads. \\
 \nfrref{NFR_InstallSize} & Measure installed size locally and optimize media; store-reported evidence is deferred. \\
+\nfrref{NFR_ClinicalAccuracy} & Record clinician approval of each level and guide entry before demonstration or release. \\
 \nfrref{NFR_Maintainability} & Build reusable level and content components and record change effort. \\
+\nfrref{NFR_Portability} & Adapt and test the application on devices and OS versions the team can access. \\
+\nfrref{NFR_DependencyTesting} & Fix dependency versions and test changes before including them. \\
 \nfrref{NFR_DataProtection} & Use the platform's private application storage. \\
 \nfrref{NFR_Privacy} & Prevent outbound application and library communications. \\
 \nfrref{NFR_Minimization} & Limit stored information to the application's defined local data. \\
 \nfrref{NFR_Immunity} & Check dependencies for known high- or critical-severity vulnerabilities. \\
-\nfrref{NFR_DependencyTesting} & Fix dependency versions and test changes before including them. \\
 \nfrref{NFR_Inclusivity} & Review language, images, and character content for inclusive representation. \\
 \nfrref{NFR_NoClaims} & Keep application content and draft listings free of medical claims. \\
 \nfrref{NFR_Licensing} & Record redistribution licences and required notices for included materials. \\
@@ -5326,13 +5333,11 @@ it reduces their anxiety.
 \bottomrule
 \endlastfoot
 \hyperref[sec_FRList]{Implemented functional requirements} & Exercise the implemented use cases, including completion, replay, purchases, restart, save failure, and deletion. \\
-\nfrref{NFR_Layout}, \nfrref{NFR_TouchTarget}, \nfrref{NFR_Exit},
-\nfrref{NFR_Usability},
-\nfrref{NFR_ClinicianUse}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} & Review usability and accessibility. Record task results and participant limitations; arrange approved child evaluation where possible. \\
-\nfrref{NFR_ChildSafe}, \nfrref{NFR_ClinicalAccuracy}, \nfrref{NFR_Flashing}, \nfrref{NFR_NoPressure}, \nfrref{NFR_AudioSafety}, \nfrref{NFR_Inclusivity}, \nfrref{NFR_NoClaims} & Review clinical accuracy, language, imagery, audio levels, and inclusion with the appropriate reviewers. \\
+\nfrref{NFR_Layout}, \nfrref{NFR_TouchTarget}, \nfrref{NFR_Exit}, \nfrref{NFR_Usability}, \nfrref{NFR_ClinicianUse}, \nfrref{NFR_Language}, \nfrref{NFR_Accessibility}, \nfrref{NFR_Colour} & Review usability and accessibility. Record task results and participant limitations; arrange approved child evaluation where possible. \\
+\nfrref{NFR_ChildSafe}, \nfrref{NFR_NoPressure}, \nfrref{NFR_AudioSafety}, \nfrref{NFR_Flashing}, \nfrref{NFR_ClinicalAccuracy}, \nfrref{NFR_Inclusivity}, \nfrref{NFR_NoClaims} & Review clinical accuracy, language, imagery, audio levels, and inclusion with the appropriate reviewers. \\
 \nfrref{NFR_Startup}, \nfrref{NFR_Responsiveness}, \nfrref{NFR_Smoothness}, \nfrref{NFR_AVSync}, \nfrref{NFR_Reliability}, \nfrref{NFR_DeviceHeat} & Measure performance and reliability on accessible devices, recording any unavailable measurements. \\
-\nfrref{NFR_Offline}, \nfrref{NFR_Portability}, \nfrref{NFR_Installability}, \nfrref{NFR_InstallSize} & Test offline use, local installation, and size on the available test set; mark store-dependent or unavailable-device evidence separately. \\
-\nfrref{NFR_Maintainability}, \nfrref{NFR_DataProtection}, \nfrref{NFR_Privacy}, \nfrref{NFR_Minimization}, \nfrref{NFR_Immunity}, \nfrref{NFR_DependencyTesting} & Review change effort, private storage, retained data, network behaviour, and dependency checks. \\
+\nfrref{NFR_Offline}, \nfrref{NFR_Installability}, \nfrref{NFR_InstallSize}, \nfrref{NFR_Portability} & Test offline use, local installation, and size on the available test set; mark store-dependent or unavailable-device evidence separately. \\
+\nfrref{NFR_Maintainability}, \nfrref{NFR_DependencyTesting}, \nfrref{NFR_DataProtection}, \nfrref{NFR_Privacy}, \nfrref{NFR_Minimization}, \nfrref{NFR_Immunity} & Review change effort, private storage, retained data, network behaviour, and dependency checks. \\
 \nfrref{NFR_Integrity}, \nfrref{NFR_Licensing}, \nfrref{NFR_StoreCompliance} & Review signing, licence records, and policy checks; identify simulated or outstanding publication evidence. \\
 \end{longtable}
 \endgroup
@@ -5464,8 +5469,8 @@ require additional design and testing. \\
 \lcref{LC_Personalization};
 related features:
 \rref{FR_JourneyMap},
-\rref{FR_Preferences},
-\rref{FR_AgeGroup} &
+\rref{FR_AgeGroup},
+\rref{FR_Preferences} &
 Personalizing preparation activities based on
 the procedures expected during a child's
 appointment will be left for future development.
