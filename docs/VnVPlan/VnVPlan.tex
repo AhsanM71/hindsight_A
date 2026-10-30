@@ -1,16 +1,72 @@
-\documentclass[12pt, titlepage]{article}
+\documentclass[10pt,titlepage]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
 
 \usepackage{booktabs}
+\usepackage{longtable}
 \usepackage{tabularx}
-\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{caption}
+\usepackage[destlabel]{hyperref}
 \hypersetup{
     colorlinks,
-    citecolor=blue,
-    filecolor=black,
+    citecolor=green,
+    filecolor=magenta,
     linkcolor=red,
-    urlcolor=blue
+    urlcolor=cyan
 }
-\usepackage[round]{natbib}
+\setlength{\emergencystretch}{5em}
+
+
+% ----- Numbered system tests (same list style as the SRS) -------------------
+% Numbering is shared by every testlist.  Moving or inserting a test changes
+% its displayed number and all \testref links automatically.
+\makeatletter
+\newlength{\reqlabelwidth}
+\newlength{\reqlabelsep}
+\setlength{\reqlabelsep}{0.75em}
+\newsavebox{\reqlabelbox}
+\newcommand{\reqsetwidth}[2]{\expandafter\gdef\csname reqwidth@#1\endcsname{#2}}
+\newcommand{\reqlabel}[1]{%
+  \sbox\reqlabelbox{\textbf{#1}}%
+  \ifdim\wd\reqlabelbox>\csname reqmax@\reqkind\endcsname\relax
+    \expandafter\xdef\csname reqmax@\reqkind\endcsname{\the\wd\reqlabelbox}%
+  \fi
+  \usebox\reqlabelbox}
+\newenvironment{reqlist}[1]{%
+  \def\reqkind{#1}%
+  \@ifundefined{reqmax@#1}{\expandafter\gdef\csname reqmax@#1\endcsname{0pt}}{}%
+  \@ifundefined{reqwidth@#1}%
+    {\settowidth{\reqlabelwidth}{\textbf{ST-NFR-00:}}}%
+    {\setlength{\reqlabelwidth}{\csname reqwidth@#1\endcsname}}%
+  \begin{itemize}[leftmargin=\dimexpr\reqlabelwidth+\reqlabelsep\relax,
+    labelwidth=\reqlabelwidth,labelsep=\reqlabelsep,
+    align=left,itemsep=0.9em,parsep=0.35em]}%
+  {\end{itemize}%
+  \immediate\write\@auxout{\string\reqsetwidth{\reqkind}%
+    {\csname reqmax@\reqkind\endcsname}}}
+\makeatother
+
+\newcounter{vnvtestnum}
+\newenvironment{testlist}{\begin{reqlist}{STNFR}}{\end{reqlist}}
+\newcommand{\testdef}[1]{%
+  \refstepcounter{vnvtestnum}\label{test:#1}%
+  \reqlabel{ST-NFR-\arabic{vnvtestnum}:}}
+\newcommand{\testref}[1]{\hyperref[test:#1]{ST-NFR-\ref*{test:#1}}}
+
+% As in the Hazard Analysis, published SRS links use the label as their named
+% destination; display numbers are written explicitly because the documents
+% are compiled separately. This URL matches the SRS link used by the HA.
+\newcommand{\srsurl}{https://team-hindsight.github.io/ophthamology-game/SRS/SRS.pdf}
+\newcommand{\srsnfrref}[2]{\href{\srsurl\#nameddest=#1}{NFR#2}}
+\newcommand{\srsdoc}[1]{\href{\srsurl}{#1}}
+\newcommand{\srstableref}[2]{\href{\srsurl\#nameddest=#1}{#2}}
+
+% Local auxiliary-parameter entries are individually anchored: a reference
+% jumps to the parameter's row, even in a long table spanning several pages.
+\newcommand{\constdef}[1]{\hypertarget{const:#1}{\texttt{\detokenize{#1}}}}
+\newcommand{\constref}[1]{\hyperlink{const:#1}{\texttt{\detokenize{#1}}}}
 
 \input{../Comments.text}
 \input{../Common.text}
@@ -54,8 +110,9 @@ in.}
 
 \tableofcontents
 
+\newpage
+
 \listoftables
-\wss{Remove this section if it isn't needed}
 
 \listoffigures
 \wss{Remove this section if it isn't needed}
@@ -65,18 +122,38 @@ in.}
 \section{Symbols, Abbreviations, and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
+\begin{longtable}{@{}p{0.24\textwidth}p{0.69\textwidth}@{}}
+\caption{Symbols, Abbreviations, and Acronyms}\label{tab:VnVAcronyms}\\
+\toprule
+\textbf{Symbol} & \textbf{Description}\\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page}\\
+\toprule
+\textbf{Symbol} & \textbf{Description}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+AV & Audiovisual; synchronized narration and animation.\\
+CPU & Central Processing Unit.\\
+FPS & Frames per second.\\
+LC & Likely Change, as defined in the SRS.\\
+MG & Module Guide.\\
+MIS & Module Interface Specification.\\
+NFR & Non-Functional Requirement.\\
+OS & Operating System.\\
+SBOM & Software Bill of Materials.\\
+SRS & Software Requirements Specification.\\
+ST-NFR & System test for a non-functional requirement; numbered in order of appearance.\\
+VnV & Verification and Validation.\\
+\end{longtable}
 
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
-
-\wss{Remove this section if it isn't needed}
+For the remaining requirements terminology, see the definitions and
+abbreviations table in the \srsdoc{SRS}~\cite{SRS}.
 
 \newpage
 
@@ -128,11 +205,10 @@ Repos.csv) if your plan changes as a result of the VnV planning exercise.}
   is done, they will be written.  You can create BibTeX entries for your
   documents and within those entries include a hyperlink to the documents.}
 
-\citet{SRS}
-
 \wss{Don't just list the other documents.  You should explain why they are relevant and 
 how they relate to your VnV efforts.}
 
+\newpage
 \section{Plan}
 
 \wss{Introduce this section.  You can provide a roadmap of the sections to
@@ -225,10 +301,14 @@ as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
 
+\newpage
 \section{System Tests}
 
-\wss{There should be text between all headings, even if it is just a roadmap of
-the contents of the subsections.}
+This section describes the system tests used to verify the functional and
+non-functional requirements in the \srsdoc{SRS}. The functional tests check that
+the main features of the game work as expected, while the non-functional tests
+check qualities such as performance, offline use, maintainability, and security.
+Each test explains what will be checked and how the result will be recorded.
 
 \subsection{Tests for Functional Requirements}
 
@@ -286,70 +366,317 @@ How test will be performed:
 
 ...
 
-\subsection{Tests for Nonfunctional Requirements}
+\subsection{Tests for Nonfunctional Requirements}\label{sec:NFRSystemTests}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
+The tests in this section verify the non-functional requirements (NFRs)
+defined in the \srsdoc{SRS}. These requirements describe how well the game
+should operate, rather than the specific features it provides.
+The tests are organized according to the NFR categories in the
+SRS, with each test identifying the requirement it covers, the conditions
+for testing, the expected result, and how the test will be performed. Test
+parameters are listed in Section~\ref{sec:VnVParameters}.
 
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
+For the Capstone course, the team will test on the limited physical devices
+available and use Unity tools to simulate additional device configurations
+where appropriate. The devices or simulations used will be recorded when
+the tests are performed. Any additional changes to the testing scope for
+the Capstone course will be explained in a \textit{Remark} under the
+relevant test.
 
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
+\subsubsection{Performance Requirements}
 
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
+\begin{testlist}
 
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
+\item[\testdef{ST_Startup}]\textbf{Startup Time}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\textit{Type:} Non-functional, Dynamic, manual.
 
-\begin{enumerate}
+\textit{Requirements Covered:} \srsnfrref{NFR_Startup}{11}.
 
-\item{test-id1\\}
+\textit{Initial State:} The latest build is installed on the test devices, and the app is closed.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\textit{Input/Condition:} Open the app from its icon at least \constref{STARTUP_TRIALS_MIN} times on each test device. Close the app fully between launches.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\textit{Output/Result:} The median time to reach the usable home screen is at most \constref{STARTUP_MAX_S} seconds on each device tested.
 
-\end{enumerate}
+\textit{How test will be performed:} Record each launch and measure the time from tapping the icon to when the home screen is ready. Calculate the median for each device.
 
-\subsubsection{Area of Testing2}
+\item[\testdef{ST_Responsiveness}]\textbf{Touch Response}
 
-...
+\textit{Type:} Non-functional, Dynamic, manual with timing logs.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Responsiveness}{12}.
+
+\textit{Initial State:} The app is open on the test devices.
+
+\textit{Input/Condition:} Make at least \constref{TOUCH_TRIALS_MIN} valid touches across the menus and games. Also test each type of incorrect answer and time the correct-answer reveal.
+
+\textit{Output/Result:} On each device tested, at least \constref{RESPONSE_RATE_MIN}\% of touches show a response within \constref{RESPONSE_MAX_MS} milliseconds. Every correct-answer reveal takes at most \constref{ANSWER_REVEAL_MAX_S} second.
+
+\textit{How test will be performed:} Use Unity timestamps to record each touch event and its first visible response. Calculate the percentage that meets the limit, and record the time taken to reveal the correct answer after an incorrect response.
+
+\item[\testdef{ST_Smoothness}]\textbf{Animation Frame Rate}
+
+\textit{Type:} Non-functional, Dynamic, automatic.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Smoothness}{13}.
+
+\textit{Initial State:} The latest build is installed on the test devices.
+
+\textit{Input/Condition:} Play through each procedure walkthrough and practice game while recording frame times.
+
+\textit{Output/Result:} On each device tested, the game runs at or above \constref{FRAME_RATE_MIN} frames per second for at least \constref{FRAME_RATE_COMPLIANCE_MIN}\% of the measured time.
+
+\textit{How test will be performed:} Use the Unity Profiler to collect frame times throughout each walkthrough and game. Calculate the percentage of measured time that meets the required frame rate.
+
+\item[\testdef{ST_AVSync}]\textbf{Narration and Animation Timing}
+
+\textit{Type:} Non-functional, Dynamic, automatic with manual review.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_AVSync}{14}.
+
+\textit{Initial State:} The latest narration and animations are included in the build.
+
+\textit{Input/Condition:} Play each narrated step in every procedure walkthrough on the test devices.
+
+\textit{Output/Result:} The narration starts within \constref{AV_SYNC_MAX_MS} milliseconds of its matching animation for every step.
+
+\textit{How test will be performed:} Add temporary Unity logs at the start of each narration clip and its animation. Compare the timestamps and review a recording of any step that appears out of sync.
+
+\item[\testdef{ST_AudioSafety}]\textbf{Audio Levels}
+
+\textit{Type:} Non-functional, Static audio inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_AudioSafety}{15}.
+
+\textit{Review procedure:} One team member will export the final narration, sound effects, and music with the game's audio mixer settings applied, then compare their peak levels using Audacity or a similar audio editor. A second team member will check the measurements and mixer settings. Any sound above the narration peak will be adjusted and checked again.
+
+\textit{Expected result and evidence:} No sound effect or music has a peak level above narration. The team will save the measurement results, mixer settings, and any issues corrected.
+
+\item[\testdef{ST_Flashing}]\textbf{Flashing Content}
+
+\textit{Type:} Non-functional, Dynamic, automated analysis with manual review.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Flashing}{16}.
+
+\textit{Initial State:} All animations, transitions, and reward effects are included in the build.
+
+\textit{Input/Condition:} Record or export every animation and visual effect, including repeated or looping effects.
+
+\textit{Output/Result:} No sequence contains more than \constref{FLASH_MAX_PER_S} flashes in any one-second period.
+
+\textit{How test will be performed:} A team member will run the recordings through a photosensitive-epilepsy flash-analysis tool. A second team member will review any flagged sections. Save the results and rerun the analysis after fixing any failing effects.
+
+\item[\testdef{ST_Reliability}]\textbf{Crash-Free Sessions}
+
+\textit{Type:} Non-functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Reliability}{17}.
+
+\textit{Initial State:} The current build is installed on the test devices and crash logs are available.
+
+\textit{Input/Condition:} Complete at least \constref{TEST_SESSIONS_MIN} sessions across the test devices. Include normal gameplay, restarting levels, saving, closing and reopening, and suspend/resume.
+
+\textit{Output/Result:} At least \constref{CRASH_FREE_RATE_MIN}\% of sessions finish without a crash or freeze.
+
+\textit{How test will be performed:} Record the result of each session. Check crash logs and count the app as frozen if it does not respond to a normal action for \constref{FREEZE_OBSERVATION_S} seconds. Calculate the percentage of sessions completed without a crash or freeze.
+
+\item[\testdef{ST_DeviceHeat}]\textbf{CPU Usage During Gameplay}
+
+\textit{Type:} Non-functional, Dynamic, automatic.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_DeviceHeat}{18}.
+
+\textit{Initial State:} The app is installed on the test devices.
+
+\textit{Input/Condition:} Play continuously for at least \constref{HEAT_TEST_SESSION_MIN} minutes on each test device, moving between the different activities.
+
+\textit{Output/Result:} Measured CPU utilization stays at or below \constref{CPU_UTILIZATION_MAX_PERCENT}\% throughout the session on each device tested.
+
+\textit{How test will be performed:} Use the Unity Profiler and available device monitoring tools to record CPU utilization during gameplay. Record the highest measured value and any thermal warning.
+
+\end{testlist}
+
+\subsubsection{Operational and Environmental Requirements}
+
+\begin{testlist}
+
+\item[\testdef{ST_Offline}]\textbf{Offline Functionality}
+
+\textit{Type:} Non-functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Offline}{19}.
+
+\textit{Initial State:} The game is installed with all content, but has not been opened for the first time.
+
+\textit{Input/Condition:} Turn on airplane mode and disable Wi-Fi. Run all functional tests without connecting to the internet.
+
+\textit{Output/Result:} Every functional test passes without requiring a network connection.
+
+\textit{How test will be performed:} Run the full set of functional tests on the test devices and record the results. Record any missing content, error message, or feature that cannot be used offline.
+
+\item[\testdef{ST_Installability}]\textbf{Installation and First Launch}
+
+\textit{Type:} Non-functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Installability}{20}.
+
+\textit{Initial State:} The app is not installed on the test device.
+
+\textit{Input/Condition:} Install the latest release build and open the app for the first time.
+
+\textit{Output/Result:} The home screen can be reached without creating an account, granting permissions, or downloading more content.
+
+\textit{How test will be performed:} Install the build on each test device, record the first launch, and note any prompt or extra step required before reaching the home screen.
+
+\textit{Remark:} For this capstone, the build will be installed directly for testing rather than through a public app-store listing. The store-installation part of the SRS requirement will remain unverified unless the app is published.
+
+\item[\testdef{ST_InstallSize}]\textbf{Installed Application Size}
+
+\textit{Type:} Non-functional, Static build inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_InstallSize}{21}.
+
+\textit{Review procedure:} Once the iOS and Android release builds are ready, the team member responsible for each build will check the installed application size using the platform's storage information. A second team member will check the reported numbers against \constref{INSTALL_SIZE_MAX_MB} MB. The build version, measured size, and source of the measurement will be recorded.
+
+\textit{Expected result and evidence:} The installed size of each build is no more than \constref{INSTALL_SIZE_MAX_MB} MB. The team will keep screenshots or build reports showing the size.
+
+\textit{Remark:} The SRS fit criterion uses the size reported by each app store. For the capstone, the team will use locally measured installed size unless a store release is available, and record that difference in the results.
+
+\item[\testdef{ST_ClinicalAccuracy}]\textbf{Clinical Review of Game Content}
+
+\textit{Type:} Non-functional, Manual document review.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_ClinicalAccuracy}{22}.
+
+\textit{Review procedure:} One team member will prepare the latest game walkthroughs, narration, and procedure guide, with the version of each item recorded. A paediatric ophthalmologist will review the content against the procedures used at the clinic. Another team member will record the feedback and any required changes. Updated content will be sent back for approval.
+
+\textit{Expected result and evidence:} The ophthalmologist approves every level and procedure-guide entry for the version being released, with no unresolved concerns. The team will keep the content checklist and written approval.
+
+\end{testlist}
+
+\subsubsection{Maintainability and Support Requirements}
+
+\begin{testlist}
+
+\item[\testdef{ST_Maintainability}]\textbf{Effort to Make a Likely Change}
+
+\textit{Type:} Non-functional, Manual estimation review.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Maintainability}{23}.
+
+\textit{Review procedure:} Once the main game is implemented, each team member will estimate how many hours it would take to implement and test each likely change listed in the SRS, excluding clinical review. The team will discuss the estimates and agree on a final number for each change. These will be compared with the original development effort.
+
+\textit{Expected result and evidence:} Each estimated change effort is less than \constref{MAINT_FRACTION} of the original development effort. The team will keep the individual estimates, agreed estimates, and comparisons.
+
+\textit{Remark:} For the scope of the capstone, the team will estimate the effort rather than carry out every likely change. This gives an indication of maintainability but does not fully verify the SRS criterion based on recorded effort.
+
+\item[\testdef{ST_Portability}]\textbf{iOS and Android Compatibility}
+
+\textit{Type:} Non-functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Portability}{24}.
+
+\textit{Initial State:} The latest build is ready and the test configurations have been recorded.
+
+\textit{Input/Condition:} Run all functional tests on the supported test configurations and check the game's layouts and controls at screen sizes from \constref{SCREEN_MIN_IN} to \constref{SCREEN_MAX_IN} inches.
+
+\textit{Output/Result:} All functional tests pass on the configurations tested, and the layouts and controls remain usable at the tested screen sizes.
+
+\textit{How test will be performed:} Run the tests and record the device or configuration, OS version, screen size, and results. List any supported iOS or Android versions or screen sizes that could not be checked.
+
+\item[\testdef{ST_DependencyTesting}]\textbf{Third-Party Dependency Checks}
+
+\textit{Type:} Non-functional, Dynamic regression testing with dependency inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_DependencyTesting}{25}.
+
+\textit{Initial State:} The Unity project, dependency files, and release build are available.
+
+\textit{Input/Condition:} Check the Unity version and all third-party package and plugin versions. Run all functional tests on the release build after each dependency change.
+
+\textit{Output/Result:} Every dependency has an exact version, and all functional tests pass after each dependency change with no unresolved issue before release.
+
+\textit{How test will be performed:} One team member will prepare the dependency list from the Unity Package Manager and package files. A second team member will check the versions against the project. After a version change, the team will run the functional tests and keep the results with the dependency list.
+
+\end{testlist}
+
+\subsubsection{Security Requirements}
+
+\begin{testlist}
+
+\item[\testdef{ST_DataProtection}]\textbf{Private Local Storage}
+
+\textit{Type:} Non-functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_DataProtection}{26}.
+
+\textit{Initial State:} A test nickname, settings, and game progress have been saved on an unmodified test device.
+
+\textit{Input/Condition:} Try accessing the saved files from the device file manager, a different app, and normal sharing options.
+
+\textit{Output/Result:} The saved data cannot be read by another app or through device file-sharing features.
+
+\textit{How test will be performed:} Confirm where Unity writes the saved data and inspect the app's storage and sharing settings. Record the access attempts and check that the game can still load its own saves.
+
+\item[\testdef{ST_Integrity}]\textbf{Release Signing and Distribution}
+
+\textit{Type:} Non-functional, Static release inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Integrity}{27}.
+
+\textit{Review procedure:} If the app is prepared for public release, the team members responsible for the iOS and Android builds will check the signatures using Xcode and Android build tools. Another team member will review the signing results and confirm that the planned public distribution channels are the Apple App Store and Google Play Store. The team will save the signing reports and store-release records, if available.
+
+\textit{Expected result and evidence:} Both release builds have valid signatures, and public distribution uses only the official stores.
+
+\textit{Remark:} This test will likely be omitted during the capstone because publishing the app to the Apple App Store and Google Play Store is difficult within the course timeline. The team may check signing on test builds, but that would not verify the full release and distribution requirement.
+
+\item[\testdef{ST_Privacy}]\textbf{Network Activity}
+
+\textit{Type:} Non-functional, Dynamic, manual with network capture.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Privacy}{28}.
+
+\textit{Initial State:} The game is installed on a test device connected to a monitored Wi-Fi network.
+
+\textit{Input/Condition:} Capture network traffic while launching the game, playing each level, changing settings, earning rewards, and closing and reopening the game.
+
+\textit{Output/Result:} The game makes no outgoing network requests.
+
+\textit{How test will be performed:} Capture traffic using a network monitor or test proxy and look for requests associated with the app. Also check the Unity project for enabled analytics or network services. Keep the capture and record any unexplained request.
+
+\item[\testdef{ST_Minimization}]\textbf{Stored Data Fields}
+
+\textit{Type:} Non-functional, Dynamic save-file inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Minimization}{29}.
+
+\textit{Initial State:} The app is installed with a fresh save file.
+
+\textit{Input/Condition:} Set a test nickname, complete activities, earn and spend coins, and change the available settings. Then inspect the stored files.
+
+\textit{Output/Result:} The app stores only fields belonging to Local Preferences, Character Inventory, Game Progress, and Journey Progress in the SRS data dictionary.
+
+\textit{How test will be performed:} One team member will read the saved data using a development build or Unity editor. A second team member will compare the fields against the \srstableref{tab:JourneyDataDictionary}{SRS data dictionary} and record any extra fields.
+
+\item[\testdef{ST_Immunity}]\textbf{Dependency Vulnerability Check}
+
+\textit{Type:} Non-functional, Static dependency inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Immunity}{30}.
+
+\textit{Review procedure:} One team member will list the exact versions of Unity, packages, and plugins included in the release. The member will check these versions against known-vulnerability databases and supplier advisories. A second team member will review any high or critical findings and check that fixes or safe versions have been applied.
+
+\textit{Expected result and evidence:} No included third-party library has a publicly known high or critical vulnerability at the time of release. The team will keep the dependency list, the dated scan or advisory results, and any related GitHub issues.
+
+\end{testlist}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
 
+\newpage
 \section{Unit Test Description}
 
 \wss{This section should not be filled in until after the MIS (detailed design
@@ -474,21 +801,66 @@ How test will be performed:
 \subsection{Traceability Between Test Cases and Modules}
 
 \wss{Provide evidence that all modules have been considered.}
-				
-\bibliographystyle{plainnat}
-
-\bibliography{../../refs/References}
 
 \newpage
 
 \section{Appendix}
 
-This is where you can place additional information.
+\subsection{Symbolic Parameters}\label{sec:VnVParameters}
 
-\subsection{Symbolic Parameters}
+The first table lists the SRS constants used in these tests. Their values
+come directly from the SRS. The second
+table defines the few additional values used to run the tests.
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+\begin{longtable}{@{}p{0.49\textwidth}p{0.12\textwidth}p{0.30\textwidth}@{}}
+\caption{SRS Constants Used in System Tests}\label{tab:VnVSRSConstants}\\
+\toprule
+\textbf{Constant} & \textbf{Value} & \textbf{Description}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Constant} & \textbf{Value} & \textbf{Description}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\constdef{STARTUP_TRIALS_MIN} & 10 & Minimum cold starts per device\\
+\constdef{STARTUP_MAX_S} & 5 & Maximum median start time (s)\\
+\constdef{RESPONSE_RATE_MIN} & 95\% & Minimum quick-response rate\\
+\constdef{RESPONSE_MAX_MS} & 100 & Maximum touch response (ms)\\
+\constdef{ANSWER_REVEAL_MAX_S} & 1 & Maximum answer reveal (s)\\
+\constdef{FRAME_RATE_MIN} & 30 & Minimum frames per second\\
+\constdef{FRAME_RATE_COMPLIANCE_MIN} & 95\% & Minimum time meeting FPS target\\
+\constdef{AV_SYNC_MAX_MS} & 100 & Maximum AV start offset (ms)\\
+\constdef{FLASH_MAX_PER_S} & 3 & Maximum flashes per second\\
+\constdef{TEST_SESSIONS_MIN} & 100 & Minimum reliability sessions\\
+\constdef{CRASH_FREE_RATE_MIN} & 99\% & Minimum successful-session rate\\
+\constdef{HEAT_TEST_SESSION_MIN} & 30 & Minimum CPU test duration (min)\\
+\constdef{CPU_UTILIZATION_MAX_PERCENT} & 80\% & Maximum CPU utilization\\
+\constdef{LOW_SPEC_AGE_YEARS} & 5 & Minimum age of low-spec device (years)\\
+\constdef{MIN_IOS} & 16 & Minimum iOS version\\
+\constdef{MIN_ANDROID} & 10 & Minimum Android version\\
+\constdef{SCREEN_MIN_IN} & 4.7 & Minimum screen diagonal (in)\\
+\constdef{SCREEN_MAX_IN} & 13 & Maximum screen diagonal (in)\\
+\constdef{INSTALL_SIZE_MAX_MB} & 300 & Maximum installed size (MB)\\
+\constdef{MAINT_FRACTION} & 0.10 & Maximum change effort / initial effort\\
+\end{longtable}
+
+\begin{longtable}{@{}p{0.49\textwidth}p{0.12\textwidth}p{0.30\textwidth}@{}}
+\caption{Additional System-Test Parameters}\label{tab:VnVAdditionalParameters}\\
+\toprule
+\textbf{Constant} & \textbf{Value} & \textbf{Description}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Constant} & \textbf{Value} & \textbf{Description}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\constdef{TOUCH_TRIALS_MIN} & 40 & Valid touch samples per device\\
+\constdef{FREEZE_OBSERVATION_S} & 10 & Time allowed before recording a freeze (s)\\
+\end{longtable}
 
 \subsection{Usability Survey Questions?}
 
@@ -554,5 +926,10 @@ graduate attribute of Lifelong Learning.
   mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?
 \end{enumerate}
+
+\newpage
+\bibliographystyle{unsrt}
+
+\bibliography{../../refs/References}
 
 \end{document}
