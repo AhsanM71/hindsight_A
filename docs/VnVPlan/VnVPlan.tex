@@ -362,9 +362,127 @@ tools and how the game will be validated with its intended users.
 
 \subsection{Verification and Validation Team}
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+Verification and validation activities for EyeCanDo will
+be shared among the five members of Team 2, Hindsight.
+Each member has been assigned functional and nonfunctional
+requirement categories for testing based on the SRS
+\citep{SRS}. These assignments are informed by the
+team's development roles \citep{DP}, but verification
+will remain a collaborative effort. \\
+
+Each member will coordinate the development and execution
+of test cases for their assigned requirement categories,
+document testing results, and report identified defects.
+However, these assignments do not imply exclusive
+responsibility for verifying a particular part of the
+application. Team members will also review one another's
+test cases, implementation, and results where feasible. \\
+
+Responsibilities may vary between SRS verification, design
+verification, and implementation verification to encourage
+independent assessment. The project supervisor will provide
+feedback on selected requirements and educational content
+where appropriate. Classmates may also participate in
+preliminary usability evaluations using the child and
+caregiver personas defined in the SRS. \\
+
+Table~\ref{tab:VnVTeam} summarizes each member's
+development role, assigned testing categories, and
+associated verification responsibilities. 
+
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+
+\caption{V\&V Team Roles and Testing Responsibilities}
+\label{tab:VnVTeam}
+
+\begin{tabularx}{\textwidth}{
+    @{}
+    >{\raggedright\arraybackslash}p{2.4cm}
+    >{\raggedright\arraybackslash}p{2.3cm}
+    >{\raggedright\arraybackslash}p{5.2cm}
+    >{\raggedright\arraybackslash}X
+    @{}
+}
+\toprule
+\textbf{Role} &
+\textbf{Member Name} &
+\textbf{Testing Areas (FR/NFR)} &
+\textbf{V\&V Responsibilities} \\
+\midrule
+
+Technical Manager &
+Ahsan Muzammil &
+\textbf{FR:} Setup, Journey Map, Level Content.
+\newline
+\textbf{NFR:} Cultural and Political (8.7). &
+Test setup, level accessibility, and procedure content.
+Coordinate testing and defect tracking. \\
+
+\addlinespace[4pt]
+
+Lead Front end
+Developer &
+Jake Finlay &
+\textbf{FR:} Rewards and Scoreboard.
+\newline
+\textbf{NFR:} Look and Feel (8.1),
+Usability and Humanity (8.2). &
+Test interface presentation, rewards,
+and usability requirements. \\
+
+\addlinespace[4pt]
+
+Lead Back end
+Developer &
+Mohammad Bilal &
+\textbf{NFR:} Performance (8.3),
+Operational and Environmental (8.4),
+Maintainability and Support (8.5),
+Security (8.6). &
+Test performance, reliability,
+maintainability, and security. \\
+
+\addlinespace[4pt]
+
+Lead Researcher &
+Jackson Beach &
+\textbf{FR:} Instructions and Feedback,
+Exiting and Interruptions,
+Saving and Restoring Progress. &
+Test instructional behaviour,
+interruption handling, and
+progress recovery. \\
+
+\addlinespace[4pt]
+
+Team Liaison &
+Ethan McMehen &
+\textbf{FR:} Characters and Accessories,
+Caregiver Features.
+\newline
+\textbf{NFR:} Compliance (8.8). &
+Test customization, caregiver
+features, and compliance.
+Coordinate external feedback. \\
+
+\addlinespace[4pt]
+
+Clinical Reviewer &
+Project Supervisor &
+\textbf{Clinical Review:}
+Selected requirements and
+educational content. &
+Provide feedback on clinical accuracy,
+age-appropriateness, and procedure
+representations where feasible. \\
+
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \subsection{SRS Verification}
 
