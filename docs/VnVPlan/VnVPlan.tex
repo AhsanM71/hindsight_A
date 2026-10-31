@@ -5,6 +5,7 @@
 \usepackage{longtable}
 \usepackage{tabularx}
 \usepackage{enumitem}
+\usepackage{amssymb}
 \usepackage{array}
 \usepackage{parskip}
 \usepackage{caption}
@@ -234,13 +235,38 @@ issue tracker?}
 
 \wss{Maybe create an SRS checklist?}
 
-\subsection{Design Verification}
+\subsection{Design Verification}\label{sec:DesignVerification}
 
-\wss{Plans for design verification}
+Design verification will be carried out after the Module Interface Specification
+(MIS) is completed. The purpose is to check that the architecture described in
+the Module Guide (MG) and the detailed design in the MIS are consistent with
+the requirements in the SRS and address the relevant concerns identified
+in the Hazard Analysis. The design will be verified through three reviews:
 
-\wss{The review will include reviews by your classmates}
+\begin{enumerate}[leftmargin=*, itemsep=0.5em]
+    \item \textbf{Structured Internal Review:} All members of the Hindsight team
+    will review the MG and MIS, preferably in a group meeting. One team member
+    will be appointed to lead the review and work through the checklist in
+    Appendix~\ref{sec:DesignVerificationChecklist}. The team will discuss any
+    concerns, record them as GitHub issues, and assign members to address them.
 
-\wss{Create a checklists?}
+    \item \textbf{External Peer Review:} Members of at least one other capstone
+    team will review the design as part of the course's milestone peer review
+    process. The checklist in Appendix~\ref{sec:DesignVerificationChecklist}
+    will be shared with the reviewers, but they will not be required to use it.
+    Their findings will be submitted as GitHub issues for the team to review
+    and address.
+
+    \item \textbf{Teaching Assistant Feedback:} The teaching assistant (TA)
+    will evaluate the design documents as part of the course deliverable
+    assessment. Any feedback requiring changes will be recorded as GitHub
+    issues and addressed by the team.
+\end{enumerate}
+
+For each review, GitHub issues will identify the relevant section of the design,
+the problem found, and the change needed. The assigned team member will make
+the correction, and another team member will check the update before the issue
+is closed.
 
 \subsection{Verification and Validation Plan Verification}
 
@@ -679,7 +705,7 @@ relevant test.
 \newpage
 \section{Unit Test Description}
 
-This section will be completed once the MIS (Detailed Design Document) has been finalized \cite{MIS}.
+This section will be completed once the MIS (detailed design document) has been finalized \cite{MIS}.
 
 % \wss{This section should not be filled in until after the MIS (detailed design
 %   document) has been completed.}
@@ -871,6 +897,44 @@ table defines the few additional values used to run the tests.
 \constdef{TOUCH_TRIALS_MIN} & 40 & Valid touch samples per device\\
 \constdef{FREEZE_OBSERVATION_S} & 10 & Time allowed before recording a freeze (s)\\
 \end{longtable}
+
+\subsection{Design Verification Checklist}\label{sec:DesignVerificationChecklist}
+
+This checklist will be used during the structured internal review described in
+Section~\ref{sec:DesignVerification}. Reviewers will compare the MG and MIS
+against the SRS and Hazard Analysis. The checklist is subject to change once the
+MG and MIS are finalized.
+
+\begin{itemize}[label={$\square$}, leftmargin=*, itemsep=0.35em]
+    \item Are the system's main modules identified in the MG, with a clear
+    purpose and responsibility for each one?
+
+    \item Does the MIS provide enough detail about each module's inputs,
+    outputs, interfaces, and expected behaviour for another team member to
+    implement it?
+
+    \item Are the modules and their dependencies consistent between the MG
+    and MIS, without conflicting or unexplained relationships?
+
+    \item Can the functional and non-functional requirements in the SRS be
+    traced to the modules or design decisions that support them?
+
+    \item Does the design cover the main gameplay flows, including selecting
+    a level, completing it, saving progress, and exiting early?
+
+    \item Does the design account for the safety-related behaviour in the
+    Hazard Analysis, such as avoiding punitive feedback, preventing accidental
+    input, and stopping audio and animations when a level is exited?
+
+    \item Is the design divided into modules that can be tested and updated
+    without unnecessary changes to unrelated parts of the game?
+
+    \item Are external packages and assets identified so their licensing and
+    any relevant security or content concerns can be checked?
+
+    \item Are diagrams, interface descriptions, and assumptions clear and
+    consistent enough for the team to implement and test the design?
+\end{itemize}
 
 \subsection{Usability Survey Questions?}
 
