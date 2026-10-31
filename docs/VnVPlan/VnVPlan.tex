@@ -112,6 +112,7 @@
 \midrule
 2026/10/30 & Mohammad Bilal & Completed section 3.3, individual reflection, \& contributed to sections 1, 4.2, 6.1, 6.2, 7 \\
 2026/10/31 & Ahsan Muzammil & Completed section 2, 3.1, individual reflection, \& contributed to sections 1, 4.1, 4.2, 6.4, 6.5, 6.6, 7 \\
+2026/10/31 & Jake Finlay & Completed section 3.6 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -607,22 +608,77 @@ reason why in the issue.
 walkthrough.  There is also a possibility of using the final presentation (in
 CAS741) for a partial usability survey.}
 
-\subsection{Automated Testing and Verification Tools}
+\subsection{Automated Testing and Verification Tools}\label{sec:AutomatedTools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
+\progname{} is written in C\# with the Unity engine. The Development Plan
+\cite{DevPlan} already sets out the main tool choices. Section~8.3 describes the
+GitHub Actions pipeline, Section~11 lists the unit testing framework, and
+Section~13 gives the coding standard and how it is enforced. This section
+summarizes the tools that automate testing, formatting, and linting, and adds
+the plan for code coverage. Table~\ref{tab:AutomatedTools} lists each tool.
+These choices may change as implementation progresses. Any change will be
+recorded in the revision history of this document and the Development Plan.
 
-\wss{If you have already done this in the development plan, you can point to
-that document.}
+\begin{table}[!htbp]
+\centering
+\caption{Automated Testing and Verification Tools}\label{tab:AutomatedTools}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{@{}p{0.19\textwidth}p{0.29\textwidth}X@{}}
+\toprule
+\textbf{Purpose} & \textbf{Tool} & \textbf{Use}\\
+\midrule
+Unit testing & Unity Test Framework (NUnit), Edit Mode tests &
+  Tests game logic that does not need a running scene, such as level
+  progression, quiz scoring, and saved progress.\\
+Unity interaction testing & Unity Test Framework, Play Mode tests &
+  Tests scene loading, touch input handling, and component behaviour across
+  frames.\\
+Continuous integration & GitHub Actions with GameCI (\texttt{unity-test-runner},
+  \texttt{unity-builder}) &
+  Runs the format check, linting, both test suites, and a build on every pull
+  request. All checks must pass before a merge (Development Plan,
+  Section~8.3).\\
+Formatting & \texttt{dotnet format} with a shared \texttt{.editorconfig} &
+  Fails CI when code breaks the formatting or naming rules in Development Plan
+  Section~13.\\
+Linting & .NET Roslyn analyzers and Microsoft.Unity.Analyzers &
+  Reports common C\# and Unity mistakes, such as unused code and inefficient
+  Unity API calls. Rider inspections give the same feedback locally.\\
+Code coverage & Unity Code Coverage package &
+  Records line and method coverage during CI test runs.\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+\textbf{Formatting and Linting}
+
+The naming rules in the Development Plan,
+such as PascalCase methods and camelCase private fields, will be written as
+\texttt{.editorconfig} rules. CI will run \texttt{dotnet format} in
+verification mode against the project files that Unity generates, so any
+violation fails the pull request. The analyzer rules will be configured in the
+same \texttt{.editorconfig}. Rules that catch real defects will be set to
+errors and fail the build. Style suggestions will stay as warnings. Reviewers
+will still check the parts of the standard that tools cannot, such as comment
+quality and separation of game logic from UI logic.
+
+\textbf{Code Coverage}
+
+GameCI will run the Edit Mode and Play Mode tests
+with the Unity Code Coverage package enabled. Coverage will be measured only
+for the team's game assemblies. Test code, Unity packages, and Asset Store
+content will be excluded. Each CI run will produce an HTML report and a
+summary of line and method coverage for each assembly. The summary will be
+shown on the pull request and the full report saved as a workflow artifact.
+For each milestone, the team will record the coverage of each assembly in the
+VnV Report and list any modules with little or no coverage. The target is
+\constref{COVERAGE_LINE_TARGET} line coverage for game-logic assemblies. UI and
+scene code will rely more on Play Mode and manual system tests. Coverage will
+be used to find untested code, not as proof of correctness.
+
+Performance is not measured in the pipeline. The Unity Profiler is used
+manually during the performance system tests, such as \testref{ST_Smoothness}
+and \testref{ST_DeviceHeat}.
 
 \subsection{Software Validation}
 
@@ -2066,6 +2122,7 @@ table defines the few additional values used to run the tests.
 \endlastfoot
 \constdef{TOUCH_TRIALS_MIN} & 40 & Valid touch samples per device\\
 \constdef{FREEZE_OBSERVATION_S} & 10 & Time allowed before recording a freeze (s)\\
+\constdef{COVERAGE_LINE_TARGET} & 80\% & Line coverage target for game-logic assemblies\\
 \end{longtable}
 
 \subsection{Design Verification Checklist}\label{sec:DesignVerificationChecklist}
@@ -2117,6 +2174,7 @@ MG and MIS are finalized.
 
 \begin{itemize}
     \item ChatGPT (GPT-6.1 Sol, GPT-6)
+    \item Claude (Opus 5.5)
 \end{itemize}
 
 \subsection{How and Where Used}
@@ -2167,6 +2225,11 @@ MG and MIS are finalized.
   \item In Section~\ref{sec:DesignVerificationChecklist}, GPT-6.1 Sol was used
   to draft the design verification checklist, which the team then reviewed
   and revised.
+
+  \item In Section~\ref{sec:AutomatedTools}, Claude (Opus 5.5) was used to draft
+  the tool summary and the coverage plan from the Development Plan and the
+  team's issue. The team checked the tool choices against the Development Plan
+  and confirmed which tools are still under evaluation.
 
   \item GPT-6.1 Sol \& GPT-6 were also used to assist with automatic test numbering,
   cross document references, and general \LaTeX{} formatting.
