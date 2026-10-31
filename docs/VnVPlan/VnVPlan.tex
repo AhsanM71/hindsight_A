@@ -216,7 +216,7 @@ tool and does not provide medical advice, diagnosis, or treatment.
 
 \subsection{Objectives}
 
-The primary objective of this Verification and Validation (V\&V) Plan
+The primary objective of this Verification and Validation (VnV) Plan
 is to build confidence that \progname{} meets its specified requirements
 and provides a safe, reliable, and age-appropriate preparation
 experience for children aged 3--7. Given the project's scope and
@@ -362,7 +362,7 @@ and conduct verification and validation activities for
 \end{itemize}
 
 The selected Fall and Winter Custom Documents will also
-contribute to the V\&V process by documenting preliminary
+contribute to the VnV process by documenting preliminary
 interface and usability evaluations. Their findings will
 help identify design and usability issues that can be
 addressed during development. References to these
@@ -416,7 +416,7 @@ associated verification responsibilities.
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
 
-\caption{V\&V Team Roles and Testing Responsibilities}
+\caption{VnV Team Roles and Testing Responsibilities}
 \label{tab:VnVTeam}
 
 \begin{tabularx}{\textwidth}{
@@ -431,7 +431,7 @@ associated verification responsibilities.
 \textbf{Role} &
 \textbf{Member Name} &
 \textbf{Testing Areas (FR/NFR)} &
-\textbf{V\&V Responsibilities} \\
+\textbf{VnV Responsibilities} \\
 \midrule
 
 Technical Manager &
@@ -859,15 +859,12 @@ these values and record whether each replay began at the introduction.
 
 \subsubsection{Level Content}\label{sec:AMLevelContentFRTests}
 
-These tests cover \srsfrref{FR_LevelContent}{6}--\srsfrref{FR_LevelEnd}{11} and use the three levels and their
-shipped narration, images, and animations as inputs. Before executing
-the content tests, the tester shall record the build version and prepare
-a content inventory containing, for each level, its screen or asset IDs,
-script or narration IDs, supported age-group variants, and the relevant
-procedure step. This inventory makes content observations reproducible
-without assuming filenames or illustrations that have not yet been
-finalized. Content checks are against the SRS and the approved script;
-clinical accuracy review is addressed separately in the NFR tests.
+These tests verify \srsfrref{FR_LevelContent}{6}--\srsfrref{FR_LevelEnd}{11}
+using the three levels and their narration, images, and animations.
+Before testing, the tester will record the build version and prepare
+a content inventory of relevant assets, scripts, age-group variants,
+and procedure steps, while clinical accuracy will be reviewed
+separately in the NFR tests.
 
 \begin{frtestlist}
 
@@ -1362,35 +1359,6 @@ in the SRS. They cover the visual presentation, layout,
 and appearance of the game's interface to ensure that
 it meets the specified requirements.
 
-\begin{testlist}
-
-\item[\testdef{ST_LookAndFeel_01}]
-\textbf{[Test Case Name]}
-
-\textit{Type:} Non-functional, Dynamic, manual.
-
-\textit{Requirements Covered:}
-[Insert SRS non-functional requirement reference(s).]
-
-\textit{Initial State:}
-[Describe the required application state before testing.]
-
-\textit{Input/Condition:}
-[Describe the screens, visual elements, or interactions
-that will be examined.]
-
-\textit{Output/Result:}
-[Describe the expected visual behaviour and measurable
-pass criteria defined in the SRS.]
-
-\textit{How test will be performed:}
-[Describe how the interface will be inspected or tested,
-including the evidence that will be recorded.]
-
-% Duplicate this test case for additional requirements.
-% Give every new test a unique identifier.
-
-\end{testlist}
 
 
 % ============================================================
@@ -1406,50 +1374,6 @@ ease of navigation, accessibility, and suitability of the
 game's interactions for its intended users. Testing will
 account for the limitations on direct stakeholder involvement
 during the capstone.
-
-
-\begin{testlist}
-
-\item[\testdef{ST_UsabilityHumanity_01}]
-\textbf{[Test Case Name]}
-
-\textit{Type:} Non-functional, Static usability inspection.
-
-\textit{Requirements Covered:}
-[Insert SRS non-functional requirement reference(s).]
-
-\textit{Review procedure:}
-
-The assigned reviewer and a second team member will
-independently inspect the relevant game screens and
-interactions using the applicable SRS requirements.
-For each item, reviewers will answer the following questions:
-
-\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=0.3em]
-
-    \item \textit{[Insert a review question based on the SRS.]}
-
-    \item \textit{[Insert another requirement-specific question.]}
-
-    \item \textit{[Insert any additional review questions.]}
-
-\end{enumerate}
-
-Reviewers will record their responses and any concerns
-identified during the inspection. Issues will be tracked
-and reviewed again after corrections are made.
-
-\textit{Expected result and evidence:}
-[Describe the expected review outcomes, acceptance criteria,
-and evidence required to demonstrate compliance.]
-
-\textit{Remark:}
-[Document any limitations in the review approach,
-including requirements that cannot be fully validated
-without the intended users.]
-
-\end{testlist}
-
 
 
 \subsubsection{Performance Requirements}\label{sec:PerformanceNFRTests}
@@ -1744,13 +1668,11 @@ without the intended users.]
 \subsubsection{Cultural and Political Requirements}\label{sec:AMCulturalNFRTests}
 
 The following reviews verify the inclusivity requirement in the SRS
-\cite{SRS} and consider the representation concerns identified by the
-Hazard Analysis \cite{HazardAnalysis}. They are static inspections by team members,
-not usability studies involving children or caregivers. Before the
-review, the responsible tester will create an inventory of all released
-screens, narration scripts, visual assets, character options, and
-caregiver-facing content. Each reviewed item will be identified by its
-file, screen, or asset ID and build version.
+\cite{SRS} and address representation concerns identified in the
+Hazard Analysis \cite{HazardAnalysis} through static inspections by
+team members rather than usability studies.
+Reviewers will examine all released written and visual content,
+recording each item's file, screen, or asset ID and build version.
 
 
 \begin{testlist}
@@ -1770,7 +1692,7 @@ including instructions, narration, and caregiver guides,
 using a checklist of the game's content. For each item, reviewers will answer the
 following questions:
 
-\begin{enumerate}[label=\arabic*., leftmargin=*, itemsep=0.3em]
+\begin{enumerate}[label=\arabic*., leftmargin=3em, labelsep=0.5em, itemsep=0.3em]
     \item Does the content assume that every child has a mother
     and father or a particular family arrangement?
 
@@ -1829,7 +1751,7 @@ and record each asset ID. A second team member will independently
 inspect the same visual asset inventory. Both reviewers will answer
 the following questions for each asset:
 
-\begin{enumerate}[label=\arabic*., leftmargin=*, itemsep=0.3em]
+\begin{enumerate}[label=\arabic*., leftmargin=3em, labelsep=0.5em, itemsep=0.3em]
     \item Does the image or character depict one family structure,
     gender, cultural identity, or religious identity as universal?
 
@@ -1871,53 +1793,6 @@ in the SRS. They check whether the game and its supporting
 documentation satisfy the applicable requirements and
 standards identified for the project.
 
-\begin{testlist}
-
-\item[\testdef{ST_Compliance_01}]
-\textbf{[Test Case Name]}
-
-\textit{Type:} Non-functional, Static document inspection.
-
-\textit{Requirements Covered:}
-[Insert SRS non-functional requirement reference(s).]
-
-\textit{Review procedure:}
-
-The assigned reviewer and a second team member will
-review the relevant application features and project
-documentation against the applicable SRS requirements.
-The reviewers will answer the following questions:
-
-\begin{enumerate}[label=\arabic*., leftmargin=2em,
-                  itemsep=0.3em]
-
-    \item \textit{[Insert a compliance question based on the SRS.]}
-
-    \item \textit{[Insert a question about the relevant evidence
-    or documentation.]}
-
-    \item \textit{[Insert any additional compliance questions.]}
-
-\end{enumerate}
-
-Reviewers will record their findings, identify any
-unmet requirements, and track necessary corrections
-through GitHub Issues. Corrected items will be
-reviewed again.
-
-\textit{Expected result and evidence:}
-[Describe the expected compliance outcome and the
-documents, inspection results, or other records
-needed to demonstrate that the requirement is met.]
-
-\textit{Remark:}
-[Document any compliance requirements that cannot
-be fully verified within the capstone scope.]
-
-% Duplicate this test case for additional requirements.
-% Use a dynamic test structure where appropriate.
-
-\end{testlist}
 
 
 \subsection{Traceability Between Test Cases and Requirements}
@@ -2194,8 +2069,7 @@ MG and MIS are finalized.
 \subsection{AI Tools Used}
 
 \begin{itemize}
-    \item ChatGPT (GPT-6.1 Sol)
-    \item ChatGPT (GPT-6)
+    \item ChatGPT (GPT-6.1 Sol, GPT-6)
 \end{itemize}
 
 \subsection{How and Where Used}
