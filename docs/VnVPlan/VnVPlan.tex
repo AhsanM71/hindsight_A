@@ -112,6 +112,7 @@
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
 2026/10/30 & Mohammad Bilal & Completed section 3.3, individual reflection, \& contributed to sections 1, 4.2, 6.1, 6.2, 7 \\
+2026/10/31 & Ahsan Muzammil & Completed section 2, 3.1, individual reflection, \& contributed to sections 1, 4.1, 4.2, 6.4, 6.5, 6.6, 7 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -148,18 +149,25 @@
 \endfoot
 \bottomrule
 \endlastfoot
+AI & Artificial Intelligence.\\
 AV & Audiovisual; synchronized narration and animation.\\
+CD & Custom Document; an additional course deliverable.\\
 CPU & Central Processing Unit.\\
 FPS & Frames per second.\\
+FR & Functional Requirement.\\
+ID & Identifier; used to identify screens, assets, or content.\\
 LC & Likely Change, as defined in the SRS.\\
 MG & Module Guide.\\
 MIS & Module Interface Specification.\\
 NFR & Non-Functional Requirement.\\
 OS & Operating System.\\
+REB & Research Ethics Board.\\
 SBOM & Software Bill of Materials.\\
 SRS & Software Requirements Specification.\\
+ST-FR & System test for a functional requirement; numbered in order of appearance.\\
 ST-NFR & System test for a non-functional requirement; numbered in order of appearance.\\
-VnV & Verification and Validation.\\
+TA & Teaching Assistant.\\
+V\&V & Verification and Validation.\\
 \end{longtable}
 
 For the remaining requirements terminology, see the definitions and
@@ -177,7 +185,7 @@ and validate that it is suitable for its intended users. The document covers
 the planned reviews, system and unit tests, and validation activities. The
 appendices provide supporting checklists, questionnaires, and test parameters.
 
-\section{General Information}
+\section{General Information}\label{sec:section2}
 
 \subsection{Summary}
 
@@ -383,7 +391,7 @@ responsible for these activities and explains how the SRS, design documents,
 VnV plan, and implementation will be reviewed. It also describes the testing
 tools and how the game will be validated with its intended users.
 
-\subsection{Verification and Validation Team}
+\subsection{Verification and Validation Team}\label{sec:vnvTeam}
 
 Verification and validation activities for EyeCanDo will
 be shared among the five members of Team 2, Hindsight.
@@ -1707,20 +1715,48 @@ MG and MIS are finalized.
 
 \newpage{}
 
-\section{Appendix --- Generative AI Use Disclosure}
-
 \subsection{AI Tools Used}
 
 \begin{itemize}
     \item ChatGPT (GPT-6.1 Sol)
+    \item ChatGPT (GPT-6)
 \end{itemize}
 
 \subsection{How and Where Used}
 
 \begin{itemize}
+  \item In Section~\ref{sec:section2} (General Information), GPT-6 was used to assist
+  with organizing, wording, and formatting the Summary, Objectives,
+  Custom Documents, and Relevant Documentation subsections.
+  The content was reviewed to ensure consistency with the SRS,
+  project scope, and decisions made by the team.
+
+  \item In Section~\ref{sec:vnvTeam} (Verification and Validation Team), GPT-6
+  was used to improve the organization, wording, and formatting
+  of the team responsibilities and testing assignments. It also
+  assisted with the LaTeX formatting of the team roles table.
+  The assigned roles and responsibilities were based on the
+  team's agreed division of work.
+
   \item In Section~\ref{sec:DesignVerification}, the team developed the design
   verification approach. GPT-6.1 Sol was used to improve the wording, grammar,
   and flow while preserving the team's original ideas and decisions.
+
+  \item In Section~\ref{sec:AMSetupFRTests}, \ref{sec:AMJourneyFRTests}, \ref{sec:AMLevelContentFRTests} (Tests for Functional Requirements), GPT-6
+  was used to assist with drafting, organizing, and formatting
+  the functional system tests for Setup, Journey Map, and
+  Level Content (FR1--FR11). This included structuring the test
+  conditions, initial states, expected results, test case
+  derivations, and execution procedures. The tests were reviewed
+  against the SRS to ensure appropriate requirement coverage,
+  traceability, and feasibility within the capstone scope.
+
+  \item In Section~\ref{sec:AMCulturalNFRTests}, GPT-6 was used to assist
+  with drafting and formatting the Cultural and Political
+  Requirements tests covering NFR31 (Inclusivity). This included
+  organizing the static review procedures, inspection checklists,
+  expected results, and evidence to be collected. The tests were
+  reviewed against the SRS and Hazard Analysis.
 
   \item In Sections~\ref{sec:PerformanceNFRTests}--\ref{sec:SecurityNFRTests},
   GPT-6.1 Sol was used to draft the non-functional system tests. The team then
@@ -1737,6 +1773,11 @@ MG and MIS are finalized.
 
   \item GPT-6.1 Sol was also used to assist with automatic test numbering,
   cross-document references, and general \LaTeX{} formatting.
+
+  \item GPT-6 was additionally used to assist with \LaTeX{}
+  formatting and compilation troubleshooting, including functional
+  test numbering, SRS requirement hyperlinks, section references,
+  bibliography configuration, and table formatting.
 \end{itemize}
 
 \subsection{Verification of AI-Generated Content}
@@ -1854,6 +1895,156 @@ The individual responses are provided below.
     making sure the measurements we use in the VnV Plan are reliable.
 
 \end{enumerate}
+
+
+\subsubsection*{Ahsan Muzammil}
+
+\begin{enumerate}
+
+    \item \textbf{What went well while writing this deliverable?}
+
+    One thing that went well was how quickly our team was able to divide
+    the work and establish clear responsibilities for the VnV Plan.
+    Early in the process, we identified the sections and requirement
+    categories that needed to be completed and assigned them to team
+    members through GitHub issues. This made it easier for everyone to
+    understand what they were responsible for and what was expected
+    of them for the deliverable.
+
+    Using GitHub issues also helped us track everyone's progress and
+    monitor how much work each person had been assigned. This was
+    particularly useful for ensuring that responsibilities were
+    distributed fairly and that no individual was taking on a
+    disproportionate amount of work. It also gave us a way to
+    identify incomplete tasks and follow up on them before the
+    deadline.
+
+    Personally, I was able to complete my assigned sections and
+    functional system tests in a timely manner with minimal
+    conflicts. Since the responsibilities were clearly defined,
+    I could work independently without frequently needing
+    clarification from other team members. Overall, our approach
+    to task allocation and progress tracking made the writing
+    process more organized and efficient.
+
+
+    \item \textbf{What pain points did you experience during this
+    deliverable, and how did you resolve them?}
+
+    One of the main challenges we experienced was a disconnect
+    between our understanding of the capstone course expectations
+    and our supervisor's expectations regarding communication,
+    stakeholder involvement, and the scope of the project.
+    This created uncertainty about how we could proceed with
+    certain development and validation activities, particularly
+    those involving our intended users.
+
+    A significant concern was that directly involving children
+    and caregivers in usability testing or interviews would
+    require Research Ethics Board (REB) approval. Our supervisor
+    explained that pursuing this approval would not be feasible
+    within the capstone timeline. As a result, we could no
+    longer proceed with the Client Interview Report that we
+    had originally considered for our Fall Custom Document.
+    We also became uncertain about which Custom Documents
+    would be appropriate for the Winter term without access
+    to our primary stakeholders.
+
+    To address these issues, we discussed our concerns with
+    our TA, Rashad, who recommended that we communicate our
+    situation and questions to the course staff for further
+    guidance. We also began reconsidering our planned Custom
+    Documents, identifying a Cognitive Walkthrough Report or
+    Wireframe Report as possible alternatives for the Fall
+    semester. For the VnV Plan, we adjusted our proposed
+    validation activities to focus on internal reviews,
+    peer evaluations using child and caregiver personas,
+    and feedback from our supervisor where feasible.
+
+    Although these changes allowed us to continue planning
+    the deliverable, some uncertainty remains regarding
+    the final selection of our Custom Documents and the
+    validation activities we can realistically perform.
+    This experience highlighted the importance of
+    establishing clear expectations with supervisors
+    early in the project and communicating potential
+    constraints before they affect planned deliverables.
+
+
+    \item \textbf{What knowledge and/or skill will you need to acquire
+    to successfully complete the verification and validation of
+    your project?}
+
+    One skill I will need to develop is the ability to implement
+    and execute reproducible functional tests using Unity and
+    its testing tools. For the VnV Plan, I was responsible for
+    planning the functional system tests covering Setup,
+    Journey Map, and Level Content (FR1--FR11), as well as
+    the inclusivity requirement (NFR31). While I was able
+    to define the test conditions, expected results, and
+    execution procedures, carrying out these tests will
+    require a better understanding of how to verify
+    application behaviour consistently.
+
+    In particular, I want to learn how to use the Unity
+    Test Framework and Play Mode tests to verify interactions
+    such as starting a preparation level, updating its
+    completion status, replaying a completed level, and
+    preserving progress between application launches.
+    I also need to understand how to create repeatable
+    initial conditions, such as resetting saved data
+    before a test, so that results are not affected by
+    previous gameplay sessions.
+
+    Some of my assigned requirements involve educational
+    content and will still require manual inspection.
+    Therefore, I also want to improve my ability to
+    combine automated functional checks with structured
+    manual testing and record evidence such as screenshots,
+    test results, and observed behaviour. Developing these
+    skills will help ensure that our tests provide reliable
+    evidence that EyeCanDo meets its functional requirements.
+
+
+    \item \textbf{What approaches will you pursue to acquire this
+    knowledge or master this skill, and why?}
+
+    My first approach will be to study the official Unity
+    Test Framework documentation and work through examples
+    of Edit Mode and Play Mode testing. I will focus on
+    understanding how tests are structured, how assertions
+    are used to compare actual and expected results, and
+    how Unity handles scene loading and application state
+    during testing. This will provide a foundation for
+    determining which of my assigned functional requirements
+    can be verified automatically and which require manual
+    interaction on a physical device.
+
+    My second approach will be to practice writing and
+    executing tests directly within our EyeCanDo project
+    as development progresses. I plan to begin with
+    relatively simple behaviours, such as verifying
+    that a preparation level can be selected and started
+    regardless of the completion status of other levels.
+    I can then work toward testing more complex behaviours,
+    including saving progress, preserving completed
+    statuses during replay, and resetting application
+    data to reproduce first-launch conditions.
+    Running these tests against the actual application
+    will help me identify limitations in my understanding
+    and improve the reliability of the test procedures.
+
+    I will also review my testing approach and results
+    with other team members to confirm that the expected
+    behaviour matches the SRS and that the tests are
+    sufficiently clear for someone else to reproduce.
+    Combining documentation-based learning with hands-on
+    practice and peer feedback will help me develop the
+    skills needed to execute my assigned VnV tests
+    effectively and document trustworthy results.
+
+\end{enumerate}
+
 
 \newpage
 \bibliographystyle{unsrt}
