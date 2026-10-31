@@ -174,8 +174,10 @@ ID & Identifier; used to identify screens, assets, or content.\\
 LC & Likely Change, as defined in the SRS.\\
 MG & Module Guide.\\
 MIS & Module Interface Specification.\\
-FR & Functional Requirement \\
+FR & Functional Requirement. \\
 NFR & Non-Functional Requirement.\\
+STR & Stakeholder Requirement. \\
+UC & Use Case. \\
 OS & Operating System.\\
 REB & Research Ethics Board.\\
 SBOM & Software Bill of Materials.\\
@@ -184,6 +186,7 @@ ST-FR & System test for a functional requirement; numbered in order of appearanc
 ST-NFR & System test for a non-functional requirement; numbered in order of appearance.\\
 TA & Teaching Assistant.\\
 VnV & Verification and Validation.\\
+WCAG & Web Content Accessibility Guidelines. \\
 \end{longtable}
 
 For the remaining requirements terminology, see the definitions and
@@ -534,26 +537,13 @@ representations where feasible. \\
 \end{table}
 
 
-\subsection{SRS Verification}
-
-\wss{List any approaches you intend to use for SRS verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
-
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
-
-\wss{Maybe create an SRS checklist?}
+\subsection{SRS Verification}\label{sec:SRSVerification}
 
 The SRS will be verified from three perspectives: the TA offering the course expectations perspective, classmates 
 offering the readability and clarity from a novice perspective, and the project supervisor offering the 
-clinical domain expertise perspective. All reviewers will have access to the SRS checklist (see Appendix TODO), 
+clinical domain expertise perspective. All reviewers will have access to the SRS checklist (see Appendix \ref{app:SRSChecklistQuestions}), 
 which covers completeness, consistency, correctness, testability, traceability to stakeholder needs, and clarity. 
 Reviewers may use the full checklist or only the items relevant to their perspective.
-
 
 \textbf{TA and Peer Review Verification:} The TA's formal feedback will be logged by the team as GitHub issues labeled TA Feedback. Classmates will submit their 
 feedback directly as GitHub issues labeled Peer Review, focusing on readability, clarity, and whether the requirements can 
@@ -772,6 +762,35 @@ The feedback from your supervisor will be very useful for improving your project
 as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
+
+This plan complements the SRS verification plan in Section \ref{sec:SRSVerification}, which checks that the requirements are correct, 
+whereas validation checks that the right product is built. However, validation with children and parents is not 
+planned because research ethics approval (HiREB) for work with children does not fit the capstone timeline, as 
+justified in Section \ref{sec:Objectives} deferring validation from direct usability testing until HiREB ethics approval. 
+Instead, EyeCanDo will be validated through three proxies:
+
+\begin{itemize}
+  \item Published studies of play-based preparation and anxiety reduction in children will be used to check that the design is 
+  evidence-based, with each study mapped to the stakeholder requirement it supports. Version 0 of Table \ref{tab:ResearchMapping} 
+  is included in Appendix \ref{sec:ResearchValidation} to demonstrate the mapping planned format of a research source to the STR.
+  \item Child-life specialists and child development experts, where available, will use their professional knowledge to 
+  judge how children aged 3 to 7 would perceive the game, following a scripted walkthrough guided by the project 
+  personas. Their feedback cannot confirm reduced anxiety or child usability requirements (STR2, STR3, STR18), and those remain 
+  unvalidated until the pilot.
+  \item Shortly after the Rev 0 demo, the team will demonstrate the product to the supervisor using a scripted scenario and 
+  targeted questions to validate it against clinical needs outlined by the stakeholder requirements and use cases in the SRS. 
+  Version 1 of the targeted questions have been developed and included in Appendix \ref{sec:ValidationQuestions} but Table 
+  \ref{tab:ValidationQuestionsTable} is subject to change to include more questions up until Rev 0.
+\end{itemize} 
+
+The team will also complete two checks that need no participants. First, a persona-based walkthrough, in which the team 
+uses EyeCanDo as each project persona and records anything that conflicts with their goals or frustrations. Second, an 
+accessibility audit against WCAG 2.2 Level AA to support STR17. This audit will use the platform accessibility 
+tools (iOS Accessibility Inspector and Android Accessibility Scanner), manual checks, and simulations of colour vision 
+deficiency, blurred vision, and muted audio. However, these methods cannot replace testing with children 
+who have visual or hearing impairments, so full validation of STR17 also remains deferred until a future HiREB approval. 
+All feedback will be logged as GitHub issues resolved before Rev 1. 
+
 
 \newpage
 \section{System Tests}
@@ -3338,7 +3357,7 @@ results and session notes. Open-ended answers will be grouped by screen, and any
 problem reported by more than one participant will also be recorded in GitHub
 Issues.
 
-\subsection{SRS Checklist Questions}
+\subsection{SRS Checklist Questions}\label{app:SRSChecklistQuestions}
 
 The SRS Checklist in Table \ref{tab:SRSChecklist} identifies key items to check and verify the SRS against the project intentions and the course rubric. The checklist 
 items are categorized on verification goals:
@@ -3458,6 +3477,178 @@ different from existing preparation options.
 \chk & Verification Task 2: Pick two or three requirements (e.g., FR8, FR19, an NFR). The 
 reviewer can describe how they would test each one.
 & Testability \\
+
+\end{longtable}
+
+\subsection{Research Proxy to Stakeholder Requirement Validation}\label{sec:ResearchValidation}
+
+Table \ref{tab:ResearchMapping} identifies the research source used demonstrating validation that a stakeholder requirement defined in the SRS can be 
+achieved by EyeCanDo. Each row includes:
+\begin{itemize}
+  \item Stakeholder Requirement: The stakeholder requirement code corresponding to its requirement in the SRS.
+  \item Evidence: The research resource citation.
+  \item Justification: A brief description justifying how the research validates the stakeholder requirement.
+\end{itemize}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.15\textwidth} >{\raggedright\arraybackslash}p{0.40\textwidth} >{\raggedright\arraybackslash}p{0.40\textwidth}@{}}
+\caption{Research Evidence Mapping to Stakeholder Requirement for Validation}
+\label{tab:ResearchMapping}\\
+
+\toprule
+\textbf{Stakeholder Requirement} & \textbf{Evidence} & \textbf{Justification} \\
+\midrule
+\endfirsthead
+
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Stakeholder Requirement} & \textbf{Evidence} & \textbf{Justification} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+STR1
+& 
+& \\
+
+STR2
+& 
+& \\
+
+STR3
+& 
+& \\
+
+STR4
+& 
+& \\
+
+STR5
+& 
+& \\
+
+STR6
+& 
+& \\
+
+STR7
+& 
+& \\
+
+STR8
+& 
+& \\
+
+STR9
+& 
+& \\
+
+STR10
+& 
+& \\
+
+STR11
+& 
+& \\
+
+STR12
+& 
+& \\
+
+STR13
+& 
+& \\
+
+STR14
+& 
+& \\
+
+STR15
+& 
+& \\
+
+STR16
+& 
+& \\
+
+STR17
+& 
+& \\
+
+STR18
+& 
+& \\
+
+\end{longtable}
+
+\subsection{Software Validation Checklist for Supervisor Validation}\label{sec:ValidationQuestions}
+
+Table \ref{tab:ValidationQuestionsTable} presents the questions to ask the supervisor to validate EyeCanDo in the context of the stakeholder requirements and 
+use cases developed against the clinical needs. Each row includes:
+\begin{itemize}
+  \item Question: The question to validate particular stakeholder requirements and use cases.
+  \item SRS Reference: The research resource citation.
+  \item Justification: A brief description justifying how the research validates the stakeholder requirement.
+\end{itemize}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.62\textwidth} >{\raggedright\arraybackslash}p{0.17\textwidth} >{\raggedright\arraybackslash}p{0.17\textwidth}@{}}
+\caption{Supervisor Validation Questions for the Rev 0 Demo - Version 1}
+\label{tab:ValidationQuestionsTable}\\
+
+\toprule
+\textbf{Question} & \textbf{Stakeholder Requirement} & \textbf{Connected Use Cases} \\
+\midrule
+\endfirsthead
+
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{Question} & \textbf{Stakeholder Requirement} & \textbf{Connected Use Cases} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Does each procedure match what children experience at your clinic, including the equipment, steps, and sensations described?
+& STR1, STR5, STR6
+& UC5, UC6, UC7 \\
+
+Is anything shown, said, or implied likely to frighten or mislead a child aged 3 to 7?
+& STR2, STR15
+& UC5, UC6, UC7 \\
+
+Is the language and narration appropriate for the 3 to 4 and 5 to 7 age groups?
+& STR3, STR18
+& UC5, UC6, UC7 \\
+
+Could you introduce this to a patient within the time available in an appointment?
+& STR7, NFR6
+& UC3, UC4 \\
+
+Would caregivers understand what the app is for and what it is not, from the notice and the procedure guide?
+& STR14
+& UC1, UC4 \\
+
+Does the scoreboard show what you and the evaluation study need to know about which activities a child has completed?
+& STR9
+& UC9, UC10 \\
+
+Are the rewards, coins, and accessories appropriate, without encouraging compulsive use or pressure?
+& STR15, STR16
+& UC9, UC11, UC12 \\
+
+Is the app usable in a clinic waiting room, offline and with the sound muted?
+& STR4, STR10
+& UC15 \\
 
 \end{longtable}
 
