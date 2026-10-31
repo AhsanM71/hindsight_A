@@ -1,6 +1,5 @@
 \documentclass[10pt,titlepage]{article}
 \usepackage[letterpaper,margin=0.75in]{geometry}
-\usepackage[numbers,square]{natbib}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{tabularx}
@@ -167,7 +166,7 @@ SRS & Software Requirements Specification.\\
 ST-FR & System test for a functional requirement; numbered in order of appearance.\\
 ST-NFR & System test for a non-functional requirement; numbered in order of appearance.\\
 TA & Teaching Assistant.\\
-V\&V & Verification and Validation.\\
+VnV & Verification and Validation.\\
 \end{longtable}
 
 For the remaining requirements terminology, see the definitions and
@@ -189,10 +188,10 @@ appendices provide supporting checklists, questionnaires, and test parameters.
 
 \subsection{Summary}
 
-EyeCanDo is a mobile application designed to prepare children aged 3--7
+\progname{} is a mobile application designed to prepare children aged 3--7
 for paediatric ophthalmology appointments. The application aims to reduce
 children's anxiety and improve their preparedness by introducing common
-eye examination procedures through age-appropriate interactive games. \\
+eye examination procedures through age-appropriate interactive games.
 
 The application follows a journey-based structure consisting of three
 preparation levels: Vision Testing, Eye-Drop Preparation, and Slit-Lamp
@@ -200,25 +199,25 @@ Preparation. Each level focuses on a specific ophthalmology procedure
 and contains smaller interactive activities or exercises that familiarize
 children with what to expect during their appointments. Children can
 access and replay any preparation level at any time, regardless of their
-progress in other levels. \\
+progress in other levels.
 
-EyeCanDo provides visual demonstrations, narration, and encouraging
+\progname{} provides visual demonstrations, narration, and encouraging
 feedback throughout gameplay. Children can select and customize a
 character, earn journey points and in-game rewards upon first completing
 each preparation level, and track their progress through a personal
 scoreboard. Completion status and rewards are tracked at the preparation
-level rather than for individual exercises. \\
+level rather than for individual exercises.
 
 Caregivers can access procedure guides, manage application preferences,
 and reset saved progress. The application operates offline after
 installation, stores progress locally, and does not require user
-accounts. EyeCanDo is intended solely as an educational preparation
+accounts. \progname{} is intended solely as an educational preparation
 tool and does not provide medical advice, diagnosis, or treatment.
 
 \subsection{Objectives}
 
 The primary objective of this Verification and Validation (V\&V) Plan
-is to build confidence that EyeCanDo meets its specified requirements
+is to build confidence that \progname{} meets its specified requirements
 and provides a safe, reliable, and age-appropriate preparation
 experience for children aged 3--7. Given the project's scope and
 available resources, verification and validation efforts will
@@ -234,7 +233,7 @@ prioritize the following qualities:
 
     \item \textbf{Functional Correctness and Reliability:}
     Verify that the application's core functionality behaves
-    according to the SRS \citep{SRS}. Particular attention will be given to
+    according to the SRS \cite{SRS}. Particular attention will be given to
     ensuring that all preparation levels remain accessible,
     gameplay interactions function correctly, progress and
     rewards are recorded accurately, and the application operates
@@ -247,7 +246,7 @@ prioritize the following qualities:
     development team and peers, including task-based inspections
     in which reviewers evaluate the application from the
     perspectives of the child and caregiver personas defined
-    in the SRS \citep{SRS}.
+    in the SRS \cite{SRS}.
 \end{itemize}
 
 The following validation objectives are outside the scope of the
@@ -267,7 +266,7 @@ capstone project:
     confirm the application's usability for its intended users.
 
     \item \textbf{Clinical Effectiveness Validation:}
-    Determining whether EyeCanDo reduces children's anxiety,
+    Determining whether \progname{} reduces children's anxiety,
     improves cooperation during examinations, or increases
     clinical efficiency requires studies involving patients
     and healthcare professionals. Such studies are outside
@@ -296,60 +295,26 @@ in reducing anxiety will be left for future work.
 
 \subsection{Custom Documents}
 
-The team plans to complete two Custom Documents (CDs) as part of
-the EyeCanDo project, one during the Fall semester and one during
-the Winter semester. \\
-
-For the Fall semester, the team is considering either a
-Cognitive Walkthrough Report or a Wireframe Report, replacing
-the previously selected Client Interview Report. This change
-reflects the project's revised scope, as direct testing and
-interviews involving children and caregivers will not be
-conducted during the capstone project due to research ethics
-requirements. \\
-
-A Cognitive Walkthrough Report would evaluate whether users
-can understand and navigate the application's interface by
-having reviewers complete representative tasks from the
-perspectives of the child and caregiver personas. Alternatively,
-a Wireframe Report would document and evaluate the proposed
-interface design, navigation, and organization of the
-preparation activities. The final selection remains subject
-to confirmation with the course professor. \\
-
-For the Winter semester, the team currently plans to complete
-a Usability Report. This report would document preliminary
-usability evaluations conducted by team members and peers,
-focusing on the application's navigation, instructions, and
-ease of interaction. Since these evaluations will not involve
-the intended users directly, the results will be used to
-identify potential usability issues rather than to confirm
-usability for children aged 3--7. \\
-
-The selection of the Winter Custom Document is also subject
-to change following further discussion with the course
-professor. Any approved changes will be reflected in the
-project documentation and V\&V Plan.
 
 \subsection{Relevant Documentation}
 
 The following project documents provide the requirements,
 design information, and development context used to plan
 and conduct verification and validation activities for
-EyeCanDo.
+\progname{}.
 
 \begin{itemize}
     \item \textbf{Software Requirements Specification (SRS):}
-    The SRS \citep{SRS} defines the functional and
-    non-functional requirements of EyeCanDo, including
+    The SRS \cite{SRS} defines the functional and
+    non-functional requirements of \progname{}, including
     preparation activities, journey progression, accessibility,
     and reliability. It serves as the primary reference for
     developing test cases and determining whether the
     application meets its specified requirements.
 
     \item \textbf{Problem Statement and Goals:}
-    The Problem Statement \citep{ProblemStatement} identifies the problem
-    EyeCanDo aims to address, its intended users, and the
+    The Problem Statement \cite{ProblemStatement} identifies the problem
+    \progname{} aims to address, its intended users, and the
     project's overall goals. It provides the context for
     evaluating whether the application supports its intended
     purpose, while recognizing that measuring actual anxiety
@@ -357,20 +322,42 @@ EyeCanDo.
     scope of this capstone project.
 
     \item \textbf{Development Plan:}
-    The Development Plan \citep{DevPlan} describes the team's
+    The Development Plan \cite{DevPlan} describes the team's
     development workflow, responsibilities, tools, and
     project schedule. It helps ensure that the planned
     verification and validation activities are feasible
     within the available time and resources.
 
     \item \textbf{Hazard Analysis:}
-    The Hazard Analysis \citep{HazardAnalysis} identifies potential
+    The Hazard Analysis \cite{HazardAnalysis} identifies potential
     risks associated with the application and defines
     corresponding safety and security requirements.
     These findings will guide verification activities
     related to safe interactions, accurate educational
     content, data handling, and reliable application
     behaviour.
+
+    \item \textbf{Module Guide (MG):}
+    The Module Guide \cite{MG} describes the high level
+    architecture of \progname{}, including its main modules,
+    their responsibilities, and the relationships between
+    them. It serves as a reference for verifying that the
+    system architecture supports the functional and
+    non functional requirements defined in the SRS.
+    The MG will also be used during design verification
+    to assess the organization of modules, their
+    dependencies, and the overall structure of the system.
+
+    \item \textbf{Module Interface Specification (MIS):}
+    The Module Interface Specification \cite{MIS} provides
+    the detailed design of \progname{}, including module
+    interfaces, inputs, outputs, and expected behaviour.
+    It will serve as the primary reference for planning
+    unit tests and verifying that individual modules
+    implement their specified functionality correctly.
+    The MIS will also be reviewed alongside the MG
+    to ensure consistency between the high level
+    architecture and detailed module design.
 
 \end{itemize}
 
@@ -393,13 +380,13 @@ tools and how the game will be validated with its intended users.
 
 \subsection{Verification and Validation Team}\label{sec:vnvTeam}
 
-Verification and validation activities for EyeCanDo will
+Verification and validation activities for \progname{} will
 be shared among the five members of Team 2, Hindsight.
 Each member has been assigned functional and nonfunctional
 requirement categories for testing based on the SRS
-\citep{SRS}. These assignments are informed by the
-team's development roles \citep{DevPlan}, but verification
-will remain a collaborative effort. \\
+\cite{SRS}. These assignments are informed by the
+team's development roles \cite{DevPlan}, but verification
+will remain a collaborative effort. 
 
 Each member will coordinate the development and execution
 of test cases for their assigned requirement categories,
@@ -407,7 +394,7 @@ document testing results, and report identified defects.
 However, these assignments do not imply exclusive
 responsibility for verifying a particular part of the
 application. Team members will also review one another's
-test cases, implementation, and results where feasible. \\
+test cases, implementation, and results where feasible. 
 
 Responsibilities may vary between SRS verification, design
 verification, and implementation verification to encourage
@@ -415,11 +402,13 @@ independent assessment. The project supervisor will provide
 feedback on selected requirements and educational content
 where appropriate. Classmates may also participate in
 preliminary usability evaluations using the child and
-caregiver personas defined in the SRS. \\
+caregiver personas defined in the SRS. 
 
 Table~\ref{tab:VnVTeam} summarizes each member's
 development role, assigned testing categories, and
 associated verification responsibilities. 
+
+
 
 \begin{table}[H]
 \centering
@@ -447,9 +436,13 @@ associated verification responsibilities.
 
 Technical Manager &
 Ahsan Muzammil &
-\textbf{FR:} Setup, Journey Map, Level Content.
+\textbf{FR:}
+Setup~(\ref{sec:AMSetupFRTests}),
+Journey Map~(\ref{sec:AMJourneyFRTests}),
+Level Content~(\ref{sec:AMLevelContentFRTests}).
 \newline
-\textbf{NFR:} Cultural and Political (8.7). &
+\textbf{NFR:}
+Cultural and Political~(\ref{sec:AMCulturalNFRTests}). &
 Test setup, level accessibility, and procedure content.
 Coordinate testing and defect tracking. \\
 
@@ -458,10 +451,12 @@ Coordinate testing and defect tracking. \\
 Lead Front end
 Developer &
 Jake Finlay &
-\textbf{FR:} Rewards and Scoreboard.
+\textbf{FR:}
+Rewards and Scoreboard~(\ref{sec:RewardsScoreboardFRTests}).
 \newline
-\textbf{NFR:} Look and Feel (8.1),
-Usability and Humanity (8.2). &
+\textbf{NFR:}
+Look and Feel~(\ref{sec:LookAndFeelNFRTests}),
+Usability and Humanity~(\ref{sec:UsabilityHumanityNFRTests}). &
 Test interface presentation, rewards,
 and usability requirements. \\
 
@@ -470,10 +465,11 @@ and usability requirements. \\
 Lead Back end
 Developer &
 Mohammad Bilal &
-\textbf{NFR:} Performance (8.3),
-Operational and Environmental (8.4),
-Maintainability and Support (8.5),
-Security (8.6). &
+\textbf{NFR:}
+Performance~(\ref{sec:PerformanceNFRTests}),
+Operational and Environmental~(\ref{sec:OperationalNFRTests}),
+Maintainability and Support~(\ref{sec:MaintainabilityNFRTests}),
+Security~(\ref{sec:SecurityNFRTests}). &
 Test performance, reliability,
 maintainability, and security. \\
 
@@ -481,9 +477,10 @@ maintainability, and security. \\
 
 Lead Researcher &
 Jackson Beach &
-\textbf{FR:} Instructions and Feedback,
-Exiting and Interruptions,
-Saving and Restoring Progress. &
+\textbf{FR:}
+Instructions and Feedback~(\ref{sec:InstructionsFeedbackFRTests}),
+Exiting and Interruptions~(\ref{sec:ExitingInterruptionsFRTests}),
+Saving and Restoring Progress~(\ref{sec:SavingRestoringFRTests}). &
 Test instructional behaviour,
 interruption handling, and
 progress recovery. \\
@@ -492,10 +489,12 @@ progress recovery. \\
 
 Team Liaison &
 Ethan McMehen &
-\textbf{FR:} Characters and Accessories,
-Caregiver Features.
+\textbf{FR:}
+Characters and Accessories~(\ref{sec:CharactersAccessoriesFRTests}),
+Caregiver Features~(\ref{sec:CaregiverFeaturesFRTests}).
 \newline
-\textbf{NFR:} Compliance (8.8). &
+\textbf{NFR:}
+Compliance~(\ref{sec:ComplianceNFRTests}). &
 Test customization, caregiver
 features, and compliance.
 Coordinate external feedback. \\
@@ -514,6 +513,7 @@ representations where feasible. \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
 
 \subsection{SRS Verification}
 
@@ -632,10 +632,26 @@ Each test explains what will be checked and how the result will be recorded.
 
 \subsection{Tests for Functional Requirements}
 
+The tests in this section verify the functional requirements (FRs)
+defined in the SRS. These requirements describe the features and
+behaviours the game must provide. The tests are organized according
+to the FR categories in the SRS, covering setup, journey map,
+level content, instructions and feedback, exiting and interruptions,
+saving and restoring progress, rewards and scoreboard, characters
+and accessories, and caregiver features. Each test identifies the
+requirements it covers, the initial conditions, expected results,
+and how the test will be performed.
+
+For the Capstone course, functional testing will primarily be
+performed manually using the available test devices. Testers will
+record the device, operating system, build version, and test
+results. Any limitations or changes to the planned testing
+procedures will be documented under the relevant test.
+
 \subsubsection{Setup}\label{sec:AMSetupFRTests}
 
 These tests cover the first-use medical notice and the locally saved
-caregiver acknowledgement in FR1--FR2 of the SRS \citep{SRS}.
+caregiver acknowledgement in \srsfrref{FR_MedicalNotice}{1}--\srsfrref{FR_RecordAck}{2} of the SRS \cite{SRS}.
 For tests requiring a first launch, use a test installation with its
 application data cleared and no restored backup. Record the device,
 operating-system version, build identifier, and observed result.
@@ -661,7 +677,7 @@ preparation aid and states that it does not replace professional medical
 advice, diagnosis, or treatment. The home screen remains inaccessible
 until acknowledgement. The notice is shown again after relaunch.
 
-\textit{Test Case Derivation:} FR1 requires the notice before first use
+\textit{Test Case Derivation:} \srsfrref{FR_MedicalNotice}{1} requires the notice before first use
 and prevents access to the home screen until the caregiver acknowledges it.
 
 \textit{How test will be performed:} On a clean installation, capture the
@@ -686,7 +702,7 @@ the available medical notice or educational-use disclaimer.
 that the game is for educational preparation, not medical advice,
 diagnosis, or treatment. Viewing it does not change journey progress.
 
-\textit{Test Case Derivation:} FR1 explicitly requires the same notice
+\textit{Test Case Derivation:} \srsfrref{FR_MedicalNotice}{1} explicitly requires the same notice
 to remain available from the caregiver procedure guide.
 
 \textit{How test will be performed:} Navigate to the caregiver guide,
@@ -711,7 +727,7 @@ the app, and launch it again. Repeat the close-and-launch operation once.
 subsequent launches reach the home screen without requesting acknowledgement
 again. No account or network connection is required to retain it.
 
-\textit{Test Case Derivation:} FR2 requires a locally stored acknowledgement
+\textit{Test Case Derivation:} \srsfrref{FR_RecordAck}{2} requires a locally stored acknowledgement
 and omission of the notice on later launches.
 
 \textit{How test will be performed:} Record the acknowledgement action,
@@ -723,10 +739,10 @@ the acknowledgement field, also check that it changes from false to true.
 
 \subsubsection{Journey Map}\label{sec:AMJourneyFRTests}
 
-These tests verify FR3--FR5: presentation of the three procedure levels,
+These tests verify \srsfrref{FR_JourneyMap}{3}--\srsfrref{FR_Replay}{5}: presentation of the three procedure levels,
 independent access to every level, and replay without loss of a completed
 status. The names, order, and allowed statuses come from the SRS
-\citep{SRS}; no custom image or data file is needed because the test
+\cite{SRS}; no custom image or data file is needed because the test
 uses the levels and illustrations packaged in the release build.
 
 \begin{frtestlist}
@@ -749,7 +765,7 @@ shown in level-number order: Vision Testing, Eye-Drop Preparation, and
 Slit-Lamp Preparation. Each has a name, an illustration, and a visible
 \textit{Not Started} status. No level is displayed as locked.
 
-\textit{Test Case Derivation:} FR3 specifies one illustrated, named,
+\textit{Test Case Derivation:} \srsfrref{FR_JourneyMap}{3} specifies one illustrated, named,
 status-labelled map entry per procedure, ordered by level number.
 
 \textit{How test will be performed:} Reset journey progress, open the
@@ -775,7 +791,7 @@ the journey map.
 Eye-Drop Preparation is \textit{Completed}, and Slit-Lamp Preparation
 is \textit{Not Started}. All three entries remain selectable.
 
-\textit{Test Case Derivation:} FR3 requires the map to show the current
+\textit{Test Case Derivation:} \srsfrref{FR_JourneyMap}{3} requires the map to show the current
 status of each level; FR4 and FR11 define the changes on start and finish.
 
 \textit{How test will be performed:} Follow the stated sequence on a
@@ -802,7 +818,7 @@ without requiring a completed prerequisite, journey points, or coins.
 Its status becomes \textit{In Progress}; the other levels retain their
 existing statuses. No reward is given merely for starting a level.
 
-\textit{Test Case Derivation:} FR4 allows every level to start regardless
+\textit{Test Case Derivation:} \srsfrref{FR_StartLevel}{4} allows every level to start regardless
 of progress or rewards, applies the start operation, and requires the
 level to begin from its first step.
 
@@ -831,7 +847,7 @@ Vision Testing remains \textit{Completed} during and after replay,
 including after early exit. Its original completion reward is not
 awarded again; recorded points and coins remain unchanged by replay.
 
-\textit{Test Case Derivation:} FR5 preserves completed status during
+\textit{Test Case Derivation:} \srsfrref{FR_Replay}{5} preserves completed status during
 replay, while FR4 restarts the level from the beginning. The SRS
 formal progress model permits first-completion rewards only once.
 
@@ -843,7 +859,7 @@ these values and record whether each replay began at the introduction.
 
 \subsubsection{Level Content}\label{sec:AMLevelContentFRTests}
 
-These tests cover FR6--FR11 and use the three levels and their
+These tests cover \srsfrref{FR_LevelContent}{6}--\srsfrref{FR_LevelEnd}{11} and use the three levels and their
 shipped narration, images, and animations as inputs. Before executing
 the content tests, the tester shall record the build version and prepare
 a content inventory containing, for each level, its screen or asset IDs,
@@ -876,7 +892,7 @@ and Slit-Lamp Preparation depicts or explains the slit-lamp device or
 patient positioning. None is an unrelated activity without procedure
 information.
 
-\textit{Test Case Derivation:} FR6 requires each level to prepare for
+\textit{Test Case Derivation:} \srsfrref{FR_LevelContent}{6} requires each level to prepare for
 its corresponding procedure by presenting at least one relevant part.
 The three use cases describe the intended procedure examples.
 
@@ -906,7 +922,7 @@ age-specific content when that variant exists. Where no matching
 variant exists, or the age group is unset, it presents the listed
 default content. No level becomes unavailable because of the setting.
 
-\textit{Test Case Derivation:} FR7 defines the values \textit{3--4},
+\textit{Test Case Derivation:} \srsfrref{FR_AgeGroup}{7} defines the values \textit{3--4},
 \textit{5--7}, and \textit{unset}, and requires a matching variant
 when provided, with fallback to default otherwise.
 
@@ -937,7 +953,7 @@ part is skipped. The mandatory description itself cannot be bypassed.
 No narration, text, or image promises that the procedure will be
 painless or free of discomfort.
 
-\textit{Test Case Derivation:} FR8 requires honest advance
+\textit{Test Case Derivation:} \srsfrref{FR_DescribeSensations}{8} requires honest advance
 explanations of sensations and prohibits skipping the description,
 even when the corresponding exercise or animation is skipped.
 
@@ -964,7 +980,7 @@ both narration and pictures, that a real doctor may perform the
 procedure somewhat differently from the game. The message is present
 in Vision Testing, Eye-Drop Preparation, and Slit-Lamp Preparation.
 
-\textit{Test Case Derivation:} FR9 explicitly requires this message in
+\textit{Test Case Derivation:} \srsfrref{FR_ClinicsDiffer}{9} explicitly requires this message in
 both narration and pictures in every level.
 
 \textit{How test will be performed:} For each level, identify the
@@ -989,7 +1005,7 @@ exercise or animation that offers it.
 levels, the child is told that they may tell the doctor if they feel
 worried or uncomfortable. Skipping exercises does not remove this message.
 
-\textit{Test Case Derivation:} FR10 requires the reassurance before
+\textit{Test Case Derivation:} \srsfrref{FR_SpeakUp}{10} requires the reassurance before
 the end of every level. The alternative skip path checks that a child
 cannot miss it by bypassing an optional exercise.
 
@@ -1018,7 +1034,7 @@ screen and changes only that level's status to \textit{Completed}.
 All three are \textit{Completed} only after their own endings have been
 reached.
 
-\textit{Test Case Derivation:} FR11 applies the finish operation at
+\textit{Test Case Derivation:} \srsfrref{FR_LevelEnd}{11} applies the finish operation at
 level ending and changes the level status to \textit{Completed}. The
 formal model does not count individual exercises as separate levels.
 
@@ -1043,22 +1059,278 @@ exercise, round, or animation that offers skip, select skip instead of
 completing it; continue through any mandatory educational narration and
 reach the level ending.
 
-\textit{Output/Result:} Each level reaches its end-of-level screen
+\textit{Output/Result:} Each level reaches its end of level screen
 and becomes \textit{Completed}, despite skipped optional activities.
 Mandatory sensation descriptions and the message about telling a doctor
 about worry or discomfort are still presented. No individual skipped
 exercise is incorrectly treated as a separate unfinished level.
 
 \textit{Test Case Derivation:} The SRS tracks completion per
-procedure level, not per exercise; FR11 requires completion at the
-ending. FR8 and FR10 protect mandatory educational information.
+procedure level, not per exercise; \srsfrref{FR_LevelEnd}{11} requires completion at the
+ending. \srsfrref{FR_DescribeSensations}{8} and \srsfrref{FR_SpeakUp}{10} protect mandatory educational information.
 
-\textit{How test will be performed:} Record a skip-heavy run through
+\textit{How test will be performed:} Record a skip heavy run through
 all three levels. Count and note each selected skip, verify every
-mandatory message, and capture each end-of-level screen and final
-journey-map status.
+mandatory message, and capture each end of level screen and final
+journey map status.
 
 \end{frtestlist}
+
+
+% ============================================================
+% 4. Instructions and Feedback
+% ============================================================
+
+\subsubsection{Instructions and Feedback}
+\label{sec:InstructionsFeedbackFRTests}
+
+These tests verify that the game provides the instructions and
+feedback required by the SRS. They cover how information is
+presented to the player and how the game responds to user
+interactions.
+
+\begin{frtestlist}
+
+\item[\frtestdef{ST_InstructionsFeedback_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+[Insert SRS functional requirement reference(s).]
+
+\textit{Initial State:}
+[Describe the required game state before testing.]
+
+\textit{Input/Condition:}
+[Describe the user action or condition being tested.]
+
+\textit{Output/Result:}
+[Describe the expected behaviour and pass criteria.]
+
+\textit{Test Case Derivation:}
+[Explain how this test is derived from the SRS requirement.]
+
+\textit{How test will be performed:}
+[Describe the steps to execute the test and record results.]
+
+% Duplicate the test case above for additional requirements.
+% Give every new test a unique identifier.
+
+\end{frtestlist}
+
+
+% ============================================================
+% 5. Exiting and Interruptions
+% ============================================================
+
+\subsubsection{Exiting and Interruptions}
+\label{sec:ExitingInterruptionsFRTests}
+
+These tests verify how the game handles exiting activities
+and interruptions during gameplay. They check that the
+application responds appropriately to these actions
+according to the SRS.
+
+\begin{frtestlist}
+
+\item[\frtestdef{ST_ExitingInterruptions_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+[Insert SRS functional requirement reference(s).]
+
+\textit{Initial State:}
+[Describe the application state before the interruption.]
+
+\textit{Input/Condition:}
+[Describe the exit action or interruption being tested.]
+
+\textit{Output/Result:}
+[Describe the expected application behaviour.]
+
+\textit{Test Case Derivation:}
+[Explain which requirement defines this behaviour.]
+
+\textit{How test will be performed:}
+[Describe the actions, observations, and evidence recorded.]
+
+% Add additional test cases as needed.
+
+\end{frtestlist}
+
+
+% ============================================================
+% 6. Saving and Restoring Progress
+% ============================================================
+
+\subsubsection{Saving and Restoring Progress}
+\label{sec:SavingRestoringFRTests}
+
+These tests verify that the game saves and restores player
+progress according to the SRS. They cover the persistence
+and recovery of relevant game information across
+application sessions.
+
+\begin{frtestlist}
+
+\item[\frtestdef{ST_SavingRestoring_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+[Insert SRS functional requirement reference(s).]
+
+\textit{Initial State:}
+[Describe the initial saved progress and application state.]
+
+\textit{Input/Condition:}
+[Describe the actions used to save or restore progress.]
+
+\textit{Output/Result:}
+[Describe the expected saved or restored game state.]
+
+\textit{Test Case Derivation:}
+[Explain how the SRS defines the expected behaviour.]
+
+\textit{How test will be performed:}
+[Describe the testing steps and how saved data will be checked.]
+
+% Add additional test cases as needed.
+
+\end{frtestlist}
+
+
+% ============================================================
+% 7. Rewards and Scoreboard
+% ============================================================
+
+\subsubsection{Rewards and Scoreboard}
+\label{sec:RewardsScoreboardFRTests}
+
+These tests verify that rewards, journey points, and
+scoreboard information are handled according to the SRS.
+They cover the conditions for awarding rewards and the
+accuracy of displayed player progress.
+
+\begin{frtestlist}
+
+\item[\frtestdef{ST_RewardsScoreboard_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+[Insert SRS functional requirement reference(s).]
+
+\textit{Initial State:}
+[Describe the initial reward balances and scoreboard state.]
+
+\textit{Input/Condition:}
+[Describe the action that affects rewards or the scoreboard.]
+
+\textit{Output/Result:}
+[Describe the expected reward or scoreboard changes.]
+
+\textit{Test Case Derivation:}
+[Explain which SRS requirement defines the expected outcome.]
+
+\textit{How test will be performed:}
+[Describe how the reward and scoreboard values will be checked.]
+
+% Add additional test cases as needed.
+
+\end{frtestlist}
+
+
+% ============================================================
+% 8. Characters and Accessories
+% ============================================================
+
+\subsubsection{Characters and Accessories}
+\label{sec:CharactersAccessoriesFRTests}
+
+These tests verify the character selection and customization
+features defined in the SRS. They cover how players interact
+with available characters and accessories and how their
+selections affect the game.
+
+\begin{frtestlist}
+
+\item[\frtestdef{ST_CharactersAccessories_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+[Insert SRS functional requirement reference(s).]
+
+\textit{Initial State:}
+[Describe the available characters, accessories, and
+customization state.]
+
+\textit{Input/Condition:}
+[Describe the character or accessory interaction being tested.]
+
+\textit{Output/Result:}
+[Describe the expected customization behaviour.]
+
+\textit{Test Case Derivation:}
+[Explain how the test relates to the specified requirement.]
+
+\textit{How test will be performed:}
+[Describe the steps and evidence used to verify the outcome.]
+
+% Add additional test cases as needed.
+
+\end{frtestlist}
+
+
+% ============================================================
+% 9. Caregiver Features
+% ============================================================
+
+\subsubsection{Caregiver Features}
+\label{sec:CaregiverFeaturesFRTests}
+
+These tests verify the caregiver-facing features defined
+in the SRS. They cover access to caregiver information,
+application preferences, and other caregiver controls,
+ensuring that the available functionality behaves as
+specified.
+
+\begin{frtestlist}
+
+\item[\frtestdef{ST_CaregiverFeatures_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+[Insert SRS functional requirement reference(s).]
+
+\textit{Initial State:}
+[Describe the caregiver settings and application state.]
+
+\textit{Input/Condition:}
+[Describe the caregiver action or feature being tested.]
+
+\textit{Output/Result:}
+[Describe the expected caregiver feature behaviour.]
+
+\textit{Test Case Derivation:}
+[Explain how the test verifies the corresponding SRS requirement.]
+
+\textit{How test will be performed:}
+[Describe how the feature will be tested and results recorded.]
+
+% Add additional test cases as needed.
+
+\end{frtestlist}
+
 
 \subsection{Tests for Nonfunctional Requirements}\label{sec:NFRSystemTests}
 
@@ -1076,6 +1348,109 @@ where appropriate. The devices or simulations used will be recorded when
 the tests are performed. Any additional changes to the testing scope for
 the Capstone course will be explained in a \textit{Remark} under the
 relevant test.
+
+
+% ============================================================
+% 8.1 Look and Feel Requirements
+% ============================================================
+
+\subsubsection{Look and Feel Requirements}
+\label{sec:LookAndFeelNFRTests}
+
+These tests verify the look and feel requirements defined
+in the SRS. They cover the visual presentation, layout,
+and appearance of the game's interface to ensure that
+it meets the specified requirements.
+
+\begin{testlist}
+
+\item[\testdef{ST_LookAndFeel_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Non-functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+[Insert SRS non-functional requirement reference(s).]
+
+\textit{Initial State:}
+[Describe the required application state before testing.]
+
+\textit{Input/Condition:}
+[Describe the screens, visual elements, or interactions
+that will be examined.]
+
+\textit{Output/Result:}
+[Describe the expected visual behaviour and measurable
+pass criteria defined in the SRS.]
+
+\textit{How test will be performed:}
+[Describe how the interface will be inspected or tested,
+including the evidence that will be recorded.]
+
+% Duplicate this test case for additional requirements.
+% Give every new test a unique identifier.
+
+\end{testlist}
+
+
+% ============================================================
+% 8.2 Usability and Humanity Requirements
+% ============================================================
+
+\subsubsection{Usability and Humanity Requirements}
+\label{sec:UsabilityHumanityNFRTests}
+
+These tests verify the usability and humanity requirements
+defined in the SRS. They cover the clarity of instructions,
+ease of navigation, accessibility, and suitability of the
+game's interactions for its intended users. Testing will
+account for the limitations on direct stakeholder involvement
+during the capstone.
+
+
+\begin{testlist}
+
+\item[\testdef{ST_UsabilityHumanity_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Non-functional, Static usability inspection.
+
+\textit{Requirements Covered:}
+[Insert SRS non-functional requirement reference(s).]
+
+\textit{Review procedure:}
+
+The assigned reviewer and a second team member will
+independently inspect the relevant game screens and
+interactions using the applicable SRS requirements.
+For each item, reviewers will answer the following questions:
+
+\begin{enumerate}[label=\arabic*., leftmargin=2em, itemsep=0.3em]
+
+    \item \textit{[Insert a review question based on the SRS.]}
+
+    \item \textit{[Insert another requirement-specific question.]}
+
+    \item \textit{[Insert any additional review questions.]}
+
+\end{enumerate}
+
+Reviewers will record their responses and any concerns
+identified during the inspection. Issues will be tracked
+and reviewed again after corrections are made.
+
+\textit{Expected result and evidence:}
+[Describe the expected review outcomes, acceptance criteria,
+and evidence required to demonstrate compliance.]
+
+\textit{Remark:}
+[Document any limitations in the review approach,
+including requirements that cannot be fully validated
+without the intended users.]
+
+\end{testlist}
+
+
 
 \subsubsection{Performance Requirements}\label{sec:PerformanceNFRTests}
 
@@ -1369,35 +1744,54 @@ relevant test.
 \subsubsection{Cultural and Political Requirements}\label{sec:AMCulturalNFRTests}
 
 The following reviews verify the inclusivity requirement in the SRS
-\citep{SRS} and consider the representation concerns identified by the
-Hazard Analysis \citep{HazardAnalysis}. They are static inspections by team members,
+\cite{SRS} and consider the representation concerns identified by the
+Hazard Analysis \cite{HazardAnalysis}. They are static inspections by team members,
 not usability studies involving children or caregivers. Before the
 review, the responsible tester will create an inventory of all released
 screens, narration scripts, visual assets, character options, and
 caregiver-facing content. Each reviewed item will be identified by its
 file, screen, or asset ID and build version.
 
+
 \begin{testlist}
 
-\item[\testdef{ST_AM_InclusivityLanguage}]\textbf{Inclusivity of Written and Spoken Content}
+\item[\testdef{ST_AM_InclusivityLanguage}]
+\textbf{Inclusivity of Written and Spoken Content}
 
 \textit{Type:} Non-functional, Static content inspection.
 
 \textit{Requirements Covered:} \srsnfrref{NFR_Inclusivity}{31}.
 
-\textit{Review procedure:} Ahsan and a second team member will
-independently read every final child-facing and caregiver-facing string,
-narration transcript, and procedure guide entry, using the release content
-inventory. For each item, reviewers will answer the following checklist:
-(1) Does it assume every child has a mother and father or a particular
-family arrangement? (2) Does it assign abilities, interests, or roles by
-gender? (3) Does it assume a particular culture, religion, or ethnicity?
-(4) Does it imply that one background or family arrangement is normal
-and others are not? (5) Does it contain a stereotype or exclusionary
-term? A ``yes'' to any question requires a finding with the content ID,
-the wording, the concern, and a proposed change. The reviewers will
-compare findings, record their resolution in GitHub Issues, and reinspect
-all corrected content before release.
+\textit{Review procedure:}
+
+The assigned reviewer and a second team member will separately
+review all written and spoken content in the final game,
+including instructions, narration, and caregiver guides,
+using a checklist of the game's content. For each item, reviewers will answer the
+following questions:
+
+\begin{enumerate}[label=\arabic*., leftmargin=*, itemsep=0.3em]
+    \item Does the content assume that every child has a mother
+    and father or a particular family arrangement?
+
+    \item Does the content assign abilities, interests, or
+    roles based on gender?
+
+    \item Does the content assume that the user belongs to
+    a particular culture, religion, or ethnicity?
+
+    \item Does the content imply that one cultural background
+    or family arrangement is normal while others are not?
+
+    \item Does the content contain any stereotypes,
+    exclusionary terms, or potentially discriminatory language?
+\end{enumerate}
+
+For each question, reviewers will record a Yes/No response.
+Any ``Yes'' answer will require a finding containing the content ID,
+wording, concern, and proposed change. Reviewers will compare
+findings, record their resolution in GitHub Issues, and reinspect
+corrected content before release.
 
 \textit{Expected result and evidence:} Every inventory item has a
 completed five-question checklist, and there are zero unresolved
@@ -1405,7 +1799,9 @@ inclusivity findings for the reviewed release. The saved checklist,
 content inventory, reviewers' names, build version, and GitHub Issue
 references provide evidence of the review.
 
-\item[\testdef{ST_AM_InclusivityVisuals}]\textbf{Inclusivity of Images, Characters, and Rewards}
+
+\item[\testdef{ST_AM_InclusivityVisuals}]
+\textbf{Inclusivity of Images, Characters, and Rewards}
 
 \textit{Type:} Non-functional, Static visual inspection with manual
 in-app confirmation.
@@ -1426,16 +1822,33 @@ gender, or ethnicity. No visual reinforces a stereotype or depicts a
 particular identity as the only valid or normal one. All identified
 issues are resolved before release.
 
-\textit{Review procedure:} Ahsan will capture or export the release
-visuals and record each asset ID. A second team member will independently
-review the same inventory. Both will use these questions: (1) Does the
-image depict one family, gender, cultural, or religious identity as
-universal? (2) Does an identity determine the character's abilities or
-role? (3) Are cultural or religious items used in a misleading or
-stereotyped way? (4) Does the released character library reflect the
-inclusivity intent of the Hazard Analysis? Each reviewer will record
-yes/no and explanatory notes for every asset. The team will log concerns
-in GitHub Issues, update the content, and repeat the inspection.
+\textit{Review procedure:}
+
+The assigned reviewer will capture or export the release visuals
+and record each asset ID. A second team member will independently
+inspect the same visual asset inventory. Both reviewers will answer
+the following questions for each asset:
+
+\begin{enumerate}[label=\arabic*., leftmargin=*, itemsep=0.3em]
+    \item Does the image or character depict one family structure,
+    gender, cultural identity, or religious identity as universal?
+
+    \item Does the image or character imply that a person's
+    identity determines their abilities, interests, or role?
+
+    \item Are cultural or religious items represented in a
+    misleading, inaccurate, or stereotypical manner?
+
+    \item Does the released character library contain
+    representations that conflict with the inclusivity
+    intent described in the Hazard Analysis?
+\end{enumerate}
+
+For each question, reviewers will record a Yes/No response and
+explanatory notes. Any ``Yes'' answer will be documented as a
+potential concern. The team will track findings in GitHub Issues,
+correct the affected assets, and repeat the inspection to
+verify that the concerns have been addressed.
 
 \textit{Expected result and evidence:} A complete visual checklist,
 screenshots or exported assets, and an issue-resolution log demonstrate
@@ -1444,6 +1857,68 @@ identifies any aspects of diverse character representation that could
 not be conclusively assessed by the capstone team.
 
 \end{testlist}
+
+
+% ============================================================
+% 8.8 Compliance Requirements
+% ============================================================
+
+\subsubsection{Compliance Requirements}
+\label{sec:ComplianceNFRTests}
+
+These tests verify the compliance requirements defined
+in the SRS. They check whether the game and its supporting
+documentation satisfy the applicable requirements and
+standards identified for the project.
+
+\begin{testlist}
+
+\item[\testdef{ST_Compliance_01}]
+\textbf{[Test Case Name]}
+
+\textit{Type:} Non-functional, Static document inspection.
+
+\textit{Requirements Covered:}
+[Insert SRS non-functional requirement reference(s).]
+
+\textit{Review procedure:}
+
+The assigned reviewer and a second team member will
+review the relevant application features and project
+documentation against the applicable SRS requirements.
+The reviewers will answer the following questions:
+
+\begin{enumerate}[label=\arabic*., leftmargin=2em,
+                  itemsep=0.3em]
+
+    \item \textit{[Insert a compliance question based on the SRS.]}
+
+    \item \textit{[Insert a question about the relevant evidence
+    or documentation.]}
+
+    \item \textit{[Insert any additional compliance questions.]}
+
+\end{enumerate}
+
+Reviewers will record their findings, identify any
+unmet requirements, and track necessary corrections
+through GitHub Issues. Corrected items will be
+reviewed again.
+
+\textit{Expected result and evidence:}
+[Describe the expected compliance outcome and the
+documents, inspection results, or other records
+needed to demonstrate that the requirement is met.]
+
+\textit{Remark:}
+[Document any compliance requirements that cannot
+be fully verified within the capstone scope.]
+
+% Duplicate this test case for additional requirements.
+% Use a dynamic test structure where appropriate.
+
+\end{testlist}
+
 
 \subsection{Traceability Between Test Cases and Requirements}
 
@@ -1715,6 +2190,7 @@ MG and MIS are finalized.
 
 \newpage{}
 
+\section{Appendix --- Generative AI Use Disclosure}
 \subsection{AI Tools Used}
 
 \begin{itemize}
@@ -1771,13 +2247,8 @@ MG and MIS are finalized.
   to draft the design verification checklist, which the team then reviewed
   and revised.
 
-  \item GPT-6.1 Sol was also used to assist with automatic test numbering,
-  cross-document references, and general \LaTeX{} formatting.
-
-  \item GPT-6 was additionally used to assist with \LaTeX{}
-  formatting and compilation troubleshooting, including functional
-  test numbering, SRS requirement hyperlinks, section references,
-  bibliography configuration, and table formatting.
+  \item GPT-6.1 Sol \& GPT-6 were also used to assist with automatic test numbering,
+  cross document references, and general \LaTeX{} formatting.
 \end{itemize}
 
 \subsection{Verification of AI-Generated Content}
@@ -2003,7 +2474,7 @@ The individual responses are provided below.
     manual testing and record evidence such as screenshots,
     test results, and observed behaviour. Developing these
     skills will help ensure that our tests provide reliable
-    evidence that EyeCanDo meets its functional requirements.
+    evidence that \progname{} meets its functional requirements.
 
 
     \item \textbf{What approaches will you pursue to acquire this
@@ -2021,7 +2492,7 @@ The individual responses are provided below.
     interaction on a physical device.
 
     My second approach will be to practice writing and
-    executing tests directly within our EyeCanDo project
+    executing tests directly within our \progname{} project
     as development progresses. I plan to begin with
     relatively simple behaviours, such as verifying
     that a preparation level can be selected and started
