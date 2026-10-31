@@ -154,7 +154,7 @@ VnV & Verification and Validation.\\
 \end{longtable}
 
 For the remaining requirements terminology, see the definitions and
-abbreviations table in the \srsdoc{SRS}~\cite{SRS}.
+abbreviations table in the SRS.
 
 \newpage
 
@@ -331,7 +331,7 @@ as a Rev 0 demo for the supervisor.}
 \section{System Tests}
 
 This section describes the system tests used to verify the functional and
-non-functional requirements in the \srsdoc{SRS}. The functional tests check that
+non-functional requirements in the SRS. The functional tests check that
 the main features of the game work as expected, while the non-functional tests
 check qualities such as performance, offline use, maintainability, and security.
 Each test explains what will be checked and how the result will be recorded.
@@ -395,7 +395,7 @@ How test will be performed:
 \subsection{Tests for Nonfunctional Requirements}\label{sec:NFRSystemTests}
 
 The tests in this section verify the non-functional requirements (NFRs)
-defined in the \srsdoc{SRS}. These requirements describe how well the game
+defined in the SRS. These requirements describe how well the game
 should operate, rather than the specific features it provides.
 The tests are organized according to the NFR categories in the
 SRS, with each test identifying the requirement it covers, the conditions
@@ -848,50 +848,75 @@ The first table lists the SRS constants used in these tests. Their values
 come directly from the SRS. The second
 table defines the few additional values used to run the tests.
 
-\begin{longtable}{@{}p{0.49\textwidth}p{0.12\textwidth}p{0.30\textwidth}@{}}
-\caption{SRS Constants Used in System Tests}\label{tab:VnVSRSConstants}\\
+\begin{longtable}{@{}p{0.35\textwidth}p{0.12\textwidth}p{0.44\textwidth}@{}}
+\caption{SRS Constants}\label{tab:VnVSRSConstants}\\
+
 \toprule
 \textbf{Constant} & \textbf{Value} & \textbf{Description}\\
 \midrule
 \endfirsthead
+
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page}\\
 \toprule
 \textbf{Constant} & \textbf{Value} & \textbf{Description}\\
 \midrule
 \endhead
+
+\midrule
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+
 \bottomrule
 \endlastfoot
-\constdef{STARTUP_TRIALS_MIN} & 10 & Minimum cold starts per device\\
-\constdef{STARTUP_MAX_S} & 5 & Maximum median start time (s)\\
-\constdef{RESPONSE_RATE_MIN} & 95\% & Minimum quick-response rate\\
-\constdef{RESPONSE_MAX_MS} & 100 & Maximum touch response (ms)\\
-\constdef{ANSWER_REVEAL_MAX_S} & 1 & Maximum answer reveal (s)\\
-\constdef{FRAME_RATE_MIN} & 30 & Minimum frames per second\\
-\constdef{FRAME_RATE_COMPLIANCE_MIN} & 95\% & Minimum time meeting FPS target\\
-\constdef{AV_SYNC_MAX_MS} & 100 & Maximum AV start offset (ms)\\
-\constdef{FLASH_MAX_PER_S} & 3 & Maximum flashes per second\\
-\constdef{TEST_SESSIONS_MIN} & 100 & Minimum reliability sessions\\
-\constdef{CRASH_FREE_RATE_MIN} & 99\% & Minimum successful-session rate\\
-\constdef{HEAT_TEST_SESSION_MIN} & 30 & Minimum CPU test duration (min)\\
+\constdef{ADULT_TEXT_MAX_GRADE} & 8 & Maximum reading grade for caregiver text\\
+\constdef{ANSWER_REVEAL_MAX_S} & 1 & Maximum answer reveal time (s)\\
+\constdef{AV_SYNC_MAX_MS} & 100 & Maximum audiovisual start offset (ms)\\
+\constdef{CLINICIAN_FIND_MAX_MIN} & 1 & Maximum time to find content for a patient (min)\\
+\constdef{CLINICIAN_TRAINING_MAX_MIN} & 5 & Maximum clinician training time (min)\\
+\constdef{CONTROL_POSITION_TOLERANCE_MM} & 5 & Maximum control position deviation (mm)\\
+\constdef{CORE_TASK_MAX_MIN} & 5 & Maximum core task duration (min)\\
 \constdef{CPU_UTILIZATION_MAX_PERCENT} & 80\% & Maximum CPU utilization\\
+\constdef{CRASH_FREE_RATE_MIN} & 99\% & Minimum crash-free session rate\\
+\constdef{FLASH_MAX_PER_S} & 3 & Maximum flashes per second\\
+\constdef{FRAME_RATE_COMPLIANCE_MIN} & 95\% & Minimum time meeting frame-rate target\\
+\constdef{FRAME_RATE_MIN} & 30 & Minimum frames per second\\
+\constdef{HEAT_TEST_SESSION_MIN} & 30 & Minimum device heat-test duration (min)\\
+\constdef{INSTALL_SIZE_MAX_MB} & 300 & Maximum installed application size (MB)\\
 \constdef{LOW_SPEC_AGE_YEARS} & 5 & Minimum age of low-spec device (years)\\
-\constdef{MIN_IOS} & 16 & Minimum iOS version\\
-\constdef{MIN_ANDROID} & 10 & Minimum Android version\\
-\constdef{SCREEN_MIN_IN} & 4.7 & Minimum screen diagonal (in)\\
-\constdef{SCREEN_MAX_IN} & 13 & Maximum screen diagonal (in)\\
-\constdef{INSTALL_SIZE_MAX_MB} & 300 & Maximum installed size (MB)\\
-\constdef{MAINT_FRACTION} & 0.10 & Maximum change effort / initial effort\\
+\constdef{MAINT_FRACTION} & 0.10 & Maximum change effort / initial development effort\\
+\constdef{MIN_ANDROID} & 10 & Minimum supported Android version\\
+\constdef{MIN_IOS} & 16 & Minimum supported iOS version\\
+\constdef{RESPONSE_MAX_MS} & 100 & Maximum time to respond to an input (ms)\\
+\constdef{RESPONSE_RATE_MIN} & 95\% & Minimum quick-response rate\\
+\constdef{SCREEN_MAX_IN} & 13 & Maximum supported screen diagonal (in)\\
+\constdef{SCREEN_MIN_IN} & 4.7 & Minimum supported screen diagonal (in)\\
+\constdef{SENTENCE_MAX_WORDS} & 10 & Maximum words per narrated sentence\\
+\constdef{SKIP_HOLD_MIN_S} & 1 & Minimum press-and-hold time to skip (s)\\
+\constdef{STARTUP_MAX_S} & 5 & Maximum median startup time (s)\\
+\constdef{STARTUP_TRIALS_MIN} & 10 & Minimum cold-start trials per device\\
+\constdef{TEST_SESSIONS_MIN} & 100 & Minimum test sessions for reliability\\
+\constdef{TOUCH_TARGET_MIN} & 15 & Minimum touch target size (mm)\\
+\constdef{UNAIDED_RATE_MIN} & 80\% & Minimum unaided task completion rate\\
 \end{longtable}
 
 \begin{longtable}{@{}p{0.49\textwidth}p{0.12\textwidth}p{0.30\textwidth}@{}}
 \caption{Additional System-Test Parameters}\label{tab:VnVAdditionalParameters}\\
+
 \toprule
 \textbf{Constant} & \textbf{Value} & \textbf{Description}\\
 \midrule
 \endfirsthead
+
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page}\\
 \toprule
 \textbf{Constant} & \textbf{Value} & \textbf{Description}\\
 \midrule
 \endhead
+
+\midrule
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+
 \bottomrule
 \endlastfoot
 \constdef{TOUCH_TRIALS_MIN} & 40 & Valid touch samples per device\\
