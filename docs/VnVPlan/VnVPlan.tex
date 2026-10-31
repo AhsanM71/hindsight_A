@@ -1,6 +1,6 @@
 \documentclass[10pt,titlepage]{article}
 \usepackage[letterpaper,margin=0.75in]{geometry}
-
+\usepackage[numbers,square]{natbib}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{tabularx}
@@ -9,6 +9,7 @@
 \usepackage{array}
 \usepackage{parskip}
 \usepackage{caption}
+\usepackage{float}
 \usepackage[destlabel]{hyperref}
 \hypersetup{
     colorlinks,
@@ -56,11 +57,33 @@
   \reqlabel{ST-NFR-\arabic{vnvtestnum}:}}
 \newcommand{\testref}[1]{\hyperref[test:#1]{ST-NFR-\ref*{test:#1}}}
 
+% ----- Functional System Test Numbering -----
+
+\newcounter{vnvfrtestnum}
+
+\newenvironment{frtestlist}
+    {\begin{reqlist}{STFR}}
+    {\end{reqlist}}
+
+\newcommand{\frtestdef}[1]{%
+    \refstepcounter{vnvfrtestnum}%
+    \label{test:#1}%
+    \reqlabel{ST-FR-\arabic{vnvfrtestnum}:}}
+
+\newcommand{\frtestref}[1]{%
+    \hyperref[test:#1]{ST-FR-\ref*{test:#1}}}
+
 % As in the Hazard Analysis, published SRS links use the label as their named
 % destination; display numbers are written explicitly because the documents
 % are compiled separately. This URL matches the SRS link used by the HA.
 \newcommand{\srsurl}{https://team-hindsight.github.io/ophthamology-game/SRS/SRS.pdf}
+
+% Functional requirement references
+\newcommand{\srsfrref}[2]{\href{\srsurl\#nameddest=#1}{FR#2}}
+
+% Non-functional requirement references
 \newcommand{\srsnfrref}[2]{\href{\srsurl\#nameddest=#1}{NFR#2}}
+
 \newcommand{\srsdoc}[1]{\href{\srsurl}{#1}}
 \newcommand{\srstableref}[2]{\href{\srsurl\#nameddest=#1}{#2}}
 
@@ -317,7 +340,7 @@ EyeCanDo.
     application meets its specified requirements.
 
     \item \textbf{Problem Statement and Goals:}
-    The Problem Statement \citep{PS} identifies the problem
+    The Problem Statement \citep{ProblemStatement} identifies the problem
     EyeCanDo aims to address, its intended users, and the
     project's overall goals. It provides the context for
     evaluating whether the application supports its intended
@@ -326,14 +349,14 @@ EyeCanDo.
     scope of this capstone project.
 
     \item \textbf{Development Plan:}
-    The Development Plan \citep{DP} describes the team's
+    The Development Plan \citep{DevPlan} describes the team's
     development workflow, responsibilities, tools, and
     project schedule. It helps ensure that the planned
     verification and validation activities are feasible
     within the available time and resources.
 
     \item \textbf{Hazard Analysis:}
-    The Hazard Analysis \citep{HA} identifies potential
+    The Hazard Analysis \citep{HazardAnalysis} identifies potential
     risks associated with the application and defines
     corresponding safety and security requirements.
     These findings will guide verification activities
@@ -367,7 +390,7 @@ be shared among the five members of Team 2, Hindsight.
 Each member has been assigned functional and nonfunctional
 requirement categories for testing based on the SRS
 \citep{SRS}. These assignments are informed by the
-team's development roles \citep{DP}, but verification
+team's development roles \citep{DevPlan}, but verification
 will remain a collaborative effort. \\
 
 Each member will coordinate the development and execution
@@ -601,59 +624,433 @@ Each test explains what will be checked and how the result will be recorded.
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+\subsubsection{Setup}\label{sec:AMSetupFRTests}
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
+These tests cover the first-use medical notice and the locally saved
+caregiver acknowledgement in FR1--FR2 of the SRS \citep{SRS}.
+For tests requiring a first launch, use a test installation with its
+application data cleared and no restored backup. Record the device,
+operating-system version, build identifier, and observed result.
 
-\subsubsection{Area of Testing1}
+\begin{frtestlist}
 
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
-		
-\paragraph{Title for Test}
+\item[\frtestdef{ST_AM_NoticeFirstLaunch}]\textbf{Medical Notice Before First Use}
 
-\begin{enumerate}
+\textit{Type:} Functional, Dynamic, manual.
 
-\item{test-id1\\}
+\textit{Requirements Covered:} \srsfrref{FR_MedicalNotice}{1}.
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+\textit{Initial State:} The current build is installed on a test device.
+All application data has been cleared, and no caregiver acknowledgement
+is stored.
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\textit{Input/Condition:} Launch the app. Read the medical notice and
+attempt to enter the home screen without selecting its acknowledgement
+control. Close and reopen the app without acknowledging the notice.
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\textit{Output/Result:} The notice identifies the game as an educational
+preparation aid and states that it does not replace professional medical
+advice, diagnosis, or treatment. The home screen remains inaccessible
+until acknowledgement. The notice is shown again after relaunch.
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\textit{Test Case Derivation:} FR1 requires the notice before first use
+and prevents access to the home screen until the caregiver acknowledges it.
 
-How test will be performed: 
+\textit{How test will be performed:} On a clean installation, capture the
+notice and check all required statements. Attempt any available back,
+home, or close-navigation action without acknowledging. Relaunch and
+confirm the notice is still required. Record the available controls and
+whether any route bypasses acknowledgement.
 
-\end{enumerate}
+\item[\frtestdef{ST_AM_NoticeInGuide}]\textbf{Medical Notice in Caregiver Guide}
 
-\subsubsection{Area of Testing2}
+\textit{Type:} Functional, Dynamic, manual.
 
-...
+\textit{Requirements Covered:} \srsfrref{FR_MedicalNotice}{1}.
+
+\textit{Initial State:} Initial setup has been completed and the home
+screen is accessible.
+
+\textit{Input/Condition:} Open the caregiver procedure guide and select
+the available medical notice or educational-use disclaimer.
+
+\textit{Output/Result:} The medical notice remains accessible and states
+that the game is for educational preparation, not medical advice,
+diagnosis, or treatment. Viewing it does not change journey progress.
+
+\textit{Test Case Derivation:} FR1 explicitly requires the same notice
+to remain available from the caregiver procedure guide.
+
+\textit{How test will be performed:} Navigate to the caregiver guide,
+open the notice, compare its required statements with those checked in
+\textit{ST\_AM\_NoticeFirstLaunch}, and return home. Record the
+navigation path and capture the displayed notice.
+
+\item[\frtestdef{ST_AM_AcknowledgementSaved}]\textbf{Acknowledgement Persists Across Launches}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_RecordAck}{2}.
+
+\textit{Initial State:} A clean installation is displaying the first-use
+medical notice; no acknowledgement has been recorded.
+
+\textit{Input/Condition:} Select the acknowledgement control once,
+complete any introductory screens, reach the home screen, fully close
+the app, and launch it again. Repeat the close-and-launch operation once.
+
+\textit{Output/Result:} The acknowledgement is saved locally. Both
+subsequent launches reach the home screen without requesting acknowledgement
+again. No account or network connection is required to retain it.
+
+\textit{Test Case Derivation:} FR2 requires a locally stored acknowledgement
+and omission of the notice on later launches.
+
+\textit{How test will be performed:} Record the acknowledgement action,
+then force-close and relaunch the app twice. Confirm that the home screen
+is reached without a repeated notice. If a development build exposes
+the acknowledgement field, also check that it changes from false to true.
+
+\end{frtestlist}
+
+\subsubsection{Journey Map}\label{sec:AMJourneyFRTests}
+
+These tests verify FR3--FR5: presentation of the three procedure levels,
+independent access to every level, and replay without loss of a completed
+status. The names, order, and allowed statuses come from the SRS
+\citep{SRS}; no custom image or data file is needed because the test
+uses the levels and illustrations packaged in the release build.
+
+\begin{frtestlist}
+
+\item[\frtestdef{ST_AM_JourneyFresh}]\textbf{Journey Map on a New Profile}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_JourneyMap}{3}.
+
+\textit{Initial State:} Initial setup is acknowledged, and a new
+journey has zero completed or started levels. If necessary, use the
+caregiver's journey-reset control before starting the test.
+
+\textit{Input/Condition:} From the home screen, open the journey map.
+Do not start any level.
+
+\textit{Output/Result:} Exactly the three defined procedure levels are
+shown in level-number order: Vision Testing, Eye-Drop Preparation, and
+Slit-Lamp Preparation. Each has a name, an illustration, and a visible
+\textit{Not Started} status. No level is displayed as locked.
+
+\textit{Test Case Derivation:} FR3 specifies one illustrated, named,
+status-labelled map entry per procedure, ordered by level number.
+
+\textit{How test will be performed:} Reset journey progress, open the
+map, and record the order, titles, images, status labels, and availability
+of all three entries in a screenshot and checklist.
+
+\item[\frtestdef{ST_AM_JourneyMixedStatuses}]\textbf{Map Displays Three Different Statuses}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_JourneyMap}{3},
+\srsfrref{FR_StartLevel}{4}, \srsfrref{FR_LevelEnd}{11}.
+
+\textit{Initial State:} Initial setup is complete; journey progress is
+reset so all three levels are \textit{Not Started}.
+
+\textit{Input/Condition:} Start Vision Testing, then use its home
+control before the ending. Next start Eye-Drop Preparation and reach
+its end-of-level screen. Do not open Slit-Lamp Preparation. Return to
+the journey map.
+
+\textit{Output/Result:} Vision Testing is \textit{In Progress},
+Eye-Drop Preparation is \textit{Completed}, and Slit-Lamp Preparation
+is \textit{Not Started}. All three entries remain selectable.
+
+\textit{Test Case Derivation:} FR3 requires the map to show the current
+status of each level; FR4 and FR11 define the changes on start and finish.
+
+\textit{How test will be performed:} Follow the stated sequence on a
+reset journey, recording each transition. Compare all three status
+indicators with the expected state and capture the final journey map.
+
+\item[\frtestdef{ST_AM_IndependentLevelAccess}]\textbf{Start Any Level Without Unlocking}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_StartLevel}{4}.
+
+\textit{Initial State:} Journey progress is reset; all levels are
+\textit{Not Started}, and journey points and coins are zero.
+
+\textit{Input/Condition:} Select Slit-Lamp Preparation first and
+activate its play control. Before the ending, return to the map.
+Then select Eye-Drop Preparation, activate play, and return early.
+Finally select Vision Testing and activate play. For each start, record
+the first displayed level step.
+
+\textit{Output/Result:} Each selected level starts at its beginning
+without requiring a completed prerequisite, journey points, or coins.
+Its status becomes \textit{In Progress}; the other levels retain their
+existing statuses. No reward is given merely for starting a level.
+
+\textit{Test Case Derivation:} FR4 allows every level to start regardless
+of progress or rewards, applies the start operation, and requires the
+level to begin from its first step.
+
+\textit{How test will be performed:} Execute the three starts in the
+specified order. After each early exit, inspect the journey map and
+record the starting scene, all three statuses, and displayed reward
+balances. Flag any lock, prerequisite, or resumed mid-level scene.
+
+\item[\frtestdef{ST_AM_ReplayCompleted}]\textbf{Replay Does Not Remove Completion}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_Replay}{5},
+\srsfrref{FR_StartLevel}{4}.
+
+\textit{Initial State:} On a reset journey, Vision Testing has been
+played to its end once and shows \textit{Completed}. Record the
+current journey points, coins, and level status.
+
+\textit{Input/Condition:} Select the completed Vision Testing level,
+start its replay, exit before the ending, and inspect the map. Start
+Vision Testing again and play to the end.
+
+\textit{Output/Result:} Both replays start from the beginning.
+Vision Testing remains \textit{Completed} during and after replay,
+including after early exit. Its original completion reward is not
+awarded again; recorded points and coins remain unchanged by replay.
+
+\textit{Test Case Derivation:} FR5 preserves completed status during
+replay, while FR4 restarts the level from the beginning. The SRS
+formal progress model permits first-completion rewards only once.
+
+\textit{How test will be performed:} Capture the map and reward balances
+before replay, after early exit, and after replay completion. Compare
+these values and record whether each replay began at the introduction.
+
+\end{frtestlist}
+
+\subsubsection{Level Content}\label{sec:AMLevelContentFRTests}
+
+These tests cover FR6--FR11 and use the three levels and their
+shipped narration, images, and animations as inputs. Before executing
+the content tests, the tester shall record the build version and prepare
+a content inventory containing, for each level, its screen or asset IDs,
+script or narration IDs, supported age-group variants, and the relevant
+procedure step. This inventory makes content observations reproducible
+without assuming filenames or illustrations that have not yet been
+finalized. Content checks are against the SRS and the approved script;
+clinical accuracy review is addressed separately in the NFR tests.
+
+\begin{frtestlist}
+
+\item[\frtestdef{ST_AM_ProcedureContent}]\textbf{Procedure Content in Every Level}
+
+\textit{Type:} Functional, Dynamic, manual content inspection.
+
+\textit{Requirements Covered:} \srsfrref{FR_LevelContent}{6}.
+
+\textit{Initial State:} Initial setup is complete and the three
+procedure levels are available with the final content inventory.
+
+\textit{Input/Condition:} Open Vision Testing, Eye-Drop Preparation,
+and Slit-Lamp Preparation separately. For each, advance through all
+built-in screens and animations, including any optional exercises.
+
+\textit{Output/Result:} Each level presents at least one identifiable
+step, piece of equipment, or instruction for its own procedure:
+Vision Testing includes an eye-chart or symbol-identification activity;
+Eye-Drop Preparation depicts or explains clinician-administered drops;
+and Slit-Lamp Preparation depicts or explains the slit-lamp device or
+patient positioning. None is an unrelated activity without procedure
+information.
+
+\textit{Test Case Derivation:} FR6 requires each level to prepare for
+its corresponding procedure by presenting at least one relevant part.
+The three use cases describe the intended procedure examples.
+
+\textit{How test will be performed:} Play each level from its beginning,
+record the first qualifying procedure moment and its asset or screen ID,
+and capture a screenshot or narrated-screen recording. Compare the
+three observations with the approved procedure inventory.
+
+\item[\frtestdef{ST_AM_AgeGroupSelection}]\textbf{Age-Specific Content Selection}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_AgeGroup}{7}.
+
+\textit{Initial State:} The caregiver can access preferences. Before
+testing, the content inventory states which levels, if any, have a
+3--4-year variant, a 5--7-year variant, and default content.
+
+\textit{Input/Condition:} Set the age group to 3--4 years and start
+each level from the beginning; record its opening content ID. Repeat
+with age group 5--7 years. Finally use the unset age-group option, or clear local preferences
+and complete setup again if no unset control is exposed, then start
+each level again.
+
+\textit{Output/Result:} For each run, a level presents its matching
+age-specific content when that variant exists. Where no matching
+variant exists, or the age group is unset, it presents the listed
+default content. No level becomes unavailable because of the setting.
+
+\textit{Test Case Derivation:} FR7 defines the values \textit{3--4},
+\textit{5--7}, and \textit{unset}, and requires a matching variant
+when provided, with fallback to default otherwise.
+
+\textit{How test will be performed:} Use the caregiver preferences to
+run the stated three-setting matrix across all three levels. Compare
+each displayed content ID with the recorded content inventory; record
+all nine setting-and-level combinations. Do not mark a missing optional
+age-specific variant as a failure if its default content is used.
+
+\item[\frtestdef{ST_AM_SensationBeforeSkip}]\textbf{Required Sensation Explanation Cannot Be Skipped}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_DescribeSensations}{8}.
+
+\textit{Initial State:} The current build includes the approved
+procedure narration and animations. Identify every scene that depicts
+a potentially felt sensation (for example, stinging from eye drops
+or bright light during a slit-lamp examination) in the content inventory.
+
+\textit{Input/Condition:} For each identified scene, start its level
+from the beginning and use the available skip control as soon as it
+appears. Repeat once without skipping the optional animation or exercise.
+
+\textit{Output/Result:} On both paths, the child receives the relevant
+sensation description before the sensation is depicted or the optional
+part is skipped. The mandatory description itself cannot be bypassed.
+No narration, text, or image promises that the procedure will be
+painless or free of discomfort.
+
+\textit{Test Case Derivation:} FR8 requires honest advance
+explanations of sensations and prohibits skipping the description,
+even when the corresponding exercise or animation is skipped.
+
+\textit{How test will be performed:} Record both paths for every scene
+listed in the inventory. Note the first frame or narration cue for the
+description, the skip action, and the first frame depicting the
+sensation. Review all text and narration for prohibited reassurance.
+Save the recordings and a pass/fail result for every applicable scene.
+
+\item[\frtestdef{ST_AM_ProcedureVariation}]\textbf{Differences Between Game and Clinic}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_ClinicsDiffer}{9}.
+
+\textit{Initial State:} All three levels contain the current approved
+narration and pictures. Device audio is enabled.
+
+\textit{Input/Condition:} Play each level from beginning to end,
+including its introductory and concluding content.
+
+\textit{Output/Result:} Each of the three levels communicates, through
+both narration and pictures, that a real doctor may perform the
+procedure somewhat differently from the game. The message is present
+in Vision Testing, Eye-Drop Preparation, and Slit-Lamp Preparation.
+
+\textit{Test Case Derivation:} FR9 explicitly requires this message in
+both narration and pictures in every level.
+
+\textit{How test will be performed:} For each level, identify the
+narration clip or on-screen spoken message and the corresponding
+picture or visual cue. Record both content IDs and a screenshot or
+recording. Mark a level as failing if either channel is missing.
+
+\item[\frtestdef{ST_AM_ExpressConcern}]\textbf{Permission to Tell the Doctor About Discomfort}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_SpeakUp}{10}.
+
+\textit{Initial State:} All three levels are accessible and audio
+is enabled.
+
+\textit{Input/Condition:} Complete each level once normally. Reset
+the journey, then complete each level using skip for every optional
+exercise or animation that offers it.
+
+\textit{Output/Result:} Before the ending in both paths for all three
+levels, the child is told that they may tell the doctor if they feel
+worried or uncomfortable. Skipping exercises does not remove this message.
+
+\textit{Test Case Derivation:} FR10 requires the reassurance before
+the end of every level. The alternative skip path checks that a child
+cannot miss it by bypassing an optional exercise.
+
+\textit{How test will be performed:} Record the normal and skip-heavy
+runs for all three levels, identify the screen or narration ID conveying
+the message, and confirm that it occurs before each end-of-level screen.
+
+\item[\frtestdef{ST_AM_LevelCompletion}]\textbf{Completion Recorded Only at Level Ending}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_LevelEnd}{11}.
+
+\textit{Initial State:} Journey progress is reset so all three
+levels are \textit{Not Started}.
+
+\textit{Input/Condition:} Start Vision Testing and exit before its
+ending. Return to the map. Then play Vision Testing to its end,
+followed by Eye-Drop Preparation and Slit-Lamp Preparation to their
+respective endings. Record the map after each step.
+
+\textit{Output/Result:} Early exit from Vision Testing leaves it
+\textit{In Progress} without an end-of-level screen or completion
+reward. Reaching the ending of each level displays its end-of-level
+screen and changes only that level's status to \textit{Completed}.
+All three are \textit{Completed} only after their own endings have been
+reached.
+
+\textit{Test Case Derivation:} FR11 applies the finish operation at
+level ending and changes the level status to \textit{Completed}. The
+formal model does not count individual exercises as separate levels.
+
+\textit{How test will be performed:} Follow the specified exit and
+three-completion sequence. Capture the ending of each level and the
+map after each exit or completion; compare all three statuses after
+every transition.
+
+\item[\frtestdef{ST_AM_SkippedActivitiesStillComplete}]\textbf{Skipped Exercises Do Not Prevent Level Completion}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_LevelEnd}{11},
+\srsfrref{FR_DescribeSensations}{8},
+\srsfrref{FR_SpeakUp}{10}.
+
+\textit{Initial State:} Journey progress is reset, and the three
+levels have their normal content and available skip controls.
+
+\textit{Input/Condition:} Start each level. For every optional
+exercise, round, or animation that offers skip, select skip instead of
+completing it; continue through any mandatory educational narration and
+reach the level ending.
+
+\textit{Output/Result:} Each level reaches its end-of-level screen
+and becomes \textit{Completed}, despite skipped optional activities.
+Mandatory sensation descriptions and the message about telling a doctor
+about worry or discomfort are still presented. No individual skipped
+exercise is incorrectly treated as a separate unfinished level.
+
+\textit{Test Case Derivation:} The SRS tracks completion per
+procedure level, not per exercise; FR11 requires completion at the
+ending. FR8 and FR10 protect mandatory educational information.
+
+\textit{How test will be performed:} Record a skip-heavy run through
+all three levels. Count and note each selected skip, verify every
+mandatory message, and capture each end-of-level screen and final
+journey-map status.
+
+\end{frtestlist}
 
 \subsection{Tests for Nonfunctional Requirements}\label{sec:NFRSystemTests}
 
@@ -957,6 +1354,86 @@ relevant test.
 \textit{Review procedure:} One team member will list the exact versions of Unity, packages, and plugins included in the release. The member will check these versions against known-vulnerability databases and supplier advisories. A second team member will review any high or critical findings and check that fixes or safe versions have been applied.
 
 \textit{Expected result and evidence:} No included third-party library has a publicly known high or critical vulnerability at the time of release. The team will keep the dependency list, the dated scan or advisory results, and any related GitHub issues.
+
+\end{testlist}
+
+
+\subsubsection{Cultural and Political Requirements}\label{sec:AMCulturalNFRTests}
+
+The following reviews verify the inclusivity requirement in the SRS
+\citep{SRS} and consider the representation concerns identified by the
+Hazard Analysis \citep{HazardAnalysis}. They are static inspections by team members,
+not usability studies involving children or caregivers. Before the
+review, the responsible tester will create an inventory of all released
+screens, narration scripts, visual assets, character options, and
+caregiver-facing content. Each reviewed item will be identified by its
+file, screen, or asset ID and build version.
+
+\begin{testlist}
+
+\item[\testdef{ST_AM_InclusivityLanguage}]\textbf{Inclusivity of Written and Spoken Content}
+
+\textit{Type:} Non-functional, Static content inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Inclusivity}{31}.
+
+\textit{Review procedure:} Ahsan and a second team member will
+independently read every final child-facing and caregiver-facing string,
+narration transcript, and procedure guide entry, using the release content
+inventory. For each item, reviewers will answer the following checklist:
+(1) Does it assume every child has a mother and father or a particular
+family arrangement? (2) Does it assign abilities, interests, or roles by
+gender? (3) Does it assume a particular culture, religion, or ethnicity?
+(4) Does it imply that one background or family arrangement is normal
+and others are not? (5) Does it contain a stereotype or exclusionary
+term? A ``yes'' to any question requires a finding with the content ID,
+the wording, the concern, and a proposed change. The reviewers will
+compare findings, record their resolution in GitHub Issues, and reinspect
+all corrected content before release.
+
+\textit{Expected result and evidence:} Every inventory item has a
+completed five-question checklist, and there are zero unresolved
+inclusivity findings for the reviewed release. The saved checklist,
+content inventory, reviewers' names, build version, and GitHub Issue
+references provide evidence of the review.
+
+\item[\testdef{ST_AM_InclusivityVisuals}]\textbf{Inclusivity of Images, Characters, and Rewards}
+
+\textit{Type:} Non-functional, Static visual inspection with manual
+in-app confirmation.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Inclusivity}{31}.
+
+\textit{Initial State:} The final build and complete visual asset
+inventory are available; initial setup has been completed.
+
+\textit{Input/Condition:} Inspect every level illustration,
+introductory or instructional animation, journey-map image, selectable
+character, and cosmetic accessory. Open each available character and
+accessory in the app to confirm how it appears in context.
+
+\textit{Output/Result:} No image or character presentation assumes
+that all children share one family structure, culture, religion,
+gender, or ethnicity. No visual reinforces a stereotype or depicts a
+particular identity as the only valid or normal one. All identified
+issues are resolved before release.
+
+\textit{Review procedure:} Ahsan will capture or export the release
+visuals and record each asset ID. A second team member will independently
+review the same inventory. Both will use these questions: (1) Does the
+image depict one family, gender, cultural, or religious identity as
+universal? (2) Does an identity determine the character's abilities or
+role? (3) Are cultural or religious items used in a misleading or
+stereotyped way? (4) Does the released character library reflect the
+inclusivity intent of the Hazard Analysis? Each reviewer will record
+yes/no and explanatory notes for every asset. The team will log concerns
+in GitHub Issues, update the content, and repeat the inspection.
+
+\textit{Expected result and evidence:} A complete visual checklist,
+screenshots or exported assets, and an issue-resolution log demonstrate
+zero unresolved inclusivity concerns at release. The record also
+identifies any aspects of diverse character representation that could
+not be conclusively assessed by the capstone team.
 
 \end{testlist}
 
