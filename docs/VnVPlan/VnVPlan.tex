@@ -158,47 +158,198 @@ appendices provide supporting checklists, questionnaires, and test parameters.
 
 \subsection{Summary}
 
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+EyeCanDo is a mobile application designed to prepare children aged 3--7
+for paediatric ophthalmology appointments. The application aims to reduce
+children's anxiety and improve their preparedness by introducing common
+eye examination procedures through age-appropriate interactive games. \\
+
+The application follows a journey-based structure consisting of three
+preparation levels: Vision Testing, Eye-Drop Preparation, and Slit-Lamp
+Preparation. Each level focuses on a specific ophthalmology procedure
+and contains smaller interactive activities or exercises that familiarize
+children with what to expect during their appointments. Children can
+access and replay any preparation level at any time, regardless of their
+progress in other levels. \\
+
+EyeCanDo provides visual demonstrations, narration, and encouraging
+feedback throughout gameplay. Children can select and customize a
+character, earn journey points and in-game rewards upon first completing
+each preparation level, and track their progress through a personal
+scoreboard. Completion status and rewards are tracked at the preparation
+level rather than for individual exercises. \\
+
+Caregivers can access procedure guides, manage application preferences,
+and reset saved progress. The application operates offline after
+installation, stores progress locally, and does not require user
+accounts. EyeCanDo is intended solely as an educational preparation
+tool and does not provide medical advice, diagnosis, or treatment.
 
 \subsection{Objectives}
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
+The primary objective of this Verification and Validation (V\&V) Plan
+is to build confidence that EyeCanDo meets its specified requirements
+and provides a safe, reliable, and age-appropriate preparation
+experience for children aged 3--7. Given the project's scope and
+available resources, verification and validation efforts will
+prioritize the following qualities:
 
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
+\begin{itemize}
+    \item \textbf{Accuracy and Safety of Educational Content:}
+    Verify that the preparation activities accurately represent
+    common ophthalmology procedures, provide age-appropriate
+    explanations, and avoid misleading or distressing information.
+    Clinical content and applicable requirements will be reviewed
+    with the project supervisor where feasible.
 
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
+    \item \textbf{Functional Correctness and Reliability:}
+    Verify that the application's core functionality behaves
+    according to the SRS \citep{SRS}. Particular attention will be given to
+    ensuring that all preparation levels remain accessible,
+    gameplay interactions function correctly, progress and
+    rewards are recorded accurately, and the application operates
+    reliably offline.
+
+    \item \textbf{Preliminary Usability and Accessibility:}
+    Assess whether the application's navigation, instructions,
+    and interactions are understandable and appropriate for
+    the intended age group. This will involve reviews by the
+    development team and peers, including task-based inspections
+    in which reviewers evaluate the application from the
+    perspectives of the child and caregiver personas defined
+    in the SRS \citep{SRS}.
+\end{itemize}
+
+The following validation objectives are outside the scope of the
+capstone project:
+
+\begin{itemize}
+    \item \textbf{Direct Usability Testing with Primary Users:}
+    Usability testing involving children and their caregivers
+    will not be conducted during the capstone project, as
+    the required research ethics approval will not be pursued
+    within the project timeline. Instead, preliminary usability
+    assessments will be performed through peer reviews and
+    persona based inspections. Since the reviewers are not the intended users, their feedback
+    may not accurately reflect how children and caregivers would
+    interact with the application. Therefore, these assessments
+    can help identify potential usability issues but cannot fully
+    confirm the application's usability for its intended users.
+
+    \item \textbf{Clinical Effectiveness Validation:}
+    Determining whether EyeCanDo reduces children's anxiety,
+    improves cooperation during examinations, or increases
+    clinical efficiency requires studies involving patients
+    and healthcare professionals. Such studies are outside
+    the scope of this project and may be pursued after the
+    capstone, subject to research ethics approval.
+
+    \item \textbf{Exhaustive Compatibility and Third-Party
+    Verification:}
+    Testing will focus on the devices and operating systems
+    available to the team. Exhaustive testing across all
+    supported device configurations and independent verification
+    of third party software will not be performed due to
+    resource constraints. Third party components will instead
+    be assessed through their integration with the application.
+\end{itemize}
+
+The team will prioritize verification through software testing,
+code and document reviews, and feedback from the supervisor where
+appropriate. Reviews conducted by classmates using the child and caregiver
+personas will help identify potential usability issues. However,
+these reviews cannot fully confirm how actual children and
+caregivers would interact with the application. The team will
+document these limitations, while usability testing with the
+intended users and evaluating the application's effectiveness
+in reducing anxiety will be left for future work.
 
 \subsection{Custom Documents}
 
-\wss{Summarize the CDs (Custom Documents) that were tackled by this project.  CDs 
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  CDs should have already
-been approved by the course instructor as included in your problem statement.
-You can use a pull request to update your CDs (in TeamComposition.csv or
-Repos.csv) if your plan changes as a result of the VnV planning exercise.}
+The team plans to complete two Custom Documents (CDs) as part of
+the EyeCanDo project, one during the Fall semester and one during
+the Winter semester. \\
+
+For the Fall semester, the team is considering either a
+Cognitive Walkthrough Report or a Wireframe Report, replacing
+the previously selected Client Interview Report. This change
+reflects the project's revised scope, as direct testing and
+interviews involving children and caregivers will not be
+conducted during the capstone project due to research ethics
+requirements. \\
+
+A Cognitive Walkthrough Report would evaluate whether users
+can understand and navigate the application's interface by
+having reviewers complete representative tasks from the
+perspectives of the child and caregiver personas. Alternatively,
+a Wireframe Report would document and evaluate the proposed
+interface design, navigation, and organization of the
+preparation activities. The final selection remains subject
+to confirmation with the course professor. \\
+
+For the Winter semester, the team currently plans to complete
+a Usability Report. This report would document preliminary
+usability evaluations conducted by team members and peers,
+focusing on the application's navigation, instructions, and
+ease of interaction. Since these evaluations will not involve
+the intended users directly, the results will be used to
+identify potential usability issues rather than to confirm
+usability for children aged 3--7. \\
+
+The selection of the Winter Custom Document is also subject
+to change following further discussion with the course
+professor. Any approved changes will be reflected in the
+project documentation and V\&V Plan.
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
+The following project documents provide the requirements,
+design information, and development context used to plan
+and conduct verification and validation activities for
+EyeCanDo.
 
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+\begin{itemize}
+    \item \textbf{Software Requirements Specification (SRS):}
+    The SRS \citep{SRS} defines the functional and
+    non-functional requirements of EyeCanDo, including
+    preparation activities, journey progression, accessibility,
+    and reliability. It serves as the primary reference for
+    developing test cases and determining whether the
+    application meets its specified requirements.
+
+    \item \textbf{Problem Statement and Goals:}
+    The Problem Statement \citep{PS} identifies the problem
+    EyeCanDo aims to address, its intended users, and the
+    project's overall goals. It provides the context for
+    evaluating whether the application supports its intended
+    purpose, while recognizing that measuring actual anxiety
+    reduction and clinical effectiveness is outside the
+    scope of this capstone project.
+
+    \item \textbf{Development Plan:}
+    The Development Plan \citep{DP} describes the team's
+    development workflow, responsibilities, tools, and
+    project schedule. It helps ensure that the planned
+    verification and validation activities are feasible
+    within the available time and resources.
+
+    \item \textbf{Hazard Analysis:}
+    The Hazard Analysis \citep{HA} identifies potential
+    risks associated with the application and defines
+    corresponding safety and security requirements.
+    These findings will guide verification activities
+    related to safe interactions, accurate educational
+    content, data handling, and reliable application
+    behaviour.
+
+\end{itemize}
+
+The selected Fall and Winter Custom Documents will also
+contribute to the V\&V process by documenting preliminary
+interface and usability evaluations. Their findings will
+help identify design and usability issues that can be
+addressed during development. References to these
+documents will be added once their selection and content
+have been finalized.
 
 \newpage
 \section{Plan}
