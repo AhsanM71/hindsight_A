@@ -1008,26 +1008,97 @@ completeness, consistency, and appropriateness of the final VnV Plan.
 
 \section{Appendix --- Reflection}
 
-\wss{This section is not required for CAS 741}
+Questions 1 and 2 were answered individually by each team member. For
+Questions 3 and 4, the team brainstormed the knowledge and skills needed to
+complete the VnV activities and possible ways to learn them. Each member then
+selected one skill and reflected on the approaches they would use to develop it.
+The individual responses are provided below.
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.
-
-\input{../Reflection.text}
+\subsubsection*{Mohammad Bilal}
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
-  \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete the verification and validation of your project?
-  Examples of possible knowledge and skills include dynamic testing knowledge,
-  static testing knowledge, specific tool usage, Valgrind etc.  You should look to
-  identify at least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
+    \item \textbf{What went well while writing this deliverable?}
+
+    One thing that went well was coming up with the overall approach for the
+    system tests. When writing the SRS, we tried to make each requirement distinct
+    and avoid unnecessary overlap. This was especially helpful for the NFRs,
+    which I worked on in both the SRS and this document. Since the requirements
+    were already fairly clear and separate, I could plan one test for each NFR
+    in my assigned sections. That gave me a good starting point, and I could
+    then focus on working out the test conditions, expected results, and how
+    each test would actually be carried out.
+
+    Another thing that went well was dividing the work early, as we have done
+    for previous deliverables. Unlike the SRS, most sections of the VnV Plan
+    did not depend heavily on one another, so team members could make progress
+    independently and at their own pace. Assigning responsibilities early also
+    made it easier to stay organized and manage the limited time we had for
+    the deliverable.
+
+    \item \textbf{What pain points did you experience during this
+    deliverable, and how did you resolve them?}
+
+    One challenge was figuring out how we could validate the game with its
+    intended users. Direct testing with paediatric patients would require
+    Research Ethics Board (REB) approval, and our supervisor explained that
+    obtaining this approval would likely be infeasible within the capstone
+    timeline. We discussed the issue with our TA and course instructor and
+    adjusted our validation plans accordingly. Instead of relying on direct
+    testing with children, we will need to use feedback from ophthalmologists
+    and other people who work with the intended users, along with simulated
+    activities where appropriate. This is not quite the same as testing with
+    the children themselves, so it is an important limitation of our plan.
+
+    Another challenge was the number of tests we needed to plan. The SRS has
+    43 functional requirements and 29 non-functional requirements, and writing
+    a meaningful test for each takes time. It was not enough to simply restate
+    the requirement; we had to decide what conditions to test, how to measure
+    the result, and whether the test was realistic with the tools and devices
+    available to us. AI helped generate some starting ideas, but many of its
+    suggestions were too generic or involved testing resources we would not
+    have. I had to revise those suggestions and work through the details
+    manually to make the tests specific and achievable for our project.
+
+    \item \textbf{What knowledge and/or skill will you need to acquire to successfully complete
+    the verification and validation of your project?}
+
+    The team identified several skills that we will need for verification and
+    validation, but the one I want to focus on is learning how to use the Unity
+    Profiler. Many of the non-functional tests I worked on require actual
+    measurements, particularly for frame rate, response time, CPU usage, and
+    memory use. I need to learn which measurements to collect, how to record
+    them consistently during gameplay, and how to interpret the results. For
+    example, I should be able to tell whether a drop in frame rate is a brief
+    issue while loading a level or a problem that continues during gameplay.
+    I also want to understand the difference between profiling in the Unity
+    Editor and profiling a build on a device, since the Editor itself can
+    affect performance. Learning this will help me carry out the NFR tests
+    properly and provide evidence for whether the game meets the SRS targets,
+    especially with the limited physical devices available to our team.
+
+    \item \textbf{What approaches will you pursue to acquire this
+    knowledge or master this skill, and why?}
+
+    My first approach will be to work through the official Unity Profiler
+    documentation and its examples, focusing on the CPU Usage, Memory, and
+    frame timing tools. The documentation should help me understand how to
+    capture a profiling session and what the different measurements mean.
+    I will then practice using the Profiler on our game as development
+    progresses, such as by recording a playthrough of a level and looking at
+    what happens when animations or scene transitions occur. This will give
+    me experience collecting and comparing results before we run the final
+    NFR tests.
+
+    My second approach will be to use AI when I have a specific question or
+    run into a problem with the Profiler. For example, it could help me
+    understand an unfamiliar measurement, troubleshoot a setup issue, or
+    suggest what to check when performance results seem inconsistent. This
+    would be a quick way to get unstuck while learning the tool. However, I
+    would still check any suggestions against Unity's documentation and test
+    them myself rather than assuming the AI explanation is correct. Using
+    both approaches should help me learn the Profiler more efficiently while
+    making sure the measurements we use in the VnV Plan are reliable.
+
 \end{enumerate}
 
 \newpage
