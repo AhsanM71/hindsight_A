@@ -10,6 +10,7 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage[destlabel]{hyperref}
+\usepackage{longtable}
 \hypersetup{
     colorlinks,
     citecolor=green,
@@ -98,6 +99,9 @@
 \newcommand{\constdef}[1]{\hypertarget{const:#1}{\texttt{\detokenize{#1}}}}
 \newcommand{\constref}[1]{\hyperlink{const:#1}{\texttt{\detokenize{#1}}}}
 \usepackage{parskip}
+\usepackage{amssymb}
+
+\newcommand{\chk}{$\square$}
 
 \setlength{\parskip}{\baselineskip}
 
@@ -564,8 +568,9 @@ The meeting has three stages, each with a distinct purpose:
   \item \textbf{Stage 2 SRS Checklist Review:} The team and supervisor will work through the SRS checklist together, confirming that the required elements are present, 
   that requirements do not conflict, that terminology is used consistently, and that functional and non-functional requirements trace back to stakeholder needs and 
   project goals. The goal is to verify completeness and traceability.
-  \item \textbf{Stage 3 Task-based Inspection:} The supervisor will be asked to complete a focused tasks by selecting two use cases and confirm that the steps and 
-  exceptions match real clinical workflow. The goal is to verify consistency and use case correctness within the clinical domain.
+  \item \textbf{Stage 3 Task-based Inspection:} The supervisor will be asked to complete two tasks. The first is to select two use cases and confirm that the steps and 
+  exceptions match real clinical workflow. The second is to select two non-functional requirements and describe how to measure the criterion to verify the measurable 
+  criteria is aligned with clinical measuring expectations. The goal is to verify consistency, testability and use case correctness within the clinical domain.
 \end{enumerate}
 All feedback from the meeting will be recorded in a single GitHub issue under the SM: Stakeholder + Supervisor Meetings GitHub milestone. The team will then divide 
 it further into individual issues, so that each can be assigned and tracked. All verification issues will be resolved and closed before the Rev 0 presentations begins
@@ -3330,9 +3335,135 @@ results and session notes. Open-ended answers will be grouped by screen, and any
 problem reported by more than one participant will also be recorded in GitHub
 Issues.
 
+\subsection{SRS Checklist Questions}
+
+The SRS Checklist in Table \ref{tab:SRSChecklist} identifies key items to check and verify the SRS against the project intentions and the course rubric. The checklist 
+items are categorized on verification goals:
+\begin{itemize}
+  \item Clarity: The reader can understand the content without ambiguity.
+  \item Correctnes: The content is accurate for the domain and the projects intent.
+  \item Completeness:	Nothing required or expected is missing.
+  \item Consistency: Content does not conflict with itself or restate itself inconsistently.
+  \item Traceability: Requirements link to their sources and dependents.
+  \item Quality: The document is professionally written, organized, and suitable for its audience.
+  \item Testability: Each requirement can be checked by a measurable test.
+\end{itemize}
+Each row records the following checklist item:
+\begin{itemize}
+  \item Item: The checklist item description.
+  \item Verification Goal: For redundancy, the specific verification goal the checklist item traces to.
+\end{itemize}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.05\textwidth} >{\raggedright\arraybackslash}p{0.75\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth}@{}}
+\caption{SRS Checklist Items and Their Verification Goal for Justification}
+\label{tab:SRSChecklist}\\
+
+\toprule
+& \textbf{Checklist Item} & \textbf{Verification Goal} \\
+\midrule
+\endfirsthead
+
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+& \textbf{Checklist Item} & \textbf{Verification Goal} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\chk & The purpose and scope (Sections 1.1, 1.2) make clear what EyeCanDo does and does not do.
+&
+Clarity \\
+
+\chk & Every term and acronym is defined before first use, and Section 1.4 expands all 
+acronyms with links to where they are defined.
+& Clarity \\
+
+\chk & Wording is clear and precise, so two readers would interpret each requirement 
+the same way.
+& Clarity \\
+
+\chk & The document is clearly structured, with correct grammar, spelling, and hyperlinks, 
+and a new team member could use it to get up to speed.
+& Clarity \\
+
+\chk & The stakeholders and user characteristics are correct and complete, and the personas 
+and use cases are realistic for children aged 3 to 7, caregivers, and clinicians.
+& Correctness \\
+
+\chk & Verification Task 1: Pick two use cases (suggest one of UC5, UC6, UC7). The steps, equipment, and 
+sensations match real clinical practice.
+& Correctness \\
+
+\chk & Every non-obvious requirement has a rationale, including the specific values used 
+(e.g., thresholds and time limits).
+& Correctness \\
+
+\chk & All required elements are present and of high quality: scope, symbolic constants, stakeholders,
+user characteristics, context diagram, stakeholder requirements, personas, use cases, 
+functional requirements, data requirements, non-functional requirements, rationale,
+likely and unlikely changes, generative AI disclosure, and reflection.
+& Completeness \\
+
+\chk & The data dictionary (Section 7.2) covers all data the FRs and use cases mention.
+& Completeness \\
+
+\chk & Likely and unlikely changes are documented, and the unlikely ones are justified.
+& Completeness \\
+
+\chk & An outsider could design, build, and test from this document, and the inputs and outputs 
+are clear. Open decisions (e.g., “level format not yet decided”) are justified and bounded.
+& Completeness \\
+
+\chk & Terminology is used consistently (e.g., level vs. game, journey points vs. coins, home control).
+& Consistency \\
+
+\chk & No two requirements conflict. (Where requirements only look similar, such as FR23 vs. FR25 
+on restart vs. resume, check that the distinction is clear.)
+& Consistency \\
+
+\chk & The formal model (Section 6.1) matches the FRs and use cases that rely on it.
+& Consistency \\
+
+\chk & Symbolic constants are defined in one place, used consistently, and each value is 
+justified (Appendix C).
+& Consistency \\
+
+\chk & Every requirement has a unique identifier, and every cross-reference points to the correct item.
+& Traceability \\
+
+\chk & Traceability is complete and bidirectional: every STR is satisfied by at least one UC, FR, NFR, 
+or constraint; every UC and FR traces to an STR. If A cites B, B cites A and the matrices in 
+Section 9 match the in-text “Traces” and “Refined by” lines.
+& Traceability \\
+
+\chk & Requirements state what, not how. Any externally imposed design decision is documented as a 
+constraint with rationale.
+& Quality \\
+
+\chk & The SRS shows evidence of consulting real users or clinicians, and shows what makes EyeCanDo 
+different from existing preparation options.
+& Quality \\
+
+\chk & Each requirement has a measurable fit criterion, with no vague wording like “fast” or “easy.”
+& Testability \\
+
+\chk & Verification Task 2: Pick two or three requirements (e.g., FR8, FR19, an NFR). The 
+reviewer can describe how they would test each one.
+& Testability \\
+
+\end{longtable}
+
 \newpage{}
 
 \section{Appendix --- Generative AI Use Disclosure}
+
+\wss{ChatGPT (version 5) was used to brainstorm ideas for the template for this disclose section.}
+
 \subsection{AI Tools Used}
 
 \begin{itemize}
