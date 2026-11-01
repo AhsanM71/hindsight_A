@@ -83,6 +83,8 @@
 % Non-functional requirement references
 \newcommand{\srsnfrref}[2]{\href{\srsurl\#nameddest=#1}{NFR#2}}
 
+% Links to other labelled SRS items, such as D3, T3, UC9, or LC4.
+\newcommand{\srsitemref}[2]{\href{\srsurl\#nameddest=#1}{#2}}
 \newcommand{\srsdoc}[1]{\href{\srsurl}{#1}}
 \newcommand{\srstableref}[2]{\href{\srsurl\#nameddest=#1}{#2}}
 
@@ -113,6 +115,7 @@
 2026/10/30 & Mohammad Bilal & Completed section 3.3, individual reflection, \& contributed to sections 1, 4.2, 6.1, 6.2, 7 \\
 2026/10/31 & Ahsan Muzammil & Completed section 2, 3.1, individual reflection, \& contributed to sections 1, 4.1, 4.2, 6.4, 6.5, 6.6, 7 \\
 2026/10/31 & Jake Finlay & Completed section 3.6 \\
+2026/10/31 & Jake Finlay & Completed the Rewards and Scoreboard tests in section 4.1 and their test data in the appendix \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -1287,37 +1290,136 @@ application sessions.
 \subsubsection{Rewards and Scoreboard}
 \label{sec:RewardsScoreboardFRTests}
 
-These tests verify that rewards, journey points, and
-scoreboard information are handled according to the SRS.
-They cover the conditions for awarding rewards and the
-accuracy of displayed player progress.
+These tests verify the level rewards and the personal scoreboard in
+\srsfrref{FR_FirstReward}{28}--\srsfrref{FR_Scoreboard}{30} of the SRS
+\cite{SRS}. They use the test levels and saved states in
+Appendix~\ref{sec:RewardFixtures}, so the expected values do not change when
+the real rewards are tuned. Each test is an automated Unity Play Mode test
+that performs the actions and then checks the saved game state.
 
 \begin{frtestlist}
 
-\item[\frtestdef{ST_RewardsScoreboard_01}]
-\textbf{[Test Case Name]}
+\item[\frtestdef{ST_RewardsScoreboard_01}]\textbf{Coin Reward on First Completion}
 
-\textit{Type:} Functional, Dynamic, manual.
+\textit{Type:} Functional, Dynamic, automatic.
 
-\textit{Requirements Covered:}
-[Insert SRS functional requirement reference(s).]
+\textit{Requirements Covered:} \srsfrref{FR_FirstReward}{28}.
 
-\textit{Initial State:}
-[Describe the initial reward balances and scoreboard state.]
+\textit{Initial State:} The saved state is \constref{SAVE_NEW}.
 
-\textit{Input/Condition:}
-[Describe the action that affects rewards or the scoreboard.]
+\textit{Input/Condition:} Start \constref{L1}, skip its exercise, and answer
+its question incorrectly before selecting the correct answer. Reach the end
+of the level.
 
-\textit{Output/Result:}
-[Describe the expected reward or scoreboard changes.]
+\textit{Output/Result:} The reward screen shows 10 journey points and 5 coins
+earned. The level is Completed, the coin balance is 5, and the total journey
+points are 10.
 
-\textit{Test Case Derivation:}
-[Explain which SRS requirement defines the expected outcome.]
+\textit{Test Case Derivation:} \srsfrref{FR_FirstReward}{28} gives the level's
+journey points and coins when it is finished for the first time. The reward
+depends on finishing the level, not on the answers, so skipping and a wrong
+answer do not reduce it.
 
-\textit{How test will be performed:}
-[Describe how the reward and scoreboard values will be checked.]
+\textit{How test will be performed:} The Play Mode test plays the level, reads
+the values on the reward screen, and then checks the saved level status, coin
+balance, and total journey points.
 
-% Add additional test cases as needed.
+\item[\frtestdef{ST_RewardsScoreboard_02}]\textbf{Accessory Reward on First Completion}
+
+\textit{Type:} Functional, Dynamic, automatic.
+
+\textit{Requirements Covered:} \srsfrref{FR_FirstReward}{28}.
+
+\textit{Initial State:} The saved state is \constref{SAVE_NEW}.
+
+\textit{Input/Condition:} Complete \constref{L3}. Do not equip the accessory
+that is offered.
+
+\textit{Output/Result:} The reward screen shows 40 journey points, 15 coins,
+and the Sun hat, with an option to equip it. The Sun hat is owned but not
+equipped. The coin balance is 15.
+
+\textit{Test Case Derivation:} \srsfrref{FR_FirstReward}{28} includes the
+level's accessory in the reward when its Reward Definition has one.
+\srsitemref{UC_CompleteGame}{UC9} offers to equip the accessory but does not
+equip it.
+
+\textit{How test will be performed:} The Play Mode test completes the level,
+reads the reward screen, and then checks the saved coin balance and the
+owned and equipped accessories.
+
+\item[\frtestdef{ST_RewardsScoreboard_03}]\textbf{No Duplicate Reward on Replay}
+
+\textit{Type:} Functional, Dynamic, automatic.
+
+\textit{Requirements Covered:} \srsfrref{FR_NoDuplicateReward}{29}.
+
+\textit{Initial State:} The saved state is \constref{SAVE_MIXED}.
+
+\textit{Input/Condition:} Replay \constref{L3} to its end
+\constref{REPLAY_TRIALS_MIN} times. Restart the game session before the last
+replay.
+
+\textit{Output/Result:} Each replay ends with a congratulation and no points,
+coins, or accessory. The total journey points stay at 50, the coin balance
+stays at 3, and the owned accessories do not change.
+
+\textit{Test Case Derivation:} \srsfrref{FR_NoDuplicateReward}{29} forbids a
+second reward for a level that has already been rewarded. The coins from
+\constref{L3} were already spent in \constref{SAVE_MIXED}, so a duplicate
+reward would raise the balance to 18.
+
+\textit{How test will be performed:} The Play Mode test replays the level and
+checks the end-of-level screen and saved game state after each replay. It
+restarts the session by reloading the game from the save file.
+
+\item[\frtestdef{ST_RewardsScoreboard_04}]\textbf{Scoreboard for a New Player}
+
+\textit{Type:} Functional, Dynamic, automatic.
+
+\textit{Requirements Covered:} \srsfrref{FR_Scoreboard}{30}.
+
+\textit{Initial State:} The saved state is \constref{SAVE_NEW}.
+
+\textit{Input/Condition:} Open the scoreboard from the journey map.
+
+\textit{Output/Result:} Each test level is shown as Not Started with 0 points.
+The scoreboard shows 0 total journey points, 0 of 3 levels completed, and
+0 coins. No nickname is shown, and the wording is not personalized.
+
+\textit{Test Case Derivation:} A new player has no completed levels and no
+coins, so every scoreboard value is 0. \srsfrref{FR_Nickname}{40} requires
+wording that is not personalized when no nickname is set.
+
+\textit{How test will be performed:} The Play Mode test opens the scoreboard
+and checks each value shown against the expected result.
+
+\item[\frtestdef{ST_RewardsScoreboard_05}]\textbf{Scoreboard with Progress}
+
+\textit{Type:} Functional, Dynamic, automatic.
+
+\textit{Requirements Covered:} \srsfrref{FR_Scoreboard}{30}.
+
+\textit{Initial State:} The saved state is \constref{SAVE_MIXED}.
+
+\textit{Input/Condition:} Open the scoreboard, return to the journey map, and
+open it again.
+
+\textit{Output/Result:} \constref{L1} is Completed with 10 points,
+\constref{L2} is In Progress with 0 points, and \constref{L3} is Completed
+with 40 points. The scoreboard shows 50 total journey points, 2 of 3 levels
+completed, 3 coins, the nickname Sam, and Test character B. It shows no rank
+or results from other players. Viewing it does not change the saved game
+state.
+
+\textit{Test Case Derivation:} \srsfrref{FR_Scoreboard}{30} counts points only
+for completed levels, so the total is $10 + 40 = 50$. The coin balance is
+stored separately and is 3 after the Blue scarf was bought. The scoreboard
+must not compare the child with other users.
+
+\textit{How test will be performed:} The Play Mode test opens the scoreboard
+twice and checks each value shown. It compares the saved game state before
+and after viewing the scoreboard.
 
 \end{frtestlist}
 
@@ -1406,7 +1508,6 @@ specified.
 % Add additional test cases as needed.
 
 \end{frtestlist}
-
 
 \subsection{Tests for Nonfunctional Requirements}\label{sec:NFRSystemTests}
 
@@ -2123,7 +2224,50 @@ table defines the few additional values used to run the tests.
 \constdef{TOUCH_TRIALS_MIN} & 40 & Valid touch samples per device\\
 \constdef{FREEZE_OBSERVATION_S} & 10 & Time allowed before recording a freeze (s)\\
 \constdef{COVERAGE_LINE_TARGET} & 80\% & Line coverage target for game-logic assemblies\\
+\constdef{REPLAY_TRIALS_MIN} & 3 & Replays of a completed level when checking for duplicate rewards\\
 \end{longtable}
+
+\subsection{Reward and Scoreboard Test Data}\label{sec:RewardFixtures}
+
+The Rewards and Scoreboard tests (Section~\ref{sec:RewardsScoreboardFRTests})
+use the test data below. The data is loaded only in development builds and
+the Unity editor, and is never included in a release build. Each test level
+has one skippable exercise and one question with a single correct answer.
+
+\begin{table}[!htbp]
+\centering
+\caption{Test Levels and Their Rewards}\label{tab:RewardTestLevels}
+\begin{tabular}{@{}lrrl@{}}
+\toprule
+\textbf{Level} & \textbf{Points} & \textbf{Coins} & \textbf{Accessory}\\
+\midrule
+\constdef{L1} & 10 & 5 & None\\
+\constdef{L2} & 20 & 0 & Star badge\\
+\constdef{L3} & 40 & 15 & Sun hat\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Saved States for the Rewards and Scoreboard Tests}\label{tab:RewardSaveStates}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Saved state} & \textbf{Contents}\\
+\midrule
+\constdef{SAVE_NEW} & Every level Not Started and 0 coins. No accessories,
+  no selected character, and no nickname.\\
+\constdef{SAVE_MIXED} & \constref{L1} and \constref{L3} Completed, and
+  \constref{L2} In Progress. Coin balance of 3. Owns the Sun hat and the Blue
+  scarf, with none equipped. Test character B is selected and the nickname is
+  Sam.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\constref{SAVE_MIXED} can be reached by normal play. The child completes
+\constref{L1} and \constref{L3} for 20 coins and the Sun hat, buys the Blue
+scarf for 17 coins, and then starts and leaves \constref{L2}.
 
 \subsection{Design Verification Checklist}\label{sec:DesignVerificationChecklist}
 
