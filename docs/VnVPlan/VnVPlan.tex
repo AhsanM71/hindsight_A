@@ -116,6 +116,7 @@
 2026/10/31 & Ahsan Muzammil & Completed section 2, 3.1, individual reflection, \& contributed to sections 1, 4.1, 4.2, 6.4, 6.5, 6.6, 7 \\
 2026/10/31 & Jake Finlay & Completed section 3.6 \\
 2026/10/31 & Jake Finlay & Completed the Rewards and Scoreboard tests in section 4.1 and their test data in the appendix \\
+2026/11/01 & Jake Finlay & Completed the Look and Feel and the Usability and Humanity tests in section 4.2 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -218,7 +219,7 @@ installation, stores progress locally, and does not require user
 accounts. \progname{} is intended solely as an educational preparation
 tool and does not provide medical advice, diagnosis, or treatment.
 
-\subsection{Objectives}
+\subsection{Objectives}\label{sec:Objectives}
 
 The primary objective of this Verification and Validation (VnV) Plan
 is to build confidence that \progname{} meets its specified requirements
@@ -1534,12 +1535,39 @@ relevant test.
 \subsubsection{Look and Feel Requirements}
 \label{sec:LookAndFeelNFRTests}
 
-These tests verify the look and feel requirements defined
-in the SRS. They cover the visual presentation, layout,
-and appearance of the game's interface to ensure that
-it meets the specified requirements.
+These tests verify the control layout and the content safety requirements in
+\srsnfrref{NFR_Layout}{1}--\srsnfrref{NFR_ChildSafe}{2} of the SRS
+\cite{SRS}.
 
+\begin{testlist}
 
+\item[\testdef{ST_Layout}]\textbf{Consistent Control Positions}
+
+\textit{Type:} Non-functional, Dynamic, automatic.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Layout}{1}.
+
+\textit{Initial State:} The latest build is open in the Unity editor. The designated position of each shared control, such as the exit, hint, and settings buttons, is recorded in the design.
+
+\textit{Input/Condition:} Visit every screen of every level, the journey map, the scoreboard, and the character screen at each test screen size.
+
+\textit{Output/Result:} On every screen where a shared control appears, its centre is within \constref{CONTROL_POSITION_TOLERANCE_MM} millimetres of its designated position.
+
+\textit{How test will be performed:} A Play Mode test opens each screen and records the on-screen position of each shared control. It converts the distance from the designated position to millimetres using the screen density of each test screen size. A team member reviews any screen that fails and checks the results on one physical device.
+
+\item[\testdef{ST_ChildSafe}]\textbf{Child-Safe Content Review}
+
+\textit{Type:} Non-functional, Static content inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_ChildSafe}{2}.
+
+\textit{Review procedure:} One team member will prepare a list of every image, animation, narration clip, and sound in the release build, with a recording of each level. A child-life specialist will review each item and answer two questions. Is the item frightening for a child aged 3 to 7? Does it show pain or distress beyond the sensations in the approved script? A second team member will record each finding in GitHub Issues. Changed content will be sent back for review.
+
+\textit{Expected result and evidence:} Every item on the list has been reviewed, and no finding is unresolved at release. The team will keep the content list, the completed checklist, and the related GitHub Issues.
+
+\textit{Remark:} If a child-life specialist is not available during the capstone, the project supervisor will review the content instead. This would not fully verify the requirement, since the SRS names a child-life specialist as the reviewer.
+
+\end{testlist}
 
 % ============================================================
 % 8.2 Usability and Humanity Requirements
@@ -1548,12 +1576,122 @@ it meets the specified requirements.
 \subsubsection{Usability and Humanity Requirements}
 \label{sec:UsabilityHumanityNFRTests}
 
-These tests verify the usability and humanity requirements
-defined in the SRS. They cover the clarity of instructions,
-ease of navigation, accessibility, and suitability of the
-game's interactions for its intended users. Testing will
-account for the limitations on direct stakeholder involvement
-during the capstone.
+These tests verify the usability and humanity requirements in
+\srsnfrref{NFR_TouchTarget}{3}--\srsnfrref{NFR_Colour}{10} of the SRS
+\cite{SRS}. Children and caregivers will not take part in testing during the
+capstone (Section~\ref{sec:Objectives}). The tests that need users will use
+classmates and clinical staff instead, as explained in the remark under each
+test.
+
+\begin{testlist}
+
+\item[\testdef{ST_TouchTarget}]\textbf{Touch Target Size}
+
+\textit{Type:} Non-functional, Dynamic, automatic with manual check.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_TouchTarget}{3}.
+
+\textit{Initial State:} The latest build is open in the Unity editor and installed on the test devices.
+
+\textit{Input/Condition:} Visit every screen of the game at each test screen size.
+
+\textit{Output/Result:} Every interactive element has a touch target at least \constref{TOUCH_TARGET_MIN} millimetres wide and high.
+
+\textit{How test will be performed:} A Play Mode test opens each screen, finds every interactive element, and converts the size of its touch area to millimetres using the screen density. A team member then measures the smallest elements on each physical test device with a ruler or a screenshot of known scale.
+
+\item[\testdef{ST_Exit}]\textbf{One-Touch Exit from Every Screen}
+
+\textit{Type:} Non-functional, Dynamic, automatic.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Exit}{4}.
+
+\textit{Initial State:} The latest build is open in the Unity editor.
+
+\textit{Input/Condition:} Open each level, and on every screen of the level, touch the exit button once.
+
+\textit{Output/Result:} On every screen of every level, one touch shows the journey map.
+
+\textit{How test will be performed:} A Play Mode test steps through each level screen by screen. On each screen, it touches the exit button once and checks that the journey map is shown. It then reopens the level and continues from the next screen.
+
+\item[\testdef{ST_Usability}]\textbf{Core Tasks Without Instructions}
+
+\textit{Type:} Non-functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Usability}{5}.
+
+\textit{Initial State:} The latest build is installed on a test device. The participant has not used the game before and has not been shown how it works.
+
+\textit{Input/Condition:} At least \constref{USABILITY_PARTICIPANTS_MIN} participants each complete the three core tasks. They start a named level from the journey map, play a level to its end, and leave a level early. Each participant acts as one of the child personas in the SRS.
+
+\textit{Output/Result:} At least \constref{UNAIDED_RATE_MIN}\% of participants complete each task without verbal help. The median time for each task is at most \constref{CORE_TASK_MAX_MIN} minutes.
+
+\textit{How test will be performed:} A team member gives each task in one sentence and then does not help. They record whether the task was completed without help and how long it took. They also note where the participant hesitated or made a wrong touch.
+
+\textit{Remark:} The participants will be classmates rather than children, because the capstone does not include testing with children. This finds usability problems but does not verify the requirement for the intended users.
+
+\item[\testdef{ST_ClinicianUse}]\textbf{Clinician Finds a Named Level}
+
+\textit{Type:} Non-functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_ClinicianUse}{6}.
+
+\textit{Initial State:} The latest build is installed on a test device and is open on the home screen. The participant is a clinician or clinical staff member who has not used the game before.
+
+\textit{Input/Condition:} A team member trains the participant for at most \constref{CLINICIAN_TRAINING_MAX_MIN} minutes. The participant is then handed the device and asked to open the introduction of a named level.
+
+\textit{Output/Result:} Every participant opens the introduction within \constref{CLINICIAN_FIND_MAX_MIN} minute of picking up the device.
+
+\textit{How test will be performed:} A team member times the training and the task, and names a different level for each participant. They record the time taken and any wrong touches.
+
+\textit{Remark:} The number of participants depends on the clinical staff the project supervisor can arrange. If only the supervisor takes part, the result will be recorded as preliminary.
+
+\item[\testdef{ST_NoPressure}]\textbf{No Pressure to Keep Playing}
+
+\textit{Type:} Non-functional, Static design and build inspection.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_NoPressure}{7}.
+
+\textit{Review procedure:} Two team members will separately go through every screen of the release build with a checklist of the patterns in the requirement. These are rewards for consecutive days, rewards or offers that expire, countdown timers outside an exercise, randomized rewards, and notifications. They will also check that the Android manifest and iOS project settings do not request permission to send notifications. Any pattern found will be recorded in GitHub Issues and checked again after it is fixed.
+
+\textit{Expected result and evidence:} The checklist finds none of the patterns, and neither build requests notification permission. The team will keep the completed checklists and the build settings checked.
+
+\item[\testdef{ST_Language}]\textbf{Sentence Length and Reading Level}
+
+\textit{Type:} Non-functional, Static text inspection, automatic with manual review.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Language}{8}.
+
+\textit{Review procedure:} A script will count the words in every narrated sentence of the narration scripts. It will also compute the Flesch--Kincaid grade of each text in the caregiver area. A child-life specialist will then read the narration scripts and list any word a child aged 3 to 7 may not know. Each sentence or word that fails will be rewritten and checked again.
+
+\textit{Expected result and evidence:} No narrated sentence has more than \constref{SENTENCE_MAX_WORDS} words, no unfamiliar word is unresolved, and every caregiver-area text has a grade of at most \constref{ADULT_TEXT_MAX_GRADE}. The team will keep the script output and the specialist's word list.
+
+\textit{Remark:} If a child-life specialist is not available, the project supervisor will review the words instead, as in \testref{ST_ChildSafe}.
+
+\item[\testdef{ST_Accessibility}]\textbf{WCAG 2.2 Level AA Audit}
+
+\textit{Type:} Non-functional, Static accessibility audit with manual in-app checks.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Accessibility}{9}.
+
+\textit{Review procedure:} One team member will list the WCAG 2.2 Level AA success criteria that apply to a native mobile game, with a reason for each criterion left out. They will check each criterion on the test devices, using a contrast checker for text and controls and the screen reader for labels. A second team member will repeat the audit separately. Each failure will be recorded in GitHub Issues and checked again after it is fixed.
+
+\textit{Expected result and evidence:} The audit finds no failure of an applicable criterion. The team will keep the list of criteria, both completed audits, and the related GitHub Issues.
+
+\item[\testdef{ST_Colour}]\textbf{Screens Without Colour}
+
+\textit{Type:} Non-functional, Dynamic, manual with simulation.
+
+\textit{Requirements Covered:} \srsnfrref{NFR_Colour}{10}.
+
+\textit{Initial State:} The latest build is open in the Unity editor with a colour vision deficiency filter.
+
+\textit{Input/Condition:} View every screen under protanopia, deuteranopia, and tritanopia simulation. Include the journey map with all three level statuses and a revealed correct answer in each level.
+
+\textit{Output/Result:} Every state and choice can be told apart by shape, position, or text as well as colour. Every revealed answer has at least two cues that do not rely on colour, and both are visible in all three simulations.
+
+\textit{How test will be performed:} A team member takes a screenshot of each screen under each simulation. A second team member reviews the screenshots and records any state or choice that can only be told apart by colour.
+
+\end{testlist}
 
 
 \subsubsection{Performance Requirements}\label{sec:PerformanceNFRTests}
@@ -2225,6 +2363,7 @@ table defines the few additional values used to run the tests.
 \constdef{FREEZE_OBSERVATION_S} & 10 & Time allowed before recording a freeze (s)\\
 \constdef{COVERAGE_LINE_TARGET} & 80\% & Line coverage target for game-logic assemblies\\
 \constdef{REPLAY_TRIALS_MIN} & 3 & Replays of a completed level when checking for duplicate rewards\\
+\constdef{USABILITY_PARTICIPANTS_MIN} & 5 & Participants in the core task usability test\\
 \end{longtable}
 
 \subsection{Reward and Scoreboard Test Data}\label{sec:RewardFixtures}
@@ -2374,6 +2513,23 @@ MG and MIS are finalized.
   the tool summary and the coverage plan from the Development Plan and the
   team's issue. The team checked the tool choices against the Development Plan
   and confirmed which tools are still under evaluation.
+
+  \item In Section~\ref{sec:RewardsScoreboardFRTests} (Rewards and Scoreboard),
+  Claude (Opus 5.5) was used to draft the functional system tests for
+  FR28--FR30 and the test data in Appendix~\ref{sec:RewardFixtures}. It also
+  added the \constref{REPLAY_TRIALS_MIN} parameter. The team member directed
+  the revisions, such as one test per requirement, automated checks of the
+  saved game state, and simpler test data. The tests and expected values were
+  checked against the SRS.
+
+  \item In Sections~\ref{sec:LookAndFeelNFRTests} and
+  \ref{sec:UsabilityHumanityNFRTests} (Look and Feel, and Usability and
+  Humanity), Claude (Opus 5.5) was used to draft the non-functional system
+  tests for NFR1--NFR10, following the format of the other non-functional
+  tests. It also added the \constref{USABILITY_PARTICIPANTS_MIN} parameter.
+  The team member reviewed the procedures and remarks against the SRS fit
+  criteria and the capstone limits on testing with children and clinical
+  staff.
 
   \item GPT-6.1 Sol \& GPT-6 were also used to assist with automatic test numbering,
   cross document references, and general \LaTeX{} formatting.
