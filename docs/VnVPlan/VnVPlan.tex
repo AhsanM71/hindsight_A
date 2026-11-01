@@ -564,12 +564,35 @@ is closed.
 
 \subsection{Verification and Validation Plan Verification}
 
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
+The Verification and Validation Plan will be reviewed by the team before submission and after major
+revisions to check completeness, accuracy, and feasibility. Each section
+will be checked by a team member besides its author. Colleagues from at
+least one other team will also review the plan through the peer review process.
+This checklist will guide the review:
 
-\wss{The review will include reviews by your classmates}
+\begin{itemize}[label={$\square$}, leftmargin=*, itemsep=0.35em]
+    \item Are all sections complete, with any deferred or
+    excluded work explained?
 
-\wss{Create a checklists?}
+    \item Does every functional and non-functional requirement have a planned
+    test or review, and does the traceability table match the tests?
+
+    \item Does each test specify its initial conditions, inputs, steps, expected results, and evidence?
+
+    \item Are expected results and test parameters consistent with the SRS
+    and Hazard Analysis (and with the MG and MIS when available)?
+
+    \item Are testing, reviews, and other validation activities feasible with the available time, equipment, and participants?
+
+    \item Are terminology, test identifiers, and references consistent and
+    correct?
+\end{itemize}
+
+Feedback will be tracked through GitHub issues. Each issue will identify the affected section, the problem,
+and the proposed change, and will be assigned to a team member. Corrections
+will be committed with reference to the issue and checked by another member
+before it is closed. If a suggestion is not adopted, the team will record the
+reason why in the issue.
 
 \subsection{Implementation Verification}
 
