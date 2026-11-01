@@ -117,6 +117,7 @@
 2026/10/31 & Jake Finlay & Completed section 3.6 \\
 2026/10/31 & Jake Finlay & Completed the Rewards and Scoreboard tests in section 4.1 and their test data in the appendix \\
 2026/11/01 & Jake Finlay & Completed the Look and Feel and the Usability and Humanity tests in section 4.2 \\
+2026/11/01 & Jake Finlay & Completed individual reflection \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -2797,6 +2798,73 @@ The individual responses are provided below.
     practice and peer feedback will help me develop the
     skills needed to execute my assigned VnV tests
     effectively and document trustworthy results.
+
+\end{enumerate}
+
+
+\subsubsection*{Jake Finlay}
+
+\begin{enumerate}
+
+    \item \textbf{What went well while writing this deliverable?}
+
+    Once again, what went best was splitting up the work early using GitHub
+    issues. I have said this in previous reflections, but it makes a real
+    difference. Everyone knew what was going on and who was doing what, so the
+    project moved much more smoothly.
+
+    Another thing that went well was the improved test case template that Ahsan
+    committed. It gave me a clear format to follow, which made it much easier
+    to write my tests and contribute to both the functional and non-functional
+    sections.
+
+    \item \textbf{What pain points did you experience during this
+    deliverable, and how did you resolve them?}
+
+    My main pain point was verifying everything against the SRS. Even with AI
+    to help us, every test still had to be checked to confirm that it was
+    testing the correct requirement. To make this easier, I linked the tests
+    directly to the SRS using the \texttt{\#} syntax in our links. Clicking a
+    link opens the SRS at the exact position of the requirement. This made it
+    much easier to verify what each test covered and which requirements were
+    being verified.
+
+    \item \textbf{What knowledge and/or skill will you need to acquire to
+    successfully complete the verification and validation of your project?}
+
+    The team identified several skills that we will need, but the one I want to
+    focus on is accessibility auditing. One of the tests I planned is the WCAG
+    2.2 Level AA audit (\testref{ST_Accessibility}). It requires us to decide
+    which success criteria apply to a native mobile game and to justify each
+    criterion we leave out. This is not straightforward because WCAG was written
+    mainly with web content in mind, and I have not carried out a formal
+    accessibility audit before.
+
+    I also need to learn how to check each criterion reliably on our test
+    devices. This includes measuring the contrast of text and controls and using
+    VoiceOver and TalkBack to confirm that labels are read correctly. I also
+    need to understand how these screen readers interact with a Unity interface,
+    since Unity does not draw its interface with standard native controls.
+    Learning this will help me produce audit results that a second team member
+    can reproduce.
+
+    \item \textbf{What approaches will you pursue to acquire this
+    knowledge or master this skill, and why?}
+
+    My first approach will be to study the W3C documentation, including the
+    Understanding WCAG 2.2 guide and the guidance on applying WCAG to non-web
+    software. These are the authoritative sources for what each criterion means.
+    They should help me build a list of applicable criteria that I can justify,
+    rather than relying on my own interpretation.
+
+    My second approach will be to practise auditing early builds of \progname{}
+    as development progresses. I plan to begin with a single screen, using a
+    contrast checker and then a screen reader on a physical device. I can then
+    compare my findings with those of a second team member and discuss any
+    differences. Hands-on practice will show me where the guidelines are hard to
+    apply to a game, and it will expose problems while they are still cheap to
+    fix. Combining these approaches should help me carry out the final audit
+    accurately and give us evidence we can trust.
 
 \end{enumerate}
 
