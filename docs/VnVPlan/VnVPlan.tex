@@ -1490,7 +1490,7 @@ hold behaviour on devices, and record protected descriptions finishing.
 These tests verify \srsfrref{FR_ExitLevel}{20}--\srsfrref{FR_Suspend}{25}.
 Use the inventory from Section~\ref{sec:InstructionsFeedbackFRTests} to
 check home and restart on every screen in all three levels, including
-default content and each distinct age-group variant. For FR25, include
+default content and each distinct age-group variant. For \srsfrref{FR_Suspend}{25}, include
 other application screens with active audio or animation.
 
 Build an interruption matrix covering each available event type on each
@@ -1524,7 +1524,7 @@ narration to finish.
 exit from every screen, and \srsnfrref{NFR_Exit}{4} sets the one-touch limit.
 
 \textit{How test will be performed:} Record the starting screen, touch
-count, and destination for each exit. Reuse these results for NFR4 in
+count, and destination for each exit. Reuse these results for \srsnfrref{NFR_Exit}{4} in
 Section~\ref{sec:UsabilityHumanityNFRTests}.
 
 \item[\frtestdef{ST_ExitingInterruptions_02}]
@@ -1749,7 +1749,7 @@ calculated from that state, as defined by the
 \srstableref{def_Scoreboard}{SRS scoreboard values}.
 
 Keep before-and-after snapshots of the complete save data, including any
-recovery copies. For FR27 cases, ensure no valid fallback save can be loaded.
+recovery copies. For \srsfrref{FR_CorruptData}{27} cases, ensure no valid fallback save can be loaded.
 Keep fault-injection hooks out of release builds and repeat normal save and
 restore checks on release builds. Exclude deliberately delayed or terminated
 runs from normal performance and reliability measurements.
@@ -1854,7 +1854,7 @@ without crashes.
 \textit{How test will be performed:} Inject errors through a storage hook
 rather than filling the device. Log the failure point and compare stored
 and restored values with the baseline. Record customization separately:
-FR26 does not specify its rollback. Flag inconsistent coin/ownership results
+\srsfrref{FR_PersistState}{26} does not specify its rollback. Flag inconsistent coin/ownership results
 for SRS review. After removing the fault, save a new change and relaunch.
 On a separate run per error path, clear the fault without terminating;
 verify usable input, including home/restart within levels, then save a new
