@@ -327,7 +327,7 @@ usability evaluations conducted by team members and peers, focusing on the appli
 ease of interaction. Since these evaluations will not involve the intended users directly, the results will be used to
 identify potential usability issues rather than to confirm usability for children aged 3--7. The selection of the Winter 
 Custom Document is also subject to change following further discussion with the course professor and project supervisor. 
-Any approved changes will be reflected in the project documentation and V\&V Plan.
+Any approved changes will be reflected in the project documentation and VnV Plan.
 
 \subsection{Relevant Documentation}
 
@@ -743,7 +743,7 @@ Performance is not measured in the pipeline. The Unity Profiler is used
 manually during the performance system tests, such as \testref{ST_Smoothness}
 and \testref{ST_DeviceHeat}.
 
-\subsection{Software Validation}
+\subsection{Software Validation}\label{sec:SoftwareValidation}
 
 This plan complements the SRS verification plan in Section \ref{sec:SRSVerification}, which checks that the requirements are correct, 
 whereas validation checks that the right product is built. However, validation with children and parents is not 
@@ -3590,7 +3590,7 @@ results and session notes. Open-ended answers will be grouped by screen, and any
 problem reported by more than one participant will also be recorded in GitHub
 Issues.
 
-\subsection{SRS Checklist Questions}\label{app:SRSChecklistQuestions}
+\subsection{SRS Checklist Questions}\label{sec:SRSChecklistQuestions}
 
 The SRS Checklist in Table \ref{tab:SRSChecklist} identifies key items to check and verify the SRS against the project intentions and the course rubric. The checklist 
 items are categorized on verification goals:
@@ -3835,8 +3835,8 @@ Table \ref{tab:ValidationQuestionsTable} presents the questions to ask the super
 use cases developed against the clinical needs. Each row includes:
 \begin{itemize}
   \item Question: The question to validate particular stakeholder requirements and use cases.
-  \item SRS Reference: The research resource citation.
-  \item Justification: A brief description justifying how the research validates the stakeholder requirement.
+  \item Stakeholder Requirement: The stakeholder requirement being validated.
+  \item Connected Use Cases: The use cases being validated by the question.
 \end{itemize}
 
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.62\textwidth} >{\raggedright\arraybackslash}p{0.17\textwidth} >{\raggedright\arraybackslash}p{0.17\textwidth}@{}}
@@ -3924,9 +3924,31 @@ Is the app usable in a clinic waiting room, offline and with the sound muted?
   The assigned roles and responsibilities were based on the
   team's agreed division of work.
 
+  \item In Section~\ref{sec:SRSVerification}, Opus 5.5 was used to assist with 
+  drafting the SRS verification. Opus also assisted in the formatting and 
+  organization of the SRS verification section for clarity. The content was reviewed 
+  and finalized by hand to ensure the accuracy and completeness of the SRS 
+  verification process. In Section~\ref{sec:SRSChecklistQuestions}, Opus 5.5 
+  was used to assist with drafting the SRS checklist questions based on the SRS 
+  and the course rubric. The content was reviewed, edited,and finalized by hand 
+  to ensure the accuracy and completeness of the SRS checklist questions.
+
   \item In Section~\ref{sec:DesignVerification}, the team developed the design
   verification approach. GPT-6.1 Sol was used to improve the wording, grammar,
   and flow while preserving the team's original ideas and decisions.
+
+  \item In Section~\ref{sec:SoftwareValidation}, Opus 5.5 was used to assist with the 
+  formatting and organization of the software validation section for clarity. The 
+  content was reviewed and finalized by hand to ensure the accuracy and completeness of the
+  software validation process with respect to the project. In 
+  Section~\ref{sec:ResearchValidation}, Opus 5.5 was used to format Table \ref{tab:ResearchMapping} 
+  and assist with drafting of the justification for the resource by Sajeev et al. \cite{Sajeev2021Games}. 
+  The content was reviewed, edited, and finalized to ensure the correctness of the research 
+  paper justification. In Section~\ref{sec:ValidationQuestions}, Opus 5.5 was used to draft 
+  the validation questions and their traces to SRS stakeholder requirements and use cases. Opus 
+  5.5 was also used to format Table \ref{tab:ValidationQuestionsTable}. All of this work was reviewed, 
+  edited, and finalized by hand to ensure the accuracy and completeness of the validation questions 
+  with respect to the project.
 
   \item In Section~\ref{sec:AMSetupFRTests}, \ref{sec:AMJourneyFRTests}, \ref{sec:AMLevelContentFRTests} (Tests for Functional Requirements), GPT-6
   was used to assist with drafting, organizing, and formatting
@@ -3936,6 +3958,11 @@ Is the app usable in a clinic waiting room, offline and with the sound muted?
   derivations, and execution procedures. The tests were reviewed
   against the SRS to ensure appropriate requirement coverage,
   traceability, and feasibility within the capstone scope.
+
+  \item In Section~\ref{sec:CharactersAccessoriesFRTests} and Section~\ref{sec:CaregiverFeaturesFRTests}, 
+  Opus 5.5 was used to assist with drafting and formatting the of the tests. The content was reviewed and 
+  edited to ensure the tests accurately reflected the SRS requirements and were feasible within the 
+  capstone scope. 
 
   \item In Section~\ref{sec:AMCulturalNFRTests}, GPT-6 was used to assist
   with drafting and formatting the Cultural and Political
@@ -3948,6 +3975,11 @@ Is the app usable in a clinic waiting room, offline and with the sound muted?
   GPT-6.1 Sol was used to draft the non-functional system tests. The team then
   reviewed and revised the test procedures, expected results, and scope remarks
   to align with the SRS and the resources available for the capstone.
+
+  \item In Section~\ref{sec:ComplianceNFRTests}, Opus 5.5 was used to assist with drafting and
+  formatting the Compliance tests, including the checklists within the review procedure. The content was 
+  reviewed and edited to ensure the tests accurately reflected the SRS requirements and the fit criterion 
+  specified within the non-functional requirements in the SRS.
 
   \item In Section~\ref{sec:VnVParameters}, GPT-6.1 Sol was used to help
   organize the symbolic parameter tables and link constants to the tests.
