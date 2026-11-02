@@ -1907,37 +1907,314 @@ is required in the game itself.
 \subsubsection{Saving and Restoring Progress}
 \label{sec:SavingRestoringFRTests}
 
-These tests verify that the game saves and restores player
-progress according to the SRS. They cover the persistence
-and recovery of relevant game information across
-application sessions.
+These tests verify \srsfrref{FR_PersistState}{26} and
+\srsfrref{FR_CorruptData}{27} of the SRS \cite{SRS}. Use a disposable
+test installation with network connections disabled. Record the device,
+OS version, build and content versions, initial data, actions, and results.
+Compare every level's status and the coin balance, which form the
+\srstableref{def_Player}{SRS player state}, together with owned and
+equipped accessories and the selected character. Total journey points and
+the completed-level count are calculated from that state and are not stored,
+as defined by \srstableref{def_Scoreboard}{the SRS scoreboard values}.
+
+Use the Unity test tools in the Development Plan \cite{DevPlan}, with
+temporary local logs and development-build hooks to inspect data, delay
+saves, and inject storage errors. Exercise the application's normal save
+and load code, and confirm the storage operation reached by each hook.
+Keep test hooks and diagnostic data out of release builds; inspect private
+storage through the development tools without enabling file sharing.
+Repeat normal save and restore checks on release builds. Record the build
+used for each result; development-build fault checks do not establish the
+release-build coverage required by \testref{ST_DependencyTesting}.
+Record unavailable device, fault, or release-build checks as unverified.
+
+Keep before-and-after snapshots and event logs. Reuse matching runs from
+the journey, level-completion, and interruption tests, adding the storage
+checks below and retaining a result for each requirement. The offline runs
+also contribute to \testref{ST_Offline}. Keep deliberately delayed or
+terminated runs separate from normal performance and reliability measurements.
 
 \begin{frtestlist}
 
 \item[\frtestdef{ST_SavingRestoring_01}]
-\textbf{[Test Case Name]}
+\textbf{Save Each Change before Processing the Next Input}
 
-\textit{Type:} Functional, Dynamic, manual.
+\textit{Type:} Functional, Dynamic, automated event checks with manual device checks.
 
-\textit{Requirements Covered:}
-[Insert SRS functional requirement reference(s).]
+\textit{Requirements Covered:} \srsfrref{FR_PersistState}{26}.
 
-\textit{Initial State:}
-[Describe the initial saved progress and application state.]
+\textit{Initial State:} Setup is complete. Prepare and record a valid
+save for each action, using the build's reward and accessory definitions.
+The target level is unstarted for a start check and unfinished for a
+completion check; purchases have sufficient coins and an unowned item.
 
-\textit{Input/Condition:}
-[Describe the actions used to save or restore progress.]
+\textit{Input/Condition:} Separately start each of the three levels
+from \textit{Not Started} and finish it for the first time; purchase an
+accessory; equip, replace, and unequip an owned accessory; confirm an initial
+character selection and a change of character; and confirm a journey reset
+under \srsfrref{FR_ResetJourney}{42}. Include earning an accessory where a
+level reward provides one.
+For each change, send another otherwise valid input through the normal
+input path while a test hook delays completion of the save, then release
+the delay. Choose a follow-up action that is accepted without the delay.
+Do not leave the screen or background the application to trigger saving.
 
-\textit{Output/Result:}
-[Describe the expected saved or restored game state.]
+\textit{Output/Result:} Every change is saved on the device before
+the next input is processed. The saved data contains the complete change,
+including both the coin deduction and new ownership for a purchase, or
+the completion status and rewards for a first completion. Unaffected
+values remain unchanged. Unequipping and resetting also save the resulting
+empty or default values.
 
-\textit{Test Case Derivation:}
-[Explain how the SRS defines the expected behaviour.]
+\textit{Test Case Derivation:} \srsfrref{FR_PersistState}{26}
+requires saving each change before processing the next input. Checking
+only a later launch would not establish when the save occurred.
 
-\textit{How test will be performed:}
-[Describe the testing steps and how saved data will be checked.]
+\textit{How test will be performed:} Log the state change, completion
+of saving to storage, and processing of the next accepted input. Delay only
+the save; the test must not impose the input ordering it is checking.
+Inspect stored values at that boundary before another state change.
+Touches ignored during navigation remain subject to
+\frtestref{ST_InstructionsFeedback_09}; they need not execute later.
+After the delay, send a fresh valid input and confirm normal operation.
+Repeat without the delay on available devices, reusing matching starts and
+completions from \frtestref{ST_AM_LevelCompletion}. Retain a result for each
+change type.
 
-% Add additional test cases as needed.
+\item[\frtestdef{ST_SavingRestoring_02}]
+\textbf{Restore Saved Progress and Customization across Launches}
+
+\textit{Type:} Functional, Dynamic, manual with process and state logs.
+
+\textit{Requirements Covered:} \srsfrref{FR_PersistState}{26}.
+
+\textit{Initial State:} Use the mixed statuses from
+\frtestref{ST_AM_JourneyMixedStatuses}: \textit{Not Started},
+\textit{In Progress}, and \textit{Completed}. Also prepare saved coins,
+owned and equipped accessories, and a selected character. Use additional
+valid saves if these values cannot occur together with the build's reward
+definitions, and include nonzero balances where available. Record the
+saved values and calculate the expected scoreboard totals.
+
+\textit{Input/Condition:} After confirming that saving has completed,
+terminate the application process and launch it again. Inspect the
+restored data without changing progress, then repeat the close-and-launch
+cycle. Repeat with the latest save after each change type in
+\frtestref{ST_SavingRestoring_01}, including the empty values after reset.
+
+\textit{Output/Result:} Each launch restores the latest saved
+statuses, coin balance, ownership, equipment, and character selection.
+The journey map, scoreboard, shop, and character display agree with those
+values. Calculated totals are correct, and launching alone neither awards
+rewards nor restores older progress after a reset.
+
+\textit{Test Case Derivation:} \srsfrref{FR_PersistState}{26}
+requires restoration on launch. Repeating the launch checks that the
+restored data remains usable across sessions. Restarting an interrupted
+level from its beginning is checked in
+\frtestref{ST_ExitingInterruptions_04}.
+
+\textit{How test will be performed:} Verify process termination
+and a new launch in the logs, then compare the loaded fields and displayed
+values with the recorded save. Include closure while a level is open and
+termination while backgrounded, reusing matching runs from
+\frtestref{ST_ExitingInterruptions_04}. Add the relaunch checks to the
+successful runs of \frtestref{ST_SavingRestoring_01} without repeating
+their gameplay. No network connection or restored device backup supplies
+the data.
+
+\item[\frtestdef{ST_SavingRestoring_03}]
+\textbf{Preserve the Previous Save after a Write Failure}
+
+\textit{Type:} Functional, Dynamic, controlled fault injection with state inspection.
+
+\textit{Requirements Covered:} \srsfrref{FR_PersistState}{26}.
+
+\textit{Initial State:} List the save and error-handling paths used
+by \frtestref{ST_SavingRestoring_01}. Group actions only when both paths
+are shared. Prepare a valid save for each selected action and copy it as
+the baseline after setup is complete. Restore it before each run.
+
+\textit{Input/Condition:} Inject a write failure for a representative
+change on each listed path. Include a first completion, purchase, and reset
+to exercise changes involving several fields.
+Include a storage-full or write-access error before data is written and
+a failure after writing has begun but before the save completes. Keep
+the fault active until the process is terminated so that a retry or
+shutdown save cannot hide the failure. Remove the fault before relaunch.
+
+\textit{Output/Result:} The storage error is handled without an
+application crash before the planned termination. Previously saved level
+statuses and coins remain readable and unchanged, and relaunch restores
+them. No partial completion, coin award, deduction, or reset affects that
+player state. A failed write does not trigger replacement of valid progress
+with new-installation data. Once storage is available, a new change can be
+saved and restored normally.
+
+\textit{Test Case Derivation:} \srsfrref{FR_PersistState}{26}
+requires a failed save to preserve previously saved player state.
+SR-20 of the Hazard Analysis \cite{HazardAnalysis} also requires handling
+save failures without crashing. The SRS explicitly defines player state
+as statuses and coins; rollback of customization must be clarified before
+it is used as a pass/fail condition.
+
+\textit{How test will be performed:} Use a storage test hook to
+report the error without filling the device. Record the failure point
+and inspect the saved player state before relaunch as well as the restored
+values after launch. Compare both with the baseline, and record the
+customization outcome separately. Check the error and process logs before
+deliberately terminating. After removing the fault, make a new change and
+relaunch again to check that saving has recovered.
+
+\item[\frtestdef{ST_SavingRestoring_04}]
+\textbf{Preserve the Previous Save when a Write Is Interrupted}
+
+\textit{Type:} Functional, Dynamic, controlled process termination with storage logs.
+
+\textit{Requirements Covered:} \srsfrref{FR_PersistState}{26}.
+
+\textit{Initial State:} Use the verified baselines and selected paths
+from \frtestref{ST_SavingRestoring_03}. Identify the stages at which the
+implementation writes new data and makes it the current save.
+
+\textit{Input/Condition:} Pause a save before writing and immediately
+before the new data becomes the current save. If writing has multiple
+steps, also pause after a partial write. At each point, terminate the
+process without a shutdown save, then relaunch. Restore the baseline
+between runs. Add a control run that terminates only after the save has
+successfully completed.
+
+\textit{Output/Result:} Relaunch succeeds with the previous saved
+player state unchanged. No mixture of old and new statuses or coins,
+damaged player state, or reset to new-installation data is accepted.
+The control run restores the complete new save. Record customization
+outcomes as in \frtestref{ST_SavingRestoring_03}.
+
+\textit{Test Case Derivation:} \srsfrref{FR_PersistState}{26}
+covers interrupted saves as well as reported write failures. The control
+run distinguishes interruption of a pending save from closure after a
+successful save.
+
+\textit{How test will be performed:} Map the pause points to the
+actual storage implementation and use debugger or test hooks to reach
+them reliably. Record the last storage stage reached and confirm process
+termination. Compare the stored and restored player state with the baseline;
+for the completed control, compare all fields with the new save. A run whose
+interruption point cannot be confirmed is unverified. An unexpected crash
+on relaunch fails the test.
+
+\item[\frtestdef{ST_SavingRestoring_05}]
+\textbf{Recover when Saved Data Is Missing}
+
+\textit{Type:} Functional, Dynamic, manual with storage inspection.
+
+\textit{Requirements Covered:} \srsfrref{FR_CorruptData}{27}.
+
+\textit{Initial State:} Prepare a clean installation with no saved
+data or restored backup. Also prepare a previously used installation,
+close it, and remove its saved progress and customization data.
+
+\textit{Input/Condition:} Launch each installation and complete any
+required notice acknowledgement without selecting a character or starting
+a level. Record the recovery state before setup input can trigger a save.
+
+\textit{Output/Result:} The application replaces the missing data
+with new-installation data and continues without failing. Every level is
+\textit{Not Started}, the coin balance is zero, no accessories are owned
+or equipped, and no character is selected. Journey points and the
+completed-level count are zero. All three levels remain available.
+The game uses the default character without a saved selection, as required
+by \srsfrref{FR_ChooseCharacter}{31}.
+
+\textit{Test Case Derivation:} \srsfrref{FR_CorruptData}{27}
+requires recovery from missing data using the
+\srstableref{def_Player}{new player state}, no accessories, and no
+selected character.
+
+\textit{How test will be performed:} Confirm the absence of saved
+data before launch. Inspect the recovered state and replacement data,
+then reuse the map checks in \frtestref{ST_AM_JourneyFresh} before gameplay
+changes the statuses. Start a level, close the application after its save
+completes, and relaunch to verify that new progress can be saved and
+restored. Retain storage snapshots and the launch log. Notice behaviour
+remains covered by Section~\ref{sec:AMSetupFRTests}.
+
+\item[\frtestdef{ST_SavingRestoring_06}]
+\textbf{Recover when Saved Data Cannot Be Read}
+
+\textit{Type:} Functional, Dynamic, controlled fault injection with state inspection.
+
+\textit{Requirements Covered:} \srsfrref{FR_CorruptData}{27}.
+
+\textit{Initial State:} Valid saved progress and customization
+exist and have been copied as a baseline. The application is closed.
+Storage remains writable for replacement data.
+
+\textit{Input/Condition:} Launch with a test hook that makes reading
+the saved data fail with an access or I/O error. Keep the fault limited
+to loading the existing data; allow the replacement data to be written.
+
+\textit{Output/Result:} The application continues without failing
+and replaces the unreadable data with the same new-installation values
+specified in \frtestref{ST_SavingRestoring_05}. It does not leave a
+partially loaded journey or retain the old customization. After the
+fault is removed, subsequent launches use the replacement data.
+
+\textit{Test Case Derivation:} \srsfrref{FR_CorruptData}{27}
+explicitly includes data that exists but cannot be read. Missing or
+malformed data alone does not test this condition.
+
+\textit{How test will be performed:} Confirm that the save exists
+and record the read error reaching the application's load path. Check
+replacement data, then disable the hook and relaunch to ensure the old
+save does not return. Repeat the continued-play and save check from
+\frtestref{ST_SavingRestoring_05}. Record injected errors separately from
+any read failures reproduced on a device.
+
+\item[\frtestdef{ST_SavingRestoring_07}]
+\textbf{Recover when Saved Data Is Invalid}
+
+\textit{Type:} Functional, Dynamic, prepared invalid data with manual device checks.
+
+\textit{Requirements Covered:} \srsfrref{FR_CorruptData}{27}.
+
+\textit{Initial State:} Copy a valid save with progress, coins,
+accessories, and a selected character. Prepare separate invalid copies
+using the implemented storage format, changing one condition at a time.
+Identify mandatory fields and allowed empty values before preparing them.
+
+\textit{Input/Condition:} With the application closed, install and
+launch each invalid copy. Include empty or truncated data, malformed
+data, a missing required field, a wrong field type, a negative coin
+balance, an unknown level status, and an invalid character or accessory
+identifier. Include an equipped accessory that is not owned, two equipped
+items in one category, and, if stored, a reward-claimed flag inconsistent
+with completion status. When an earlier save format exists, include a
+sample that is invalid under the current format's rules. Leave other fields
+valid to check that recovery replaces the whole progress and customization state.
+
+\textit{Output/Result:} Each invalid save is replaced with the
+new-installation values in \frtestref{ST_SavingRestoring_05}, and the
+application continues without failing. Validation occurs before the data
+is used for gameplay or displayed progress. No old progress or customization
+survives as a partial recovery. The replacement is valid and remains usable
+on later launches.
+
+\textit{Test Case Derivation:} \srsfrref{FR_CorruptData}{27}
+requires replacement of invalid data. The
+\srstableref{def_Player}{SRS player-state definition} and
+\srstableref{tab:JourneyDataDictionary}{data dictionary} define the
+valid values, while \srsfrref{FR_Equip}{36} limits equipped accessories.
+SR-20 of the Hazard Analysis \cite{HazardAnalysis} requires validation
+before use. Both malformed data and readable but invalid values must be checked.
+
+\textit{How test will be performed:} Record each invalid field or
+byte change and use load and validation logs to confirm rejection before use.
+Restore the baseline before preparing the next case. Compare replacement
+data and displayed values with the expected defaults, then perform the
+continued-play and save check in \frtestref{ST_SavingRestoring_05}.
+Also launch an unchanged valid copy and valid new-player data as controls;
+both must load without being treated as corrupt.
 
 \end{frtestlist}
 
