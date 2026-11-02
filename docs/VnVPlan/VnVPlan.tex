@@ -3049,7 +3049,115 @@ in the SRS. They check whether the game and its supporting
 documentation satisfy the applicable requirements and
 standards identified for the project.
 
+\begin{testlist}
+\item[\testdef{ST_AM_Compliance_01}]
+\textbf{No Medical Claims in Content and Listings}
 
+\textit{Type:} Non-functional, Static content inspection.
+
+\textit{Requirements Covered:} \srsnfrref{sec:ComplianceNFRTests}{32}.
+
+\textit{Review procedure:}
+Two team members and a clinician will separately review all child-facing text, adult-facing 
+text, and store listings for the final game, including on-screen text, narration, the medical 
+notice, procedure guides, settings and reset screens, and store listing text and screenshots, 
+using a checklist of the game's content. For each item, reviewers will answer the following 
+questions:
+\begin{enumerate}
+  \item Does the content claim or imply that the application diagnoses any condition?
+  \item Does the content claim or imply that the application screens for or detects any 
+  condition or problem?
+  \item Does the content claim or imply that the application treats or cures any condition?
+  \item Does the content claim or imply that the application monitors or tracks any condition
+  or changes in a child's vision or health?
+  \item Does the content suggest that the practice can replace a vision test or professional 
+  examination, or that a parent can rely on it to find a real problem?
+\end{enumerate}
+For each question, reviewers will record a Yes/No response. Any ``Yes'' answer will require a 
+finding containing the content ID, wording, concern, and proposed change. Reviewers will 
+compare findings, record their resolution in GitHub Issues, and reinspect corrected content 
+before release.
+
+\textit{Expected result and evidence:}
+Every inventory item has a completed five-question checklist from each of the three reviewers, 
+and there are zero unresolved medical-claim findings for the reviewed release. The saved 
+checklists, content inventory, reviewers' names and roles, build and store listing versions, 
+and GitHub Issue references provide evidence of the review.
+
+\item[\testdef{ST_AM_Compliance_02}]
+\textbf{Licence Compliance of Third-Party Assets and Libraries}
+
+\textit{Type:} Non-functional, Static inspection of licence records and build contents.
+
+\textit{Requirements Covered:} \srsnfrref{sec:ComplianceNFRTests}{33}.
+
+\textit{Review procedure:}
+The assigned reviewer and a second team member will separately build an inventory of every 
+third-party asset and library in the final release, including code libraries and their 
+dependencies, art, audio, narration, fonts, icons, shaders, and any asset downloaded from a 
+public store. The inventory is taken from the release build and the project's dependency 
+files, not from the licence log, so that items missing from the log can be found. Reviewers 
+then compare the inventory with the licence log. For each item, reviewers will answer the 
+following questions:
+\begin{enumerate}
+  \item Does the licence log contain an entry for this item?
+  \item Does the entry record the licence name or terms, the source, and the version or 
+  download date?
+  \item Does the recorded licence permit redistribution of the item in the application?
+  \item Is the recorded licence compatible with the project's chosen software licence?
+  \item Does the entry state any required conditions, such as attribution or notices, and are 
+  those conditions met in the build?
+\end{enumerate}
+For each question, reviewers will record a Yes/No response. Any ``No'' answer will require a 
+finding containing the item name, source, concern, and proposed change (for example, adding 
+the missing entry, obtaining permission, or replacing the item). Reviewers will compare 
+findings, record their resolution in GitHub Issues, and reinspect corrected items and the 
+licence log before release.
+
+\textit{Expected result and evidence:}
+Every inventory item has a completed five-question checklist, the licence log has no gap, and 
+there are zero unresolved licence findings for the reviewed release. The saved checklists, 
+item inventory, licence log, reviewers' names, build version, and GitHub Issue references 
+provide evidence of the review.
+
+\item[\testdef{ST_AM_Compliance_03}]
+\textbf{Children's App Store \& Submission Approval}
+
+\textit{Type:} Non-functional, Static inspection of the release build and store submissions, 
+with device testing.
+
+\textit{Requirements Covered:} \srsnfrref{sec:ComplianceNFRTests}{34}.
+
+\textit{Initial state:} The release build, store listings, privacy disclosures, target 
+audience declarations, and policy versions used for submission are frozen.
+
+\textit{Input/condition:} Review the Apple Kids Category and Google Play Families 
+requirements against the submitted configuration. Cover parental gates, advertising, external 
+links, real-money purchases, permissions, and third-party data practices. Reuse the results of 
+the parental gate tests and the privacy and network traffic review where they apply.
+
+\textit{Review procedure:}
+The assigned reviewer and a second team member will build the pre-submission policy checklist from 
+the current text of the Kids Category rules of the App Store Review Guidelines and the Families 
+policy of Google Play. The reviewers will then separately inspect the release build, the store listings, 
+and the store declarations (target audience and age rating answers, privacy labels, and data safety forms) 
+against every checklist item. Inspection includes running the release build on a test device for each 
+store and observing its behaviour, requested permissions, and network traffic. For each item, reviewers 
+will record a Yes/No response, and any ``No'' answer requires a finding containing the checklist item, 
+policy section, concern, and proposed change. Reviewers will compare findings, record their resolution 
+in GitHub Issues, rebuild the release candidate, and rerun the affected checks. When every item passes, 
+the team submits the release build to both stores for a children's audience and records each store's review
+response. Any rejection or request for changes is recorded as a finding and resolved in the same way, and 
+the corrected build is resubmitted.
+
+\textit{Expected result and evidence:}
+Every checklist item passes for both stores, and both the App Store and Google Play approve the release 
+build for a children's audience. Evidence is the dated policy checklist with the policy versions, the 
+completed answers from both reviewers, the submitted build identifiers, the store review responses and 
+approval records, the records of any correction and the rerun results, the reviewers' names, and the 
+GitHub Issue references.
+
+\end{testlist}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
