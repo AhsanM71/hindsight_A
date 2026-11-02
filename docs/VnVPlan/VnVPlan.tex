@@ -3312,7 +3312,7 @@ Issues.
   \item In Section~\ref{sec:AMSetupFRTests}, \ref{sec:AMJourneyFRTests}, \ref{sec:AMLevelContentFRTests} (Tests for Functional Requirements), GPT-6
   was used to assist with drafting, organizing, and formatting
   the functional system tests for Setup, Journey Map, and
-  Level Content (FR1--FR11). This included structuring the test
+  Level Content (\srsfrref{FR_MedicalNotice}{1}--\srsfrref{FR_LevelEnd}{11}). This included structuring the test
   conditions, initial states, expected results, test case
   derivations, and execution procedures. The tests were reviewed
   against the SRS to ensure appropriate requirement coverage,
@@ -3320,7 +3320,7 @@ Issues.
 
   \item In Section~\ref{sec:AMCulturalNFRTests}, GPT-6 was used to assist
   with drafting and formatting the Cultural and Political
-  Requirements tests covering NFR31 (Inclusivity). This included
+  Requirements tests covering \srsnfrref{NFR_Inclusivity}{31} (Inclusivity). This included
   organizing the static review procedures, inspection checklists,
   expected results, and evidence to be collected. The tests were
   reviewed against the SRS and Hazard Analysis.
@@ -3345,7 +3345,7 @@ Issues.
 
   \item In Section~\ref{sec:RewardsScoreboardFRTests} (Rewards and Scoreboard),
   Claude (Opus 5.5) was used to draft the functional system tests for
-  FR28--FR30 and the test data in Appendix~\ref{sec:RewardFixtures}. It also
+  \srsfrref{FR_FirstReward}{28}--\srsfrref{FR_Scoreboard}{30} and the test data in Appendix~\ref{sec:RewardFixtures}. It also
   added the \constref{REPLAY_TRIALS_MIN} parameter. The team member directed
   the revisions, such as one test per requirement, automated checks of the
   saved game state, and simpler test data. The tests and expected values were
@@ -3354,7 +3354,7 @@ Issues.
   \item In Sections~\ref{sec:LookAndFeelNFRTests} and
   \ref{sec:UsabilityHumanityNFRTests} (Look and Feel, and Usability and
   Humanity), Claude (Opus 5.5) was used to draft the non-functional system
-  tests for NFR1--NFR10, following the format of the other non-functional
+  tests for \srsnfrref{NFR_Layout}{1}--\srsnfrref{NFR_Colour}{10}, following the format of the other non-functional
   tests. It also added the \constref{USABILITY_PARTICIPANTS_MIN} parameter.
   The team member reviewed the procedures and remarks against the SRS fit
   criteria and the capstone limits on testing with children and clinical
@@ -3363,7 +3363,7 @@ Issues.
   \item In Appendix~\ref{sec:UsabilitySurvey} (Usability Survey Questions),
   Claude (Opus 5.5) was used to draft the survey statements, the open-ended
   questions, and the plan for using the results, based on the course checklist
-  and NFR1--NFR10. It also added the \constref{SURVEY_AGREE_RATE_MIN} parameter.
+  and \srsnfrref{NFR_Layout}{1}--\srsnfrref{NFR_Colour}{10}. It also added the \constref{SURVEY_AGREE_RATE_MIN} parameter.
   The team member reviewed the survey against the SRS.
 
   \item GPT-6.1 Sol \& GPT-6 were also used to assist with automatic test numbering,
