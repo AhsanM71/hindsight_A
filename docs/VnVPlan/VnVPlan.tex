@@ -56,6 +56,11 @@
   \reqlabel{ST-NFR-\arabic{vnvtestnum}:}}
 \newcommand{\testref}[1]{\hyperref[test:#1]{ST-NFR-\ref*{test:#1}}}
 
+% ----- Usability Survey Numbering -----
+
+\newcounter{surveyq}
+\newcommand{\surveyq}{\stepcounter{surveyq}SQ\arabic{surveyq}}
+
 % ----- Functional System Test Numbering -----
 
 \newcounter{vnvfrtestnum}
@@ -118,6 +123,7 @@
 2026/10/31 & Jake Finlay & Completed the Rewards and Scoreboard tests in section 4.1 and their test data in the appendix \\
 2026/11/01 & Jake Finlay & Completed the Look and Feel and the Usability and Humanity tests in section 4.2 \\
 2026/11/01 & Jake Finlay & Completed individual reflection \\
+2026/11/02 & Jake Finlay & Completed the usability survey questions in the appendix \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -2237,7 +2243,8 @@ relevant test.
 
 These tests verify the control layout and the content safety requirements in
 \srsnfrref{NFR_Layout}{1}--\srsnfrref{NFR_ChildSafe}{2} of the SRS
-\cite{SRS}.
+\cite{SRS}. The survey in Appendix~\ref{sec:UsabilitySurvey} adds participant
+feedback on both requirements.
 
 \begin{testlist}
 
@@ -2281,7 +2288,8 @@ These tests verify the usability and humanity requirements in
 \cite{SRS}. Children and caregivers will not take part in testing during the
 capstone (Section~\ref{sec:Objectives}). The tests that need users will use
 classmates and clinical staff instead, as explained in the remark under each
-test.
+test. The survey in Appendix~\ref{sec:UsabilitySurvey} adds participant feedback
+on these requirements.
 
 \begin{testlist}
 
@@ -2325,7 +2333,7 @@ test.
 
 \textit{Output/Result:} At least \constref{UNAIDED_RATE_MIN}\% of participants complete each task without verbal help. The median time for each task is at most \constref{CORE_TASK_MAX_MIN} minutes.
 
-\textit{How test will be performed:} A team member gives each task in one sentence and then does not help. They record whether the task was completed without help and how long it took. They also note where the participant hesitated or made a wrong touch.
+\textit{How test will be performed:} A team member gives each task in one sentence and then does not help. They record whether the task was completed without help and how long it took. They also note where the participant hesitated or made a wrong touch. The participant then completes the survey in Appendix~\ref{sec:UsabilitySurvey}.
 
 \textit{Remark:} The participants will be classmates rather than children, because the capstone does not include testing with children. This finds usability problems but does not verify the requirement for the intended users.
 
@@ -2341,7 +2349,7 @@ test.
 
 \textit{Output/Result:} Every participant opens the introduction within \constref{CLINICIAN_FIND_MAX_MIN} minute of picking up the device.
 
-\textit{How test will be performed:} A team member times the training and the task, and names a different level for each participant. They record the time taken and any wrong touches.
+\textit{How test will be performed:} A team member times the training and the task, and names a different level for each participant. They record the time taken and any wrong touches. The participant then completes the survey in Appendix~\ref{sec:UsabilitySurvey}.
 
 \textit{Remark:} The number of participants depends on the clinical staff the project supervisor can arrange. If only the supervisor takes part, the result will be recorded as preliminary.
 
@@ -3065,6 +3073,7 @@ table defines the few additional values used to run the tests.
 \constdef{COVERAGE_LINE_TARGET} & 80\% & Line coverage target for game-logic assemblies\\
 \constdef{REPLAY_TRIALS_MIN} & 3 & Replays of a completed level when checking for duplicate rewards\\
 \constdef{USABILITY_PARTICIPANTS_MIN} & 5 & Participants in the core task usability test\\
+\constdef{SURVEY_AGREE_RATE_MIN} & 80\% & Agreement below which a survey statement is reviewed\\
 \end{longtable}
 
 \subsection{Reward and Scoreboard Test Data}\label{sec:RewardFixtures}
@@ -3147,9 +3156,128 @@ MG and MIS are finalized.
     consistent enough for the team to implement and test the design?
 \end{itemize}
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}\label{sec:UsabilitySurvey}
 
-\wss{This is a section that would be appropriate for some projects.}
+Participants will complete this survey straight after \testref{ST_Usability} or
+\testref{ST_ClinicianUse}, before a team member discusses the session with them.
+The survey records how the game seemed to them. It adds evidence for
+\srsnfrref{NFR_Layout}{1}--\srsnfrref{NFR_Colour}{10} alongside the measured
+results, and does not replace any fit criterion. Participants will answer on
+behalf of a child, so the results can identify potential problems but cannot
+confirm how children would respond (Section~\ref{sec:Objectives}).
+
+Before the survey, a team member will open the caregiver area so that each
+participant can read one text. The form will not record names, email addresses,
+or other personal information. Before the first session, one classmate who is
+not a test participant will pilot the survey, and any statement they find
+unclear will be reworded.
+
+\subsubsection*{Rating Statements}
+
+Participants will rate each statement in Table~\ref{tab:SurveyStatements} from 1
+(strongly disagree) to 5 (strongly agree), or choose \textit{Not seen} if they
+did not see that part of the game. Participants in \testref{ST_Usability} will
+answer as the persona they acted and will skip the clinical staff statements.
+Participants in \testref{ST_ClinicianUse} will answer for the parts of the game
+they saw and all of the clinical staff statements.
+
+\begin{longtable}{@{}p{0.08\textwidth}p{0.70\textwidth}p{0.14\textwidth}@{}}
+\caption{Usability Survey Rating Statements}\label{tab:SurveyStatements}\\
+
+\toprule
+\textbf{ID} & \textbf{Statement} & \textbf{Requirement}\\
+\midrule
+\endfirsthead
+
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page}\\
+\toprule
+\textbf{ID} & \textbf{Statement} & \textbf{Requirement}\\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+\multicolumn{3}{@{}l}{\textit{Look and Feel}}\\
+\surveyq & Controls with the same purpose, such as the exit and hint buttons,
+  stayed in the same place on every screen. & \srsnfrref{NFR_Layout}{1}\\
+\surveyq & I knew where to look for a control without searching the screen. &
+  \srsnfrref{NFR_Layout}{1}\\
+\surveyq & The images and animations would not frighten a child aged 3 to 7. &
+  \srsnfrref{NFR_ChildSafe}{2}\\
+\surveyq & The narration and sounds would not frighten a child aged 3 to 7. &
+  \srsnfrref{NFR_ChildSafe}{2}\\
+\surveyq & The game showed the procedure in a calm and reassuring way. &
+  \srsnfrref{NFR_ChildSafe}{2}\\
+\addlinespace[4pt]
+\multicolumn{3}{@{}l}{\textit{Usability and Humanity}}\\
+\surveyq & The buttons and other touch areas were large enough for a young child
+  to touch accurately. & \srsnfrref{NFR_TouchTarget}{3}\\
+\surveyq & It was clear how to leave a level at any point. &
+  \srsnfrref{NFR_Exit}{4}\\
+\surveyq & I could start the level I was asked to find without instructions. &
+  \srsnfrref{NFR_Usability}{5}\\
+\surveyq & In each exercise, I knew what to do next without help. &
+  \srsnfrref{NFR_Usability}{5}\\
+\surveyq & The game did not pressure me to keep playing or to come back. &
+  \srsnfrref{NFR_NoPressure}{7}\\
+\surveyq & The narrated sentences were short enough for a child aged 3 to 7 to
+  follow. & \srsnfrref{NFR_Language}{8}\\
+\surveyq & The narration used words that a child aged 3 to 7 would know. &
+  \srsnfrref{NFR_Language}{8}\\
+\surveyq & The text in the caregiver area was easy to understand. &
+  \srsnfrref{NFR_Language}{8}\\
+\surveyq & The text and icons were easy to see on this screen. &
+  \srsnfrref{NFR_Accessibility}{9}\\
+\surveyq & I could follow each exercise from the visual cues without relying on
+  the narration. & \srsnfrref{NFR_Accessibility}{9}\\
+\surveyq & I could tell the level statuses on the journey map apart without
+  relying on colour. & \srsnfrref{NFR_Colour}{10}\\
+\surveyq & I could tell which answer was correct after it was revealed without
+  relying on colour. & \srsnfrref{NFR_Colour}{10}\\
+\addlinespace[4pt]
+\multicolumn{3}{@{}l}{\textit{Clinical staff only}}\\
+\surveyq & Finding a named level would be fast enough during an appointment. &
+  \srsnfrref{NFR_ClinicianUse}{6}\\
+\surveyq & The training I received was enough for me to show the game to a
+  patient. & \srsnfrref{NFR_ClinicianUse}{6}\\
+\end{longtable}
+
+\subsubsection*{Open-Ended Questions}
+
+\begin{enumerate}[label=OQ\arabic*:, leftmargin=*, itemsep=0.35em]
+    \item Which screen or control was the hardest to find or use, and why?
+
+    \item Which image, sound, word, or sentence might upset or confuse a child
+    aged 3 to 7, and why?
+
+    \item Did anything make you feel rushed or pressured to keep playing? If so,
+    what was it?
+
+    \item What single change would most help a child use the game without help?
+
+    \item (Clinical staff only) What would stop you from using the game during
+    an appointment?
+\end{enumerate}
+
+\subsubsection*{Use of the Results}
+
+The VnV Report will present the classmate and clinical staff results separately.
+For each statement, it will give the median rating and the number and percentage
+of participants who rated it 4 or 5, excluding \textit{Not seen}. A diverging
+stacked bar chart will show the responses to each statement, grouped by
+requirement. With few participants, these values describe the group and will not
+be treated as statistically significant.
+
+The survey does not pass or fail a requirement. If fewer than
+\constref{SURVEY_AGREE_RATE_MIN}\% of participants rate a statement 4 or 5, the
+team will open a GitHub Issue and review the statement against the related test
+results and session notes. Open-ended answers will be grouped by screen, and any
+problem reported by more than one participant will also be recorded in GitHub
+Issues.
 
 \newpage{}
 
@@ -3231,6 +3359,12 @@ MG and MIS are finalized.
   The team member reviewed the procedures and remarks against the SRS fit
   criteria and the capstone limits on testing with children and clinical
   staff.
+
+  \item In Appendix~\ref{sec:UsabilitySurvey} (Usability Survey Questions),
+  Claude (Opus 5.5) was used to draft the survey statements, the open-ended
+  questions, and the plan for using the results, based on the course checklist
+  and NFR1--NFR10. It also added the \constref{SURVEY_AGREE_RATE_MIN} parameter.
+  The team member reviewed the survey against the SRS.
 
   \item GPT-6.1 Sol \& GPT-6 were also used to assist with automatic test numbering,
   cross document references, and general \LaTeX{} formatting.
