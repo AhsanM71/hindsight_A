@@ -1165,38 +1165,416 @@ journey map status.
 \subsubsection{Instructions and Feedback}
 \label{sec:InstructionsFeedbackFRTests}
 
-These tests verify that the game provides the instructions and
-feedback required by the SRS. They cover how information is
-presented to the player and how the game responds to user
-interactions.
+These tests verify \srsfrref{FR_SpokenInstructions}{12}--\srsfrref{FR_IgnoreRepeatedTouches}{19}.
+They apply to the full system specified in the SRS. Features omitted from
+the Proof of Concept in the Development Plan \cite{DevPlan}
+remain unverified until implemented and tested.
+Use content inventory from Section~\ref{sec:AMLevelContentFRTests}
+to list the instructions, exercises, questions and their correct
+answers, animations, and level states and transitions. Run the applicable
+checks in all levels, including default content and each distinct age-group variant.
+Record the screen or content ID, observed result, and supporting screenshot,
+recording, or log for each check. Team members will perform these checks
+on the available test devices. They verify functional behaviour. Testing
+with children and measuring clinical effectiveness remain future work,
+as stated in the objectives of this plan.
+
+The automated checks will use the Unity test tools identified in the
+Development Plan \cite{DevPlan}, with temporary local logs where needed.
+They will exercise the game's normal input and content paths. Record the
+source and content versions used, and any device or test support that is
+unavailable, without counting an unperformed check as a pass.
 
 \begin{frtestlist}
 
 \item[\frtestdef{ST_InstructionsFeedback_01}]
-\textbf{[Test Case Name]}
+\textbf{Narrated Instructions with Demonstrations}
 
 \textit{Type:} Functional, Dynamic, manual.
 
-\textit{Requirements Covered:}
-[Insert SRS functional requirement reference(s).]
+\textit{Requirements Covered:} \srsfrref{FR_SpokenInstructions}{12}.
 
-\textit{Initial State:}
-[Describe the required game state before testing.]
+\textit{Initial State:} Setup is complete, device audio is audible,
+and the instruction inventory is available.
 
-\textit{Input/Condition:}
-[Describe the user action or condition being tested.]
+\textit{Input/Condition:} Play each level, including its hints and
+answer feedback. Follow the narration and demonstrations without using
+written instructions.
 
-\textit{Output/Result:}
-[Describe the expected behaviour and pass criteria.]
+\textit{Output/Result:} Every instruction is narrated and accompanied
+by a matching visual demonstration. Each required action can be identified
+and completed without reading. Written text may supplement
+the guidance, but is never the only way to follow an instruction.
 
-\textit{Test Case Derivation:}
-[Explain how this test is derived from the SRS requirement.]
+\textit{Test Case Derivation:} \srsfrref{FR_SpokenInstructions}{12}
+requires narration with a demonstration for every instruction and
+prohibits levels from requiring reading.
 
-\textit{How test will be performed:}
-[Describe the steps to execute the test and record results.]
+\textit{How test will be performed:} Record each walkthrough with audio.
+For every instruction, note the narration, corresponding demonstration,
+and action taken. Flag missing or conflicting guidance and any step that
+depends on written text.
 
-% Duplicate the test case above for additional requirements.
-% Give every new test a unique identifier.
+\item[\frtestdef{ST_InstructionsFeedback_02}]
+\textbf{Hints after Incorrect Actions}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_HintOnMiss}{13}.
+
+\textit{Initial State:} An exercise that requests an action is ready
+for input. The inventory identifies the expected action and possible
+incorrect actions. Questions are checked separately in
+\frtestref{ST_InstructionsFeedback_05}. Incorrect task responses are
+distinct from unrelated touches outside active controls, which are
+ignored under \srsfrref{FR_RestartLevel}{24}.
+
+\textit{Input/Condition:} Perform an incorrect action, such as placing
+a virtual patient outside the indicated position. Repeat the mistake,
+then perform the requested action. Repeat for each distinct incorrect
+action listed in the inventory.
+
+\textit{Output/Result:} Each incorrect action produces an encouraging
+hint that guides the child towards the requested action. The exercise
+allows another attempt, including after repeated mistakes. A subsequent
+correct action is accepted and the level can continue.
+
+\textit{Test Case Derivation:} \srsfrref{FR_HintOnMiss}{13} requires
+a hint and another attempt when the child performs an action other
+than the one requested.
+
+\textit{How test will be performed:} Record each incorrect action,
+the hint's wording and visual guidance, and the successful retry.
+Check that the hint offers help without blame or discouragement.
+
+\item[\frtestdef{ST_InstructionsFeedback_03}]
+\textbf{Visual Cues Remain Available}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_VisualCues}{14}.
+
+\textit{Initial State:} Setup is complete, and the tester has a list
+of level states and the caregiver settings for visual-cue size and
+reduced motion required by \srsfrref{FR_Preferences}{41}.
+
+\textit{Input/Condition:} Visit every reachable level state, including
+instructions, waiting for input, hints, answer reveals, feedback, and
+the ending. Inspect transitions and revisit states after a skip or restart.
+Try to disable or change cues through child-facing controls. Attempt to
+open cue settings before and after completing the parental gate. Repeat
+the walkthrough at the smallest and largest cue sizes and with reduced
+motion enabled and disabled.
+
+\textit{Output/Result:} Visual guidance remains visible in every
+level state. No child-facing control disables it. Any setting that
+changes the cues is accessible only through caregiver settings after
+the parental gate. Adjusting cue size or reducing motion does not remove
+the guidance needed to continue.
+
+\textit{Test Case Derivation:} \srsfrref{FR_VisualCues}{14} requires
+cues in every level state and restricts changes to caregiver settings,
+protected by \srsfrref{FR_ParentGate}{38}.
+
+\textit{How test will be performed:} Record the walkthrough and mark
+each state in the inventory. Capture any missing guidance and record
+whether each attempted route to a cue setting requires the parental gate.
+
+\item[\frtestdef{ST_InstructionsFeedback_04}]
+\textbf{Instructions without Sound}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_NarrationFallback}{15}.
+
+\textit{Initial State:} Setup is complete. Confirm that narration is
+audible before testing each sound condition. Identify the device mute
+modes that silence narration, rather than only silencing calls or alerts.
+
+\textit{Input/Condition:} Play each level with narration silenced by
+device mute, then with device media volume at zero. Test each condition
+both before entering the level and during narration. Also set narration
+volume to zero through the caregiver settings. Leave the caregiver prompt
+unanswered and continue playing using only visual guidance, including
+hints, answer reveals, and sensation descriptions.
+
+\textit{Output/Result:} Every instruction remains available through
+pictures, icons, and demonstrations when narration cannot be heard.
+A caregiver prompt explains how to restore the affected sound setting,
+but does not require acknowledgement or block play. Muting does not force
+play to pause; the child can reach the level's end without restoring sound.
+
+\textit{Test Case Derivation:} \srsfrref{FR_NarrationFallback}{15}
+requires visual instructions and a non-blocking caregiver prompt when
+the device is muted or its volume is off. SR-18 of the Hazard Analysis
+\cite{HazardAnalysis} also covers unavailable narration through settings;
+\srsfrref{FR_Preferences}{41} provides the narration-volume control.
+
+\textit{How test will be performed:} Verify silence through the
+device's actual audio output, then record the guidance, prompt, and
+completion of each run. Check the prompt against the device or caregiver
+sound controls. Record any unavailable mute mode as a coverage limitation.
+
+\item[\frtestdef{ST_InstructionsFeedback_05}]
+\textbf{Correct Answers after a Wrong Answer}
+
+\textit{Type:} Functional, Dynamic, manual with timing logs.
+
+\textit{Requirements Covered:} \srsfrref{FR_RevealAnswer}{16},
+\srsfrref{FR_NoPenalty}{18}; answer-reveal checks from
+\srsnfrref{NFR_Colour}{10} and \srsnfrref{NFR_Responsiveness}{12}.
+
+\textit{Initial State:} A question is displayed with audio enabled.
+Its correct answers are listed in the reviewed content inventory.
+
+\textit{Input/Condition:} Select an incorrect answer and wait for the
+reveal narration and cue animation to finish before selecting a correct
+answer. Revisit the question by restarting its level to test each
+incorrect option and each revealed correct option,
+including questions with several correct answers where present. In a
+separate run, give a wrong answer and then hold skip without selecting
+a correct answer.
+
+\textit{Output/Result:} Every correct answer appears within
+\constref{ANSWER_REVEAL_MAX_S} second of an incorrect selection.
+Narration and at least two cues that do not rely on colour identify
+each correct answer. No incorrect
+answer is marked as correct. Without selecting skip, the child can select
+a revealed correct answer and receive encouraging feedback before the
+level continues. Selecting skip instead allows progress without requiring
+a correct answer or applying a penalty.
+
+\textit{Test Case Derivation:} \srsfrref{FR_RevealAnswer}{16} defines
+the reveal and retry, while \srsfrref{FR_NoPenalty}{18} preserves skipping.
+\srsnfrref{NFR_Colour}{10} and \srsnfrref{NFR_Responsiveness}{12}
+specify the cues and timing, also required by SR-16 of the Hazard
+Analysis \cite{HazardAnalysis}.
+
+\textit{How test will be performed:} Compare each reveal with the
+inventory and record the order of the wrong selection, reveal,
+correct selection or skip, feedback, and continuation. Use the timing
+logs from \testref{ST_Responsiveness} and record the two non-colour cues;
+the full colour-vision checks belong to
+Section~\ref{sec:UsabilityHumanityNFRTests}. Questions with no incorrect
+options are checked in \frtestref{ST_InstructionsFeedback_06}.
+
+\item[\frtestdef{ST_InstructionsFeedback_06}]
+\textbf{Valid Questions and Build-Time Validation}
+
+\textit{Type:} Functional, Static and Dynamic, automated validation
+with manual inspection and walkthrough.
+
+\textit{Requirements Covered:} \srsfrref{FR_ValidQuestions}{17}.
+
+\textit{Initial State:} The complete question inventory, reviewed answer
+keys, and build-time validator are available. In a separate test copy of
+the content, prepare questions with one correct answer, several correct
+answers, no correct answer, and a key that names no displayed option.
+
+\textit{Input/Condition:} Build the game with the test questions and
+inspect the validation log and playable content. Then build with the
+release content, compare every answer key with the reviewed inventory,
+and select each expected correct answer on a separate attempt.
+
+\textit{Output/Result:} Every build checks its questions. Valid questions
+remain available; invalid questions are excluded and logged, and are never
+shown during play. Every displayed question has at least one correct,
+selectable answer matching the reviewed content, and the game accepts
+each expected correct answer.
+
+\textit{Test Case Derivation:} \srsfrref{FR_ValidQuestions}{17}
+requires at least one correct answer for every displayed question.
+SR-17 of the Hazard Analysis \cite{HazardAnalysis} requires build-time
+validation, exclusion, and logging of invalid questions; the SRS
+\srstableref{tab:DevelopmentPhaseThree}{Phase 3 implementation plan}
+also specifies build-time validation.
+
+\textit{How test will be performed:} Inspect the build configuration to
+confirm that validation runs on every build. Retain the validator's results
+for each fixture and release question ID, then reconcile the packaged content
+with the inventory. Record accepted answers and confirm that invalid test
+questions never appear. For offline and compatibility runs, reuse the
+validation evidence for the same content version and repeat the in-app
+checks on the installed build. Clinical approval is checked separately in
+\testref{ST_ClinicalAccuracy}.
+
+\item[\frtestdef{ST_InstructionsFeedback_07}]
+\textbf{Skipping without Penalties}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_NoPenalty}{18},
+\srsfrref{FR_DescribeSensations}{8}, \srsfrref{FR_LevelEnd}{11},
+\srsfrref{FR_FirstReward}{28}, \srsfrref{FR_NoDuplicateReward}{29}.
+
+\textit{Initial State:} The target level has not been completed.
+Earn rewards from other levels where available and record points, coins,
+and owned accessories. Identify every exercise, animation, and mandatory
+sensation description in the target level. After its first completion,
+repeat on the same profile as a replay without resetting progress.
+
+\textit{Input/Condition:} Skip every exercise, including questions,
+and every animation using the required hold. At each sensation
+description, attempt to skip, then let the description finish and
+skip the associated activity. Continue to the level's end.
+
+\textit{Output/Result:} Every exercise and animation can be skipped
+except the mandatory sensation description, which is presented in full.
+Skipping produces no negative text, narration, sound, or visual feedback
+and removes no points, coins, or accessories. Reaching the ending marks
+the level \textit{Completed} and awards its defined first-completion
+reward. Replay retains that status and gives no duplicate reward.
+
+\textit{Test Case Derivation:} \srsfrref{FR_NoPenalty}{18} permits
+skipping without penalties or blocked completion;
+\srsfrref{FR_DescribeSensations}{8} protects sensation descriptions.
+\srsfrref{FR_LevelEnd}{11}, \srsfrref{FR_FirstReward}{28}, and
+\srsfrref{FR_NoDuplicateReward}{29} define completion and its rewards.
+
+\textit{How test will be performed:} Record each skip and its feedback,
+checking the inventory for activities with no working skip. Compare
+rewards before and after each action using the displayed values or
+a development build's state log. Capture the ending, map status, and
+reward balances for both runs. Reuse the checks for sensation descriptions
+and mandatory messages from \frtestref{ST_AM_SensationBeforeSkip} and
+\frtestref{ST_AM_SkippedActivitiesStillComplete} on the same recordings.
+
+\item[\frtestdef{ST_InstructionsFeedback_08}]
+\textbf{Incorrect Responses without Penalties}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_NoPenalty}{18},
+\srsfrref{FR_FirstReward}{28}, \srsfrref{FR_NoDuplicateReward}{29}.
+
+\textit{Initial State:} Prepare an unfinished target level and recorded
+rewards as in \frtestref{ST_InstructionsFeedback_07}, independently of
+that test's completed runs. The level's defined completion reward is known.
+
+\textit{Input/Condition:} Give incorrect responses in every action
+exercise and question that permits them, including repeated mistakes.
+Then complete or skip each exercise and reach the level's end.
+
+\textit{Output/Result:} Incorrect responses produce no negative
+text, narration, sound, or visual feedback. They remove no points,
+coins, or accessories and do not block level completion. Any
+first-completion reward is the defined reward, without a deduction
+for mistakes; replay retains rewards already earned without awarding
+them again.
+
+\textit{Test Case Derivation:} \srsfrref{FR_NoPenalty}{18} prohibits
+penalties for incorrect responses and makes completion independent
+of the child's answers. \srsfrref{FR_FirstReward}{28} and
+\srsfrref{FR_NoDuplicateReward}{29} define the first-completion and
+replay rewards.
+
+\textit{How test will be performed:} Use the incorrect responses
+from \frtestref{ST_InstructionsFeedback_02} and
+\frtestref{ST_InstructionsFeedback_05}. Record feedback and compare
+rewards before and after each response, using displayed values or
+a development build's state log. Check completion and the final
+reward values on both a first completion and a replay.
+
+\item[\frtestdef{ST_InstructionsFeedback_09}]
+\textbf{Repeated Touches during Transitions}
+
+\textit{Type:} Functional, Dynamic, automated input with manual device checks.
+
+\textit{Requirements Covered:} \srsfrref{FR_IgnoreRepeatedTouches}{19}.
+
+\textit{Initial State:} A level is ready for a navigation action.
+A development build can log input times, accepted navigation actions,
+and the time each destination screen is shown.
+
+\textit{Input/Condition:} Trigger a screen transition and send
+additional touches before the next screen is shown. Test repeated
+touches on the same control, other navigation controls, and the
+position of a control on the destination screen. After the screen
+appears, send a fresh valid navigation input.
+
+\textit{Output/Result:} The requested destination screen is shown,
+with at most one navigation input acted on during the transition.
+Extra touches neither skip a screen nor remain queued to act on the
+destination screen. A fresh input after
+the transition works normally.
+
+\textit{Test Case Derivation:} \srsfrref{FR_IgnoreRepeatedTouches}{19}
+requires further touches to be ignored until the next screen is shown.
+
+\textit{How test will be performed:} Check each navigation transition
+in the inventory. Use a Unity Play Mode test to place touches within
+the transition through the normal input handler and confirm their timing
+in the log. Record accepted actions and the screen sequence; repeat on a
+device with manual rapid taps.
+
+\item[\frtestdef{ST_InstructionsFeedback_10}]
+\textbf{Narration Protection and Available Exit Controls}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_IgnoreRepeatedTouches}{19}.
+
+\textit{Initial State:} A procedure-information narration is playing
+with audible sound. An uninterrupted recording provides its full
+content and normal ending.
+
+\textit{Input/Condition:} Tap, hold, and tap repeatedly outside the
+skip, home, and restart controls, including any other interactive elements.
+In separate runs of the same narration, select home with one touch
+and use the restart control. Include mandatory sensation descriptions.
+
+\textit{Output/Result:} Touches outside the three controls do not
+skip or shorten the narration. Home returns to the journey map,
+and restart returns to the level's beginning, without waiting for
+narration to finish. Mandatory descriptions remain protected from
+ordinary touches while home and restart remain available.
+
+\textit{Test Case Derivation:} \srsfrref{FR_IgnoreRepeatedTouches}{19}
+protects procedure narration while preserving home and restart,
+as specified by \srsfrref{FR_ExitLevel}{20} and
+\srsfrref{FR_RestartLevel}{24}. \srsnfrref{NFR_Exit}{4} requires
+one-touch return to the journey map; it does not impose that limit on restart.
+
+\textit{How test will be performed:} Record each run with audio and
+compare the narration with the uninterrupted recording. Note the
+touch locations and check the destination after home or restart.
+
+\item[\frtestdef{ST_InstructionsFeedback_11}]
+\textbf{Skip Hold Threshold and Protected Descriptions}
+
+\textit{Type:} Functional, Dynamic, automated input with manual device checks.
+
+\textit{Requirements Covered:} \srsfrref{FR_IgnoreRepeatedTouches}{19},
+\srsfrref{FR_DescribeSensations}{8}.
+
+\textit{Initial State:} A skippable exercise or animation is active
+with procedure narration playing where present, and will not finish
+during the input sequence. A development build can record touch-down,
+release, and skip times. Let $T$ be
+\constref{SKIP_HOLD_MIN_S}, currently 1 second in the SRS.
+
+\textit{Input/Condition:} On separate runs, hold skip for $T-0.1$,
+$T$, and $T+0.1$ seconds. Also make several shorter presses whose
+combined duration exceeds $T$, releasing between presses. Repeat
+these inputs during each mandatory sensation description.
+
+\textit{Output/Result:} A skippable activity does not skip before
+one continuous hold reaches $T$. Holds meeting the threshold allow
+skipping; separate short presses do not accumulate. A sensation
+description cannot be skipped by any of these inputs.
+
+\textit{Test Case Derivation:} \srsfrref{FR_IgnoreRepeatedTouches}{19}
+sets the minimum continuous hold and preserves the exception for
+sensation descriptions in \srsfrref{FR_DescribeSensations}{8}.
+
+\textit{How test will be performed:} Use a Unity Play Mode test with
+timed input through the normal input handler and retain the event log.
+Check elapsed hold time at each skip, including the boundary at $T$,
+allowing for the next input-processing frame but never an early skip.
+Use recorded event times, rather than requested script delays, to check
+the actual hold durations. Confirm the same behaviour with short taps
+and a deliberate hold on the device,
+and record protected descriptions playing to their natural end.
 
 \end{frtestlist}
 
