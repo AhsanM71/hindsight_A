@@ -1194,7 +1194,7 @@ and instructions outside levels.
 \textit{Output/Result:} Every instruction has matching narration and a
 visual demonstration. No required action depends on reading.
 
-\textit{Test Case Derivation:} FR12 requires both forms of guidance and
+\textit{Test Case Derivation:} \srsfrref{FR_SpokenInstructions}{12} requires both forms of guidance and
 prohibits levels from requiring reading.
 
 \textit{How test will be performed:} Record the walkthrough with audio.
@@ -1220,7 +1220,7 @@ checked in \frtestref{ST_ExitingInterruptions_06}.
 \textit{Output/Result:} Each incorrect action gives an encouraging hint
 and allows another attempt. The correct action is accepted and play continues.
 
-\textit{Test Case Derivation:} FR13 requires hints and retries for incorrect
+\textit{Test Case Derivation:} \srsfrref{FR_HintOnMiss}{13} requires hints and retries for incorrect
 actions, including repeated mistakes.
 
 \textit{How test will be performed:} Record each action, the hint's wording
@@ -1248,7 +1248,7 @@ reduced motion.
 state. The child cannot disable them; settings that change them require
 the parental gate. Size and motion changes do not remove needed guidance.
 
-\textit{Test Case Derivation:} FR14 requires persistent cues and restricts
+\textit{Test Case Derivation:} \srsfrref{FR_VisualCues}{14} requires persistent cues and restricts
 changes to caregiver settings under \srsfrref{FR_ParentGate}{38}.
 
 \textit{How test will be performed:} Mark each state and setting combination
@@ -1279,7 +1279,7 @@ instruction. The caregiver prompt explains how to restore sound without
 blocking play. Muting does not pause play or prevent completion; restoring
 sound permits subsequent narration while visual guidance remains available.
 
-\textit{Test Case Derivation:} FR15 requires visual guidance and a
+\textit{Test Case Derivation:} \srsfrref{FR_NarrationFallback}{15} requires visual guidance and a
 non-blocking prompt. SR-18 of the Hazard Analysis \cite{HazardAnalysis}
 also covers narration disabled through settings.
 
@@ -1312,8 +1312,8 @@ at least two non-colour cues. The reveal remains available for retry.
 Selecting a correct answer gives encouraging feedback before continuation;
 skip permits continuation without a correct answer or penalty.
 
-\textit{Test Case Derivation:} FR16 requires reveal and retry; FR18 permits
-skipping. NFR10 and NFR12 specify cues and timing, also required by SR-16
+\textit{Test Case Derivation:} \srsfrref{FR_RevealAnswer}{16} requires reveal and retry; \srsfrref{FR_NoPenalty}{18} permits
+skipping. \srsnfrref{NFR_Colour}{10} and \srsnfrref{NFR_Responsiveness}{12} specify cues and timing, also required by SR-16
 of the Hazard Analysis \cite{HazardAnalysis}.
 
 \textit{How test will be performed:} Compare reveals with the answer key.
@@ -1345,7 +1345,7 @@ remain playable; invalid questions are excluded and logged. Exclusion leaves
 no empty question screen or blocked level. Each displayed question has at
 least one correct answer, and every expected correct option is accepted.
 
-\textit{Test Case Derivation:} FR17 requires valid answers. Build-time
+\textit{Test Case Derivation:} \srsfrref{FR_ValidQuestions}{17} requires valid answers. Build-time
 validation satisfies SR-17 of the Hazard Analysis \cite{HazardAnalysis}
 and the SRS \srstableref{tab:DevelopmentPhaseThree}{Phase 3 plan}.
 
@@ -1381,8 +1381,8 @@ negative text, audio, or visual feedback and remove no points, coins, or
 accessories. Both paths reach \textit{Completed} with the full defined
 first-completion reward. Replay preserves completion and gives no duplicate reward.
 
-\textit{Test Case Derivation:} FR18 prohibits penalties and blocked
-completion; FR8 protects sensation descriptions. FR11, FR28, and FR29
+\textit{Test Case Derivation:} \srsfrref{FR_NoPenalty}{18} prohibits penalties and blocked
+completion; \srsfrref{FR_DescribeSensations}{8} protects sensation descriptions. \srsfrref{FR_LevelEnd}{11}, \srsfrref{FR_FirstReward}{28}, and \srsfrref{FR_NoDuplicateReward}{29}
 define completion and rewards.
 
 \textit{How test will be performed:} Compare rewards immediately before
@@ -1414,7 +1414,7 @@ control's position. Once the destination appears, send a fresh valid input.
 navigation action. Extra touches neither skip screens nor execute later
 on the destination. Fresh input works after the transition.
 
-\textit{Test Case Derivation:} FR19 requires additional touches to be
+\textit{Test Case Derivation:} \srsfrref{FR_IgnoreRepeatedTouches}{19} requires additional touches to be
 ignored until the next screen appears, including transitions outside levels.
 
 \textit{How test will be performed:} Use Unity Play Mode tests through the
@@ -1437,7 +1437,7 @@ mandatory sensation descriptions.
 
 \textit{Output/Result:} These touches neither skip nor shorten narration.
 
-\textit{Test Case Derivation:} FR19 protects procedure narration from
+\textit{Test Case Derivation:} \srsfrref{FR_IgnoreRepeatedTouches}{19} protects procedure narration from
 touches outside the three named controls.
 
 \textit{How test will be performed:} Record touch locations and audio;
@@ -1469,8 +1469,8 @@ activity on the next input-processing frame. Shorter holds never skip,
 and separate presses do not accumulate, including across interruptions.
 Sensation descriptions cannot be skipped, even with a hold of $T$ or longer.
 
-\textit{Test Case Derivation:} FR19 defines the hold threshold and preserves
-FR8's exception for sensation descriptions.
+\textit{Test Case Derivation:} \srsfrref{FR_IgnoreRepeatedTouches}{19} defines the hold threshold and preserves
+\srsfrref{FR_DescribeSensations}{8}'s exception for sensation descriptions.
 
 \textit{How test will be performed:} Use timed Unity Play Mode input through
 the normal handler. Measure actual hold durations from logs; allow the next
@@ -1520,8 +1520,8 @@ level to reach each remaining screen.
 map with one touch, without confirmation or waiting for an exercise or
 narration to finish.
 
-\textit{Test Case Derivation:} FR20 defines the destination, FR24 requires
-exit from every screen, and NFR4 sets the one-touch limit.
+\textit{Test Case Derivation:} \srsfrref{FR_ExitLevel}{20} defines the destination, \srsfrref{FR_RestartLevel}{24} requires
+exit from every screen, and \srsnfrref{NFR_Exit}{4} sets the one-touch limit.
 
 \textit{How test will be performed:} Record the starting screen, touch
 count, and destination for each exit. Reuse these results for NFR4 in
@@ -1544,7 +1544,7 @@ and wait on the map past their scheduled start or completion.
 \textit{Output/Result:} All level media stop before the map appears and
 none starts later. The map's own media may play.
 
-\textit{Test Case Derivation:} FR21 and SR-13 of the Hazard Analysis
+\textit{Test Case Derivation:} \srsfrref{FR_StopOnExit}{21} and SR-13 of the Hazard Analysis
 \cite{HazardAnalysis} require level media to stop on exit.
 
 \textit{How test will be performed:} Reuse exits from
@@ -1571,7 +1571,7 @@ replay. Include exits after a hint, after a skip, and just before completion.
 reward issued. The target remains \textit{In Progress} or \textit{Completed}
 as appropriate; other levels are unaffected.
 
-\textit{Test Case Derivation:} FR22 leaves player state unchanged on exit.
+\textit{Test Case Derivation:} \srsfrref{FR_ExitKeepsData}{22} leaves player state unchanged on exit.
 The baseline is taken after starting because \srsfrref{FR_StartLevel}{4}
 can first change the target to \textit{In Progress}.
 
@@ -1597,7 +1597,7 @@ replays.
 \textit{Output/Result:} Each run starts at the level's beginning, without
 resuming the abandoned step or resetting the journey.
 
-\textit{Test Case Derivation:} FR23 requires a fresh start after exit or
+\textit{Test Case Derivation:} \srsfrref{FR_RestartAfterExit}{23} requires a fresh start after exit or
 closure; \srsfrref{FR_Suspend}{25} covers resuming a retained process.
 
 \textit{How test will be performed:} Reuse exits from
@@ -1627,8 +1627,8 @@ are unchanged: unfinished levels remain
 \textit{In Progress}, completed levels remain \textit{Completed}, and
 restarting gives no reward.
 
-\textit{Test Case Derivation:} FR24 requires restart from every screen
-without losing progress; FR19 keeps it available during narration.
+\textit{Test Case Derivation:} \srsfrref{FR_RestartLevel}{24} requires restart from every screen
+without losing progress; \srsfrref{FR_IgnoreRepeatedTouches}{19} keeps it available during narration.
 
 \textit{How test will be performed:} Record the starting and returned
 screens, successful interaction and exit, and before-and-after saved values.
@@ -1655,7 +1655,7 @@ before completing the task.
 or changes to saved progress or rewards. Valid input, home, and restart
 remain usable; mandatory sensation descriptions remain unskippable.
 
-\textit{Test Case Derivation:} FR24 requires unexpected inputs to be ignored
+\textit{Test Case Derivation:} \srsfrref{FR_RestartLevel}{24} requires unexpected inputs to be ignored
 without blocking play; SR-4 of the Hazard Analysis \cite{HazardAnalysis}
 also covers recovery from unfinished actions.
 
@@ -1689,7 +1689,7 @@ Timers and callbacks do not consume paused time, skip content on return,
 or complete the level during the pause. Exercises remain usable, and statuses
 and rewards are unchanged.
 
-\textit{Test Case Derivation:} FR25 requires continuation from the paused
+\textit{Test Case Derivation:} \srsfrref{FR_Suspend}{25} requires continuation from the paused
 point; SR-25 of the Hazard Analysis \cite{HazardAnalysis} requires media
 to resume together. Start-offset timing is checked in \testref{ST_AVSync}.
 
@@ -1720,7 +1720,7 @@ neither audio nor screen, where available.
 \frtestref{ST_ExitingInterruptions_07}. Notifications that take over neither
 audio nor screen do not pause play.
 
-\textit{Test Case Derivation:} FR25 and SR-18/SR-25 of the Hazard Analysis
+\textit{Test Case Derivation:} \srsfrref{FR_Suspend}{25} and SR-18/SR-25 of the Hazard Analysis
 \cite{HazardAnalysis} cover interruptions beyond backgrounding. Muting is
 checked in \frtestref{ST_InstructionsFeedback_04}.
 
@@ -1781,7 +1781,7 @@ is processed. Purchases save both coin deduction and ownership; completion
 saves status and rewards. Unaffected values remain unchanged, and unequipping
 or resetting saves the resulting empty/default values.
 
-\textit{Test Case Derivation:} FR26 requires saving each change before the
+\textit{Test Case Derivation:} \srsfrref{FR_PersistState}{26} requires saving each change before the
 next input; checking only a later launch cannot establish this ordering.
 
 \textit{How test will be performed:} Log the change, storage commit, and
@@ -1816,9 +1816,9 @@ with the map, scoreboard, shop, and character display. Neither launch nor
 replay awards duplicate rewards. Reset and clear-all remain effective across
 launches; reset keeps acknowledgement, while clear-all requires it again.
 
-\textit{Test Case Derivation:} FR26 requires restoration; the SRS
+\textit{Test Case Derivation:} \srsfrref{FR_PersistState}{26} requires restoration; the SRS
 \srstableref{UC_OfflineUse}{offline-use case} also covers customization.
-FR29 prohibits repeat rewards, and FR42/FR43 define deletion and acknowledgement.
+\srsfrref{FR_NoDuplicateReward}{29} prohibits repeat rewards, and \srsfrref{FR_ResetJourney}{42}/\srsfrref{FR_ClearAllData}{43} define deletion and acknowledgement.
 
 \textit{How test will be performed:} Verify process termination and compare
 loaded and displayed values with the baseline. Include foreground and
@@ -1847,7 +1847,7 @@ a retry or shutdown save from hiding it; remove the fault before relaunch.
 remain readable and unchanged, and relaunch restores them without partial
 changes or a reset. Saving and restoration work once storage is available.
 
-\textit{Test Case Derivation:} FR26 preserves previously saved player state;
+\textit{Test Case Derivation:} \srsfrref{FR_PersistState}{26} preserves previously saved player state;
 SR-20 of the Hazard Analysis \cite{HazardAnalysis} requires failure handling
 without crashes.
 
@@ -1879,7 +1879,7 @@ Include a control terminated after successful commit.
 state without mixed, damaged, or reset statuses and coins. The completed-write
 control restores the full new save. Relaunch does not crash.
 
-\textit{Test Case Derivation:} FR26 covers interrupted writes as well as
+\textit{Test Case Derivation:} \srsfrref{FR_PersistState}{26} covers interrupted writes as well as
 reported failures; termination after commit must retain the new save.
 
 \textit{How test will be performed:} Use debugger or test hooks to pause
@@ -1908,7 +1908,7 @@ level is \textit{Not Started}; coins, journey points, and completed-level
 count are zero. No accessories are owned/equipped and no character is selected.
 All levels remain available using the default character.
 
-\textit{Test Case Derivation:} FR27 specifies new-installation progress
+\textit{Test Case Derivation:} \srsfrref{FR_CorruptData}{27} specifies new-installation progress
 and customization; \srsfrref{FR_ChooseCharacter}{31} provides a default character.
 
 \textit{How test will be performed:} Confirm missing data before launch
@@ -1933,7 +1933,7 @@ when reading the existing save, while allowing replacement data to be written.
 in \frtestref{ST_SavingRestoring_05} without failure or partial recovery.
 Later launches use the replacement rather than restoring the old data.
 
-\textit{Test Case Derivation:} FR27 separately requires recovery from
+\textit{Test Case Derivation:} \srsfrref{FR_CorruptData}{27} separately requires recovery from
 existing data that cannot be read.
 
 \textit{How test will be performed:} Confirm the save exists and the read
@@ -1967,7 +1967,7 @@ progress display. The whole progress/customization state is replaced with
 the defaults in \frtestref{ST_SavingRestoring_05}, without failure or
 retained old values. Replacement data remains usable across launches.
 
-\textit{Test Case Derivation:} FR27 requires replacement; SR-20 of the
+\textit{Test Case Derivation:} \srsfrref{FR_CorruptData}{27} requires replacement; SR-20 of the
 Hazard Analysis \cite{HazardAnalysis} requires validation before use.
 Valid values follow the \srstableref{def_Player}{player-state model},
 \srstableref{tab:JourneyDataDictionary}{data dictionary}, and
