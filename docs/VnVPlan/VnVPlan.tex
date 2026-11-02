@@ -2334,27 +2334,89 @@ specified.
 \begin{frtestlist}
 
 \item[\frtestdef{ST_CaregiverFeatures_01}]
-\textbf{[Test Case Name]}
+\textbf{Caregiver Settings and Guides with Gate, Nickname, and Preferences}
 
 \textit{Type:} Functional, Dynamic, manual.
 
 \textit{Requirements Covered:}
-[Insert SRS functional requirement reference(s).]
+\srsfrref{sec:CharactersAccessories}{1}, \srsfrref{sec:CharactersAccessories}{14}, 
+\srsfrref{sec:CharactersAccessories}{38}, \srsfrref{sec:CharactersAccessories}{39}, 
+\srsfrref{sec:CharactersAccessories}{40}, \srsfrref{sec:CharactersAccessories}{41}
 
 \textit{Initial State:}
-[Describe the caregiver settings and application state.]
+Acknowledged profile with known state and caregiver access closed.
 
 \textit{Input/Condition:}
-[Describe the caregiver action or feature being tested.]
+Attempt to open every settings entry without completing the written gate, then enter an incorrect 
+then correct written response. Open each procedure guide and the medical notice for viewing. 
+Set nickname “Eye”, change to “Iris”, cancel an edit, then clear it. Change age, 
+narration/music/effect volume, visual cue size, and reduced motion while settings stay open.
 
 \textit{Output/Result:}
-[Describe the expected caregiver feature behaviour.]
+No settings or reset control bypasses the reading-based gate. The correct response opens
+settings. Each guide explains the child's experience and the matching level, and the medical
+notice is presented. The nickname is optional, editable, and clearable, and cancelled edits are
+not saved. All listed preference changes take effect immediately without a restart, and
+essential visual cues remain available. No request for a real name or health record appears.
 
 \textit{Test Case Derivation:}
-[Explain how the test verifies the corresponding SRS requirement.]
+\srsfrref{sec:CharactersAccessories}{38}, \srsfrref{sec:CharactersAccessories}{39}, 
+\srsfrref{sec:CharactersAccessories}{40}, \srsfrref{sec:CharactersAccessories}{41} 
+define the features and settings offered to caregivers; \srsfrref{sec:CharactersAccessories}{1} stores 
+medical notice acknowledgment in the procedure guide and \srsfrref{sec:CharactersAccessories}{14} 
+ensures settings are changed only within caregiver settings. No undocumented nickname length or 
+clinical-data input is introduced as an acceptance rule.
 
 \textit{How test will be performed:}
-[Describe how the feature will be tested and results recorded.]
+List every route to settings and try each one before passing the gate, confirming it is
+blocked. Open each procedure guide and the medical notice and check their content. After each
+nickname edit, compare the saved state with the previous one. After each preference change,
+check its effect immediately, without restarting the app. Once all changes are finished,
+relaunch the app and verify that the saved preferences are restored.
+
+\item[\frtestdef{ST_CaregiverFeatures_02}]
+\textbf{Journey Reset and Clearing All Data}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+\srsfrref{sec:CharactersAccessories}{1}, \srsfrref{sec:CharactersAccessories}{2}, 
+\srsfrref{sec:CharactersAccessories}{40}, \srsfrref{sec:CharactersAccessories}{42}, 
+\srsfrref{sec:CharactersAccessories}{43}
+
+\textit{Initial State:}
+Start a journey reset and cancel it, then start it again and confirm. Restore the fully
+populated test profile, then start a clear-all and cancel it, then start it again and
+confirm. After each confirmed reset or clear-all, restart the app and check that the
+built-in content is still there.
+
+\textit{Input/Condition:}
+Start a journey reset and cancel it, then start it again and confirm. Restore the fully
+populated test profile, then start a clear-all and cancel it, then start it again and
+confirm. After each confirmed reset or clear-all, restart the app and check that the
+built-in content is still there.
+
+\textit{Output/Result:}
+Each request explains the deletion and asks confirmation, with cancellation changing nothing. 
+Confirmed journey reset returns every level to NotStarted, points/coins to zero, removes 
+owned/equipped items, deselects the character, and clears nickname. Medical notice acknowledgement 
+and the other caregiver preferences (age, audio volumes, cue size, and reduced motion) are 
+retained and home appears. Confirmed clear-all additionally removes medical notice acknowledgement 
+and all local preferences, restoring installation defaults and showing the notice before home. 
+Both preserve packaged levels/assets and their offline availability. An empty journey can also be 
+cancelled or reset safely.
+
+\textit{Test Case Derivation:}
+\srsfrref{sec:CharactersAccessories}{42} distinguishes a journey reset from \srsfrref{sec:CharactersAccessories}{43} 
+clear-all. The clear-all reset creates the new player state ensuring by \srsfrref{sec:CharactersAccessories}{1} that 
+the medical notice acknowledgement is presented. The journey reset retains the medical notice acknowledgement in caregiver 
+settings by \srsfrref{sec:CharactersAccessories}{2}.
+
+\textit{How test will be performed:}
+Save a copy of everything the app stores on the device before and after each case (journey
+reset and clear-all, each cancelled and confirmed). After each confirmed case, restart the
+app and compare the stored data with a freshly installed app. Check that all levels can
+still be played offline and that no deleted nickname or inventory item reappears.
 
 % Add additional test cases as needed.
 
