@@ -1586,37 +1586,316 @@ and record protected descriptions playing to their natural end.
 \subsubsection{Exiting and Interruptions}
 \label{sec:ExitingInterruptionsFRTests}
 
-These tests verify how the game handles exiting activities
-and interruptions during gameplay. They check that the
-application responds appropriately to these actions
-according to the SRS.
+These tests verify \srsfrref{FR_ExitLevel}{20}--\srsfrref{FR_Suspend}{25}.
+Use the level-state inventory from
+Section~\ref{sec:InstructionsFeedbackFRTests} and run the applicable
+checks in all three levels, including default content and each distinct
+age-group variant. For \srsfrref{FR_Suspend}{25}, also include other
+application screens with active audio or animation, such as the journey
+map or character screen. Record the device, OS version, build and content
+versions, tested state, and result. Screenshots, recordings, and temporary
+local Unity logs will provide evidence of navigation, player state, and
+media playback, using the test tools in the Development Plan \cite{DevPlan}.
+Record unavailable device or interruption checks as unverified.
+
+One run may support several tests when the build, device, state, and
+inputs match. Keep a result for each requirement and reference the same
+evidence; add only the missing cases. In particular, the exit runs below
+can check navigation, media shutdown, and unchanged progress together.
 
 \begin{frtestlist}
 
 \item[\frtestdef{ST_ExitingInterruptions_01}]
-\textbf{[Test Case Name]}
+\textbf{Return to the Journey Map from Every Screen}
 
 \textit{Type:} Functional, Dynamic, manual.
 
-\textit{Requirements Covered:}
-[Insert SRS functional requirement reference(s).]
+\textit{Requirements Covered:} \srsfrref{FR_ExitLevel}{20},
+\srsfrref{FR_RestartLevel}{24}; one-touch exit from
+\srsnfrref{NFR_Exit}{4}.
 
-\textit{Initial State:}
-[Describe the application state before the interruption.]
+\textit{Initial State:} Setup is complete and the target level is
+open. The inventory includes its introduction, instructions, exercises,
+hints, answer reveals, feedback, and ending screens.
 
-\textit{Input/Condition:}
-[Describe the exit action or interruption being tested.]
+\textit{Input/Condition:} On each listed screen, select the game's
+home control once. Include active narration, mandatory sensation
+descriptions, and unfinished exercises. Re-enter the level and advance
+to the next state to repeat the check.
 
-\textit{Output/Result:}
-[Describe the expected application behaviour.]
+\textit{Output/Result:} Every screen provides a home control that
+ends the current level and returns to the journey map with one touch.
+No confirmation, completed exercise, or finished narration is required
+before leaving. The journey map is usable after the exit.
 
-\textit{Test Case Derivation:}
-[Explain which requirement defines this behaviour.]
+\textit{Test Case Derivation:} \srsfrref{FR_ExitLevel}{20} defines
+the exit destination; \srsfrref{FR_RestartLevel}{24} requires an exit
+from every screen. \srsnfrref{NFR_Exit}{4} limits that exit to one touch.
 
-\textit{How test will be performed:}
-[Describe the actions, observations, and evidence recorded.]
+\textit{How test will be performed:} Record the starting screen,
+touch count, and resulting journey map for each state. Reuse matching
+narration runs from \frtestref{ST_InstructionsFeedback_10} and flag
+any missing control or state that prevents leaving.
 
-% Add additional test cases as needed.
+\item[\frtestdef{ST_ExitingInterruptions_02}]
+\textbf{Level Audio and Visuals Stop on Exit}
+
+\textit{Type:} Functional, Dynamic, manual with playback logs.
+
+\textit{Requirements Covered:} \srsfrref{FR_StopOnExit}{21}.
+
+\textit{Initial State:} Device and caregiver audio settings allow
+playback, and a level is playing identifiable audio, animation, or
+visual effects. The inventory lists its narration,
+music, sound effects, animations, and any delayed or looping effects.
+
+\textit{Input/Condition:} Select home while each distinct media type
+is active, including overlapping media where present. Where delayed
+effects exist, also exit before one starts and remain on the journey
+map past its scheduled start or completion time.
+
+\textit{Output/Result:} Handling the exit stops all media belonging
+to the level before the journey map is shown. None continues or starts
+later on the map. Distinguish the map's own media from content left
+over from the exited level.
+
+\textit{Test Case Derivation:} \srsfrref{FR_StopOnExit}{21} requires
+all level audio, animation, and effects to stop before returning to
+the map, addressing SR-13 of the Hazard Analysis \cite{HazardAnalysis}.
+
+\textit{How test will be performed:} Use applicable exits from
+\frtestref{ST_ExitingInterruptions_01}, recording the screen and device
+audio. Compare the exit event, media-stop events, and first displayed
+map frame in temporary Unity logs; check for later playback events.
+Inspect active playback objects for looping effects that would otherwise
+continue indefinitely. Record the affected media IDs and event order.
+
+\item[\frtestdef{ST_ExitingInterruptions_03}]
+\textbf{Early Exit Preserves Progress and Rewards}
+
+\textit{Type:} Functional, Dynamic, manual with state inspection.
+
+\textit{Requirements Covered:} \srsfrref{FR_ExitKeepsData}{22}.
+
+\textit{Initial State:} Prepare both a new journey and a journey
+with completed levels and earned rewards. Start the target level,
+then record every level's status, total journey points, coin balance,
+and owned accessories before the exit. Use nonzero rewards where available.
+
+\textit{Input/Condition:} Leave the target level before its ending,
+first during an unfinished attempt and then during a replay of a
+completed level. Include exits after a hint, after a skipped exercise,
+and just before the level's completion event.
+
+\textit{Output/Result:} Exit changes none of the recorded values
+and gives no reward. An unfinished level remains \textit{In Progress};
+a replayed level remains \textit{Completed}. Other levels retain their
+statuses, and no previously earned points, coins, or accessories are lost.
+
+\textit{Test Case Derivation:} \srsfrref{FR_ExitKeepsData}{22} applies
+the SRS exit operation, which leaves player state unchanged. The
+comparison starts after the level is opened because
+\srsfrref{FR_StartLevel}{4} can change \textit{Not Started} to
+\textit{In Progress} before exit is tested.
+
+\textit{How test will be performed:} Add state snapshots to applicable
+exits from \frtestref{ST_ExitingInterruptions_01} and reuse matching
+early-exit evidence from \frtestref{ST_AM_ReplayCompleted} and
+\frtestref{ST_AM_LevelCompletion}. Compare displayed values or temporary
+state logs immediately before and after exit. Check event order so that
+an exit after genuine completion is not reported as an early exit.
+
+\item[\frtestdef{ST_ExitingInterruptions_04}]
+\textbf{Start from the Beginning after Exit or Closure}
+
+\textit{Type:} Functional, Dynamic, manual with process and state logs.
+
+\textit{Requirements Covered:} \srsfrref{FR_RestartAfterExit}{23}.
+
+\textit{Initial State:} The target level has advanced beyond its
+introduction and has not reached its ending. Record its opening
+screen and current step. Confirm that pending saves have completed
+before testing application closure.
+
+\textit{Input/Condition:} In separate runs, leave through home and
+start the same level again; close the application during the level,
+relaunch it, and start that level; and terminate the application while
+it is backgrounded, then relaunch and start the level. Repeat with
+an unfinished level and a replay of a completed level.
+
+\textit{Output/Result:} Every new run starts at the level's beginning,
+not at the abandoned exercise or media position. This applies to both
+unfinished levels and completed-level replays, without resetting the journey.
+
+\textit{Test Case Derivation:} \srsfrref{FR_RestartAfterExit}{23}
+requires a fresh level start after exit or application closure.
+This differs from resuming a retained process under
+\srsfrref{FR_Suspend}{25}.
+
+\textit{How test will be performed:} Re-enter levels after the exits
+recorded in \frtestref{ST_ExitingInterruptions_03}. For closure cases,
+terminate the process using device or development controls and verify
+termination in the logs. Compare each new starting screen with the
+introduction. Save restoration and interrupted writes under
+\srsfrref{FR_PersistState}{26} belong to
+Section~\ref{sec:SavingRestoringFRTests}.
+
+\item[\frtestdef{ST_ExitingInterruptions_05}]
+\textbf{Restart from Every Screen without Losing Progress}
+
+\textit{Type:} Functional, Dynamic, manual with state inspection.
+
+\textit{Requirements Covered:} \srsfrref{FR_RestartLevel}{24}.
+
+\textit{Initial State:} The target level is open, and all saved
+level statuses and rewards have been recorded. Prepare both an
+unfinished attempt and a completed-level replay with earned rewards.
+For an ending-screen check, record the state after completion has
+already been applied.
+
+\textit{Input/Condition:} From every screen in the inventory, use
+the restart control. Include narration, sensation descriptions,
+an unfinished action, hint and answer-reveal screens, and the ending.
+After each restart, attempt the first interaction and check that
+home remains available.
+
+\textit{Output/Result:} Every screen offers a working restart that
+returns the current level to its beginning. Saved progress and rewards
+are unchanged: unfinished levels remain \textit{In Progress} and
+completed levels remain \textit{Completed}. No reward is removed or
+issued merely for restarting, and play can continue from the beginning.
+
+\textit{Test Case Derivation:} \srsfrref{FR_RestartLevel}{24}
+requires restart from every screen while keeping saved progress
+and rewards. Availability during narration is also required by
+\srsfrref{FR_IgnoreRepeatedTouches}{19}.
+
+\textit{How test will be performed:} Reuse matching restart runs from
+\frtestref{ST_InstructionsFeedback_10}, adding the remaining screens
+and state snapshots. Record each starting screen, returned introduction,
+and successful first interaction, and compare saved progress and rewards.
+The one-touch limit in \frtestref{ST_ExitingInterruptions_01} applies
+only to home.
+
+\item[\frtestdef{ST_ExitingInterruptions_06}]
+\textbf{Unexpected Inputs Do Not Block Play}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:} \srsfrref{FR_RestartLevel}{24}.
+
+\textit{Initial State:} For each level state, list inputs with no
+defined action, such as touches on non-interactive areas or gestures
+the screen does not use. Distinguish these from incorrect task
+responses, which require feedback in
+\frtestref{ST_InstructionsFeedback_02} and
+\frtestref{ST_InstructionsFeedback_05}.
+
+\textit{Input/Condition:} Apply each listed unexpected input once
+and repeatedly, including during an unfinished action. Lift the test
+fingers, then try a valid response or hold skip where allowed. In
+separate runs, use home and restart while the task is still unfinished,
+without first completing it or resetting the level. Mandatory sensation
+descriptions remain protected from skipping.
+
+\textit{Output/Result:} Unexpected inputs are ignored and cause
+no unintended navigation or change to saved progress or rewards.
+The level remains usable: permitted inputs work, and both home and
+restart provide recovery. No input leaves an exercise stuck
+or disables the controls needed to continue or leave.
+
+\textit{Test Case Derivation:} \srsfrref{FR_RestartLevel}{24}
+requires unexpected inputs to be ignored without blocking play.
+SR-4 of the Hazard Analysis \cite{HazardAnalysis} also identifies
+unfinished actions as a recovery risk.
+
+\textit{How test will be performed:} Record the state, gesture,
+observed response, and successful continuation, exit, or restart.
+Compare progress before and after each unexpected input. Reuse
+\frtestref{ST_InstructionsFeedback_09} for repeated touches during
+transitions and \frtestref{ST_InstructionsFeedback_10} for narration.
+
+\item[\frtestdef{ST_ExitingInterruptions_07}]
+\textbf{Pause and Resume after Backgrounding or Locking}
+
+\textit{Type:} Functional, Dynamic, manual with playback logs.
+
+\textit{Requirements Covered:} \srsfrref{FR_Suspend}{25}.
+
+\textit{Initial State:} Audio is enabled. Record the current screen,
+exercise state, and every active media item, including music and sound
+effects. For narrated steps, use the matching content checked in
+\testref{ST_AVSync}. The application process is retained during this test.
+
+\textit{Input/Condition:} Send the application to the background,
+wait beyond the remaining media duration or one loop, then return.
+Use the same interval for exercises waiting without active media.
+In a separate run, lock the device, wait, unlock it, and return to
+the application. Include each distinct media sequence, mandatory
+sensation descriptions, unfinished exercises, and non-level screens
+with active media. Perform a second pause/resume cycle.
+
+\textit{Output/Result:} All application audio and animation pause
+while interrupted. Their playback positions do not advance during
+the pause. On return, the same screen continues from those positions,
+without restarting or skipping content. Narration and its matching
+animation resume together and remain aligned with the same procedure step.
+An unfinished exercise remains usable, and the interruption itself
+does not complete the level or award a reward.
+
+\textit{Test Case Derivation:} \srsfrref{FR_Suspend}{25} requires
+pausing and continuing from the same point. SR-25 of the Hazard
+Analysis \cite{HazardAnalysis} requires narration and animation to
+resume together. The start-offset criterion in
+\srsnfrref{NFR_AVSync}{14} is measured separately in \testref{ST_AVSync}.
+
+\textit{How test will be performed:} Record device audio and log the
+interruption, each media position when pausing takes effect, and that
+position immediately before playback resumes. Compare those positions
+and the resumed content. Verify normal input after return, including
+home and restart within levels. An application crash fails the test.
+Only a confirmed OS termination is assessed under
+\frtestref{ST_ExitingInterruptions_04}; repeat the pause/resume check
+with the process retained.
+
+\item[\frtestdef{ST_ExitingInterruptions_08}]
+\textbf{Pause and Resume after Audio or Screen Interruptions}
+
+\textit{Type:} Functional, Dynamic, manual with interruption and playback logs.
+
+\textit{Requirements Covered:} \srsfrref{FR_Suspend}{25}.
+
+\textit{Initial State:} Use the same screen and media states as
+\frtestref{ST_ExitingInterruptions_07}, with the process retained.
+Choose available external events that take over audio or the screen.
+
+\textit{Input/Condition:} Trigger an incoming call, alarm, or another
+application's notification that causes an interruption. Test audio
+takeover while the game remains visible and screen takeover where
+supported. End or dismiss the interruption and return control to the
+game. Repeat during a sensation description and while an exercise
+is waiting for input.
+
+\textit{Output/Result:} Each actual audio or screen takeover meets
+the pause, resume, and continued-play criteria in
+\frtestref{ST_ExitingInterruptions_07}. A notification that takes
+over neither audio nor screen is not treated as an interruption for
+this test.
+
+\textit{Test Case Derivation:} \srsfrref{FR_Suspend}{25} covers
+audio and screen interruptions as well as backgrounding. This
+addresses SR-18 and SR-25 of the Hazard Analysis \cite{HazardAnalysis}.
+Muting without an interruption is checked separately in
+\frtestref{ST_InstructionsFeedback_04}.
+
+\textit{How test will be performed:} Confirm the takeover through
+device or OS observations, then check the game's interruption callbacks
+and the playback logs described in \frtestref{ST_ExitingInterruptions_07}.
+A missing game callback does not make an observed interruption inapplicable.
+Use a local alarm or notification for offline runs; record call-based
+checks separately. Simulated events supplement device evidence, with
+untested device events recorded as unverified. No notification feature
+is required in the game itself.
 
 \end{frtestlist}
 
