@@ -2209,30 +2209,111 @@ selections affect the game.
 \begin{frtestlist}
 
 \item[\frtestdef{ST_CharactersAccessories_01}]
-\textbf{[Test Case Name]}
+\textbf{Default to Character Selection and Diversity Inventory}
 
 \textit{Type:} Functional, Dynamic, manual.
 
 \textit{Requirements Covered:}
-[Insert SRS functional requirement reference(s).]
+\srsfrref{sec:CharactersAccessories}{31}, \srsfrref{sec:CharacterAccessories}{32}.
 
 \textit{Initial State:}
-[Describe the available characters, accessories, and
-customization state.]
+No selected character, then a test character with known progress and items.
 
 \textit{Input/Condition:}
-[Describe the character or accessory interaction being tested.]
+Enter character selection, preview and cancel, then confirm a different character. Inspect 
+every character/accessory catalogue entry against \srsfrref{sec:CharacterAccessories}{32} attributes.
 
 \textit{Output/Result:}
-[Describe the expected customization behaviour.]
+The unselected state uses a default character and does not block play. Every selectable character 
+is shown. A preview/cancel does not commit a selection but confirmation changes only the selected 
+character, preserving progress, coins, owned and equipped items. The catalogue includes variation 
+in skin tone, hair, body type, gender expression, accessibility/medical aids, and cultural/religious 
+accessories as required.
 
 \textit{Test Case Derivation:}
-[Explain how the test relates to the specified requirement.]
+\srsfrref{sec:CharacterAccessories}{31} defines selection-only state changes and default behaviour 
+for the character selection. \srsfrref{sec:CharacterAccessories}{32} defines the attributes for 
+the diversity inventory.
 
 \textit{How test will be performed:}
-[Describe the steps and evidence used to verify the outcome.]
+Save the full state before and after the preview and confirmation steps, and compare them.
+Restart the app to check that the selection is remembered. Keep the catalogue checklist and
+any open issues about how characters are represented in inventory.
 
-% Add additional test cases as needed.
+\item[\frtestdef{ST_CharactersAccessories_02}]
+\textbf{Purchase Flow with Previews, Affordability, and Ownership with No Real-Money}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+\srsfrref{sec:CharactersAccessories}{33}, \srsfrref{sec:CharacterAccessories}{34}, 
+\srsfrref{sec:CharacterAccessories}{35}, \srsfrref{sec:CharacterAccessories}{37}.
+
+\textit{Initial State:}
+An unowned fixture item at a fixed price in coins, an already-owned item, and
+separate balances of price-minus-one coin, exact price, and price-plus-one coin.
+
+\textit{Input/Condition:}
+Preview/cancel each item, confirm affordable purchases, attempt an unaffordable purchase, and 
+attempt to buy an owned item. Inspect every purchase path offline and online.
+
+\textit{Output/Result:}
+The shop shows every priced item's preview on the selected character, price, and ownership. 
+Preview/cancel changes nothing. Exact-price purchase leaves zero coins and adds the item once. 
+Price-plus-one leaves one coin. Price-minus-one is refused reports one more coin needed. 
+The owned item purchase is refused unchanged and offers equip. No real-money offer, payment 
+flow, or change to journey points/completion exists.
+
+\textit{Test Case Derivation:}
+\srsfrref{sec:CharactersAccessories}{33} requires that preview contains character, price, and 
+ownership information and \srsfrref{sec:CharactersAccessories}{37} ensures real-money purchases 
+are excluded from the preview and purchase flow. \srsfrref{sec:CharactersAccessories}{34} and 
+\srsfrref{sec:CharactersAccessories}{35} distinguishes the boundary cases of purchases based on 
+price by sufficient and insufficient balance/ownership status respectively.
+
+\textit{How test will be performed:}
+Repeat every purchase path offline and online: set up the fixture with one unowned item at 
+fixed price in coins, one owned item, and three separate balances: price minus one, 
+exact price, and price plus one and save the full state before each step. For each item, 
+open the preview and cancel, then confirm a purchase at the exact-price, price-plus-one balances, 
+and at the price-minus-one balance. For each state, check the expected coins remains (0 or 1) 
+and check that it is refused with a message saying one more coin is needed. Attempt to buy the 
+owned item and check that it is refused with an equip option is offered. After each step, compare 
+the before state with the current state, ensuring no real-money offer appears, and that journey 
+points/completion are unchanged.
+
+\item[\frtestdef{ST_CharactersAccessories_03}]
+\textbf{Equip, Unequip, and Ownership Restrictions of Accessories}
+
+\textit{Type:} Functional, Dynamic, manual.
+
+\textit{Requirements Covered:}
+\srsfrref{sec:CharactersAccessories}{36}
+
+\textit{Initial State:}
+Two owned hats A and B, one owned accessory C from another category, one unowned accessory D,
+and known balances and progress.
+
+\textit{Input/Condition:}
+Equip A, then B, then C. Unequip B. Attempt to equip D, and preview and cancel D. Relaunch
+after the equipment changes have completed to verify the updated state and that balances and
+progress are unchanged.
+
+\textit{Output/Result:}
+B replaces A in the hat category, and A stays owned but unequipped. C remains equipped in its
+own category. Unequipping B removes only the equipped association, leaving no hat equipped.
+D cannot be equipped, and preview/cancel commits nothing. All owned accessories remain owned,
+and balance, progress, and character selection are unchanged. The updated equipment status is
+saved and restored on relaunch.
+
+\textit{Test Case Derivation:}
+\srsfrref{sec:CharactersAccessories}{36} permits equipping and unequipping only owned
+accessories, with at most one per category, without deleting ownership.
+
+\textit{How test will be performed:}
+Perform on offline and online states: compare the category inventory of accessories, the
+ownership sets of accessories, and the rendered character before and after each step. After
+the final step, relaunch the app and compare the restored state with the saved state.
 
 \end{frtestlist}
 
