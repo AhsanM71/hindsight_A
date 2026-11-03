@@ -601,7 +601,7 @@ the problem found, and the change needed. The assigned team member will make
 the correction, and another team member will check the update before the issue
 is closed.
 
-\subsection{Verification and Validation Plan Verification}
+\subsection{Verification and Validation Plan Verification}\label{sec:VnVPlanVerification}
 
 The Verification and Validation Plan will be reviewed by the team before submission and after major
 revisions to check completeness, accuracy, and feasibility. Each section
@@ -633,7 +633,7 @@ will be committed with reference to the issue and checked by another member
 before it is closed. If a suggestion is not adopted, the team will record the
 reason why in the issue.
 
-\subsection{Implementation Verification}
+\subsection{Implementation Verification}\label{sec:ImplementationVerification}
 
 Implementation verification will check that the code follows the design and
 meets the requirements in the SRS \cite{SRS}. The team will use dynamic testing
@@ -3158,7 +3158,7 @@ GitHub Issue references and in the future, the store review responses and approv
 
 \end{testlist}
 
-\subsection{Traceability Between Test Cases and Requirements}
+\subsection{Traceability Between Test Cases and Requirements}\label{sec:TestRequirementTraceability}
 
 Table~\ref{tab:TestRequirementTraceability} maps each functional and
 non-functional SRS requirement to the tests that explicitly cite it in their
@@ -4078,6 +4078,16 @@ Is the app usable in a clinic waiting room, offline and with the sound muted?
   verification approach. GPT-6.1 Sol was used to improve the wording, grammar,
   and flow while preserving the team's original ideas and decisions.
 
+  \item In Section~\ref{sec:VnVPlanVerification} (Verification and Validation
+  Plan Verification), GPT-6 was used to write the initial draft of the
+  checklist, improve its wording, and provide feedback that the team member
+  then implemented.
+
+  \item In Section~\ref{sec:ImplementationVerification} (Implementation
+  Verification), GPT-6 was used to write the initial draft, improve the
+  wording, and ensure consistency with related source documents, including
+  the Development Plan. The team member then implemented its feedback.
+
   \item In Section~\ref{sec:SoftwareValidation}, Opus 5.5 was used to assist with the 
   formatting and organization of the software validation section for clarity. The 
   content was reviewed and finalized by hand to ensure the accuracy and completeness of the
@@ -4100,6 +4110,12 @@ Is the app usable in a clinic waiting room, offline and with the sound muted?
   against the SRS to ensure appropriate requirement coverage,
   traceability, and feasibility within the capstone scope.
 
+  \item In Sections~\ref{sec:InstructionsFeedbackFRTests}--\ref{sec:SavingRestoringFRTests}
+  (Instructions and Feedback, Exiting and Interruptions, and Saving and
+  Restoring Progress), GPT-6 was used to write the initial drafts, improve
+  the wording, and ensure consistency across all source documents for those
+  test cases. The team member then implemented its feedback.
+
   \item In Section~\ref{sec:CharactersAccessoriesFRTests} and Section~\ref{sec:CaregiverFeaturesFRTests}, 
   Opus 5.5 was used to assist with drafting and formatting the of the tests. The content was reviewed and 
   edited to ensure the tests accurately reflected the SRS requirements and were feasible within the 
@@ -4121,6 +4137,11 @@ Is the app usable in a clinic waiting room, offline and with the sound muted?
   formatting the Compliance tests, including the checklists within the review procedure. The content was 
   reviewed and edited to ensure the tests accurately reflected the SRS requirements and the fit criterion 
   specified within the non-functional requirements in the SRS.
+
+  \item In Section~\ref{sec:TestRequirementTraceability} (Traceability Between
+  Test Cases and Requirements), GPT-6 was used to create the table's
+  \LaTeX{} formatting, ensure all test cases and their requirement relationships
+  were captured, and fix broken requirement links as needed.
 
   \item In Section~\ref{sec:VnVParameters}, GPT-6.1 Sol was used to help
   organize the symbolic parameter tables and link constants to the tests.
@@ -4158,6 +4179,9 @@ Is the app usable in a clinic waiting room, offline and with the sound muted?
   and \srsnfrref{NFR_Layout}{1}--\srsnfrref{NFR_Colour}{10}. It also added the \constref{SURVEY_AGREE_RATE_MIN} parameter.
   The team member reviewed the survey against the SRS.
 
+  \item In Appendix~\ref{sec:Reflection} (Reflection), GPT-6 was used to
+  improve the wording, clarity, and conciseness of Jackson's reflection.
+
   \item GPT-6.1 Sol \& GPT-6 were also used to assist with automatic test numbering,
   cross document references, and general \LaTeX{} formatting.
 \end{itemize}
@@ -4183,7 +4207,7 @@ completeness, consistency, and appropriateness of the final VnV Plan.
 
 \newpage{}
 
-\section{Appendix --- Reflection}
+\section{Appendix --- Reflection}\label{sec:Reflection}
 
 Questions 1 and 2 were answered individually by each team member. For
 Questions 3 and 4, the team brainstormed the knowledge and skills needed to
