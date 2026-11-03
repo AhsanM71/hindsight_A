@@ -174,9 +174,6 @@ FPS & Frames per second.\\
 FR & Functional Requirement.\\
 ID & Identifier; used to identify screens, assets, or content.\\
 LC & Likely Change, as defined in the SRS.\\
-MG & Module Guide.\\
-MIS & Module Interface Specification.\\
-FR & Functional Requirement. \\
 NFR & Non-Functional Requirement.\\
 STR & Stakeholder Requirement. \\
 UC & Use Case. \\
@@ -543,7 +540,7 @@ representations where feasible. \\
 
 The SRS will be verified from three perspectives: the TA offering the course expectations perspective, classmates 
 offering the readability and clarity from a novice perspective, and the project supervisor offering the 
-clinical domain expertise perspective. All reviewers will have access to the SRS checklist (see Appendix \ref{app:SRSChecklistQuestions}), 
+clinical domain expertise perspective. All reviewers will have access to the SRS checklist (see Appendix \ref{sec:SRSChecklistQuestions}), 
 which covers completeness, consistency, correctness, testability, traceability to stakeholder needs, and clarity. 
 Reviewers may use the full checklist or only the items relevant to their perspective.
 
@@ -2387,10 +2384,10 @@ relaunch the app and verify that the saved preferences are restored.
 \srsfrref{sec:CharactersAccessories}{43}
 
 \textit{Initial State:}
-Start a journey reset and cancel it, then start it again and confirm. Restore the fully
-populated test profile, then start a clear-all and cancel it, then start it again and
-confirm. After each confirmed reset or clear-all, restart the app and check that the
-built-in content is still there.
+Set up a test profile with the medical notice already acknowledged and these non-default
+settings: a different age group, changed narration, music, and effect volumes, larger visual
+cues, and reduced motion. Repeat with a profile that has an empty journey. Record every
+preference before deleting anything.
 
 \textit{Input/Condition:}
 Start a journey reset and cancel it, then start it again and confirm. Restore the fully
@@ -3148,16 +3145,16 @@ store and observing its behaviour, requested permissions, and network traffic. F
 will record a Yes/No response, and any ``No'' answer requires a finding containing the checklist item, 
 policy section, concern, and proposed change. Reviewers will compare findings, record their resolution 
 in GitHub Issues, rebuild the release candidate, and rerun the affected checks. When every item passes, 
-the team submits the release build to both stores for a children's audience and records each store's review
-response. Any rejection or request for changes is recorded as a finding and resolved in the same way, and 
-the corrected build is resubmitted.
+the team has the option to submit the release build to both stores for a children's audience and records 
+each store's review response. Any rejection or request for changes is recorded as a finding and resolved 
+in the same way, and the corrected build is resubmitted.
 
 \textit{Expected result and evidence:}
-Every checklist item passes for both stores, and both the App Store and Google Play approve the release 
-build for a children's audience. Evidence is the dated policy checklist with the policy versions, the 
-completed answers from both reviewers, the submitted build identifiers, the store review responses and 
-approval records, the records of any correction and the rerun results, the reviewers' names, and the 
-GitHub Issue references.
+Every checklist item passes for both stores, signifying that for future submission, both the App Store 
+and Google Play have a high probability of apporving the release build for a children's audience. 
+Evidence is the dated policy checklist with the policy versions, the completed answers from both reviewers, 
+the submitted build identifiers, the records of any correction and the rerun results, the reviewers' names, the 
+GitHub Issue references and in the future, the store review responses and approval records.
 
 \end{testlist}
 
@@ -3900,8 +3897,6 @@ Is the app usable in a clinic waiting room, offline and with the sound muted?
 \newpage{}
 
 \section{Appendix --- Generative AI Use Disclosure}
-
-\wss{ChatGPT (version 5) was used to brainstorm ideas for the template for this disclose section.}
 
 \subsection{AI Tools Used}
 
