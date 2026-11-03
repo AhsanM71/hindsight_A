@@ -3160,8 +3160,159 @@ GitHub Issue references and in the future, the store review responses and approv
 
 \subsection{Traceability Between Test Cases and Requirements}
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+Table~\ref{tab:TestRequirementTraceability} maps each functional and
+non-functional SRS requirement to the tests that explicitly cite it in their
+\textit{Requirements Covered} field, including related checks. Requirement IDs
+link to the SRS, and test IDs link to the corresponding cases in this plan.
+
+``Not yet specified'' identifies requirements with no explicit test mapping.
+\frtestref{ST_CharactersAccessories_01} and
+\frtestref{ST_CaregiverFeatures_01} are placeholders and do not establish
+coverage. The existing checks for \srsfrref{FR_ResetJourney}{42} and
+\srsfrref{FR_ClearAllData}{43} address persistence only; their remaining
+behaviour still needs test cases. The compliance tests in
+Section~\ref{sec:ComplianceNFRTests} have not yet been specified.
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.14\textwidth}
+  >{\raggedright\arraybackslash}p{0.37\textwidth}
+  >{\raggedright\arraybackslash}p{\dimexpr0.49\textwidth-4\tabcolsep\relax}@{}}
+\caption{Traceability Between Test Cases and Requirements}
+\label{tab:TestRequirementTraceability}\\
+\toprule
+\textbf{Requirement} & \textbf{Requirement Focus} & \textbf{Supporting Test Cases}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page}\\
+\toprule
+\textbf{Requirement} & \textbf{Requirement Focus} & \textbf{Supporting Test Cases}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\multicolumn{3}{@{}l}{\textbf{Functional Requirements}}\\*
+\addlinespace
+\srsfrref{FR_MedicalNotice}{1} & Medical notice &
+  \frtestref{ST_AM_NoticeFirstLaunch}, \frtestref{ST_AM_NoticeInGuide}\\
+\srsfrref{FR_RecordAck}{2} & Stored notice acknowledgement &
+  \frtestref{ST_AM_AcknowledgementSaved}\\
+\srsfrref{FR_JourneyMap}{3} & Journey map and level status &
+  \frtestref{ST_AM_JourneyFresh}, \frtestref{ST_AM_JourneyMixedStatuses}\\
+\srsfrref{FR_StartLevel}{4} & Unrestricted level access &
+  \frtestref{ST_AM_JourneyMixedStatuses}, \frtestref{ST_AM_IndependentLevelAccess}, \frtestref{ST_AM_ReplayCompleted}\\
+\srsfrref{FR_Replay}{5} & Replay completed levels &
+  \frtestref{ST_AM_ReplayCompleted}\\
+\srsfrref{FR_LevelContent}{6} & Procedure content in every level &
+  \frtestref{ST_AM_ProcedureContent}\\
+\srsfrref{FR_AgeGroup}{7} & Age-specific content &
+  \frtestref{ST_AM_AgeGroupSelection}\\
+\srsfrref{FR_DescribeSensations}{8} & Required sensation descriptions &
+  \frtestref{ST_AM_SensationBeforeSkip}, \frtestref{ST_AM_SkippedActivitiesStillComplete}, \frtestref{ST_InstructionsFeedback_07}, \frtestref{ST_InstructionsFeedback_11}\\
+\srsfrref{FR_ClinicsDiffer}{9} & Differences between game and clinic &
+  \frtestref{ST_AM_ProcedureVariation}\\
+\srsfrref{FR_SpeakUp}{10} & Permission to express discomfort &
+  \frtestref{ST_AM_ExpressConcern}, \frtestref{ST_AM_SkippedActivitiesStillComplete}\\
+\srsfrref{FR_LevelEnd}{11} & Level completion &
+  \frtestref{ST_AM_JourneyMixedStatuses}, \frtestref{ST_AM_LevelCompletion}, \frtestref{ST_AM_SkippedActivitiesStillComplete}, \frtestref{ST_InstructionsFeedback_07}\\
+\srsfrref{FR_SpokenInstructions}{12} & Narrated instructions and demonstrations &
+  \frtestref{ST_InstructionsFeedback_01}\\
+\srsfrref{FR_HintOnMiss}{13} & Encouraging hints after errors &
+  \frtestref{ST_InstructionsFeedback_02}\\
+\srsfrref{FR_VisualCues}{14} & Persistent visual cues &
+  \frtestref{ST_InstructionsFeedback_03}\\
+\srsfrref{FR_NarrationFallback}{15} & Instructions without sound &
+  \frtestref{ST_InstructionsFeedback_04}\\
+\srsfrref{FR_RevealAnswer}{16} & Correct-answer reveal &
+  \frtestref{ST_InstructionsFeedback_05}\\
+\srsfrref{FR_ValidQuestions}{17} & Valid questions &
+  \frtestref{ST_InstructionsFeedback_06}\\
+\srsfrref{FR_NoPenalty}{18} & No penalties for skips or errors &
+  \frtestref{ST_InstructionsFeedback_05}, \frtestref{ST_InstructionsFeedback_07}\\
+\srsfrref{FR_IgnoreRepeatedTouches}{19} & Repeated touches and protected narration &
+  \frtestref{ST_InstructionsFeedback_09}, \frtestref{ST_InstructionsFeedback_10}, \frtestref{ST_InstructionsFeedback_11}, \frtestref{ST_ExitingInterruptions_05}\\
+\srsfrref{FR_ExitLevel}{20} & Exit to the journey map &
+  \frtestref{ST_ExitingInterruptions_01}\\
+\srsfrref{FR_StopOnExit}{21} & Stop level media on exit &
+  \frtestref{ST_ExitingInterruptions_02}\\
+\srsfrref{FR_ExitKeepsData}{22} & Preserve progress on early exit &
+  \frtestref{ST_ExitingInterruptions_03}\\
+\srsfrref{FR_RestartAfterExit}{23} & Start from the beginning after exit &
+  \frtestref{ST_ExitingInterruptions_04}\\
+\srsfrref{FR_RestartLevel}{24} & Restart and unexpected-input recovery &
+  \frtestref{ST_ExitingInterruptions_01}, \frtestref{ST_ExitingInterruptions_05}, \frtestref{ST_ExitingInterruptions_06}\\
+\srsfrref{FR_Suspend}{25} & Pause and resume on interruption &
+  \frtestref{ST_ExitingInterruptions_07}, \frtestref{ST_ExitingInterruptions_08}\\
+\srsfrref{FR_PersistState}{26} & Save and restore local state &
+  \frtestref{ST_SavingRestoring_01}, \frtestref{ST_SavingRestoring_02}, \frtestref{ST_SavingRestoring_03}, \frtestref{ST_SavingRestoring_04}\\
+\srsfrref{FR_CorruptData}{27} & Recover from unusable saved data &
+  \frtestref{ST_SavingRestoring_05}, \frtestref{ST_SavingRestoring_06}, \frtestref{ST_SavingRestoring_07}\\
+\srsfrref{FR_FirstReward}{28} & Reward on first completion &
+  \frtestref{ST_InstructionsFeedback_07}, \frtestref{ST_RewardsScoreboard_01}, \frtestref{ST_RewardsScoreboard_02}\\
+\srsfrref{FR_NoDuplicateReward}{29} & No duplicate rewards &
+  \frtestref{ST_InstructionsFeedback_07}, \frtestref{ST_SavingRestoring_02}, \frtestref{ST_RewardsScoreboard_03}\\
+\srsfrref{FR_Scoreboard}{30} & Personal scoreboard &
+  \frtestref{ST_RewardsScoreboard_04}, \frtestref{ST_RewardsScoreboard_05}\\
+\srsfrref{FR_ChooseCharacter}{31} & Character selection & Not yet specified\\
+\srsfrref{FR_DiverseCharacters}{32} & Diverse characters and accessories & Not yet specified\\
+\srsfrref{FR_Shop}{33} & Accessory shop & Not yet specified\\
+\srsfrref{FR_Purchase}{34} & Accessory purchases & Not yet specified\\
+\srsfrref{FR_PurchaseRefused}{35} & Refused purchases & Not yet specified\\
+\srsfrref{FR_Equip}{36} & Equip and unequip accessories & Not yet specified\\
+\srsfrref{FR_NoRealMoney}{37} & No real-money purchases & Not yet specified\\
+\srsfrref{FR_ParentGate}{38} & Parental gate for settings & Not yet specified\\
+\srsfrref{FR_ProcedureGuide}{39} & Caregiver procedure guide & Not yet specified\\
+\srsfrref{FR_Nickname}{40} & Optional nickname & Not yet specified\\
+\srsfrref{FR_Preferences}{41} & Caregiver preferences & Not yet specified\\
+\srsfrref{FR_ResetJourney}{42} & Reset journey data &
+  \frtestref{ST_SavingRestoring_02} (persistence only)\\
+\srsfrref{FR_ClearAllData}{43} & Clear all local data &
+  \frtestref{ST_SavingRestoring_02} (persistence only)\\
+
+\addlinespace
+\multicolumn{3}{@{}l}{\textbf{Non-Functional Requirements}}\\*
+\addlinespace
+\srsnfrref{NFR_Layout}{1} & Consistent control positions & \testref{ST_Layout}\\
+\srsnfrref{NFR_ChildSafe}{2} & Child-safe content & \testref{ST_ChildSafe}\\
+\srsnfrref{NFR_TouchTarget}{3} & Touch target size & \testref{ST_TouchTarget}\\
+\srsnfrref{NFR_Exit}{4} & One-touch exit &
+  \frtestref{ST_ExitingInterruptions_01}, \testref{ST_Exit}\\
+\srsnfrref{NFR_Usability}{5} & Core tasks without training & \testref{ST_Usability}\\
+\srsnfrref{NFR_ClinicianUse}{6} & Clinician access to a named level & \testref{ST_ClinicianUse}\\
+\srsnfrref{NFR_NoPressure}{7} & No pressure to keep playing & \testref{ST_NoPressure}\\
+\srsnfrref{NFR_Language}{8} & Age-appropriate language & \testref{ST_Language}\\
+\srsnfrref{NFR_Accessibility}{9} & WCAG 2.2 Level AA accessibility & \testref{ST_Accessibility}\\
+\srsnfrref{NFR_Colour}{10} & Cues that do not rely on colour &
+  \frtestref{ST_InstructionsFeedback_05}, \testref{ST_Colour}\\
+\srsnfrref{NFR_Startup}{11} & Startup time & \testref{ST_Startup}\\
+\srsnfrref{NFR_Responsiveness}{12} & Touch response and reveal timing &
+  \frtestref{ST_InstructionsFeedback_05}, \testref{ST_Responsiveness}\\
+\srsnfrref{NFR_Smoothness}{13} & Animation frame rate & \testref{ST_Smoothness}\\
+\srsnfrref{NFR_AVSync}{14} & Narration and animation timing & \testref{ST_AVSync}\\
+\srsnfrref{NFR_AudioSafety}{15} & Safe audio levels & \testref{ST_AudioSafety}\\
+\srsnfrref{NFR_Flashing}{16} & Flashing limits & \testref{ST_Flashing}\\
+\srsnfrref{NFR_Reliability}{17} & Crash-free sessions & \testref{ST_Reliability}\\
+\srsnfrref{NFR_DeviceHeat}{18} & CPU utilization & \testref{ST_DeviceHeat}\\
+\srsnfrref{NFR_Offline}{19} & Offline functionality & \testref{ST_Offline}\\
+\srsnfrref{NFR_Installability}{20} & Installation and first launch & \testref{ST_Installability}\\
+\srsnfrref{NFR_InstallSize}{21} & Installed application size & \testref{ST_InstallSize}\\
+\srsnfrref{NFR_ClinicalAccuracy}{22} & Clinical approval of content & \testref{ST_ClinicalAccuracy}\\
+\srsnfrref{NFR_Maintainability}{23} & Effort to make likely changes & \testref{ST_Maintainability}\\
+\srsnfrref{NFR_Portability}{24} & Supported devices and platforms & \testref{ST_Portability}\\
+\srsnfrref{NFR_DependencyTesting}{25} & Dependency versions and testing & \testref{ST_DependencyTesting}\\
+\srsnfrref{NFR_DataProtection}{26} & Private local storage & \testref{ST_DataProtection}\\
+\srsnfrref{NFR_Integrity}{27} & Signed releases and official stores & \testref{ST_Integrity}\\
+\srsnfrref{NFR_Privacy}{28} & No outbound data & \testref{ST_Privacy}\\
+\srsnfrref{NFR_Minimization}{29} & Minimal stored data & \testref{ST_Minimization}\\
+\srsnfrref{NFR_Immunity}{30} & No high or critical dependency vulnerabilities & \testref{ST_Immunity}\\
+\srsnfrref{NFR_Inclusivity}{31} & Inclusive language and visuals &
+  \testref{ST_AM_InclusivityLanguage}, \testref{ST_AM_InclusivityVisuals}\\
+\srsnfrref{NFR_NoClaims}{32} & No medical claims & Not yet specified\\
+\srsnfrref{NFR_Licensing}{33} & Third-party licences & Not yet specified\\
+\srsnfrref{NFR_StoreCompliance}{34} & Children's app-store policies & Not yet specified\\
+\end{longtable}
 
 \newpage
 \section{Unit Test Description}
