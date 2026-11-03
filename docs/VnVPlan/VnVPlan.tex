@@ -2213,14 +2213,14 @@ selections affect the game.
 \textit{Type:} Functional, Dynamic, manual.
 
 \textit{Requirements Covered:}
-\srsfrref{sec:CharactersAccessories}{31}, \srsfrref{sec:CharacterAccessories}{32}.
+\srsfrref{FR_ChooseCharacter}{31}, \srsfrref{FR_DiverseCharacters}{32}.
 
 \textit{Initial State:}
 No selected character, then a test character with known progress and items.
 
 \textit{Input/Condition:}
 Enter character selection, preview and cancel, then confirm a different character. Inspect 
-every character/accessory catalogue entry against \srsfrref{sec:CharacterAccessories}{32} attributes.
+every character/accessory catalogue entry against \srsfrref{FR_DiverseCharacters}{32} attributes.
 
 \textit{Output/Result:}
 The unselected state uses a default character and does not block play. Every selectable character 
@@ -2230,8 +2230,8 @@ in skin tone, hair, body type, gender expression, accessibility/medical aids, an
 accessories as required.
 
 \textit{Test Case Derivation:}
-\srsfrref{sec:CharacterAccessories}{31} defines selection-only state changes and default behaviour 
-for the character selection. \srsfrref{sec:CharacterAccessories}{32} defines the attributes for 
+\srsfrref{FR_ChooseCharacter}{31} defines selection-only state changes and default behaviour
+for the character selection. \srsfrref{FR_DiverseCharacters}{32} defines the attributes for
 the diversity inventory.
 
 \textit{How test will be performed:}
@@ -2245,8 +2245,8 @@ any open issues about how characters are represented in inventory.
 \textit{Type:} Functional, Dynamic, manual.
 
 \textit{Requirements Covered:}
-\srsfrref{sec:CharactersAccessories}{33}, \srsfrref{sec:CharacterAccessories}{34}, 
-\srsfrref{sec:CharacterAccessories}{35}, \srsfrref{sec:CharacterAccessories}{37}.
+\srsfrref{FR_Shop}{33}, \srsfrref{FR_Purchase}{34},
+\srsfrref{FR_PurchaseRefused}{35}, \srsfrref{FR_NoRealMoney}{37}.
 
 \textit{Initial State:}
 An unowned fixture item at a fixed price in coins, an already-owned item, and
@@ -2264,10 +2264,10 @@ The owned item purchase is refused unchanged and offers equip. No real-money off
 flow, or change to journey points/completion exists.
 
 \textit{Test Case Derivation:}
-\srsfrref{sec:CharactersAccessories}{33} requires that preview contains character, price, and 
-ownership information and \srsfrref{sec:CharactersAccessories}{37} ensures real-money purchases 
-are excluded from the preview and purchase flow. \srsfrref{sec:CharactersAccessories}{34} and 
-\srsfrref{sec:CharactersAccessories}{35} distinguishes the boundary cases of purchases based on 
+\srsfrref{FR_Shop}{33} requires that preview contains character, price, and
+ownership information and \srsfrref{FR_NoRealMoney}{37} ensures real-money purchases
+are excluded from the preview and purchase flow. \srsfrref{FR_Purchase}{34} and
+\srsfrref{FR_PurchaseRefused}{35} distinguishes the boundary cases of purchases based on
 price by sufficient and insufficient balance/ownership status respectively.
 
 \textit{How test will be performed:}
@@ -2287,7 +2287,7 @@ points/completion are unchanged.
 \textit{Type:} Functional, Dynamic, manual.
 
 \textit{Requirements Covered:}
-\srsfrref{sec:CharactersAccessories}{36}
+\srsfrref{FR_Equip}{36}
 
 \textit{Initial State:}
 Two owned hats A and B, one owned accessory C from another category, one unowned accessory D,
@@ -2306,7 +2306,7 @@ and balance, progress, and character selection are unchanged. The updated equipm
 saved and restored on relaunch.
 
 \textit{Test Case Derivation:}
-\srsfrref{sec:CharactersAccessories}{36} permits equipping and unequipping only owned
+\srsfrref{FR_Equip}{36} permits equipping and unequipping only owned
 accessories, with at most one per category, without deleting ownership.
 
 \textit{How test will be performed:}
@@ -2338,9 +2338,9 @@ specified.
 \textit{Type:} Functional, Dynamic, manual.
 
 \textit{Requirements Covered:}
-\srsfrref{sec:CharactersAccessories}{1}, \srsfrref{sec:CharactersAccessories}{14}, 
-\srsfrref{sec:CharactersAccessories}{38}, \srsfrref{sec:CharactersAccessories}{39}, 
-\srsfrref{sec:CharactersAccessories}{40}, \srsfrref{sec:CharactersAccessories}{41}
+\srsfrref{FR_MedicalNotice}{1}, \srsfrref{FR_VisualCues}{14},
+\srsfrref{FR_ParentGate}{38}, \srsfrref{FR_ProcedureGuide}{39},
+\srsfrref{FR_Nickname}{40}, \srsfrref{FR_Preferences}{41}
 
 \textit{Initial State:}
 Acknowledged profile with known state and caregiver access closed.
@@ -2359,10 +2359,10 @@ not saved. All listed preference changes take effect immediately without a resta
 essential visual cues remain available. No request for a real name or health record appears.
 
 \textit{Test Case Derivation:}
-\srsfrref{sec:CharactersAccessories}{38}, \srsfrref{sec:CharactersAccessories}{39}, 
-\srsfrref{sec:CharactersAccessories}{40}, \srsfrref{sec:CharactersAccessories}{41} 
-define the features and settings offered to caregivers; \srsfrref{sec:CharactersAccessories}{1} stores 
-medical notice acknowledgment in the procedure guide and \srsfrref{sec:CharactersAccessories}{14} 
+\srsfrref{FR_ParentGate}{38}, \srsfrref{FR_ProcedureGuide}{39},
+\srsfrref{FR_Nickname}{40}, \srsfrref{FR_Preferences}{41}
+define the features and settings offered to caregivers; \srsfrref{FR_MedicalNotice}{1} stores
+medical notice acknowledgment in the procedure guide and \srsfrref{FR_VisualCues}{14}
 ensures settings are changed only within caregiver settings. No undocumented nickname length or 
 clinical-data input is introduced as an acceptance rule.
 
@@ -2379,9 +2379,9 @@ relaunch the app and verify that the saved preferences are restored.
 \textit{Type:} Functional, Dynamic, manual.
 
 \textit{Requirements Covered:}
-\srsfrref{sec:CharactersAccessories}{1}, \srsfrref{sec:CharactersAccessories}{2}, 
-\srsfrref{sec:CharactersAccessories}{40}, \srsfrref{sec:CharactersAccessories}{42}, 
-\srsfrref{sec:CharactersAccessories}{43}
+\srsfrref{FR_MedicalNotice}{1}, \srsfrref{FR_RecordAck}{2},
+\srsfrref{FR_Nickname}{40}, \srsfrref{FR_ResetJourney}{42},
+\srsfrref{FR_ClearAllData}{43}
 
 \textit{Initial State:}
 Set up a test profile with the medical notice already acknowledged and these non-default
@@ -2406,10 +2406,10 @@ Both preserve packaged levels/assets and their offline availability. An empty jo
 cancelled or reset safely.
 
 \textit{Test Case Derivation:}
-\srsfrref{sec:CharactersAccessories}{42} distinguishes a journey reset from \srsfrref{sec:CharactersAccessories}{43} 
-clear-all. The clear-all reset creates the new player state ensuring by \srsfrref{sec:CharactersAccessories}{1} that 
+\srsfrref{FR_ResetJourney}{42} distinguishes a journey reset from \srsfrref{FR_ClearAllData}{43}
+clear-all. The clear-all reset creates the new player state ensuring by \srsfrref{FR_MedicalNotice}{1} that
 the medical notice acknowledgement is presented. The journey reset retains the medical notice acknowledgement in caregiver 
-settings by \srsfrref{sec:CharactersAccessories}{2}.
+settings by \srsfrref{FR_RecordAck}{2}.
 
 \textit{How test will be performed:}
 Save a copy of everything the app stores on the device before and after each case (journey
@@ -3054,7 +3054,7 @@ standards identified for the project.
 
 \textit{Type:} Non-functional, Static content inspection.
 
-\textit{Requirements Covered:} \srsnfrref{sec:ComplianceNFRTests}{32}.
+\textit{Requirements Covered:} \srsnfrref{NFR_NoClaims}{32}.
 
 \textit{Review procedure:}
 Two team members and a clinician will separately review all child-facing text, adult-facing 
@@ -3088,7 +3088,7 @@ and GitHub Issue references provide evidence of the review.
 
 \textit{Type:} Non-functional, Static inspection of licence records and build contents.
 
-\textit{Requirements Covered:} \srsnfrref{sec:ComplianceNFRTests}{33}.
+\textit{Requirements Covered:} \srsnfrref{NFR_Licensing}{33}.
 
 \textit{Review procedure:}
 The assigned reviewer and a second team member will separately build an inventory of every 
@@ -3125,7 +3125,7 @@ provide evidence of the review.
 \textit{Type:} Non-functional, Static inspection of the release build and store submissions, 
 with device testing.
 
-\textit{Requirements Covered:} \srsnfrref{sec:ComplianceNFRTests}{34}.
+\textit{Requirements Covered:} \srsnfrref{NFR_StoreCompliance}{34}.
 
 \textit{Initial state:} The release build, store listings, privacy disclosures, target 
 audience declarations, and policy versions used for submission are frozen.
@@ -3165,14 +3165,6 @@ non-functional SRS requirement to the tests that explicitly cite it in their
 \textit{Requirements Covered} field, including related checks. Requirement IDs
 link to the SRS, and test IDs link to the corresponding cases in this plan.
 
-``Not yet specified'' identifies requirements with no explicit test mapping.
-\frtestref{ST_CharactersAccessories_01} and
-\frtestref{ST_CaregiverFeatures_01} are placeholders and do not establish
-coverage. The existing checks for \srsfrref{FR_ResetJourney}{42} and
-\srsfrref{FR_ClearAllData}{43} address persistence only; their remaining
-behaviour still needs test cases. The compliance tests in
-Section~\ref{sec:ComplianceNFRTests} have not yet been specified.
-
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.14\textwidth}
   >{\raggedright\arraybackslash}p{0.37\textwidth}
   >{\raggedright\arraybackslash}p{\dimexpr0.49\textwidth-4\tabcolsep\relax}@{}}
@@ -3196,9 +3188,9 @@ Section~\ref{sec:ComplianceNFRTests} have not yet been specified.
 \multicolumn{3}{@{}l}{\textbf{Functional Requirements}}\\*
 \addlinespace
 \srsfrref{FR_MedicalNotice}{1} & Medical notice &
-  \frtestref{ST_AM_NoticeFirstLaunch}, \frtestref{ST_AM_NoticeInGuide}\\
+  \frtestref{ST_AM_NoticeFirstLaunch}, \frtestref{ST_AM_NoticeInGuide}, \frtestref{ST_CaregiverFeatures_01}, \frtestref{ST_CaregiverFeatures_02}\\
 \srsfrref{FR_RecordAck}{2} & Stored notice acknowledgement &
-  \frtestref{ST_AM_AcknowledgementSaved}\\
+  \frtestref{ST_AM_AcknowledgementSaved}, \frtestref{ST_CaregiverFeatures_02}\\
 \srsfrref{FR_JourneyMap}{3} & Journey map and level status &
   \frtestref{ST_AM_JourneyFresh}, \frtestref{ST_AM_JourneyMixedStatuses}\\
 \srsfrref{FR_StartLevel}{4} & Unrestricted level access &
@@ -3222,7 +3214,7 @@ Section~\ref{sec:ComplianceNFRTests} have not yet been specified.
 \srsfrref{FR_HintOnMiss}{13} & Encouraging hints after errors &
   \frtestref{ST_InstructionsFeedback_02}\\
 \srsfrref{FR_VisualCues}{14} & Persistent visual cues &
-  \frtestref{ST_InstructionsFeedback_03}\\
+  \frtestref{ST_InstructionsFeedback_03}, \frtestref{ST_CaregiverFeatures_01}\\
 \srsfrref{FR_NarrationFallback}{15} & Instructions without sound &
   \frtestref{ST_InstructionsFeedback_04}\\
 \srsfrref{FR_RevealAnswer}{16} & Correct-answer reveal &
@@ -3255,21 +3247,22 @@ Section~\ref{sec:ComplianceNFRTests} have not yet been specified.
   \frtestref{ST_InstructionsFeedback_07}, \frtestref{ST_SavingRestoring_02}, \frtestref{ST_RewardsScoreboard_03}\\
 \srsfrref{FR_Scoreboard}{30} & Personal scoreboard &
   \frtestref{ST_RewardsScoreboard_04}, \frtestref{ST_RewardsScoreboard_05}\\
-\srsfrref{FR_ChooseCharacter}{31} & Character selection & Not yet specified\\
-\srsfrref{FR_DiverseCharacters}{32} & Diverse characters and accessories & Not yet specified\\
-\srsfrref{FR_Shop}{33} & Accessory shop & Not yet specified\\
-\srsfrref{FR_Purchase}{34} & Accessory purchases & Not yet specified\\
-\srsfrref{FR_PurchaseRefused}{35} & Refused purchases & Not yet specified\\
-\srsfrref{FR_Equip}{36} & Equip and unequip accessories & Not yet specified\\
-\srsfrref{FR_NoRealMoney}{37} & No real-money purchases & Not yet specified\\
-\srsfrref{FR_ParentGate}{38} & Parental gate for settings & Not yet specified\\
-\srsfrref{FR_ProcedureGuide}{39} & Caregiver procedure guide & Not yet specified\\
-\srsfrref{FR_Nickname}{40} & Optional nickname & Not yet specified\\
-\srsfrref{FR_Preferences}{41} & Caregiver preferences & Not yet specified\\
+\srsfrref{FR_ChooseCharacter}{31} & Character selection & \frtestref{ST_CharactersAccessories_01}\\
+\srsfrref{FR_DiverseCharacters}{32} & Diverse characters and accessories & \frtestref{ST_CharactersAccessories_01}\\
+\srsfrref{FR_Shop}{33} & Accessory shop & \frtestref{ST_CharactersAccessories_02}\\
+\srsfrref{FR_Purchase}{34} & Accessory purchases & \frtestref{ST_CharactersAccessories_02}\\
+\srsfrref{FR_PurchaseRefused}{35} & Refused purchases & \frtestref{ST_CharactersAccessories_02}\\
+\srsfrref{FR_Equip}{36} & Equip and unequip accessories & \frtestref{ST_CharactersAccessories_03}\\
+\srsfrref{FR_NoRealMoney}{37} & No real-money purchases & \frtestref{ST_CharactersAccessories_02}\\
+\srsfrref{FR_ParentGate}{38} & Parental gate for settings & \frtestref{ST_CaregiverFeatures_01}\\
+\srsfrref{FR_ProcedureGuide}{39} & Caregiver procedure guide & \frtestref{ST_CaregiverFeatures_01}\\
+\srsfrref{FR_Nickname}{40} & Optional nickname &
+  \frtestref{ST_CaregiverFeatures_01}, \frtestref{ST_CaregiverFeatures_02}\\
+\srsfrref{FR_Preferences}{41} & Caregiver preferences & \frtestref{ST_CaregiverFeatures_01}\\
 \srsfrref{FR_ResetJourney}{42} & Reset journey data &
-  \frtestref{ST_SavingRestoring_02} (persistence only)\\
+  \frtestref{ST_SavingRestoring_02} (persistence only), \frtestref{ST_CaregiverFeatures_02}\\
 \srsfrref{FR_ClearAllData}{43} & Clear all local data &
-  \frtestref{ST_SavingRestoring_02} (persistence only)\\
+  \frtestref{ST_SavingRestoring_02} (persistence only), \frtestref{ST_CaregiverFeatures_02}\\
 
 \addlinespace
 \multicolumn{3}{@{}l}{\textbf{Non-Functional Requirements}}\\*
@@ -3309,9 +3302,9 @@ Section~\ref{sec:ComplianceNFRTests} have not yet been specified.
 \srsnfrref{NFR_Immunity}{30} & No high or critical dependency vulnerabilities & \testref{ST_Immunity}\\
 \srsnfrref{NFR_Inclusivity}{31} & Inclusive language and visuals &
   \testref{ST_AM_InclusivityLanguage}, \testref{ST_AM_InclusivityVisuals}\\
-\srsnfrref{NFR_NoClaims}{32} & No medical claims & Not yet specified\\
-\srsnfrref{NFR_Licensing}{33} & Third-party licences & Not yet specified\\
-\srsnfrref{NFR_StoreCompliance}{34} & Children's app-store policies & Not yet specified\\
+\srsnfrref{NFR_NoClaims}{32} & No medical claims & \testref{ST_AM_Compliance_01}\\
+\srsnfrref{NFR_Licensing}{33} & Third-party licences & \testref{ST_AM_Compliance_02}\\
+\srsnfrref{NFR_StoreCompliance}{34} & Children's app-store policies & \testref{ST_AM_Compliance_03}\\
 \end{longtable}
 
 \newpage
