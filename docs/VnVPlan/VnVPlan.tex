@@ -4569,6 +4569,68 @@ The individual responses are provided below.
 
 \end{enumerate}
 
+\subsubsection*{Jackson Beach}
+
+\begin{enumerate}
+
+    \item \textbf{What went well while writing this deliverable?}
+
+    What went well was that our source documents gave me a clear starting
+    point for my sections. The SRS outlined the expected behaviour, the
+    Hazard Analysis identified failure cases to consider, and the Problem
+    Statement kept the project's purpose and scope clear. This made it
+    relatively straightforward to extract the information needed for my
+    test cases. The Development Plan was also helpful for implementation
+    verification, since we had already agreed on our review process,
+    coding standards, and testing tools. Having these decisions written
+    down made it easier to describe how we would verify the implementation.
+
+    \item \textbf{What pain points did you experience during this
+    deliverable, and how did you resolve them?}
+
+    The main pain point I found was keeping track of the information across
+    all of these documents. There was a lot to work through, and one test
+    could depend on several requirements, safety considerations, and
+    development decisions. It became tricky to keep those connections clear
+    and make sure the expected results were consistent with the sources.
+    I addressed this by cross-checking the tests against the related
+    sections and reviewing their links in the traceability table. I also
+    used AI to help identify gaps and inconsistencies, then checked its
+    suggestions against the source documents before making changes.
+
+    \item \textbf{What knowledge and/or skill will you need to acquire to
+    successfully complete the verification and validation of your project?}
+
+    One skill I need to develop is controlled fault injection, which means
+    deliberately causing a failure to check how the application handles it.
+    This is relevant to my tests for saving and restoring progress, where
+    I need to check what happens if a write fails, saving is interrupted,
+    or saved data is invalid. I need to learn how to trigger these conditions
+    at a specific point and confirm that the intended failure actually
+    occurred. This will help me determine whether the game preserves or
+    resets progress as required, and whether it remains usable afterwards.
+
+    \item \textbf{What approaches will you pursue to acquire this
+    knowledge or master this skill, and why?}
+
+    My first approach will be to build a small save-and-load example using
+    disposable data. I will add controls that can delay a write or force it
+    to fail, then compare the saved values before and after each run. I will
+    also prepare copies with one invalid field at a time and keep a valid
+    copy for comparison. Starting with a small example will make it easier
+    to understand each failure before applying the approach to the game.
+
+    I will also practise using the debugger to pause at different points
+    in the saving process. Before each run, I will write down what I expect
+    to be restored if the process ends at that point, then compare that
+    prediction with the data loaded after restarting. This will help me
+    understand when a change has actually been saved and where recovery
+    can go wrong. Once I can reproduce these cases reliably, I will apply
+    the same approach to our planned tests, keeping the fault controls in
+    development builds.
+
+\end{enumerate}
+
 \newpage
 \bibliographystyle{unsrt}
 
