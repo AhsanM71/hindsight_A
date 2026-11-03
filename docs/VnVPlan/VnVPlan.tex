@@ -595,16 +595,40 @@ reason why in the issue.
 
 \subsection{Implementation Verification}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
+Implementation verification will check that the code follows the design and
+meets the requirements in the SRS \cite{SRS}. The team will use dynamic testing
+to check the game's behaviour and static review to identify problems without
+running the game.
 
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
+The system tests in Sections~\ref{sec:FRSystemTests}
+and~\ref{sec:NFRSystemTests} define the procedures and expected results for
+checking gameplay, saved progress, rewards, performance, and other required
+behaviour. Manual tests will use the available iOS and Android devices, while
+automated Unity Play Mode tests will check interactions such as awarding
+rewards and updating the scoreboard. Static inspections listed in
+Section~\ref{sec:NFRSystemTests} will also be carried out, including reviews
+of game content and dependencies.
 
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
+Following the Development Plan \cite{DevPlan}, every code change will be
+reviewed by at least one other team member through a GitHub pull request.
+Reviewers will check correctness, error handling, and adherence to the team's
+C\# and Unity coding standards. For critical logic, such as saving progress
+and granting rewards, the author and reviewer will walk through the code
+together and compare it with the SRS and design. Reviewers will also check
+aspects that tools cannot judge, such as whether comments explain important
+decisions and whether game logic, UI logic, and data management are separated
+appropriately.
+
+GitHub Actions will run formatting checks, static analyzers, automated tests,
+and build verification on pull requests using the tools in
+Section~\ref{sec:AutomatedTools}. Required checks must pass before a merge.
+
+Test results will record the test identifier, build version, device and
+operating system where applicable, and supporting evidence. Defects found
+through testing or review will be tracked as GitHub issues and assigned to a
+team member. After a fix, the failed test and related tests will be repeated
+to check for regressions. Dependency changes will require the full functional
+test suite on a release build.
 
 \subsection{Automated Testing and Verification Tools}\label{sec:AutomatedTools}
 
@@ -707,7 +731,7 @@ the main features of the game work as expected, while the non-functional tests
 check qualities such as performance, offline use, maintainability, and security.
 Each test explains what will be checked and how the result will be recorded.
 
-\subsection{Tests for Functional Requirements}
+\subsection{Tests for Functional Requirements}\label{sec:FRSystemTests}
 
 The tests in this section verify the functional requirements (FRs)
 defined in the SRS. These requirements describe the features and
