@@ -1,0 +1,12 @@
+EyeCanDo original avatar and Shop artwork
+
+CharacterArt.cs authors the original meshes and cosmetic prefabs in this folder.
+CharacterShopBuilder.cs renders the item thumbnails during authoring.
+No downloaded character, outfit, or animation models are used in the implementation.
+
+The project reuses its existing URP pipeline, uGUI/Input System, and Fredoka fonts.
+Quaternius research records and bundled CC0 notices are retained only as research
+and licensing evidence under Validation/CharacterShop/Research.
+
+Apply: EyeCanDo > Character & Shop > Apply (clean Edit mode scene).
+Validation results and screenshots: Validation/CharacterShop/Report.md.

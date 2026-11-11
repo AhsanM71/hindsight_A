@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad867a17de8947bb9e009ac0830dc90, type: 3}
+  m_Name: JourneyCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::EyeCanDo.JourneyCatalog
+  journeys:
+  - {fileID: 11400000, guid: 863e22e56b88b4f929b57545f26e4fa8, type: 2}
+  - {fileID: 11400000, guid: bf7710a88c7bd460aa65c9c13148565f, type: 2}
+  - {fileID: 11400000, guid: 77705378d0e9a4f74871ddc91d24210e, type: 2}

@@ -1,0 +1,6 @@
+Quaternius — Stylized Nature MegaKit, Standard edition
+Source: https://quaternius.itch.io/stylized-nature-megakit
+License: CC0 1.0 Universal; https://creativecommons.org/publicdomain/zero/1.0/
+Downloaded 2026-11-10. Imported the FBX (Unity) exports from the free Standard archive.
+Original models by Quaternius. EyeCanDo uses its own URP materials.
+Archive SHA256: 298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9

@@ -1,0 +1,34 @@
+EyeCanDo — Adventure UI, Iteration 3
+Completed 2026-11-10 (America/Toronto), Unity 6000.6.8f1.
+
+Implemented
+Start now uses the clinic garden, eye wordmark, stationary camera, a 540 x 156 raised green Start control, and the existing owl with its blinking and gentle movement. The three procedure themes share one selection scene and present Discover, Watch, and Practice in a shallow arc over a curved garden path. All nine destinations retain Coming Soon behavior; their platforms and clock badges both use the existing selection callback.
+
+Nine original miniature-model illustrations are baked to transparent shared sprites. Each courtyard has a themed palette and the corresponding bottle, slit-lamp station/chair, or picture-chart hero. Runtime scenes have one camera. Shop and Settings use instances of the reusable 160 x 160 icon-button prefab with a 24-unit gap. Their original persistent callbacks are retained. Decorative child motion is separate from existing button feedback.
+
+Static Fredoka Regular and SemiBold TrueType files, TextMeshPro assets, copyright, download URLs, SHA-256 records, and the SIL OFL are retained under Assets/EyeCanDo/UIAdventure/Fonts. The prior Liberation Sans fallback remains available. Existing modal wording and username validation are unchanged. The greeting container and username text sizing were adjusted to fit long names.
+
+Authoring and architecture
+Run EyeCanDo > UI > Apply Adventure UI (Iteration 3).
+Run EyeCanDo > UI > Validate Adventure UI (Iteration 3) for the protected Play-mode fixture.
+New authoring/runtime code, models, sprites, materials, fonts, themes, prefabs, and a derived lighting profile live under Assets/EyeCanDo/UIAdventure. JourneyPresentationTheme is keyed by journey ID. AdventureSelectionPresenter receives the resolved journey and created SublevelCard views. SublevelCard.Bind remains compatible; activation continues through isPlayable and scenePath.
+
+Verification
+- 917 interaction/layout assertions passed through actual Input System mouse and simulated touch events and the real EventSystem.
+- First-time setup; empty/whitespace rejection; accented and 20-character wide names; Settings read-only/edit/save/cancel; greeting updates; Back > Start > Map; returning-player profile reload; all three journeys; all nine platform clicks and all nine badge touches passed.
+- Hover and press scaling, owl blinking, stationary Start camera, modal blocking of controls/world destinations/unsafe screen edges, and one EventSystem per scene passed.
+- Actual 1920 x 1080 and 1280 x 720 Game views were asserted inside the player loop. Ten requested captures were saved and visually inspected. Additional modal, long-name, and safe-area captures are included.
+- Left-notch, right-notch, and rounded-corner safe areas passed. New controls and every phase badge met the 80 x 80 pixel minimum at 1280 x 720. Text-fit assertions passed for all visible UI and modal text.
+- 1613 saved-asset checks passed, including references, fonts, missing scripts, shaders/materials, and runtime camera count.
+- Repeated Apply produced the same hierarchy, transforms, text/font settings, sprites, and persistent callbacks (idempotence.json).
+- The map world hierarchy, transforms, mesh/material references, camera, and lighting match the pre-edit snapshot exactly, apart from explicitly excluded TMP typography (map-comparison.json).
+- The exact original saved profile was restored and the safe-area test override cleared (profile-restored.json). Editor left out of Play mode on saved Start, with no dirty scene and no compile errors or current console warnings/errors.
+
+Scope
+Only six pre-existing files changed: the three scenes, JourneySelectionController.cs, SublevelCard.cs, and SafeArea.cs. All existing source art, journey/catalog data, equipment prefabs, and navigation/profile workflows were retained. Original-file hashes and scene backups are included. No packages, accounts, runtime online dependencies, gameplay systems, or capstone documents were added or changed.
+
+Limits
+Physical-device performance, packaged-player behavior, and actual device safe areas have not been tested. Touch and notches were simulated in the Editor. Returning-player persistence was tested by recreating application services and reloading saved PlayerPrefs, not by a new OS process.
+
+Evidence
+interactions.json; assets.json; screenshots.json; map-before.json; map-after.json; map-comparison.json; idempotence.json; profile-restored.json; final-console-status.json; final-editor-state.json; changed-original-files.json; OFL.txt; SOURCE.txt.

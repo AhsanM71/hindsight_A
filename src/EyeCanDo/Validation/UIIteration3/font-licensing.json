@@ -1,0 +1,10 @@
+{
+  "Fredoka-Regular.ttf": {
+    "sha256": "7fe52d17e4c5c80ec74c9b26cb635d593e72cfc30cc189dab7a0babece57e153",
+    "static": true
+  },
+  "Fredoka-SemiBold.ttf": {
+    "sha256": "594cd6463e8eccef94423fba8e0114c137492f6415af4b414b21b73abcb644a8",
+    "static": true
+  }
+}

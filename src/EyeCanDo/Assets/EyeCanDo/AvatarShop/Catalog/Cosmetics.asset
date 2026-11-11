@@ -1,0 +1,364 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3563155b81d454fe2875a35468e30462, type: 3}
+  m_Name: Cosmetics
+  m_EditorClassIdentifier: Assembly-CSharp::EyeCanDo.CosmeticCatalog
+  items:
+  - id: face.round
+    label: Round
+    category: 0
+    slot: 0
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -1671380212510928872, guid: 897999039703e4cafb04d61c0f6c0cb9, type: 3}
+    visual: {fileID: 6549735293371868872, guid: 99ee130863d314f5998ccc11acb8dd4a, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: face.oval
+    label: Oval
+    category: 0
+    slot: 0
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 6775403316921639882, guid: ae3ee3c99cce342b690125d8859c6c81, type: 3}
+    visual: {fileID: 4719100089578160853, guid: 4826ba6157ace4a5a86823ec9423ffd2, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: face.freckles
+    label: Freckles
+    category: 0
+    slot: 0
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 3172620832480170891, guid: ba5ce30cb42e34b83bfef9dd100bb150, type: 3}
+    visual: {fileID: 2426059415874614174, guid: 2bbab8ba8f77b4232a20036fdbd891d2, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: face.smile
+    label: Bright smile
+    category: 0
+    slot: 0
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -4687161564412310873, guid: 78cd5a657486a471ebca2ea597e0ad1f, type: 3}
+    visual: {fileID: 5188628139049906724, guid: 57565046c0e084b29a434bc06b5b5288, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: skin.0
+    label: Skin tone 1
+    category: 0
+    slot: 1
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 1440601039791526232, guid: 224f14aa6cf9b4ba0a6203d49a374b3b, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.9647059, g: 0.83137256, b: 0.7176471, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: skin.1
+    label: Skin tone 2
+    category: 0
+    slot: 1
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 4772396429301381452, guid: 14b73f4499da942a79f976330eae532e, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.8980392, g: 0.70980394, b: 0.5529412, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: skin.2
+    label: Skin tone 3
+    category: 0
+    slot: 1
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -3279857891445867775, guid: c5fd35d5fc2f04bb984d4ba3f347ec5e, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.7882353, g: 0.5647059, b: 0.3882353, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: skin.3
+    label: Skin tone 4
+    category: 0
+    slot: 1
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 453712368851383968, guid: 645e3ce42bd8d4deb99b67c9432ac0c1, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.6509804, g: 0.42352942, b: 0.28235295, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: skin.4
+    label: Skin tone 5
+    category: 0
+    slot: 1
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 3991212164464252522, guid: df98baec5edb34b348a3fdb2dde0da72, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.47058824, g: 0.3019608, b: 0.20784314, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: skin.5
+    label: Skin tone 6
+    category: 0
+    slot: 1
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -6557982038129777895, guid: a3cebd7bf7708410499ea6526da567f3, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.29803923, g: 0.1882353, b: 0.16470589, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: hair.short
+    label: Short
+    category: 1
+    slot: 2
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -8474563488038191498, guid: 7c2b226aa940443da9f218afc00459a4, type: 3}
+    visual: {fileID: 924187819480026793, guid: c9447883c379341cc8bbc5e65d05cfaf, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: hair.bob
+    label: Bob
+    category: 1
+    slot: 2
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -4466032540963400382, guid: edb5521025e494f61a8e4843faef5450, type: 3}
+    visual: {fileID: 5200662266086548969, guid: bd47d414214b540f9b2f253dfb4ca454, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: hair.curls
+    label: Curls
+    category: 1
+    slot: 2
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 6225212596174203685, guid: 0fa9da649ec2d476a8c08cb3783db2ab, type: 3}
+    visual: {fileID: 3066782011528710326, guid: 116362a51f4a04418af1435dc6bce590, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: hair.puffs
+    label: Puffs
+    category: 1
+    slot: 2
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -6228850836905502654, guid: 76faf17ce8655438aba2bdf862a712d7, type: 3}
+    visual: {fileID: 5822019466596426811, guid: 1ca127cb503564af387c9584a4f730c4, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: hair.none
+    label: No hair
+    category: 1
+    slot: 2
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 3318134430444575007, guid: 2dbaa1ad2af0a488296f155050f9143e, type: 3}
+    visual: {fileID: 1854501739937441435, guid: d41150eee6a984c6da1a9c67cf7c659a, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: color.0
+    label: Midnight
+    category: 1
+    slot: 3
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 6233953331001567535, guid: 11311156e053d4845860762e335b5873, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.19607843, g: 0.15294118, b: 0.14509805, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: color.1
+    label: Chestnut
+    category: 1
+    slot: 3
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -2159431936140428956, guid: 5897f448ba6a041b1abab14acd41d75c, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.45882353, g: 0.28235295, b: 0.1764706, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: color.2
+    label: Copper
+    category: 1
+    slot: 3
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -1644040990564815902, guid: 42f557dc87ca84b0582a79651ec9b487, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.7411765, g: 0.45490196, b: 0.24705882, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: color.3
+    label: Honey
+    category: 1
+    slot: 3
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 4479031249880208547, guid: 0084bc11e51c4426d8b566cd4cefc255, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.8666667, g: 0.72156864, b: 0.32941177, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: color.4
+    label: Plum
+    category: 1
+    slot: 3
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 5660176676173308648, guid: f7824c10d9c8c42cc82c89d4f910a8ac, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.54509807, g: 0.4, b: 0.5568628, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: color.5
+    label: Silver
+    category: 1
+    slot: 3
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 1185465241972940654, guid: 50bd482effe47451b8f663d7a4e0d2d3, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.7647059, g: 0.7411765, b: 0.7058824, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: outfit.0
+    label: Ocean
+    category: 2
+    slot: 4
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -5402945157369009088, guid: d0c1baf4f39ea4840afbc7bc02e178d4, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.14901961, g: 0.62352943, b: 0.6117647, a: 1}
+    secondary: {r: 0.20392157, g: 0.30980393, b: 0.4509804, a: 1}
+  - id: outfit.1
+    label: Sunset
+    category: 2
+    slot: 4
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -2142451529353637325, guid: 97cc2aae30df94b52ae41b801557d950, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.85490197, g: 0.48235294, b: 0.3254902, a: 1}
+    secondary: {r: 0.34901962, g: 0.41568628, b: 0.52156866, a: 1}
+  - id: outfit.2
+    label: Lavender
+    category: 2
+    slot: 4
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -6289620403411423536, guid: 878be2edecb7d453297678c4389e1fc7, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.54509807, g: 0.40784314, b: 0.7058824, a: 1}
+    secondary: {r: 0.20784314, g: 0.30588236, b: 0.4392157, a: 1}
+  - id: outfit.3
+    label: Sunshine
+    category: 2
+    slot: 4
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 4760589284689529041, guid: d879cf50c83784d4ebf761c238ab9f36, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.84705883, g: 0.6666667, b: 0.2509804, a: 1}
+    secondary: {r: 0.19607843, g: 0.42745098, b: 0.47058824, a: 1}
+  - id: outfit.4
+    label: Sky
+    category: 2
+    slot: 4
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 1411107008440908004, guid: 78ded4474bf054e3d93714d2e1de17f8, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.29411766, g: 0.53333336, b: 0.7176471, a: 1}
+    secondary: {r: 0.3254902, g: 0.40784314, b: 0.46666667, a: 1}
+  - id: outfit.5
+    label: Berry
+    category: 2
+    slot: 4
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: 4141288959206138481, guid: f7169e2ee8481424eb5797f64e4d08a6, type: 3}
+    visual: {fileID: 0}
+    color: {r: 0.78039217, g: 0.41960785, b: 0.53333336, a: 1}
+    secondary: {r: 0.38039216, g: 0.3254902, b: 0.48235294, a: 1}
+  - id: hat.none
+    label: No hat
+    category: 3
+    slot: 5
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -3395226369000652015, guid: 9e1f2299c60c44538afd53800d4b3315, type: 3}
+    visual: {fileID: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: hat.cap
+    label: Colourful cap
+    category: 3
+    slot: 5
+    price: 40
+    defaultOwnership: 0
+    thumbnail: {fileID: 4122060728169219803, guid: 000e4158bc27244afac4a6e47150e119, type: 3}
+    visual: {fileID: 5720484683589176236, guid: 4afb914a13a0f4418a2ee6e4aa7eba38, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: hat.star
+    label: Star hat
+    category: 3
+    slot: 5
+    price: 60
+    defaultOwnership: 0
+    thumbnail: {fileID: 8465895849998283534, guid: 09fddbf7ad7974b8880d62c82bb7ec21, type: 3}
+    visual: {fileID: 4870292142260491509, guid: b9db1f5c65cac41c3afc5a588e0f5ca7, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: glasses.none
+    label: No glasses
+    category: 4
+    slot: 6
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -249896351574598620, guid: e31134e61f1744eb0a4da0484479ab94, type: 3}
+    visual: {fileID: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: glasses.fun
+    label: Fun glasses
+    category: 4
+    slot: 6
+    price: 50
+    defaultOwnership: 0
+    thumbnail: {fileID: 2491493145726660193, guid: de1787d765b2747918b435a9f722657d, type: 3}
+    visual: {fileID: 8992971552592062727, guid: 84879e5fd99bd44feac6eab577827be1, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: backpack.none
+    label: No backpack
+    category: 4
+    slot: 7
+    price: 0
+    defaultOwnership: 1
+    thumbnail: {fileID: -3788244678146942998, guid: 4b213ade1a5f7446f89b00326d7356d9, type: 3}
+    visual: {fileID: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  - id: backpack.small
+    label: Small backpack
+    category: 4
+    slot: 7
+    price: 80
+    defaultOwnership: 0
+    thumbnail: {fileID: 4964541132202271096, guid: 2dac1b884b02b49baa69b1aa5a5507f4, type: 3}
+    visual: {fileID: 4133780657328237405, guid: 559499dc424674fadb9715ed5b60e120, type: 3}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    secondary: {r: 1, g: 1, b: 1, a: 1}
+  defaults:
+  - face.round
+  - skin.3
+  - hair.curls
+  - color.0
+  - outfit.0
+  - hat.none
+  - glasses.none
+  - backpack.none

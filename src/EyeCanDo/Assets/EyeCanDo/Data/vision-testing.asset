@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74469aa7c12e648f2a1b4187defd2d71, type: 3}
+  m_Name: vision-testing
+  m_EditorClassIdentifier: Assembly-CSharp::EyeCanDo.JourneyDefinition
+  id: vision-testing
+  title: Vision Testing
+  shortTitle: Vision test
+  accent: {r: 0.95686275, g: 0.7764706, b: 0.41960785, a: 1}
+  icon: {fileID: -6477479434299540588, guid: b54d6a2dadc8549c1baa0cc8cc5023a1, type: 3}
+  destinationPrefab: {fileID: 8988288984980670340, guid: baa74393be25340ba834ab73b8dfb4b4, type: 3}
+  sublevels:
+  - id: vision-testing.discover
+    phase: 0
+    title: Discover the Vision Chart
+    icon: {fileID: -3685150962086107655, guid: 819cdeba45759406cb68a9d823d580cd, type: 3}
+    isPlayable: 0
+    scenePath: 
+  - id: vision-testing.watch
+    phase: 1
+    title: Watch a Vision Test
+    icon: {fileID: -6038342703473049663, guid: 5a80703de898a4bc594bebd2097a9f25, type: 3}
+    isPlayable: 0
+    scenePath: 
+  - id: vision-testing.practice
+    phase: 2
+    title: Practice Picture Matching
+    icon: {fileID: -6589552673174974001, guid: 101e2a6c400154024a5ed7e44dbd6d3a, type: 3}
+    isPlayable: 0
+    scenePath: 

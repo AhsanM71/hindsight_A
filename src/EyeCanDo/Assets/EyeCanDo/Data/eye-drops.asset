@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74469aa7c12e648f2a1b4187defd2d71, type: 3}
+  m_Name: eye-drops
+  m_EditorClassIdentifier: Assembly-CSharp::EyeCanDo.JourneyDefinition
+  id: eye-drops
+  title: Eye-Drop Preparation
+  shortTitle: Eye drops
+  accent: {r: 0.3882353, g: 0.80784315, b: 0.7607843, a: 1}
+  icon: {fileID: 253005588072490991, guid: 542d3ca41673f46cd8d0c076cfe10447, type: 3}
+  destinationPrefab: {fileID: 7147570884182104620, guid: ac10abb04db7141938187c0ae935b8b1, type: 3}
+  sublevels:
+  - id: eye-drops.discover
+    phase: 0
+    title: Discover the Eye Drops
+    icon: {fileID: -3685150962086107655, guid: 819cdeba45759406cb68a9d823d580cd, type: 3}
+    isPlayable: 0
+    scenePath: 
+  - id: eye-drops.watch
+    phase: 1
+    title: Watch the Doctor
+    icon: {fileID: -6038342703473049663, guid: 5a80703de898a4bc594bebd2097a9f25, type: 3}
+    isPlayable: 0
+    scenePath: 
+  - id: eye-drops.practice
+    phase: 2
+    title: Practice Eye Drops
+    icon: {fileID: -6589552673174974001, guid: 101e2a6c400154024a5ed7e44dbd6d3a, type: 3}
+    isPlayable: 0
+    scenePath: 

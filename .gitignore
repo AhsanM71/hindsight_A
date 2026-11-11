@@ -288,3 +288,52 @@ __pycache__/
 
 !docs/SRS-IEEE/SystemContextFigure.pdf
 
+## EyeCanDo Unity project: generated and machine-local files
+# Keep Assets (including .meta files), Packages, and ProjectSettings in Git.
+/src/EyeCanDo/[Ll]ibrary/
+/src/EyeCanDo/[Tt]emp/
+/src/EyeCanDo/[Oo]bj/
+/src/EyeCanDo/[Bb]uild/
+/src/EyeCanDo/[Bb]uilds/
+/src/EyeCanDo/[Ll]ogs/
+/src/EyeCanDo/[Uu]ser[Ss]ettings/
+/src/EyeCanDo/.vs/
+/src/EyeCanDo/.idea/
+/src/EyeCanDo/.vscode/
+/src/EyeCanDo/*.csproj
+/src/EyeCanDo/*.sln
+/src/EyeCanDo/*.slnx
+/src/EyeCanDo/*.unityproj
+/src/EyeCanDo/*.booproj
+/src/EyeCanDo/*.user
+/src/EyeCanDo/*.suo
+/src/EyeCanDo/*.pidb
+/src/EyeCanDo/*.pdb
+/src/EyeCanDo/*.mdb
+/src/EyeCanDo/*.opendb
+/src/EyeCanDo/*.VC.db
+/src/EyeCanDo/*.apk
+/src/EyeCanDo/*.aab
+/src/EyeCanDo/*.unitypackage
+/src/EyeCanDo/sysinfo.txt
+/src/EyeCanDo/[Mm]emoryCaptures/
+/src/EyeCanDo/[Rr]ecordings/
+/src/EyeCanDo/[Tt]est[Rr]esults/
+/src/EyeCanDo/[Cc]ode[Cc]overage/
+/src/EyeCanDo/*_BurstDebugInformation_DoNotShip/
+/src/EyeCanDo/*_BackUpThisFolder_ButDontShipItWithYourGame/
+
+# Validation runs create screenshots, logs, snapshots, and local profile backups.
+# Keep the small source/report documents and baselines consumed by authoring.
+/src/EyeCanDo/Validation/**
+!/src/EyeCanDo/Validation/**/
+!/src/EyeCanDo/Validation/**/Report.md
+!/src/EyeCanDo/Validation/**/REPORT.txt
+!/src/EyeCanDo/Validation/**/SOURCE.txt
+!/src/EyeCanDo/Validation/CharacterShop/map-before.json
+!/src/EyeCanDo/Validation/UIIteration3/map-before.json
+!/src/EyeCanDo/Validation/UIIteration3/OFL.txt
+!/src/EyeCanDo/Validation/UIIteration3/font-licensing.json
+!/src/EyeCanDo/Validation/CharacterShop/Research/*.txt
+!/src/EyeCanDo/Validation/CharacterShop/Research/download-manifest.json
+

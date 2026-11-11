@@ -1,0 +1,80 @@
+EyeCanDo Journey Map — Visual Polish, Iteration 2
+Completed 2026-11-10 in Unity 6000.6.8f1, macOS Editor.
+
+Saved result
+Assets/EyeCanDo/Scenes/JourneyMap.unity
+
+The existing garden, clinic, paths, and Quaternius scenery were retained.
+A map-owned URP gradient sky, five slowly moving cartoon clouds, and two
+distant hill layers now cover the camera background. Camera pitch/framing is
+closer, with intentional cropping of peripheral scenery. All destinations fit.
+
+Equipment art is 22% larger in its existing presentation prefabs and has gentle
+idle motion. Platforms have brighter rims and larger simple click colliders.
+Journey badges, pictograms, Shop, and Settings controls are larger. Planting
+that interfered with the larger badges was repositioned or reduced. The map
+uses warmer sunlight and adjusted ambient fill without changing shared art or
+the existing post-processing profile.
+
+A large rounded arrow button calls JourneyMapController.BackToStart(), which
+uses the existing SceneNavigator.GoToStart(). AppRoot and its profile persist.
+Existing PlayerPrefs saving and Start routing already met the requested rules;
+they were verified and retained. No default username or gameplay reset was added.
+
+Executed checks
+- Compilation completed without errors. Final fresh-Editor console: zero errors,
+  zero warnings. The custom sky shader has no compile errors.
+- Garden asset validation: 23 checks passed. No missing scene/prefab scripts,
+  unsupported renderer materials, or lost catalog callbacks were found.
+  All 68 original nature FBX imports and their CC0 license remain present.
+- Existing profile/configuration suite: 33 checks passed.
+- Existing navigation suite: 56 checks passed, including first-time setup,
+  whitespace rejection, all three journeys, all nine Discover/Watch/Practice
+  Coming Soon interactions, existing Back navigation, Shop, Settings save/cancel,
+  greeting updates, and returning-player routing. No runtime errors captured.
+- Map interaction suite: 44 checks passed. Actual Game views ran at 1920x1080
+  and 1280x720, with advancing player frames. Checked full destination bounds,
+  nonoverlapping badges, pictograms >=48px, badge heights >=64px, large safe-area
+  controls, stationary camera, mouse hover/press feedback, mouse/touch equipment
+  selection, and modal blocking of touch input.
+- Restart/Back suite: 13 checks passed after closing and reopening Unity
+  (previous PID 53385; verified PID 55231). Alex survived process exit/reopen;
+  Start skipped setup; greeting was exactly "Hello, Alex!"; map Back returned to
+  Start preserving AppRoot and profile; Start reopened the map without setup.
+  Empty and whitespace-only stored names correctly displayed username setup.
+- Protected development fixtures backed up the exact original PlayerPrefs value
+  before changing it, then restored it. No recovery remains pending.
+- Both requested map screenshots were inspected. No default grey background,
+  clipped controls, overlapping badges, or obscured equipment were observed.
+  Settings and Shop panel appearance was compared with the previous captures;
+  their contents and layout are unchanged.
+- SHA-256 scope audit confirms other scene assets, shared artwork, catalog data,
+  packages, and project settings remain unchanged. No existing files were removed.
+  Capstone documentation was not inspected or edited.
+
+Evidence
+map-1920x1080.png, map-1280x720.png — final Game-view captures
+persisted-Alex.png — saved-name greeting after actual Editor restart
+settings-unchanged.png, shop-unchanged.png — unchanged modal contents
+assets.json, profile-and-configuration.json, navigation.json, interactions.json
+restart-and-back.json, final-editor-state.json, final-console-status.json
+scope-audit.json — changed/added file inventory against baseline.json
+
+An initial restart test used a fixed delay and checked before scene loading
+settled. The test harness was corrected to wait for navigation completion,
+and the complete process-restart test was rerun successfully. Earlier evidence
+is retained under Iterations; no gameplay change was needed for that failure.
+
+Maintenance
+Use EyeCanDo > Journey Map > Polish Journey Map (Iteration 2) to reapply the
+polish to the existing map. Do not run the whole-MVP builder. Reusable assets,
+authoring code, runtime presentation, and technical notes are under
+Assets/EyeCanDo/JourneyGarden. Existing third-party license/source records are
+unchanged under JourneyGarden/ThirdParty/Quaternius.
+
+Limits
+Verification ran in the installed Unity Editor with simulated mouse/touch input.
+No standalone-player build or physical phone/tablet performance test was run.
+The restart test proves Editor PlayerPrefs persistence across actual processes;
+packaged-player storage and device performance remain to be validated.
+No medical minigames or additional gameplay systems were implemented.

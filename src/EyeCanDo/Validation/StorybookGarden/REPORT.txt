@@ -1,0 +1,29 @@
+EyeCanDo Journey Map — Storybook Garden
+Implemented and verified in Unity 6000.6.8f1 on 2026-11-10.
+
+DELIVERED
+Saved scene: Assets/EyeCanDo/Scenes/JourneyMap.unity
+Reusable assets and authoring instructions: Assets/EyeCanDo/JourneyGarden/README.md
+The new folder contains three destination prefabs, a clinic prefab, original rounded meshes, map-owned URP materials, a rounded UI sprite, garden lighting, authoring code, and map-specific verification code.
+Quaternius Stylized Nature MegaKit Standard: all 68 Unity FBX exports imported; selected models used for trees, bushes, flowers, ferns, grasses, rocks and mushrooms. Original license and provenance/checksum retained in JourneyGarden/ThirdParty/Quaternius.
+Raised lawn, linked curved paths, layered planting, colour-coded equipment, clinic entrance, slow decorative motion, compact branding and saved-name greeting, restyled map controls, and clickable pictorial badges are saved in the map.
+
+VERIFICATION
+144 checks passed across four reports:
+- 33 profile/configuration checks.
+- 56 existing navigation checks: setup, trimming and invalid input, save/cancel persistence, returning-player navigation, all three journeys, nine Coming Soon actions, Back, Shop, Settings, simulated mouse/touch, and modal blocking.
+- 23 map asset checks: references, prefab callbacks, stable IDs, material/shader compatibility, URP HDR/volume configuration, retained license, automatic placement and existing placements after catalog expansion.
+- 32 additional checks: real advancing Play-mode frames, complete destination bounds, non-overlapping badges, touch bounds at least 150x48 pixels, stationary camera, equipment hover/press, mouse/touch equipment navigation, and Settings blocking touches.
+
+SCREENSHOTS
+map-1920x1080.png and map-1440x1080.png are captured from the actual Play-mode Game view, then visually inspected. The final 4:3 framing includes the garden edges. Equipment, badges, and clinic entrance remain visible. settings-unchanged.png and shop-unchanged.png show preserved modals. Before/ contains the original appearance; Navigation/ includes the original screen and journey flow captures.
+The unchanged opaque central modal content regions compare pixel-identically: Settings 390600/390600 pixels and Shop 347200/347200 pixels. This comparison excludes changing background visible through rounded corners and the original Cancel hover state. Full panel layouts and contents were also visually compared.
+
+SCOPE
+Existing intentional changes: JourneyMap.unity and JourneyMapLayout.cs only. The catalog, stable IDs, JourneyDestination.Open(), profile/navigation/controllers, shared art/prefabs/lighting, Start, and JourneySelection remain unchanged. No packages or online runtime dependencies were introduced. Capstone documentation was not touched. The previous saved username was restored after testing.
+Unity also automatically added its default resource-folder metadata line to ProjectSettings/URPProjectSettings.asset during serialization. Its material version and all rendering pipeline assets are unchanged. The scope-comparison.json records hashes and the precise exception.
+Authoring uses EyeCanDo > Journey Map > Author Storybook Garden; the whole-MVP builder was not run. The Editor is left in Edit mode with the saved Journey Map open and no unsaved scene changes.
+
+LIMITATIONS / OBSERVATIONS
+Physical-device performance and real touchscreen hardware remain unverified; input tests use virtual Input System devices in the Editor. No standalone player build was produced. The scene contains approximately 547080 mesh triangles and 734 renderers before player static batching/culling, with shared materials and simple destination colliders.
+The existing Unity Editor Search.SearchDatabase ArgumentOutOfRangeException appeared during a domain reload, including one navigation-test run. It is recorded separately in navigation.json and the console history; no application runtime exception caused a failed check. Existing obsolete-API warnings remain in the untouched NavigationSmokeTest. Final compilation completed without errors and no missing scripts were found in the map or new prefabs.

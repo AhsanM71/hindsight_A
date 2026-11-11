@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5f9aebf89eb414ea678c793e187aff, type: 3}
+  m_Name: slit-lamp
+  m_EditorClassIdentifier: Assembly-CSharp::EyeCanDo.JourneyPresentationTheme
+  journeyId: slit-lamp
+  courtyardPrefab: {fileID: 8723051329192493662, guid: 5121c86c08bd5485c9365078a45ed519, type: 3}
+  accent: {r: 0.6784314, g: 0.52156866, b: 0.8509804, a: 1}
+  pale: {r: 0.93333334, g: 0.8784314, b: 0.9882353, a: 1}
+  ink: {r: 0.08627451, g: 0.23921569, b: 0.3137255, a: 1}
+  platform: {fileID: 891117771484775621, guid: 288f6d777e2524acb92e4e02025215ae, type: 3}
+  phaseIllustrations:
+  - {fileID: -8463230596591871077, guid: ed7d455547ef14f0ca6110ac4bfb2790, type: 3}
+  - {fileID: 5830630116871603280, guid: b7cf00d4d810441f48e95c60bd949093, type: 3}
+  - {fileID: -742509372890792354, guid: 0c774119cd57c4242bcb3d0cb6db13ca, type: 3}
