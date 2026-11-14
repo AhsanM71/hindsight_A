@@ -61,7 +61,8 @@
 
 \newcounter{ucnum}
 \newcommand{\uctheucnum}{UC\theucnum}
-\newcommand{\uref}[1]{UC\ref{#1}}
+\newcommand{\ucdef}[1]{\refstepcounter{ucnum}\label{#1}\reqlabel{UC\theucnum:}}
+\newcommand{\uref}[1]{\hyperref[#1]{UC\ref*{#1}}}
 
 \newcounter{mnum}
 \newcommand{\mthemnum}{M\themnum}
@@ -314,15 +315,70 @@ decisions not specified in the SRS.
 The module design should be as general as possible. However, a general system is
 more complex. Sometimes this complexity is not necessary. Fixing some design
 decisions at the system architecture stage can simplify the software design. If
-these decision should later need to be changed, then many parts of the design
+these decisions should later need to be changed, then many parts of the design
 will potentially need to be modified. Hence, it is not intended that these
-decisions will be changed.
+decisions will be changed. The unlikely changes in the SRS
+(\srsitemref{sec_UnlikelyChanges}{Section~12}) also apply to the design.
+The following are added or restated as design decisions.
 
-\begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
-\end{description}
+\begin{reqlist}{UC}
+\setlength{\itemsep}{0.45em}
+\setlength{\parsep}{0.18em}
+\item[\ucdef{ucIO}] Input and output devices: input is through the touch screen
+of a phone or tablet, output is through its screen and speakers, and data is
+stored locally on the device.
+
+\textit{Rationale:} The SRS assumes touch-screen phones and tablets
+(\srsitemref{ULC_Mobile}{ULC7}). While supported device models may change
+(\srsitemref{LC_Platforms}{LC9}), the way users interact with the game is not
+expected to change. Supporting a different type of input or output device would
+affect multiple modules.
+
+\item[\ucdef{ucOffline}] The application has no network communication. No
+module sends or receives data over a network during operation.
+
+\textit{Rationale:} The SRS requires the game to work offline and prohibits
+network communication (\srsitemref{ULC_Offline}{ULC5}). All content and saved
+progress are available locally, so adding a network service would require
+changes to the application's architecture and data handling.
+
+\item[\ucdef{ucRules}] The progress rules in the SRS formal model
+(\srsitemref{sec_FormalSpec}{Section~6.1}): a level is not started, in progress,
+or completed; its reward is given only the first time it is completed; and
+progress is cleared only through a reset.
+
+\textit{Rationale:} The SRS defines these rules as part of the game's progress
+and reward behaviour (\srsitemref{ULC_RewardOnce}{ULC4}). Changing them would
+affect how completion, rewards, saved state, and resetting progress work across
+the application (\srsitemref{FR_FirstReward}{FR32},
+\srsitemref{FR_ResetJourney}{FR46}).
+
+\item[\ucdef{ucNoFail}] A level has no failure state. An incorrect action
+gives a hint, an incorrect answer shows the correct answer, and an exercise can
+be skipped without penalty.
+
+\textit{Rationale:} The SRS rules out failure states to avoid increasing a
+child's anxiety (\srsitemref{ULC_NoFail}{ULC3}). Adding penalties or a failure
+state would go against the non-punitive feedback and low-pressure experience
+required by the SRS (\srsitemref{FR_NoPenalty}{FR20},
+\srsitemref{NFR_NoPressure}{NFR7}).
+
+\item[\ucdef{ucMoney}] Accessories are purchased only with coins earned in
+the game. There are no real-money purchases or advertisements.
+
+\textit{Rationale:} The SRS excludes real-money purchases and advertising
+(\srsitemref{ULC_NoRealMoney}{ULC9}). Introducing either would change the
+reward and shop design and would be inappropriate for the game's young users
+(\srsitemref{FR_NoRealMoney}{FR41}).
+
+\item[\ucdef{ucPersonal}] The game does not collect or store personal or
+health information.
+
+\textit{Rationale:} The SRS treats this as a fixed privacy decision
+(\srsitemref{ULC_NoPersonalInfo}{ULC6}). Local game progress is sufficient for
+the required features, and storing personal or health information would change
+the project's privacy requirements (\srsitemref{NFR_Minimization}{NFR29}).
+\end{reqlist}
 
 \section{Module Hierarchy} \label{SecMH}
 
