@@ -1,8 +1,7 @@
-\documentclass[12pt, titlepage]{article}
+\documentclass[10pt, titlepage]{article}
 
 \usepackage{amsmath, mathtools}
 
-\usepackage[round]{natbib}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
@@ -19,6 +18,9 @@
 \usepackage[section]{placeins}
 \usepackage{caption}
 \usepackage{fullpage}
+\usepackage{parskip}
+
+\setlength{\parindent}{0pt}
 
 \hypersetup{
 bookmarks=true,     % show bookmarks bar?
@@ -50,15 +52,24 @@ urlcolor=cyan          % color of external links
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\begin{table}[!htbp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+? & ? & ? \\
 \bottomrule
 \end{tabularx}
+\end{table}
 
-~\newpage
+\newpage
+
+\tableofcontents
+
+\pagenumbering{arabic}
+
+\newpage
 
 \section{Symbols, Abbreviations and Acronyms}
 
@@ -67,12 +78,6 @@ See SRS Documentation at \wss{give url}
 \wss{Also add any additional symbols, abbreviations or acronyms}
 
 \newpage
-
-\tableofcontents
-
-\newpage
-
-\pagenumbering{arabic}
 
 \section{Introduction}
 
@@ -88,10 +93,10 @@ found at \url{...}.  \wss{provide the url for your repo}
 \wss{You should describe your notation.  You can use what is below as
   a starting point.}
 
-The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
+The structure of the MIS for modules comes from \cite{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
 \cite{GhezziEtAl2003}.  The mathematical notation comes from Chapter 3 of
-\citet{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
+\cite{HoffmanAndStrooper1995}.  For instance, the symbol := is used for a
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
@@ -229,9 +234,6 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 
-\bibliographystyle {plainnat}
-\bibliography {../../../refs/References}
-
 \newpage
 
 \newpage{}
@@ -309,5 +311,9 @@ graduate attribute of Problem Analysis and Design.
   You should create a PR for your implemented module.  A link to the PR should be part of your reflection.
 
 \end{enumerate}
+
+\newpage
+\bibliographystyle {unsrt}
+\bibliography {../../../refs/References}
 
 \end{document}
