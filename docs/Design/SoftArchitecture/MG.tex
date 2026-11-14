@@ -789,9 +789,6 @@ to be implemented.
   deletion.
 \item[Services:] Shows every save slot with its character and progress, lets a
   slot be chosen, and deletes a player after confirmation.
-\item[Implemented By:] \progname{}
-\item[Type of Module:] Library
-\end{description}
 
 \subsubsection{Journey Map Screen Module (\mplainref{mMap})}\label{md:mMap}
 
@@ -799,38 +796,170 @@ to be implemented.
 \item[Secrets:] The presentation of the journey map.
 \item[Services:] Shows every level with its name, illustration and status, and
   returns the level, or the other screen, that the child chooses.
+
+\subsubsection{Reward Screen Module (\mref{mReward})}
+
+\begin{description}
+\item[Secrets:] The presentation of the end-of-level celebration and of the
+  reward.
+\item[Services:] Shows the end of a level and what was earned, or a
+  congratulation when nothing was earned, and returns whether the child wants
+  to go home or play again.
 \item[Implemented By:] \progname{}
 \item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Reward Screen Module (\mplainref{mReward})}\label{md:mReward}
+\subsubsection{Scoreboard Screen Module (\mref{mScoreboard})}
 
-\subsubsection{Scoreboard Screen Module (\mplainref{mScoreboard})}\label{md:mScoreboard}
+\begin{description}
+\item[Secrets:] The contents and presentation of the personal scoreboard.
+\item[Services:] Shows each level's name, status and points, the total points,
+  the completed levels out of the total, the coin balance, the character and
+  the nickname.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
+\end{description}
 
-\subsubsection{Dress-Up Screen Module (\mplainref{mDressUp})}\label{md:mDressUp}
+\subsubsection{Dress Up Screen Module (\mref{mDressUp})}
 
-\subsubsection{Parental Gate Module (\mplainref{mGate})}\label{md:mGate}
+\begin{description}
+\item[Secrets:] The presentation of the character choice, the shop and the
+  dressing room.
+\item[Services:] Shows the items of each category on the player's character,
+  their prices and whether they are owned. Lets the child try an item on, buy
+  it, wear it or remove it, and explains a refused purchase.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
+\end{description}
 
-\subsubsection{Settings Screen Module (\mplainref{mSettings})}\label{md:mSettings}
 
-\subsubsection{Procedure Guide Screen Module (\mplainref{mGuide})}\label{md:mGuide}
+\subsubsection{Parental Gate Module (\mref{mGate})}
+
+\begin{description}
+\item[Secrets:] The written challenge used to distinguish caregivers/parents
+  from young children, including answer validation.
+\item[Services:] Asks a written question and reports whether it was answered
+  correctly.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Settings Screen Module (\mref{mSettings})}
+
+\begin{description}
+\item[Secrets:] The layout of the caregiver settings and the confirmations asked
+  before data is erased.
+\item[Services:] After the parental gate, lets the caregiver change the
+  preferences and the nickname, open the procedure guide, reset the journey and
+  clear all data.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Procedure Guide Screen Module (\mref{mGuide})}
+
+\begin{description}
+\item[Secrets:] The layout, navigation, and display state of the
+  caregiver procedure guide, including the currently selected
+  procedure and its associated educational content.
+\item[Services:] Shows, for each procedure, what the child may experience and
+  how the level presents it, and opens the medical notice.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
+\end{description}
 
 
 \subsection{Software Decision Module}
 
-\subsubsection{Data File Module (\mplainref{mDataFile})}\label{md:mDataFile}
+\subsubsection{Data File Module (\mref{mDataFile})}
 
-\subsubsection{Save Slots Module (\mplainref{mSlots})}\label{md:mSlots}
+\begin{description}
+\item[Secrets:] How data is stored in a file and how the module
+  handles corrupted data or interrupted saves.
 
-\subsubsection{Scene Staging Module (\mplainref{mStaging})}\label{md:mStaging}
+\item[Services:] Loads saved data from a file or provides a
+  default value if the file is missing or invalid. Saves data
+  while ensuring that a failed save does not overwrite the
+  previous data. Also allows saved files to be deleted.
 
-\subsubsection{Character Rig Module (\mplainref{mRig})}\label{md:mRig}
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Generic Abstract Data Type
+\end{description}
 
-\subsubsection{Screen Effects Module (\mplainref{mEffects})}\label{md:mEffects}
+\subsubsection{Save Slots Module (\mref{mSlots})}
 
-\subsubsection{Sound Effects Module (\mplainref{mSound})}\label{md:mSound}
+\begin{description}
+\item[Secrets:] The number of players that can be saved and where each one's
+  data is kept.
+\item[Services:] Loads, saves and deletes the data of one slot, and reports
+  whether a slot is used.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Generic Abstract Data Type
+\end{description}
 
-\subsubsection{UI Widgets Module (\mplainref{mWidgets})}\label{md:mWidgets}
+\subsubsection{Scene Staging Module (\mref{mStaging})}
+
+\begin{description}
+\item[Secrets:] The layout of the 3D exam room: the places, the characters, the
+  objects that can be tapped, and how a stage action is played.
+\item[Services:] Gives the steps the doctor, the peer model and the player's
+  character, returns named places and tappable objects, plays and stops stage
+  actions, and moves the speaking character's mouth while a line is said.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
+
+
+\subsubsection{Character Rig Module (\mref{mRig})}
+
+\begin{description}
+\item[Secrets:] The 3D models and animations of the characters.
+\item[Services:] Dresses a character in a look, places and moves it, and plays
+  poses, expressions, talking and dancing.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Screen Effects Module (\mref{mEffects})}
+
+\begin{description}
+\item[Secrets:] How visual effects are created, displayed,
+  and managed on the screen.
+\item[Services:] Displays and controls visual effects such
+  as screen transitions, fades, and changes in visibility.
+  Allows effects to be stopped or cleared while respecting
+  accessibility preferences and visual safety limits.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{Sound Effects Module (\mref{mSound})}
+
+\begin{description}
+\item[Secrets:] How sound effect files are stored, played,
+  and controlled
+\item[Services:] Plays and stops sound effects during
+  gameplay, adjusts their volume according to user
+  preferences, and ensures sound effects do not exceed
+  the narration volume.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{UI Widgets Module (\mref{mWidgets})}
+
+\begin{description}
+\item[Secrets:] How reusable user interface controls
+  are designed and displayed.
+\item[Services:] Provides common interface elements
+  such as buttons, switches, confirmation dialogs,
+  and information displays. Ensures interactive
+  controls meet the minimum touch target size
+  \texttt{TOUCH\_TARGET\_MIN} and communicate
+  their states without relying only on colour.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
+\end{description}
 
 \newpage
 \section{Traceability Matrix} \label{SecTM}
