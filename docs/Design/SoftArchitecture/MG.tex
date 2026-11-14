@@ -619,6 +619,7 @@ decisions resulting from these requirements are explained below.
 
 \end{enumerate}
 
+\newpage
 \section{Module Decomposition} \label{SecMD}
 
 Modules are decomposed according to the principle of ``information hiding''
@@ -628,60 +629,176 @@ module. The \emph{Services} field specifies \emph{what} the module will do
 without documenting \emph{how} to do it. For each module, a suggestion for the
 implementing software is given under the \emph{Implemented By} title. If the
 entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  \emph{\progname{}} means the
-module will be implemented by the \progname{} software.
+system, the Unity engine, or standard programming language libraries.
+\emph{\progname{}} means the module will be implemented by the
+\progname{} software. The \emph{Type of Module} field identifies whether
+the module is a record, library, abstract object, or abstract data type.
 
 Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
 to be implemented.
 
-\subsection{Hardware Hiding Modules (\mplainref{mHH})}\label{md:mHH}
+\subsection{Hardware Hiding Module (\mplainref{mHH})}\label{md:mHH}
 
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Secrets:] The data structures and algorithms used to implement the
+  virtual hardware: the device, its operating system and the game engine.
+\item[Services:] Serves as a virtual hardware used by the rest of the
+  system. It draws to the screen, plays audio, reports touches, reads and writes
+  files in the application's private storage, reports whether the device is
+  muted, and reports when the application is sent to the background or
+  brought back.
+\item[Implemented By:] OS (iOS or Android, and the Unity engine)
+\item[Type of Module:] Abstract Object
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
 
-\begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
-\end{description}
-
-% Leaf-module sections: details will be added with the module decomposition.
 \subsubsection{Application Control Module (\mplainref{mControl})}\label{md:mControl}
+
+\begin{description}
+\item[Secrets:] The order in which screens are shown and the navigation
+  between them.
+\item[Services:] Starts the application, shows the medical notice until it is
+  acknowledged, lets a player be chosen, opens the journey map, and opens the
+  screen or level that the child or caregiver chooses. Passes application
+  interruptions to the level being played.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
 
 \subsubsection{Journey Progress Module (\mplainref{mProgress})}\label{md:mProgress}
 
+\begin{description}
+\item[Secrets:] The rules by which a level's status changes and a level's
+  reward is given (the formal model of the SRS,
+  \srsitemref{sec_FormalSpec}{Section~6.1}).
+\item[Services:] Holds the status of every level and the coin balance of one
+  player. Starts, finishes and resets levels, spends coins, and calculates the
+  scoreboard values.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
 \subsubsection{Wardrobe Module (\mplainref{mWardrobe})}\label{md:mWardrobe}
+
+\begin{description}
+\item[Secrets:] The rules for owning, buying, and wearing accessories.
+\item[Services:] Holds the accessories one player owns and the item worn in
+  each category. Buys an accessory with coins, gives an accessory as a reward,
+  and wears or removes an item.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Data Type
+\end{description}
 
 \subsubsection{Player Data Module (\mplainref{mPlayerData})}\label{md:mPlayerData}
 
+\begin{description}
+\item[Secrets:] Which player is being played, which data belongs to a player,
+  and when that data is saved.
+\item[Services:] Loads a chosen player, gives the other modules the player's
+  progress, wardrobe and nickname, and saves every change before returning.
+  Resets the journey and deletes players.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
+
 \subsubsection{Preferences Module (\mplainref{mPrefs})}\label{md:mPrefs}
+
+\begin{description}
+\item[Secrets:] The set of caregiver preferences, their allowed values and
+  their defaults.
+\item[Services:] Stores and returns the age group, the narration and sound
+  volumes, the caption and visual-cue sizes, auto-continue, reduced motion, the
+  last player and the acknowledgement of the medical notice. Applies to every
+  player on the device.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
 
 \subsubsection{Level Catalogue Module (\mplainref{mLevels})}\label{md:mLevels}
 
+\begin{description}
+\item[Secrets:] The set of levels, their order, their names and illustrations,
+  and the reward of each level.
+\item[Services:] Lists the levels in journey order and returns the definition
+  of a level, including its journey points, coins and accessory.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
+
 \subsubsection{Accessory Catalogue Module (\mplainref{mAccessories})}\label{md:mAccessories}
+
+\begin{description}
+\item[Secrets:] The characters, the accessories, the accessory categories and
+  their prices.
+\item[Services:] Lists the items of each category and their prices, and gives
+  the default character.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
 
 \subsubsection{Procedure Content Module (\mplainref{mContent})}\label{md:mContent}
 
+\begin{description}
+\item[Secrets:] The content of each level and of the procedure guide: its
+  steps, their order, the narrated lines and the variants for each age group.
+\item[Services:] Returns the steps of a level for an age group, using the
+  default content when there is none for that group, and the guide entry of a
+  level.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
+
 \subsubsection{Procedure Runner Module (\mplainref{mRunner})}\label{md:mRunner}
+
+\begin{description}
+\item[Secrets:] The control flow of a procedure level, including which step
+  is active, how the child advances through the steps, and how skipping,
+  restarting, exiting, and interruptions are handled.
+\item[Services:] Runs a selected procedure level using content from the
+  Procedure Content Module (\mref{mContent}). Manages step progression, narration, visual
+  demonstrations, interactions, hints, feedback, and permitted skips.
+  Handles restarting, exiting, and interruptions while ensuring sensation
+  descriptions are not skipped. Reports level starts and completions to
+  the Journey Progress Module (\mref{mProgress}) and coordinates screen transitions.
+  Stops audio and visual effects when the level is exited.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
 
 \subsubsection{Narration Module (\mplainref{mNarration})}\label{md:mNarration}
 
+\begin{description}
+\item[Secrets:] How a narrated line is presented: its voice, caption, speaker
+  and visual cue, its timing when there is no recording, and the fallback when
+  the sound is off.
+\item[Services:] Says a line and waits for it to end or for the child to move
+  on, says a short aside, stops the current line, and reports who is speaking.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Abstract Object
+\end{description}
+
 \subsubsection{Player Select Screen Module (\mplainref{mPlayerSelect})}\label{md:mPlayerSelect}
 
+\begin{description}
+\item[Secrets:] The presentation of the saved players and of a player's
+  deletion.
+\item[Services:] Shows every save slot with its character and progress, lets a
+  slot be chosen, and deletes a player after confirmation.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
+\end{description}
+
 \subsubsection{Journey Map Screen Module (\mplainref{mMap})}\label{md:mMap}
+
+\begin{description}
+\item[Secrets:] The presentation of the journey map.
+\item[Services:] Shows every level with its name, illustration and status, and
+  returns the level, or the other screen, that the child chooses.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
+\end{description}
 
 \subsubsection{Reward Screen Module (\mplainref{mReward})}\label{md:mReward}
 
@@ -698,18 +815,6 @@ to be implemented.
 
 \subsection{Software Decision Module}
 
-\begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
-\item[Implemented By:] --
-\end{description}
-
-% Leaf-module sections: details will be added with the module decomposition.
 \subsubsection{Data File Module (\mplainref{mDataFile})}\label{md:mDataFile}
 
 \subsubsection{Save Slots Module (\mplainref{mSlots})}\label{md:mSlots}
@@ -724,6 +829,7 @@ to be implemented.
 
 \subsubsection{UI Widgets Module (\mplainref{mWidgets})}\label{md:mWidgets}
 
+\newpage
 \section{Traceability Matrix} \label{SecTM}
 
 The following tables trace the SRS requirements to the modules responsible for
