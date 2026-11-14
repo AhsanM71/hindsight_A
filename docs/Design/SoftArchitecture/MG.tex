@@ -193,9 +193,8 @@ requirements. Section \ref{SecMH} summarizes the module decomposition that
 was constructed according to the likely changes. Section \ref{SecConnection}
 specifies the connections between the software requirements and the
 modules. Section \ref{SecMD} gives a detailed description of the
-modules. Section \ref{SecTM} includes two traceability matrices. One checks
-the completeness of the design against the requirements provided in the SRS. The
-other shows the relation between anticipated changes and the modules. Section
+modules. Section \ref{SecTM} includes the functional and non-functional requirements
+traceability tables, as well as the table linking anticipated changes to the modules. Section
 \ref{SecUse} describes the use relation between modules.
 
 \newpage
@@ -462,18 +461,163 @@ Hardware-Hiding Module & \mfullref{mHH}{Hardware-Hiding Module} \\
 \end{tabularx}
 \end{table}
 
+\newpage
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
-The design of the system is intended to satisfy the requirements developed in
-the SRS. In this stage, the system is decomposed into modules. The connection
-between requirements and modules is listed in Table~\ref{TblRT}.
+The modules were selected to satisfy the functional and non-functional requirements
+of the SRS. The relationships between each requirement and the responsible modules
+are given in Table~\ref{TblFRModules} for functional requirements and
+Table~\ref{TblNFRModules} for non-functional requirements. The main design
+decisions resulting from these requirements are explained below.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
+\begin{enumerate}[leftmargin=*, itemsep=0.5em, parsep=0.15em]
+\item \srsitemref{FR_MedicalNotice}{FR1} and \srsitemref{FR_RecordAck}{FR2}
+  require a medical notice before first use and a persistent acknowledgement.
+  The Application Control Module (\mref{mControl}) controls when the notice is
+  shown, while the Preferences Module (\mref{mPrefs}) stores the
+  acknowledgement separately from player progress. The UI Widgets Module
+  (\mref{mWidgets}) provides the acknowledgement control. This also supports
+  \srsitemref{NFR_NoClaims}{NFR32}, which limits the game's medical purpose.
+
+\item \srsitemref{FR_JourneyMap}{FR3}, \srsitemref{FR_StartLevel}{FR4}, and
+  \srsitemref{FR_Replay}{FR5} require every procedure to remain accessible,
+  regardless of the child's progress. The Level Catalogue Module
+  (\mref{mLevels}) defines the available levels, the Journey Progress Module
+  (\mref{mProgress}) maintains their statuses, and the Journey Map Screen
+  Module (\mref{mMap}) presents them for selection. Level availability does not
+  depend on the reward or completion state. This also helps satisfy
+  \srsitemref{NFR_ClinicianUse}{NFR6}, since a clinician must be able to find
+  a named level quickly.
+
+\item \srsitemref{FR_LevelContent}{FR6}, \srsitemref{FR_DescribeSensations}{FR8},
+  \srsitemref{FR_TruthfulSensations}{FR9}, \srsitemref{FR_ClinicsDiffer}{FR10},
+  and \srsitemref{FR_SpeakUp}{FR11} specify what children must learn during a
+  procedure level. The Procedure Content Module (\mref{mContent}) stores the
+  approved instructions and sensation descriptions, the Procedure Runner Module
+  (\mref{mRunner}) presents them in order, and the Scene Staging Module
+  (\mref{mStaging}) displays the corresponding actions. The Procedure Guide
+  Screen Module (\mref{mGuide}) uses the same clinical content to support
+  \srsitemref{FR_ProcedureGuide}{FR42}. Keeping the content separate from
+  presentation allows revisions without rewriting the gameplay logic, while
+  \srsitemref{NFR_ClinicalAccuracy}{NFR22} still requires clinical approval.
+
+\item \srsitemref{FR_AgeGroup}{FR7} and \srsitemref{FR_Preferences}{FR44}
+  require age-appropriate content and caregiver-controlled settings. The
+  Preferences Module (\mref{mPrefs}) stores the selected age group and audio or
+  visual preferences. The Procedure Content Module (\mref{mContent}) selects
+  the appropriate wording when an age-specific version is available. The
+  Narration Module (\mref{mNarration}) and shared presentation modules apply
+  these settings without changing the underlying procedure.
+
+\item \srsitemref{FR_SpokenInstructions}{FR13}, \srsitemref{FR_VisualCues}{FR15},
+  and \srsitemref{FR_NarrationFallback}{FR16} require instructions that do not
+  depend on reading or audible narration alone. The Narration Module
+  (\mref{mNarration}) presents speech, the Scene Staging Module
+  (\mref{mStaging}) shows the action, and the UI Widgets Module
+  (\mref{mWidgets}) displays visual cues and caregiver prompts. These
+  responsibilities also support \srsitemref{NFR_Accessibility}{NFR9} and
+  \srsitemref{NFR_Language}{NFR8}.
+
+\item \srsitemref{FR_HintOnMiss}{FR14}, \srsitemref{FR_RevealAnswer}{FR17},
+  \srsitemref{FR_ValidQuestions}{FR18}, and \srsitemref{FR_NoPenalty}{FR19}
+  require exercises to provide help without punishing incorrect actions. The
+  Procedure Content Module (\mref{mContent}) defines valid questions and
+  answers, while the Procedure Runner Module (\mref{mRunner}) handles hints,
+  correct-answer feedback, and allowed skips. The Journey Progress Module
+  (\mref{mProgress}) awards no penalty based on answers. This supports
+  \srsitemref{NFR_NoPressure}{NFR7}.
+
+\item \srsitemref{FR_IgnoreRepeatedTouches}{FR20},
+  \srsitemref{FR_HoldSkip}{FR21}, and \srsitemref{FR_RestartLevel}{FR26}
+  require input to be handled deliberately. The UI Widgets Module
+  (\mref{mWidgets}) handles shared controls and prevents repeated navigation
+  input during transitions. The Procedure Runner Module (\mref{mRunner})
+  enforces the hold-to-skip condition and the available restart and exit
+  actions. Keeping these checks outside individual exercises supports
+  \srsitemref{NFR_Exit}{NFR4} and \srsitemref{NFR_Responsiveness}{NFR12}.
+
+\item \srsitemref{FR_ExitLevel}{FR22}, \srsitemref{FR_StopOnExit}{FR23},
+  \srsitemref{FR_ExitKeepsData}{FR24}, \srsitemref{FR_RestartAfterExit}{FR25},
+  and \srsitemref{FR_Suspend}{FR27} specify what happens when gameplay is
+  interrupted. The Procedure Runner Module (\mref{mRunner}) stops the current
+  activity and coordinates the Narration Module (\mref{mNarration}), Screen
+  Effects Module (\mref{mEffects}), Sound Effects Module (\mref{mSound}), and
+  Scene Staging Module (\mref{mStaging}). The Application Control Module
+  (\mref{mControl}) handles application life-cycle changes and navigation.
+  A level that ends early does not update the Journey Progress Module
+  (\mref{mProgress}) as completed.
+
+\item \srsitemref{FR_PersistState}{FR28}, \srsitemref{FR_RestoreState}{FR29},
+  and \srsitemref{FR_CorruptData}{FR30} require progress to survive a restart
+  and invalid saved data to be handled safely. The Player Data Module
+  (\mref{mPlayerData}) owns the selected player's state, the Save Slots Module
+  (\mref{mSlots}) identifies the local save, and the Data File Module
+  (\mref{mDataFile}) handles reading, writing, and validation. Storage is
+  accessed through the Hardware-Hiding Module (\mref{mHH}) so that the design
+  can satisfy \srsitemref{NFR_DataProtection}{NFR26} without tying the player
+  data model to a particular operating system.
+
+\item \srsitemref{FR_LevelEnd}{FR12}, \srsitemref{FR_FirstReward}{FR31},
+  \srsitemref{FR_NoDuplicateReward}{FR32}, and \srsitemref{FR_Scoreboard}{FR33}
+  define level completion, first-time rewards, replay behaviour, and the
+  personal scoreboard. The Procedure Runner Module (\mref{mRunner}) reports
+  completed levels, but only the Journey Progress Module (\mref{mProgress})
+  changes journey points, coins, and reward status. The Reward Screen Module
+  (\mref{mReward}) and Scoreboard Screen Module (\mref{mScoreboard}) display
+  the resulting state rather than updating it themselves.
+
+\item \srsitemref{FR_ChooseCharacter}{FR34},
+  \srsitemref{FR_DiverseCharacters}{FR35}, and
+  \srsitemref{FR_Shop}{FR36}--\srsitemref{FR_Equip}{FR39} specify character
+  selection, accessory purchases, and equipping. The Accessory Catalogue
+  Module (\mref{mAccessories}) defines the items and prices, the Wardrobe
+  Module (\mref{mWardrobe}) enforces ownership and equipment rules, and the
+  Dress-Up Screen Module (\mref{mDressUp}) provides the interface. The
+  Character Rig Module (\mref{mRig}) handles the visual models. No module
+  offers real-money purchases, in accordance with
+  \srsitemref{FR_NoRealMoney}{FR40}.
+
+\item \srsitemref{FR_ParentGate}{FR41} requires caregiver settings to be
+  protected from children. The Parental Gate Module (\mref{mGate}) verifies
+  the reading-based gate before the Application Control Module
+  (\mref{mControl}) opens the Settings Screen Module (\mref{mSettings}). That
+  screen handles the nickname, preferences, reset, and data deletion controls
+  in \srsitemref{FR_Nickname}{FR43}--\srsitemref{FR_ClearAllData}{FR46}, while
+  the Player Data Module (\mref{mPlayerData}) and Preferences Module
+  (\mref{mPrefs}) perform the relevant data changes.
+
+\item \srsitemref{NFR_Layout}{NFR1}, \srsitemref{NFR_TouchTarget}{NFR3},
+  \srsitemref{NFR_Usability}{NFR5}, and \srsitemref{NFR_Colour}{NFR10}
+  constrain the appearance and behaviour of interactive controls. The UI
+  Widgets Module (\mref{mWidgets}) provides consistent buttons, touch targets,
+  and feedback that is not distinguished by colour alone. Screen modules use
+  these shared controls rather than each implementing their own versions.
+  The Procedure Content Module (\mref{mContent}), Character Rig Module
+  (\mref{mRig}), and Sound Effects Module (\mref{mSound}) also need to follow
+  \srsitemref{NFR_ChildSafe}{NFR2} and
+  \srsitemref{NFR_Inclusivity}{NFR31}.
+
+\item \srsitemref{NFR_Startup}{NFR11}--\srsitemref{NFR_DeviceHeat}{NFR18}
+  set limits on start-up time, responsiveness, frame rate, audio-visual timing,
+  sound, flashing, reliability, and device load. The Application Control Module
+  (\mref{mControl}) handles start-up, while the Procedure Runner Module
+  (\mref{mRunner}), Narration Module (\mref{mNarration}), Scene Staging Module
+  (\mref{mStaging}), and effects modules coordinate gameplay and presentation.
+  The Hardware-Hiding Module (\mref{mHH}) isolates platform-dependent
+  behaviour. These modules provide the points at which performance and safety
+  requirements can be implemented and verified.
+
+\item \srsitemref{NFR_Offline}{NFR19},
+  \srsitemref{NFR_Installability}{NFR20}, and
+  \srsitemref{NFR_Portability}{NFR24} require a self-contained application for
+  supported mobile devices. The Hardware-Hiding Module (\mref{mHH}) isolates
+  device-specific services and exposes no network communication service. The
+  Procedure Content Module (\mref{mContent}) and Data File Module
+  (\mref{mDataFile}) provide locally available content and saves. Asset sizes
+  must also be controlled across the content and presentation modules to meet
+  \srsitemref{NFR_InstallSize}{NFR21}.
+
+\end{enumerate}
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -582,57 +726,171 @@ to be implemented.
 
 \section{Traceability Matrix} \label{SecTM}
 
-This section shows two traceability matrices: between the modules and the
-requirements and between the modules and the anticipated changes.
+The following tables trace the SRS requirements to the modules responsible for
+implementing them. Table~\ref{TblFRModules} covers all functional requirements,
+and Table~\ref{TblNFRModules} covers all non-functional requirements. Some
+non-functional requirements, such as release signing, dependency checks and
+licensing, are verified through the release process rather than by an
+individual runtime module. Table~\ref{TblACT} traces the anticipated changes to the modules that hide
+the corresponding design decisions.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Req.} & \textbf{Modules}\\
-\midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
-\bottomrule
-\end{tabular}
-\caption{Trace Between Requirements and Modules}
-\label{TblRT}
-\end{table}
+\setlength{\LTcapwidth}{\textwidth}
 
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\begin{longtable}{@{}p{0.18\textwidth}p{0.74\textwidth}@{}}
+\caption{Traceability Between Functional Requirements and Modules}\label{TblFRModules}\\
 \toprule
-\textbf{AC} & \textbf{Modules}\\
+\textbf{FR} & \textbf{Modules} \\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{FR} & \textbf{Modules} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
 \bottomrule
-\end{tabular}
-\caption{Trace Between Anticipated Changes and Modules}
-\label{TblACT}
-\end{table}
+\endlastfoot
+
+\srsitemref{FR_MedicalNotice}{FR1} & \mref{mControl}, \mref{mPrefs}, \mref{mWidgets} \\
+\srsitemref{FR_RecordAck}{FR2} & \mref{mControl}, \mref{mPrefs} \\
+\srsitemref{FR_JourneyMap}{FR3} & \mref{mMap}, \mref{mLevels}, \mref{mProgress} \\
+\srsitemref{FR_StartLevel}{FR4} & \mref{mMap}, \mref{mLevels}, \mref{mRunner}, \mref{mControl} \\
+\srsitemref{FR_Replay}{FR5} & \mref{mRunner}, \mref{mProgress} \\
+\srsitemref{FR_LevelContent}{FR6} & \mref{mContent}, \mref{mRunner}, \mref{mStaging} \\
+\srsitemref{FR_AgeGroup}{FR7} & \mref{mPrefs}, \mref{mContent} \\
+\srsitemref{FR_DescribeSensations}{FR8} & \mref{mContent}, \mref{mNarration}, \mref{mStaging} \\
+\srsitemref{FR_TruthfulSensations}{FR9} & \mref{mContent}, \mref{mNarration} \\
+\srsitemref{FR_ClinicsDiffer}{FR10} & \mref{mContent}, \mref{mNarration} \\
+\srsitemref{FR_SpeakUp}{FR11} & \mref{mContent}, \mref{mNarration} \\
+\srsitemref{FR_LevelEnd}{FR12} & \mref{mRunner}, \mref{mProgress}, \mref{mReward} \\
+\srsitemref{FR_SpokenInstructions}{FR13} & \mref{mNarration}, \mref{mStaging}, \mref{mWidgets} \\
+\srsitemref{FR_HintOnMiss}{FR14} & \mref{mRunner}, \mref{mStaging}, \mref{mWidgets} \\
+\srsitemref{FR_VisualCues}{FR15} & \mref{mNarration}, \mref{mStaging}, \mref{mWidgets} \\
+\srsitemref{FR_NarrationFallback}{FR16} & \mref{mNarration}, \mref{mWidgets}, \mref{mHH} \\
+\srsitemref{FR_RevealAnswer}{FR17} & \mref{mContent}, \mref{mRunner}, \mref{mNarration}, \mref{mWidgets} \\
+\srsitemref{FR_ValidQuestions}{FR18} & \mref{mContent}, \mref{mRunner} \\
+\srsitemref{FR_NoPenalty}{FR19} & \mref{mRunner}, \mref{mProgress} \\
+\srsitemref{FR_IgnoreRepeatedTouches}{FR20} & \mref{mWidgets}, \mref{mControl} \\
+\srsitemref{FR_HoldSkip}{FR21} & \mref{mRunner}, \mref{mWidgets} \\
+\srsitemref{FR_ExitLevel}{FR22} & \mref{mRunner}, \mref{mControl} \\
+\srsitemref{FR_StopOnExit}{FR23} & \mref{mRunner}, \mref{mNarration}, \mref{mStaging}, \mref{mEffects}, \mref{mSound} \\
+\srsitemref{FR_ExitKeepsData}{FR24} & \mref{mRunner}, \mref{mProgress} \\
+\srsitemref{FR_RestartAfterExit}{FR25} & \mref{mRunner} \\
+\srsitemref{FR_RestartLevel}{FR26} & \mref{mRunner}, \mref{mWidgets} \\
+\srsitemref{FR_Suspend}{FR27} & \mref{mControl}, \mref{mRunner}, \mref{mNarration}, \mref{mEffects}, \mref{mSound} \\
+\srsitemref{FR_PersistState}{FR28} & \mref{mPlayerData}, \mref{mDataFile}, \mref{mSlots} \\
+\srsitemref{FR_RestoreState}{FR29} & \mref{mPlayerData}, \mref{mDataFile}, \mref{mSlots} \\
+\srsitemref{FR_CorruptData}{FR30} & \mref{mDataFile}, \mref{mPlayerData} \\
+\srsitemref{FR_FirstReward}{FR31} & \mref{mProgress}, \mref{mLevels}, \mref{mReward} \\
+\srsitemref{FR_NoDuplicateReward}{FR32} & \mref{mProgress}, \mref{mReward} \\
+\srsitemref{FR_Scoreboard}{FR33} & \mref{mScoreboard}, \mref{mPlayerData}, \mref{mProgress} \\
+\srsitemref{FR_ChooseCharacter}{FR34} & \mref{mDressUp}, \mref{mRig}, \mref{mWardrobe}, \mref{mPlayerData} \\
+\srsitemref{FR_DiverseCharacters}{FR35} & \mref{mAccessories}, \mref{mRig} \\
+\srsitemref{FR_Shop}{FR36} & \mref{mDressUp}, \mref{mAccessories}, \mref{mRig} \\
+\srsitemref{FR_Purchase}{FR37} & \mref{mWardrobe}, \mref{mAccessories}, \mref{mProgress}, \mref{mPlayerData}, \mref{mDressUp} \\
+\srsitemref{FR_PurchaseRefused}{FR38} & \mref{mWardrobe}, \mref{mAccessories}, \mref{mProgress}, \mref{mDressUp} \\
+\srsitemref{FR_Equip}{FR39} & \mref{mWardrobe}, \mref{mAccessories}, \mref{mRig}, \mref{mDressUp} \\
+\srsitemref{FR_NoRealMoney}{FR40} & \mref{mDressUp}, \mref{mProgress} \\
+\srsitemref{FR_ParentGate}{FR41} & \mref{mGate}, \mref{mSettings}, \mref{mControl}, \mref{mWidgets} \\
+\srsitemref{FR_ProcedureGuide}{FR42} & \mref{mGuide}, \mref{mContent} \\
+\srsitemref{FR_Nickname}{FR43} & \mref{mSettings}, \mref{mPlayerData} \\
+\srsitemref{FR_Preferences}{FR44} & \mref{mSettings}, \mref{mPrefs} \\
+\srsitemref{FR_ResetJourney}{FR45} & \mref{mSettings}, \mref{mProgress}, \mref{mPlayerData} \\
+\srsitemref{FR_ClearAllData}{FR46} & \mref{mSettings}, \mref{mPlayerData}, \mref{mPrefs}, \mref{mDataFile}, \mref{mSlots} \\
+
+\end{longtable}
+
+\begin{longtable}{@{}p{0.18\textwidth}p{0.74\textwidth}@{}}
+\caption{Traceability Between Non-Functional Requirements and Modules}\label{TblNFRModules}\\
+\toprule
+\textbf{NFR} & \textbf{Modules} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{NFR} & \textbf{Modules} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\srsitemref{NFR_Layout}{NFR1} & \mref{mWidgets}, \mref{mMap}, \mref{mGuide}, \mref{mDressUp}, \mref{mSettings} \\
+\srsitemref{NFR_ChildSafe}{NFR2} & \mref{mContent}, \mref{mNarration}, \mref{mRig}, \mref{mStaging}, \mref{mSound} \\
+\srsitemref{NFR_TouchTarget}{NFR3} & \mref{mWidgets}, \mref{mGate} \\
+\srsitemref{NFR_Exit}{NFR4} & \mref{mRunner}, \mref{mWidgets} \\
+\srsitemref{NFR_Usability}{NFR5} & \mref{mMap}, \mref{mRunner}, \mref{mWidgets}, \mref{mGuide} \\
+\srsitemref{NFR_ClinicianUse}{NFR6} & \mref{mMap}, \mref{mLevels}, \mref{mControl} \\
+\srsitemref{NFR_NoPressure}{NFR7} & \mref{mProgress}, \mref{mReward}, \mref{mScoreboard}, \mref{mDressUp} \\
+\srsitemref{NFR_Language}{NFR8} & \mref{mContent}, \mref{mNarration}, \mref{mGuide} \\
+\srsitemref{NFR_Accessibility}{NFR9} & \mref{mWidgets}, \mref{mNarration}, \mref{mEffects} \\
+\srsitemref{NFR_Colour}{NFR10} & \mref{mWidgets}, \mref{mMap}, \mref{mScoreboard} \\
+\srsitemref{NFR_Startup}{NFR11} & \mref{mControl}, \mref{mHH} \\
+\srsitemref{NFR_Responsiveness}{NFR12} & \mref{mWidgets}, \mref{mRunner} \\
+\srsitemref{NFR_Smoothness}{NFR13} & \mref{mStaging}, \mref{mRig}, \mref{mEffects}, \mref{mHH} \\
+\srsitemref{NFR_AVSync}{NFR14} & \mref{mNarration}, \mref{mStaging}, \mref{mRunner} \\
+\srsitemref{NFR_AudioSafety}{NFR15} & \mref{mNarration}, \mref{mSound}, \mref{mPrefs} \\
+\srsitemref{NFR_Flashing}{NFR16} & \mref{mEffects}, \mref{mStaging} \\
+\srsitemref{NFR_Reliability}{NFR17} & \mref{mControl}, \mref{mRunner}, \mref{mPlayerData}, \mref{mDataFile} \\
+\srsitemref{NFR_DeviceHeat}{NFR18} & \mref{mStaging}, \mref{mEffects}, \mref{mRig}, \mref{mHH} \\
+\srsitemref{NFR_Offline}{NFR19} & \mref{mHH}, \mref{mDataFile}, \mref{mContent} \\
+\srsitemref{NFR_Installability}{NFR20} & \mref{mHH}, \mref{mControl} \\
+\srsitemref{NFR_InstallSize}{NFR21} & \mref{mHH}, \mref{mRig}, \mref{mEffects}, \mref{mSound}, \mref{mContent} \\
+\srsitemref{NFR_ClinicalAccuracy}{NFR22} & \mref{mContent}, \mref{mGuide}, \mref{mStaging}, \mref{mNarration} \\
+\srsitemref{NFR_Maintainability}{NFR23} & \mref{mContent}, \mref{mLevels}, \mref{mRunner}, \mref{mHH}, \mref{mDataFile} \\
+\srsitemref{NFR_Portability}{NFR24} & \mref{mHH}, \mref{mWidgets}, \mref{mControl} \\
+\srsitemref{NFR_DependencyTesting}{NFR25} & -- (release process) \\
+\srsitemref{NFR_DataProtection}{NFR26} & \mref{mHH}, \mref{mDataFile}, \mref{mPrefs} \\
+\srsitemref{NFR_Integrity}{NFR27} & -- (release process) \\
+\srsitemref{NFR_Privacy}{NFR28} & \mref{mHH}, \mref{mDataFile} \\
+\srsitemref{NFR_Minimization}{NFR29} & \mref{mPlayerData}, \mref{mPrefs}, \mref{mDataFile} \\
+\srsitemref{NFR_Immunity}{NFR30} & -- (release process) \\
+\srsitemref{NFR_Inclusivity}{NFR31} & \mref{mContent}, \mref{mRig}, \mref{mAccessories} \\
+\srsitemref{NFR_NoClaims}{NFR32} & \mref{mControl}, \mref{mContent}, \mref{mGuide} \\
+\srsitemref{NFR_Licensing}{NFR33} & -- (release process) \\
+\srsitemref{NFR_StoreCompliance}{NFR34} & \mref{mControl}, \mref{mGate}, \mref{mDressUp} \\
+
+\end{longtable}
+
+\begin{longtable}{@{}p{0.18\textwidth}p{0.74\textwidth}@{}}
+\caption{Traceability Between Anticipated Changes and Modules}\label{TblACT}\\
+\toprule
+\textbf{AC} & \textbf{Modules} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{AC} & \textbf{Modules} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page} \\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\acref{acHardware} & \mref{mHH} \\
+\acref{acPlayerData} & \mref{mPlayerData}, \mref{mSlots} \\
+\acref{acLevels} & \mref{mLevels} \\
+\acref{acAccessories} & \mref{mAccessories}, \mref{mWardrobe} \\
+\acref{acContent} & \mref{mContent}, \mref{mGuide} \\
+\acref{acRunner} & \mref{mRunner}, \mref{mControl} \\
+\acref{acSteps} & \mref{mRunner}, \mref{mStaging} \\
+\acref{acMap} & \mref{mMap} \\
+\acref{acScoreboard} & \mref{mScoreboard} \\
+\acref{acDressUp} & \mref{mDressUp}, \mref{mPlayerSelect} \\
+\acref{acDataFile} & \mref{mDataFile} \\
+\acref{acStaging} & \mref{mStaging} \\
+\acref{acRig} & \mref{mRig} \\
+\acref{acProps} & \mref{mStaging}, \mref{mRig} \\
+\acref{acSound} & \mref{mSound} \\
+\acref{acWidgets} & \mref{mWidgets} \\
+
+\end{longtable}
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
