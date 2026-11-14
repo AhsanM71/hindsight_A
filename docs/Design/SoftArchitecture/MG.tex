@@ -9,6 +9,7 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{parskip}
+\usepackage{enumitem}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -22,9 +23,41 @@
 
 \setlength{\parindent}{0pt}
 
+\makeatletter
+\newlength{\reqlabelwidth}
+\newlength{\reqlabelsep}
+\setlength{\reqlabelsep}{0.75em}
+\newsavebox{\reqlabelbox}
+
+\newcommand{\reqsetwidth}[2]{\expandafter\gdef\csname reqwidth@#1\endcsname{#2}}
+
+\newcommand{\reqlabel}[1]{%
+  \sbox\reqlabelbox{\textbf{#1}}%
+  \ifdim\wd\reqlabelbox>\csname reqmax@\reqkind\endcsname\relax
+    \expandafter\xdef\csname reqmax@\reqkind\endcsname{\the\wd\reqlabelbox}%
+  \fi
+  \usebox\reqlabelbox}
+\newenvironment{reqlist}[1]{%
+  \def\reqkind{#1}%
+  \@ifundefined{reqmax@#1}{\expandafter\gdef\csname reqmax@#1\endcsname{0pt}}{}%
+  \@ifundefined{reqwidth@#1}%
+    {\settowidth{\reqlabelwidth}{\textbf{NFR00:}}}%
+    {\setlength{\reqlabelwidth}{\csname reqwidth@#1\endcsname}}%
+  \begin{itemize}[leftmargin=\dimexpr\reqlabelwidth+\reqlabelsep\relax,
+    labelwidth=\reqlabelwidth, labelsep=\reqlabelsep,
+    align=left, itemsep=1.2em, parsep=0.6em]}%
+  {\end{itemize}%
+  \immediate\write\@auxout{\string\reqsetwidth{\reqkind}%
+    {\csname reqmax@\reqkind\endcsname}}}
+\makeatother
+
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
-\newcommand{\acref}[1]{AC\ref{#1}}
+\newcommand{\acdef}[1]{\refstepcounter{acnum}\label{#1}\reqlabel{AC\theacnum:}}
+\newcommand{\acref}[1]{\hyperref[#1]{AC\ref*{#1}}}
+
+\newcommand{\srsurl}{https://team-hindsight.github.io/ophthamology-game/SRS/SRS.pdf}
+\newcommand{\srsitemref}[2]{\href{\srsurl\#nameddest=#1}{#2}}
 
 \newcounter{ucnum}
 \newcommand{\uctheucnum}{UC\theucnum}
@@ -161,6 +194,8 @@ the completeness of the design against the requirements provided in the SRS. The
 other shows the relation between anticipated changes and the modules. Section
 \ref{SecUse} describes the use relation between modules.
 
+\newpage
+
 \section{Anticipated and Unlikely Changes} \label{SecChange}
 
 This section lists possible changes to the system. According to the likeliness
@@ -173,20 +208,106 @@ unlikely changes are listed in Section \ref{SecUchange}.
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+adapted here is called design for change. The list refines the likely changes
+of the SRS (\srsitemref{sec_LikelyChanges}{Section~11}) and includes design
+decisions not specified in the SRS.
 
-\begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
-\end{description}
+\begin{reqlist}{AC}
+\setlength{\itemsep}{0.45em}
+\setlength{\parsep}{0.18em}
+\item[\acdef{acHardware}] The device, the
+  operating system version, the screen size and the game engine on which the
+  software runs, and how the engine provides touch input, audio output, local
+  storage and application life-cycle events.
 
-\wss{Anticipated changes relate to changes that would be made in requirements,
-design or implementation choices.  They are not related to changes that are made
-at run-time, like the values of parameters.}
+\textit{Rationale:} The SRS identifies supported platforms and screen sizes as likely to change (\srsitemref{LC_Platforms}{LC9}). Keeping device and engine details separate will make it easier to support different devices while meeting \srsitemref{NFR_Portability}{NFR24}.
+
+\item[\acdef{acPlayerData}] Which data
+  belongs to a player, such as a nickname or saved progress, and when it
+  is saved.
+
+\textit{Rationale:} The data needed for saving progress may change if the planned personalization stretch goal is added (\srsitemref{LC_Personalization}{LC13}). Any change to stored information must also be checked against the data limits in \srsitemref{NFR_Minimization}{NFR29}.
+
+\item[\acdef{acLevels}] The set of levels,
+  their order on the journey map, their names and illustrations, and the
+  reward each level gives.
+
+\textit{Rationale:} The set and order of procedures will be confirmed with the supervisor (\srsitemref{LC_Procedures}{LC2}), and rewards will be tuned during testing (\srsitemref{LC_Rewards}{LC4}). These details should be changeable without rewriting the rest of the game.
+
+\item[\acdef{acAccessories}] The
+  characters, the accessories, the accessory categories and the prices.
+
+\textit{Rationale:} The available characters and accessories may change after feedback (\srsitemref{LC_Characters}{LC5}). Accessory prices may also be adjusted as the team balances the rewards (\srsitemref{LC_Rewards}{LC4}).
+
+\item[\acdef{acContent}] The content of
+  each level and of the procedure guide: the steps, their order, the narrated
+  wording, the sensation descriptions, the content for each age group and the
+  language.
+
+\textit{Rationale:} Procedure wording and step order may change after clinical and child-life review (\srsitemref{LC_ClinicalContent}{LC3}). Age-specific content and additional languages are also anticipated (\srsitemref{LC_AgeContent}{LC7}, \srsitemref{LC_Language}{LC8}), and revised clinical content must still meet \srsitemref{NFR_ClinicalAccuracy}{NFR22}.
+
+\item[\acdef{acRunner}] How a level is
+  played from its steps: how skipping, restarting, leaving and interruptions
+  are handled, such as resuming an interrupted level instead of restarting it.
+
+\textit{Rationale:} Different level formats may require changes to how steps are played (\srsitemref{LC_LevelFormat}{LC1}). The runner must continue to support the exit, restart, and interruption behaviour specified in \srsitemref{FR_ExitLevel}{FR22}, \srsitemref{FR_RestartAfterExit}{FR25}, and \srsitemref{FR_Suspend}{FR27}.
+
+\item[\acdef{acSteps}] The kinds of
+  exercises a level can contain and how each kind interacts with the child,
+  such as a new drag-and-drop exercise.
+
+\textit{Rationale:} The activities used within each level have not been finalized and will be selected through prototyping and feedback (\srsitemref{LC_LevelFormat}{LC1}). Separating exercise types allows new interactions to be added while keeping the procedure preparation purpose in \srsitemref{FR_LevelContent}{FR6}.
+
+\item[\acdef{acMap}] The presentation of
+  the journey map, such as a path through a building instead of a grid of
+  cards.
+
+\textit{Rationale:} The map layout may change to make procedure selection easier for children. Whatever layout is used, the map must show the levels and their status as required by \srsitemref{FR_JourneyMap}{FR3}, and remain usable under \srsitemref{NFR_Usability}{NFR5}.
+
+\item[\acdef{acScoreboard}] The contents
+  and presentation of the personal scoreboard.
+
+\textit{Rationale:} The way progress is displayed may be improved after usability testing. The scoreboard must still show the personal progress information required by \srsitemref{FR_Scoreboard}{FR33} without adding pressure or comparisons between children (\srsitemref{NFR_NoPressure}{NFR7}).
+
+\item[\acdef{acDressUp}] The presentation
+  of the character choice, the shop and the dressing room.
+
+\textit{Rationale:} Changes to the character and accessory catalogue (\srsitemref{LC_Characters}{LC5}) may require changes to the shop and dressing-room screens. The screens must still support accessory previews, purchases, and equipping as required by \srsitemref{FR_Shop}{FR36} and \srsitemref{FR_Equip}{FR39}.
+
+\item[\acdef{acDataFile}] The format in
+  which data is written to storage and how a failed or interrupted write is
+  recovered from.
+
+\textit{Rationale:} The storage format may evolve as the saved state changes. It must continue to keep an earlier valid save when a write fails (\srsitemref{FR_PersistState}{FR28}) and recover safely from unreadable data (\srsitemref{FR_CorruptData}{FR30}).
+
+\item[\acdef{acStaging}] The layout of the
+  3D exam room: where characters and equipment stand, which objects can be
+  tapped, and how stage actions are played.
+
+\textit{Rationale:} The position of equipment and the sequence of visible actions may change after clinical review (\srsitemref{LC_ClinicalContent}{LC3}). The staged procedure must still match clinician-approved content (\srsitemref{NFR_ClinicalAccuracy}{NFR22}).
+
+\item[\acdef{acRig}] The 3D models and
+  animations of the characters.
+
+\textit{Rationale:} Placeholder character models and animations will be replaced as final assets become available (\srsitemref{LC_Assets}{LC11}). The catalogue may also change (\srsitemref{LC_Characters}{LC5}), while remaining inclusive as required by \srsitemref{NFR_Inclusivity}{NFR31}.
+
+\item[\acdef{acProps}] The 3D models and
+  animations of the clinical equipment, such as the eye-drop bottle, the light
+  and the eye chart.
+
+\textit{Rationale:} Equipment models may be revised as placeholder assets are replaced (\srsitemref{LC_Assets}{LC11}) or clinicians identify needed corrections (\srsitemref{LC_ClinicalContent}{LC3}). The final presentation must still meet \srsitemref{NFR_ClinicalAccuracy}{NFR22}.
+
+\item[\acdef{acSound}] The sound effects,
+  the music and how their volume is set against the narration.
+
+\textit{Rationale:} Music and sound effects may be replaced during development (\srsitemref{LC_Assets}{LC11}) or adjusted after testing. They must remain within the relative volume limit in \srsitemref{NFR_AudioSafety}{NFR15}, while following the caregiver settings in \srsitemref{FR_Preferences}{FR44}.
+
+\item[\acdef{acWidgets}] The look and feel
+  of the shared controls: buttons, switches, confirmation dialogs and the coin
+  counter.
+
+\textit{Rationale:} Shared controls may be restyled after usability and accessibility testing. They must still keep the placement of common controls consistent (\srsitemref{NFR_Layout}{NFR1}) and not rely on colour alone (\srsitemref{NFR_Colour}{NFR10}).
+\end{reqlist}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
