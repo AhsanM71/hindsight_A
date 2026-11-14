@@ -4,6 +4,7 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
@@ -74,23 +75,38 @@ This section records information for easy reference.
 \subsection{Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  AC & Anticipated Change\\
-  DAG & Directed Acyclic Graph \\
-  M & Module \\
-  MG & Module Guide \\
-  OS & Operating System \\
-  R & Requirement\\
-  SC & Scientific Computing \\
-  SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
-  UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
-  \bottomrule
-\end{tabular}\\
+\begin{longtable}{@{}p{0.24\textwidth}p{0.69\textwidth}@{}}
+\caption{Abbreviations and Acronyms}\label{tab:VnVAcronyms}\\
+\toprule
+\textbf{Symbol} & \textbf{Description}\\
+\midrule
+\endfirsthead
+\multicolumn{2}{c}{\tablename\ \thetable{} -- continued from previous page}\\
+\toprule
+\textbf{Symbol} & \textbf{Description}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+AC & Anticipated Change\\
+DAG & Directed Acyclic Graph\\
+FR & Functional Requirement (from the SRS)\\
+HUD & Heads-Up Display (the controls shown on top of a level)\\
+LC & Likely Change (from the SRS)\\
+M & Module\\
+MG & Module Guide\\
+MIS & Module Interface Specification\\
+NFR & Non-Functional Requirement (from the SRS)\\
+OS & Operating System\\
+PoC & Proof of Concept\\
+SRS & Software Requirements Specification\\
+\progname & The ophthalmology preparation game for children aged 3 to 7\\
+UC & Unlikely Change\\
+ULC & Unlikely Change (from the SRS)\\
+\end{longtable}
 
 \newpage
 
