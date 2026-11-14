@@ -58,7 +58,7 @@ urlcolor=cyan          % color of external links
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-? & ? & ? \\
+2026/11/14 & Mohammad Bilal & Added table in section 5 and completed individual reflection \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -129,35 +129,48 @@ described by giving their type signature followed by their specification.
 \newpage
 \section{Module Decomposition}
 
-The following table is taken directly from the Module Guide document for this project.
+The following table is taken directly from the Module Guide document for this project \cite{MG}.
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
-\bottomrule
-
-\end{tabular}
+\begin{table}[H]
 \caption{Module Hierarchy}
 \label{TblMH}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{@{}p{0.31\textwidth}X@{}}
+\toprule
+\textbf{Level 1} & \textbf{Level 2} \\
+\midrule
+Hardware-Hiding Module & M1 Hardware-Hiding Module \\
+\midrule
+\multirow{18}{0.31\textwidth}{Behaviour-Hiding Module}
+& M2 Application Control Module \\
+& M3 Journey Progress Module \\
+& M4 Wardrobe Module \\
+& M5 Player Data Module \\
+& M6 Preferences Module \\
+& M7 Level Catalogue Module \\
+& M8 Accessory Catalogue Module \\
+& M9 Procedure Content Module \\
+& M10 Procedure Runner Module \\
+& M11 Narration Module \\
+& M12 Player Select Screen Module \\
+& M13 Journey Map Screen Module \\
+& M14 Reward Screen Module \\
+& M15 Scoreboard Screen Module \\
+& M16 Dress-Up Screen Module \\
+& M17 Parental Gate Module \\
+& M18 Settings Screen Module \\
+& M19 Procedure Guide Screen Module \\
+\midrule
+\multirow{7}{0.31\textwidth}{Software Decision Module}
+& M20 Data File Module \\
+& M21 Save Slots Module \\
+& M22 Scene Staging Module \\
+& M23 Character Rig Module \\
+& M24 Screen Effects Module \\
+& M25 Sound Effects Module \\
+& M26 UI Widgets Module \\
+\bottomrule
+\end{tabularx}
 \end{table}
 
 \newpage
