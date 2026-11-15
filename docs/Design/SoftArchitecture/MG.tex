@@ -1149,34 +1149,284 @@ the corresponding design decisions.
 \newpage
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
-In this section, the uses hierarchy between modules is
-provided. \cite{Parnas1978} said of two programs A and B that A {\em uses} B if
-correct execution of B may be necessary for A to complete the task described in
-its specification. That is, A {\em uses} B if there exist situations in which
-the correct functioning of A depends upon the availability of a correct
-implementation of B.  Figure \ref{FigUH} illustrates the use relation between
-the modules. It can be seen that the graph is a directed acyclic graph
-(DAG). Each level of the hierarchy offers a testable and usable subset of the
-system, and modules in the higher level of the hierarchy are essentially simpler
-because they use modules from the lower levels.
+This section describes the uses hierarchy between the modules
+of \progname{}. According to \cite{Parnas1978}, module A
+uses module B when A depends on services provided by B
+to fulfill its responsibilities. The uses relation represents
+module dependencies rather than the flow of data through
+the application.
 
-\wss{The uses relation is not a data flow diagram.  In the code there will often
-be an import statement in module A when it directly uses module B.  Module B
-provides the services that module A needs.  The code for module A needs to be
-able to see these services (hence the import statement).  Since the uses
-relation is transitive, there is a use relation without an import, but the
-arrows in the diagram typically correspond to the presence of import statement.}
+Figure~\ref{FigUH} illustrates the uses hierarchy, while
+Table~\ref{TblUses} lists the direct dependencies between
+modules. The hierarchy forms a directed acyclic graph (DAG),
+meaning that no circular dependencies exist. Lower-level
+modules provide services to higher-level modules, allowing
+the system to be implemented and tested in stages.
 
-\wss{If module A uses module B, the arrow is directed from A to B.}
+Each module appears once in the diagram, with solid arrows
+indicating direct dependencies. An arrow from module A
+to module B means that A uses B. All dependencies listed
+in Table~\ref{TblUses} are shown, including those involving
+the Hardware-Hiding Module (\mref{mHH}). Crossing arrows
+do not indicate connections between modules.
 
-\begin{figure}[H]
+% \begin{longtable}{p{0.33\textwidth} p{0.57\textwidth}}
+% \caption{Uses Relation} \label{TblUses}\\
+% \toprule
+% \textbf{Module} & \textbf{Uses}\\
+% \midrule
+% \endfirsthead
+% \toprule
+% \textbf{Module} & \textbf{Uses}\\
+% \midrule
+% \endhead
+% \mref{mHH} Hardware-Hiding & --\\
+% \mref{mControl} Application Control & \mref{mHH}, \mref{mPlayerData}, \mref{mPrefs}, \mref{mLevels}, \mref{mRunner}, \mref{mPlayerSelect}, \mref{mMap}, \mref{mScoreboard}, \mref{mDressUp}, \mref{mSettings}\\
+% \mref{mProgress} Journey Progress & \mref{mLevels}\\
+% \mref{mWardrobe} Wardrobe & \mref{mProgress}, \mref{mAccessories}\\
+% \mref{mPlayerData} Player Data & \mref{mProgress}, \mref{mWardrobe}, \mref{mPrefs}, \mref{mLevels}, \mref{mAccessories}, \mref{mSlots}\\
+% \mref{mPrefs} Preferences & \mref{mDataFile}\\
+% \mref{mLevels} Level Catalogue & \mref{mAccessories}\\
+% \mref{mAccessories} Accessory Catalogue & --\\
+% \mref{mContent} Procedure Content & \mref{mPrefs}, \mref{mLevels}, \mref{mNarration}\\
+% \mref{mRunner} Procedure Runner & \mref{mPlayerData}, \mref{mPrefs}, \mref{mLevels}, \mref{mContent}, \mref{mNarration}, \mref{mReward}, \mref{mSettings}, \mref{mStaging}, \mref{mEffects}, \mref{mSound}\\
+% \mref{mNarration} Narration & \mref{mHH}, \mref{mPrefs}, \mref{mRig}, \mref{mWidgets}\\
+% \mref{mPlayerSelect} Player Select Screen & \mref{mHH}, \mref{mPlayerData}, \mref{mRig}, \mref{mWidgets}\\
+% \mref{mMap} Journey Map Screen & \mref{mHH}, \mref{mPlayerData}, \mref{mLevels}, \mref{mWidgets}\\
+% \mref{mReward} Reward Screen & \mref{mHH}, \mref{mLevels}, \mref{mAccessories}, \mref{mSound}, \mref{mWidgets}\\
+% \mref{mScoreboard} Scoreboard Screen & \mref{mHH}, \mref{mPlayerData}, \mref{mLevels}, \mref{mRig}, \mref{mWidgets}\\
+% \mref{mDressUp} Dress-Up Screen & \mref{mHH}, \mref{mPlayerData}, \mref{mAccessories}, \mref{mRig}, \mref{mWidgets}\\
+% \mref{mGate} Parental Gate & \mref{mHH}, \mref{mWidgets}\\
+% \mref{mSettings} Settings Screen & \mref{mHH}, \mref{mPlayerData}, \mref{mPrefs}, \mref{mGate}, \mref{mGuide}, \mref{mWidgets}\\
+% \mref{mGuide} Procedure Guide Screen & \mref{mHH}, \mref{mLevels}, \mref{mContent}, \mref{mWidgets}\\
+% \mref{mDataFile} Data File & \mref{mHH}\\
+% \mref{mSlots} Save Slots & \mref{mDataFile}\\
+% \mref{mStaging} Scene Staging & \mref{mPlayerData}, \mref{mNarration}, \mref{mRig}\\
+% \mref{mRig} Character Rig & \mref{mHH}, \mref{mAccessories}\\
+% \mref{mEffects} Screen Effects & \mref{mHH}, \mref{mPrefs}\\
+% \mref{mSound} Sound Effects & \mref{mHH}, \mref{mPrefs}\\
+% \mref{mWidgets} UI Widgets & \mref{mHH}, \mref{mSound}\\
+% \bottomrule
+% \end{longtable}
+
+\begin{longtable}{p{0.33\textwidth} p{0.57\textwidth}}
+\caption{Uses Relation}\label{TblUses}\\
+\toprule
+\textbf{Module} & \textbf{Uses}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Module} & \textbf{Uses}\\
+\midrule
+\endhead
+
+\mref{mHH} Hardware-Hiding & --\\
+
+\mref{mControl} Application Control &
+\mref{mGuide}, \mref{mRunner}, \mref{mDressUp},
+\mref{mPlayerSelect}, \mref{mMap}, \mref{mSettings}\\
+
+\mref{mProgress} Journey Progress &
+\mref{mLevels}\\
+
+\mref{mWardrobe} Wardrobe &
+\mref{mAccessories}\\
+
+\mref{mPlayerData} Player Data &
+\mref{mSlots}, \mref{mDataFile}, \mref{mAccessories}\\
+
+\mref{mPrefs} Preferences &
+\mref{mDataFile}\\
+
+\mref{mLevels} Level Catalogue & --\\
+
+\mref{mAccessories} Accessory Catalogue & --\\
+
+\mref{mContent} Procedure Content & --\\
+
+\mref{mRunner} Procedure Runner &
+\mref{mContent}, \mref{mNarration}, \mref{mSound},
+\mref{mEffects}, \mref{mReward}, \mref{mStaging}\\
+
+\mref{mNarration} Narration &
+\mref{mHH}\\
+
+\mref{mPlayerSelect} Player Select Screen &
+\mref{mScoreboard}, \mref{mPlayerData}, \mref{mWidgets}\\
+
+\mref{mMap} Journey Map Screen &
+\mref{mProgress}, \mref{mLevels}, \mref{mWidgets}\\
+
+\mref{mReward} Reward Screen & --\\
+
+\mref{mScoreboard} Scoreboard Screen & --\\
+
+\mref{mDressUp} Dress-Up Screen &
+\mref{mWardrobe}, \mref{mRig}, \mref{mWidgets}\\
+
+\mref{mGate} Parental Gate & --\\
+
+\mref{mSettings} Settings Screen &
+\mref{mGate}, \mref{mPrefs}, \mref{mWidgets}\\
+
+\mref{mGuide} Procedure Guide Screen &
+\mref{mContent}\\
+
+\mref{mDataFile} Data File &
+\mref{mHH}\\
+
+\mref{mSlots} Save Slots &
+\mref{mDataFile}\\
+
+\mref{mStaging} Scene Staging &
+\mref{mRig}, \mref{mHH}\\
+
+\mref{mRig} Character Rig & \mref{mAccessories}\\
+
+\mref{mEffects} Screen Effects &
+\mref{mHH}\\
+
+\mref{mSound} Sound Effects &
+\mref{mHH}\\
+
+\mref{mWidgets} UI Widgets &
+\mref{mHH}\\
+
+\bottomrule
+\end{longtable}
+
+\begin{landscape}
+\begin{figure}[p]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
-\caption{Use hierarchy among modules}
+% Layered DAG: every direct use matches the active, simplified Uses Relation table.
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[x=1bp, y=1bp,
+  dagmodule/.style={draw=black!65, rounded corners=2pt, fill=blue!4,
+    align=center, inner sep=2bp, font=\sffamily\fontsize{10}{11.25}\selectfont},
+  daglink/.style={-{Stealth[length=4.5bp,width=3.5bp]}, line width=0.65bp,
+    draw=black!75, line cap=round, line join=round},
+  dagadditional/.style={daglink, draw=black!50, line width=0.5bp,
+    dash pattern=on 2.5bp off 1.7bp},
+  dagchain/.style={daglink, preaction={draw=white, line width=2bp, arrows=-}}]
+\path[use as bounding box] (-3.00,-3.00) rectangle (825.20,366.20);
+% Direct use: mPlayerData -> mDataFile
+\draw[dagchain] (487.02,199.81) .. controls (486.31,183.58) and (486.14,156.28) .. (490.91,133.40) .. controls (493.09,122.99) and (497.20,111.94) .. (501.13,102.81) -- (503.79,96.83);
+% Direct use: mMap -> mLevels
+\draw[dagchain] (759.51,269.09) .. controls (777.31,261.05) and (797.57,248.39) .. (807.91,229.80) .. controls (818.77,210.30) and (807.60,185.60) .. (796.71,168.72) -- (793.07,163.32);
+% Direct use: mControl -> mRunner
+\draw[dagchain] (366.25,334.33) .. controls (327.31,323.48) and (271.91,308.03) .. (231.84,296.85) -- (225.54,295.10);
+% Direct use: mControl -> mPlayerSelect
+\draw[dagchain] (426.37,333.31) .. controls (435.39,323.90) and (447.36,311.41) .. (457.16,301.18) -- (461.49,296.66);
+% Direct use: mControl -> mMap
+\draw[dagchain] (459.44,337.73) .. controls (521.05,325.00) and (628.66,302.75) .. (686.49,290.80) -- (692.60,289.54);
+% Direct use: mControl -> mDressUp
+\draw[dagchain] (405.10,333.31) .. controls (400.06,324.24) and (393.41,312.30) .. (387.85,302.29) -- (384.71,296.66);
+% Direct use: mControl -> mSettings
+\draw[dagchain] (452.64,333.15) .. controls (486.49,321.05) and (534.36,303.94) .. (564.77,293.07) -- (570.60,290.98);
+% Direct use: mControl -> mGuide
+\draw[dagchain] (366.27,339.40) .. controls (310.10,329.72) and (212.97,312.67) .. (129.91,296.50) .. controls (124.05,295.36) and (117.91,294.12) .. (111.83,292.87) -- (105.78,291.63);
+% Direct use: mProgress -> mLevels
+\draw[dagchain] (763.12,199.91) .. controls (766.46,190.92) and (770.83,179.13) .. (774.52,169.18) -- (776.72,163.26);
+% Direct use: mWardrobe -> mAccessories
+\draw[dagchain] (404.91,133.21) .. controls (404.91,124.39) and (404.91,112.87) .. (404.91,103.04) -- (404.91,96.56);
+% Direct use: mPlayerData -> mAccessories
+\draw[dagchain] (478.87,199.64) .. controls (463.97,176.04) and (434.21,128.93) .. (417.34,102.22) -- (413.94,96.84);
+% Direct use: mPlayerData -> mSlots
+\draw[dagchain] (496.38,199.91) .. controls (501.90,190.75) and (509.18,178.68) .. (515.24,168.61) -- (518.47,163.26);
+% Direct use: mPrefs -> mDataFile
+\draw[dagchain] (639.30,134.47) .. controls (611.08,123.05) and (569.97,106.43) .. (541.93,95.09) -- (536.15,92.75);
+% Direct use: mRunner -> mContent
+\draw[dagchain] (151.29,266.45) .. controls (130.63,256.55) and (102.96,243.29) .. (81.17,232.84) -- (75.47,230.12);
+% Direct use: mRunner -> mNarration
+\draw[dagchain] (171.11,266.69) .. controls (164.75,256.85) and (156.92,243.12) .. (152.91,229.80) .. controls (139.78,186.14) and (139.10,132.12) .. (139.91,103.18) -- (140.13,96.72);
+% Direct use: mRunner -> mReward
+\draw[dagchain] (180.91,266.61) .. controls (180.91,257.79) and (180.91,246.27) .. (180.91,236.44) -- (180.91,229.96);
+% Direct use: mRunner -> mStaging
+\draw[dagchain] (202.40,266.61) .. controls (217.21,256.93) and (237.02,243.98) .. (252.91,233.60) -- (258.13,230.18);
+% Direct use: mRunner -> mEffects
+\draw[dagchain] (164.35,266.50) .. controls (153.55,256.80) and (139.54,243.29) .. (128.91,229.80) .. controls (113.62,210.38) and (99.59,185.66) .. (90.69,168.76) -- (87.88,163.35);
+% Direct use: mRunner -> mSound
+\draw[dagchain] (190.75,266.70) .. controls (197.13,256.87) and (204.95,243.13) .. (208.91,229.80) .. controls (221.90,186.12) and (222.16,132.11) .. (221.10,103.17) -- (220.83,96.71);
+% Direct use: mNarration -> mHH
+\draw[dagchain] (164.40,66.35) .. controls (180.56,56.58) and (202.14,43.53) .. (219.31,33.15) -- (224.49,30.02);
+% Direct use: mPlayerSelect -> mPlayerData
+\draw[dagchain] (477.74,266.61) .. controls (479.52,257.71) and (481.87,246.05) .. (483.85,236.16) -- (485.10,229.96);
+% Direct use: mPlayerSelect -> mScoreboard
+\draw[dagchain] (461.68,266.61) .. controls (452.81,257.20) and (441.03,244.71) .. (431.39,234.48) -- (427.13,229.96);
+% Direct use: mPlayerSelect -> mWidgets
+\draw[dagchain] (493.79,266.61) .. controls (506.70,257.01) and (523.92,244.21) .. (537.82,233.87) -- (542.77,230.18);
+% Direct use: mMap -> mProgress
+\draw[dagchain] (732.86,266.61) .. controls (737.35,257.54) and (743.25,245.60) .. (748.20,235.59) -- (750.99,229.96);
+% Direct use: mMap -> mWidgets
+\draw[dagchain] (692.33,267.40) .. controls (664.86,256.56) and (626.09,241.27) .. (597.97,230.17) -- (592.14,227.87);
+% Direct use: mDressUp -> mWardrobe
+\draw[dagchain] (375.10,266.42) .. controls (373.47,250.11) and (372.13,222.73) .. (377.91,200.10) .. controls (380.74,189.03) and (386.43,177.71) .. (391.85,168.57) -- (395.17,163.18);
+% Direct use: mDressUp -> mRig
+\draw[dagchain] (371.90,266.34) .. controls (363.71,242.94) and (347.43,196.42) .. (338.04,169.59) -- (335.92,163.54);
+% Direct use: mDressUp -> mWidgets
+\draw[dagchain] (403.19,271.86) .. controls (432.84,261.89) and (482.47,245.03) .. (524.91,229.80) .. controls (525.19,229.70) and (525.46,229.60) .. (525.74,229.50) -- (531.65,227.35);
+% Direct use: mSettings -> mPrefs
+\draw[dagchain] (617.41,274.35) .. controls (638.49,267.31) and (668.16,253.64) .. (681.91,229.80) .. controls (692.60,211.29) and (686.80,186.50) .. (680.27,169.33) -- (677.87,163.38);
+% Direct use: mSettings -> mGate
+\draw[dagchain] (603.90,266.61) .. controls (610.47,257.37) and (619.15,245.16) .. (626.35,235.04) -- (629.95,229.96);
+% Direct use: mSettings -> mWidgets
+\draw[dagchain] (586.97,266.61) .. controls (582.48,257.54) and (576.58,245.60) .. (571.63,235.59) -- (568.84,229.96);
+% Direct use: mGuide -> mContent
+\draw[dagchain] (60.01,266.61) .. controls (57.53,257.71) and (54.29,246.05) .. (51.54,236.16) -- (49.81,229.96);
+% Direct use: mDataFile -> mHH
+\draw[dagchain] (485.57,72.99) .. controls (478.28,70.88) and (470.30,68.64) .. (462.91,66.70) .. controls (405.81,51.72) and (339.64,36.37) .. (295.96,26.51) -- (289.68,25.09);
+% Direct use: mSlots -> mDataFile
+\draw[dagchain] (523.44,133.21) .. controls (521.24,124.31) and (518.36,112.65) .. (515.91,102.76) -- (514.38,96.56);
+% Direct use: mStaging -> mHH
+\draw[dagchain] (279.08,199.61) .. controls (277.36,173.13) and (272.72,114.86) .. (262.91,66.70) .. controls (260.83,56.44) and (257.63,45.26) .. (254.73,36.00) -- (252.78,29.93);
+% Direct use: mStaging -> mRig
+\draw[dagchain] (290.98,199.91) .. controls (298.27,190.67) and (307.89,178.46) .. (315.87,168.34) -- (319.87,163.26);
+% Direct use: mRig -> mAccessories
+\draw[dagchain] (346.97,133.21) .. controls (357.76,123.78) and (372.09,111.25) .. (383.79,101.02) -- (388.63,96.78);
+% Direct use: mEffects -> mHH
+\draw[dagchain] (82.37,133.09) .. controls (84.93,115.32) and (91.80,84.95) .. (109.91,66.70) .. controls (133.93,42.51) and (170.43,29.72) .. (199.86,23.02) -- (206.02,21.68);
+% Direct use: mSound -> mHH
+\draw[dagchain] (225.99,66.51) .. controls (229.88,57.52) and (234.99,45.73) .. (239.29,35.78) -- (241.85,29.86);
+% Direct use: mWidgets -> mHH
+\draw[dagchain] (565.22,199.88) .. controls (571.30,170.02) and (580.37,100.33) .. (541.91,66.70) .. controls (506.05,35.34) and (369.93,22.79) .. (296.15,18.21) -- (289.64,17.82);
+\node[dagmodule, minimum width=82.83bp, minimum height=29.70bp, fill=black!6] (mHH) at (247.91,14.85) {\mref{mHH}\\Hardware-Hiding};
+\node[dagmodule, minimum width=92.58bp, minimum height=29.70bp, fill=blue!12] (mControl) at (412.91,348.35) {\mref{mControl}\\Application Control};
+\node[dagmodule, minimum width=86.58bp, minimum height=29.70bp] (mProgress) at (757.91,214.95) {\mref{mProgress}\\Journey Progress};
+\node[dagmodule, minimum width=51.33bp, minimum height=29.70bp] (mWardrobe) at (404.91,148.25) {\mref{mWardrobe}\\Wardrobe};
+\node[dagmodule, minimum width=61.83bp, minimum height=29.70bp] (mPlayerData) at (487.91,214.95) {\mref{mPlayerData}\\Player Data};
+\node[dagmodule, minimum width=62.58bp, minimum height=29.70bp] (mPrefs) at (670.91,148.25) {\mref{mPrefs}\\Preferences};
+\node[dagmodule, minimum width=80.58bp, minimum height=29.70bp] (mLevels) at (781.91,148.25) {\mref{mLevels}\\Level Catalogue};
+\node[dagmodule, minimum width=103.83bp, minimum height=29.70bp] (mAccessories) at (404.91,81.55) {\mref{mAccessories}\\Accessory Catalogue};
+\node[dagmodule, minimum width=91.83bp, minimum height=29.70bp] (mContent) at (45.91,214.95) {\mref{mContent}\\Procedure Content};
+\node[dagmodule, minimum width=88.83bp, minimum height=29.70bp] (mRunner) at (180.91,281.65) {\mref{mRunner}\\Procedure Runner};
+\node[dagmodule, minimum width=49.83bp, minimum height=29.70bp] (mNarration) at (140.91,81.55) {\mref{mNarration}\\Narration};
+\node[dagmodule, minimum width=68.58bp, minimum height=29.70bp] (mPlayerSelect) at (474.91,281.65) {\mref{mPlayerSelect}\\Player Select};
+\node[dagmodule, minimum width=66.33bp, minimum height=29.70bp] (mMap) at (725.91,281.65) {\mref{mMap}\\Journey Map};
+\node[dagmodule, minimum width=43.83bp, minimum height=29.70bp] (mReward) at (180.91,214.95) {\mref{mReward}\\Reward};
+\node[dagmodule, minimum width=59.58bp, minimum height=29.70bp] (mScoreboard) at (413.91,214.95) {\mref{mScoreboard}\\Scoreboard};
+\node[dagmodule, minimum width=52.08bp, minimum height=29.70bp] (mDressUp) at (376.91,281.65) {\mref{mDressUp}\\Dress-Up};
+\node[dagmodule, minimum width=70.08bp, minimum height=29.70bp] (mGate) at (639.91,214.95) {\mref{mGate}\\Parental Gate};
+\node[dagmodule, minimum width=46.08bp, minimum height=29.70bp] (mSettings) at (593.91,281.65) {\mref{mSettings}\\Settings};
+\node[dagmodule, minimum width=82.83bp, minimum height=29.70bp] (mGuide) at (63.91,281.65) {\mref{mGuide}\\Procedure Guide};
+\node[dagmodule, minimum width=49.83bp, minimum height=29.70bp] (mDataFile) at (510.91,81.55) {\mref{mDataFile}\\Data File};
+\node[dagmodule, minimum width=58.08bp, minimum height=29.70bp] (mSlots) at (526.91,148.25) {\mref{mSlots}\\Save Slots};
+\node[dagmodule, minimum width=73.83bp, minimum height=29.70bp] (mStaging) at (279.91,214.95) {\mref{mStaging}\\Scene Staging};
+\node[dagmodule, minimum width=70.83bp, minimum height=29.70bp] (mRig) at (330.91,148.25) {\mref{mRig}\\Character Rig};
+\node[dagmodule, minimum width=75.33bp, minimum height=29.70bp] (mEffects) at (80.92,148.25) {\mref{mEffects}\\Screen Effects};
+\node[dagmodule, minimum width=72.33bp, minimum height=29.70bp] (mSound) at (219.91,81.55) {\mref{mSound}\\Sound Effects};
+\node[dagmodule, minimum width=59.58bp, minimum height=29.70bp] (mWidgets) at (561.91,214.95) {\mref{mWidgets}\\UI Widgets};
+\end{tikzpicture}%
+}
+\caption[Use hierarchy among modules]{Uses hierarchy between modules, based on the Uses Relation
+in Table~\ref{TblUses}. An arrow from module A to module B
+indicates that A depends on services provided by B.
+All direct dependencies are represented by solid arrows,
+including those involving the Hardware-Hiding Module
+(\mref{mHH}). Crossing arrows do not indicate a connection
+between modules.}
 \label{FigUH}
 \end{figure}
-
-%\section*{References}
+\end{landscape}
 
 \newpage
 \section{User Interfaces}\label{SecUI}
@@ -1756,12 +2006,12 @@ schedule. It was used in the following sections:
     (Use Hierarchy Between Modules)}, GPT-6.1 Sol helped generate the
     \hyperref[FigUH]{directed acyclic graph} from the
     \hyperref[TblUses]{Uses Relation table}. AI assisted with arranging the
-    modules in layers, routing the arrows, and refining the layout to reduce
-    crossings. It also helped distinguish the main dependency chains from
-    additional direct uses with solid and dashed arrows, while preserving
-    the table's dependencies apart from the explicitly omitted arrows to
-    Hardware-Hiding. The final TikZ graph was incorporated directly into
-    this document's \LaTeX{} source.
+    modules in layers and routing downward arrows to reduce crossings.
+    AI helped restore the earlier layered layout after the author simplified
+    the Uses Relation table, preserving every direct dependency, including
+    uses of Hardware-Hiding. It also helped distinguish the main dependency
+    chains from additional direct uses with solid and dashed arrows. The final
+    TikZ graph was incorporated directly into this document's \LaTeX{} source.
 
     \item In \hyperref[SecUI]{Section~\ref*{SecUI} (User Interfaces)},
     GPT-6.1 Sol helped format the
