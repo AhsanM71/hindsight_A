@@ -1226,9 +1226,293 @@ the application and is never written at run time.
 \newpage
 \section{Timeline}
 
-\wss{Schedule of tasks and who is responsible}
+Module development is tracked through the
+\href{https://github.com/orgs/team-hindsight/projects/1/views/2}{project roadmap}.
+Table~\ref{TblModulePhases} provides an overview of the completed PoC work
+and the remaining development phases, based on the
+\srsitemref{tab:DevelopmentPhases}{SRS development schedule}.
+The following tables outline the remaining implementation tasks
+and testing responsibilities for each module.
 
-\wss{You can point to GitHub if this information is included there}
+
+\begin{table}[H]
+\centering
+\caption{Development phase overview}
+\label{TblModulePhases}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabularx}{\textwidth}{@{}
+    >{\raggedright\arraybackslash}p{3.6cm}
+    >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Phase and dates} & \textbf{Modules}\\
+\midrule
+
+Proof of concept\newline
+3 Nov.--4 Dec.\ 2026 &
+The PoC includes completed implementations of
+\mref{mRunner}, \mref{mNarration}, \mref{mStaging},
+\mref{mRig}, \mref{mEffects}, \mref{mSound},
+\mref{mDataFile}, and \mref{mSlots}.
+
+Initial implementations of \mref{mProgress}, \mref{mWardrobe},
+\mref{mPlayerData}, and \mref{mPrefs} are also available
+and may require further refinement based on feedback.\\
+
+\midrule
+
+Core application\newline
+5 Dec.\ 2026--\newline
+18 Jan.\ 2027 &
+Refine existing modules based on PoC feedback and develop
+the remaining core functionality, including:
+
+\begin{itemize}[leftmargin=*,nosep]
+    \item Level and accessory catalogues:
+    \mref{mLevels}, \mref{mAccessories}.
+
+    \item Application navigation:
+    \mref{mControl}, \mref{mPlayerSelect},
+    \mref{mMap}, \mref{mReward}.
+
+    \item Caregiver features:
+    \mref{mGate}, \mref{mSettings}, \mref{mGuide}.
+
+    \item Reusable UI controls: \mref{mWidgets}.
+
+    \item Eye-drop preparation content: \mref{mContent}.
+\end{itemize}\\
+
+\midrule
+
+Feature integration\newline
+19 Jan.--1 Feb.\ 2027 &
+Implement the Scoreboard (\mref{mScoreboard}) and Dress-Up
+(\mref{mDressUp}) modules. Integrate these features with
+player progress, customization, saved data, and caregiver
+settings.
+
+Expand \mref{mContent} to include the Vision Testing
+and Slit-Lamp Preparation activities.\\
+
+\midrule
+
+System verification\newline
+1 Feb.--8 Mar.\ 2027 &
+Perform system and regression testing according to the
+VnV Plan. Address identified issues in the affected
+modules and document the verification results.\\
+
+\midrule
+
+Final delivery\newline
+9 Mar.--6 Apr.\ 2027 &
+Finalize visual and audio assets
+(\srsitemref{LC_Assets}{LC11}) across
+\mref{mContent}, \mref{mStaging}, \mref{mRig},
+\mref{mNarration}, and \mref{mSound}.
+
+Complete the final demonstration, project documentation,
+and Expo handover.\\
+
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+Following the module-level checks, end-to-end integration will be completed
+by 1 February 2027. System verification and regression testing will begin
+on 1 February and continue until 8 March 2027, following the VnV Plan. During this phase,
+module owners will address identified defects, and testers will repeat
+the relevant tests to confirm that the issues have been resolved.
+
+The team will then finalize the project demonstration by 21 March,
+complete the source code and documentation by 31 March, and prepare
+for the Expo handover by 6 April 2027.
+
+Additional checks, such as verifying third-party libraries,
+application security, and software licensing, will be
+performed according to the VnV Plan. These checks apply
+to the overall application rather than individual modules.
+
+\newpage
+\subsection*{Module Implementation}
+
+Table~\ref{TblModuleImplementation} outlines the remaining module
+implementation tasks and potential revisions to existing modules.
+Modules completed during the PoC are excluded from this table.
+
+\underline{Ownership and assignments}
+\begin{itemize}[leftmargin=1.5em, itemsep=0.35em, parsep=0pt, topsep=0.25em]
+\item Each module is assigned an owner responsible for its development,
+required modifications, and integration into the application.
+\item Assignments are based on module responsibilities, the FR/NFR mappings
+in Tables~\ref{TblFRModules} and~\ref{TblNFRModules}, the
+\vnvplanitemref{tab:VnVTeam}{VnV Plan Section~3.1 assignments},
+and the
+\href{https://team-hindsight.github.io/ophthamology-game/DevelopmentPlan/DevelopmentPlan.pdf\#nameddest=RoleAssignments}{Development Plan roles}.
+\item The requirements listed in parentheses explain the assignments
+but do not limit each module's functionality or testing scope.
+\end{itemize}
+
+\underline{Early implementations and deadlines}
+\begin{itemize}[leftmargin=1.5em, itemsep=0.35em, parsep=0pt, topsep=0.25em]
+\item The Journey Progress (\mref{mProgress}), Wardrobe (\mref{mWardrobe}),
+Player Data (\mref{mPlayerData}), and Preferences (\mref{mPrefs})
+modules have initial implementations that may require further changes.
+\item For these modules, \emph{TBD (feedback)} indicates that the
+assigned owner will review feedback before determining whether
+revisions are necessary.
+\item Deadlines will be established only if
+changes are required. Otherwise, the existing implementations
+will be retained. Any required implementation changes must be completed
+by 1 February 2027.
+\item All other listed dates represent internal development targets
+within the previously defined project phases. The final scheduled module
+delivery is 25 January, leaving time for module checks and integration before
+the 1 February implementation deadline.
+\item The Procedure Content deadline covers all three activities. Eye-drop
+content is due on 8 January for core development; the remaining Vision Testing
+and Slit-Lamp Preparation content is due on 22 January.
+\end{itemize}
+
+\underline{Platform services and integration}
+\begin{itemize}[leftmargin=1.5em, itemsep=0.35em, parsep=0pt, topsep=0.25em]
+\item The Hardware-Hiding Module (\mref{mHH}) relies on Unity,
+the operating system, and standard libraries rather than
+a separate team implementation. Therefore, it has a
+platform-integration testing deadline instead of an
+implementation deadline.
+\item The completed PoC modules and early implementations provide
+the foundation for the remaining development work.
+\item Core
+navigation can initially use defined interfaces or test
+doubles for the Scoreboard and Dress-Up screens until
+those modules are implemented and integrated.
+\end{itemize}
+
+\newpage
+\begingroup
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\newcommand{\scheduledmodule}[3]{\mfullref{#1}{#2} {\scriptsize (#3)}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.51\textwidth}
+  >{\raggedright\arraybackslash}p{0.16\textwidth}
+  >{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\caption{Module implementation deadlines and owners}\label{TblModuleImplementation}\\
+\toprule
+\textbf{Module} & \textbf{Deadline} & \textbf{Module Owners}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued}\\
+\toprule
+\textbf{Module} & \textbf{Deadline} & \textbf{Module Owners}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\scheduledmodule{mAccessories}{Accessory Catalogue}{\srsitemref{FR_DiverseCharacters}{FR35}, \srsitemref{FR_Shop}{FR36}, \srsitemref{FR_Equip}{FR39}} & 11 Dec.\ 2026 & Ethan McMehen \\
+\scheduledmodule{mLevels}{Level Catalogue}{\srsitemref{FR_JourneyMap}{FR3}, \srsitemref{FR_StartLevel}{FR4}} & 18 Dec.\ 2026 & Ahsan Muzammil \\
+\scheduledmodule{mWidgets}{UI Widgets}{\srsitemref{FR_SpokenInstructions}{FR13}, \srsitemref{FR_VisualCues}{FR15}, \srsitemref{FR_IgnoreRepeatedTouches}{FR20}, \srsitemref{FR_HoldSkip}{FR21}} & 5 Jan.\ 2027 & Jackson Beach \\
+\scheduledmodule{mPlayerSelect}{Player Select Screen}{\srsitemref{NFR_Layout}{NFR1}, \srsitemref{NFR_TouchTarget}{NFR3}} & 8 Jan.\ 2027 & Jake Finlay \\
+\scheduledmodule{mMap}{Journey Map Screen}{\srsitemref{FR_JourneyMap}{FR3}, \srsitemref{FR_StartLevel}{FR4}} & 8 Jan.\ 2027 & Ahsan Muzammil \\
+\scheduledmodule{mReward}{Reward Screen}{\srsitemref{FR_FirstReward}{FR31}, \srsitemref{FR_NoDuplicateReward}{FR32}} & 8 Jan.\ 2027 & Jake Finlay \\
+\scheduledmodule{mGate}{Parental Gate}{\srsitemref{FR_ParentGate}{FR41}} & 8 Jan.\ 2027 & Ethan McMehen \\
+\scheduledmodule{mGuide}{Procedure Guide Screen}{\srsitemref{FR_ProcedureGuide}{FR42}} & 11 Jan.\ 2027 & Ethan McMehen \\
+\scheduledmodule{mSettings}{Settings Screen}{\srsitemref{NFR_Layout}{NFR1}} & 12 Jan.\ 2027 & Jake Finlay \\
+\scheduledmodule{mControl}{Application Control}{\srsitemref{FR_MedicalNotice}{FR1}, \srsitemref{FR_RecordAck}{FR2}} & 18 Jan.\ 2027 & Ahsan Muzammil \\
+\scheduledmodule{mContent}{Procedure Content}{\srsitemref{FR_LevelContent}{FR6}, \srsitemref{FR_DescribeSensations}{FR8}, \srsitemref{FR_TruthfulSensations}{FR9}} & 22 Jan.\ 2027 & Ahsan Muzammil \\
+\scheduledmodule{mScoreboard}{Scoreboard Screen}{\srsitemref{FR_Scoreboard}{FR33}} & 22 Jan.\ 2027 & Jake Finlay \\
+\scheduledmodule{mDressUp}{Dress-Up Screen}{\srsitemref{FR_ChooseCharacter}{FR34}, \srsitemref{FR_Shop}{FR36}, \srsitemref{FR_Purchase}{FR37}, \srsitemref{FR_Equip}{FR39}} & 25 Jan.\ 2027 & Ethan McMehen \\
+\midrule
+\scheduledmodule{mProgress}{Journey Progress (early version)}{\srsitemref{FR_FirstReward}{FR31}, \srsitemref{FR_NoDuplicateReward}{FR32}} & TBD\newline (feedback) & Jake Finlay \\
+\scheduledmodule{mWardrobe}{Wardrobe (early version)}{\srsitemref{FR_Purchase}{FR37}, \srsitemref{FR_Equip}{FR39}} & TBD\newline (feedback) & Ethan McMehen \\
+\scheduledmodule{mPlayerData}{Player Data (early version)}{\srsitemref{FR_PersistState}{FR28}, \srsitemref{FR_RestoreState}{FR29}, \srsitemref{FR_CorruptData}{FR30}} & TBD\newline (feedback) & Jackson Beach \\
+\scheduledmodule{mPrefs}{Preferences (early version)}{\srsitemref{NFR_DataProtection}{NFR26}, \srsitemref{NFR_Minimization}{NFR29}} & TBD\newline (feedback) & Mohammad Bilal \\
+\end{longtable}
+\endgroup
+\newpage
+\subsection*{Module Testing}
+
+
+Each module, including those completed during the PoC, is assigned
+a tester responsible for conducting tests, documenting results,
+and verifying that identified issues have been resolved.
+
+Testing will take place alongside implementation, covering unit tests and
+applicable integration tests. The module-specific testing deadlines are
+marked \emph{TBD} and will be set by the assigned testers based on module
+readiness and the system-verification period of 1 February--8 March 2027.
+The table is ordered by module number. For modules with early implementations,
+testing applies to the existing versions. If feedback leads to further
+changes, additional testing will be scheduled accordingly.
+
+Testing assignments are organized to encourage independent
+verification wherever possible. Modules with overlapping
+development and testing responsibilities will still undergo
+independent pull-request reviews.
+
+All requirements traced to each module must be verified before
+release. Clinical content approval remains the responsibility
+of qualified reviewers (i.e Project Supervisor). Module testers are responsible for checking that
+the required reviews have been completed and documented.
+
+
+\begingroup
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\newcommand{\scheduledmodule}[3]{\mfullref{#1}{#2} {\scriptsize (#3)}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.51\textwidth}
+  >{\raggedright\arraybackslash}p{0.16\textwidth}
+  >{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\caption{Module testing deadlines and testers}\label{TblModuleTesting}\\
+\toprule
+\textbf{Module} & \textbf{Deadline} & \textbf{Tester}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued}\\
+\toprule
+\textbf{Module} & \textbf{Deadline} & \textbf{Tester}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\scheduledmodule{mHH}{Hardware-Hiding (platform integration)}{\srsitemref{NFR_Offline}{NFR19}, \srsitemref{NFR_Portability}{NFR24}} & TBD & Mohammad Bilal \\
+\scheduledmodule{mControl}{Application Control}{\srsitemref{NFR_Startup}{NFR11}, \srsitemref{NFR_Reliability}{NFR17}} & TBD & Mohammad Bilal \\
+\scheduledmodule{mProgress}{Journey Progress}{\srsitemref{FR_Purchase}{FR37}, \srsitemref{FR_PurchaseRefused}{FR38}, \srsitemref{FR_ResetJourney}{FR45}} & TBD & Ethan McMehen \\
+\scheduledmodule{mWardrobe}{Wardrobe}{\srsitemref{FR_PurchaseRefused}{FR38}, \srsitemref{FR_Equip}{FR39}} & TBD & Ethan McMehen \\
+\scheduledmodule{mPlayerData}{Player Data}{\srsitemref{NFR_Reliability}{NFR17}, \srsitemref{NFR_Minimization}{NFR29}} & TBD & Mohammad Bilal \\
+\scheduledmodule{mPrefs}{Preferences}{\srsitemref{FR_RecordAck}{FR2}, \srsitemref{FR_AgeGroup}{FR7}} & TBD & Ahsan Muzammil \\
+\scheduledmodule{mLevels}{Level Catalogue}{\srsitemref{FR_FirstReward}{FR31}, \srsitemref{NFR_ClinicianUse}{NFR6}} & TBD & Jake Finlay \\
+\scheduledmodule{mAccessories}{Accessory Catalogue}{\srsitemref{NFR_Inclusivity}{NFR31}} & TBD & Ahsan Muzammil \\
+\scheduledmodule{mContent}{Procedure Content}{\srsitemref{FR_ProcedureGuide}{FR42}, \srsitemref{NFR_NoClaims}{NFR32}} & TBD & Ethan McMehen \\
+\scheduledmodule{mRunner}{Procedure Runner}{\srsitemref{FR_StartLevel}{FR4}, \srsitemref{FR_Replay}{FR5}, \srsitemref{FR_LevelEnd}{FR12}} & TBD & Ahsan Muzammil \\
+\scheduledmodule{mNarration}{Narration}{\srsitemref{FR_DescribeSensations}{FR8}, \srsitemref{FR_TruthfulSensations}{FR9}, \srsitemref{FR_ClinicsDiffer}{FR10}, \srsitemref{FR_SpeakUp}{FR11}} & TBD & Ahsan Muzammil \\
+\scheduledmodule{mPlayerSelect}{Player Select Screen}{\srsitemref{FR_RestoreState}{FR29}} & TBD & Jackson Beach \\
+\scheduledmodule{mMap}{Journey Map Screen}{\srsitemref{NFR_Layout}{NFR1}, \srsitemref{NFR_Usability}{NFR5}, \srsitemref{NFR_Colour}{NFR10}} & TBD & Jake Finlay \\
+\scheduledmodule{mReward}{Reward Screen}{\srsitemref{FR_LevelEnd}{FR12}} & TBD & Ahsan Muzammil \\
+\scheduledmodule{mScoreboard}{Scoreboard Screen}{\srsitemref{NFR_NoPressure}{NFR7}, \srsitemref{NFR_Colour}{NFR10}} & TBD & Jake Finlay \\
+\scheduledmodule{mDressUp}{Dress-Up Screen}{\srsitemref{NFR_Layout}{NFR1}, \srsitemref{NFR_NoPressure}{NFR7}} & TBD & Jake Finlay \\
+\scheduledmodule{mGate}{Parental Gate}{\srsitemref{NFR_TouchTarget}{NFR3}} & TBD & Jake Finlay \\
+\scheduledmodule{mSettings}{Settings Screen}{\srsitemref{FR_Nickname}{FR43}, \srsitemref{FR_Preferences}{FR44}, \srsitemref{FR_ResetJourney}{FR45}, \srsitemref{FR_ClearAllData}{FR46}} & TBD & Ethan McMehen \\
+\scheduledmodule{mGuide}{Procedure Guide Screen}{\srsitemref{NFR_ClinicalAccuracy}{NFR22}} & TBD & Mohammad Bilal \\
+\scheduledmodule{mDataFile}{Data File}{\srsitemref{FR_PersistState}{FR28}, \srsitemref{FR_RestoreState}{FR29}, \srsitemref{FR_CorruptData}{FR30}} & TBD & Jackson Beach \\
+\scheduledmodule{mSlots}{Save Slots}{\srsitemref{FR_ClearAllData}{FR46}} & TBD & Ethan McMehen \\
+\scheduledmodule{mStaging}{Scene Staging}{\srsitemref{FR_SpokenInstructions}{FR13}, \srsitemref{FR_HintOnMiss}{FR14}, \srsitemref{FR_VisualCues}{FR15}, \srsitemref{FR_StopOnExit}{FR23}} & TBD & Jackson Beach \\
+\scheduledmodule{mRig}{Character Rig}{\srsitemref{FR_ChooseCharacter}{FR34}, \srsitemref{FR_DiverseCharacters}{FR35}, \srsitemref{FR_Equip}{FR39}} & TBD & Ethan McMehen \\
+\scheduledmodule{mEffects}{Screen Effects}{\srsitemref{FR_StopOnExit}{FR23}, \srsitemref{FR_Suspend}{FR27}} & TBD & Jackson Beach \\
+\scheduledmodule{mSound}{Sound Effects}{\srsitemref{FR_StopOnExit}{FR23}, \srsitemref{FR_Suspend}{FR27}} & TBD & Jackson Beach \\
+\scheduledmodule{mWidgets}{UI Widgets}{\srsitemref{NFR_Responsiveness}{NFR12}, \srsitemref{NFR_Portability}{NFR24}} & TBD & Mohammad Bilal \\
+\end{longtable}
+\endgroup
 
 \newpage
 
