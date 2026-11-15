@@ -141,7 +141,9 @@ This section records information for easy reference.
 \endfoot
 \bottomrule
 \endlastfoot
+3D & Three-Dimensional\\
 AC & Anticipated Change\\
+AI & Artificial Intelligence\\
 DAG & Directed Acyclic Graph\\
 FR & Functional Requirement (from the SRS)\\
 LC & Likely Change (from the SRS)\\
@@ -152,9 +154,12 @@ NFR & Non-Functional Requirement (from the SRS)\\
 OS & Operating System\\
 PoC & Proof of Concept\\
 SRS & Software Requirements Specification\\
+TBD & To Be Determined\\
 \progname & The ophthalmology preparation game for children aged 3 to 7\\
 UC & Unlikely Change\\
+UI & User Interface\\
 ULC & Unlikely Change (from the SRS)\\
+VnV & Verification and Validation\\
 \end{longtable}
 
 \newpage
@@ -1174,7 +1179,7 @@ arrows in the diagram typically correspond to the presence of import statement.}
 %\section*{References}
 
 \newpage
-\section{User Interfaces}
+\section{User Interfaces}\label{SecUI}
 
 A user interface prototype was developed in Figma as part of
 our team's Fall Custom Document deliverable. Its primary
@@ -1339,7 +1344,7 @@ connected hardware (\uref{ucOffline}, \srsitemref{NFR_Offline}{NFR19},
 \srsitemref{NFR_Privacy}{NFR28}).
 
 \newpage
-\section{Database Design}
+\section{Database Design}\label{SecDatabase}
 
 
 \progname{} does not use a database. Instead, application data is stored
@@ -1375,7 +1380,7 @@ The game content (levels, rewards, steps, narration, accessories) is built into
 the application and is never written at run time.
 
 \newpage
-\section{Timeline}
+\section{Timeline}\label{SecTimeline}
 
 Module development is tracked through the
 \href{https://github.com/orgs/team-hindsight/projects/1/views/2}{project roadmap}.
@@ -1681,13 +1686,21 @@ the required reviews have been completed and documented.
 
 GPT-6.1 Sol was used as a supporting tool during the preparation of this
 Module Guide, primarily to assist with initial drafts, organizing design
-information, and \LaTeX{} formatting. It was used in the following sections:
+information, rephrasing descriptions, proposing work assignments, generating
+diagrams, and \LaTeX{} formatting. The author selected the suggestions to
+retain and directed revisions to reflect the intended design and project
+schedule. It was used in the following sections:
 
 \begin{itemize}
-    \item In Section~\ref{SecAcronyms} (Abbreviations and Acronyms), GPT-6.1 Sol
+    \item In \hyperref[SecAcronyms]{Section~\ref*{SecAcronyms}
+    (Abbreviations and Acronyms)}, GPT-6.1 Sol
     was used to identify the abbreviations and acronyms used throughout the
-    document and generate the corresponding table. The entries were reviewed
-    for accuracy and completeness.
+    document and generate the corresponding
+    \hyperref[tab:VnVAcronyms]{abbreviations and acronyms table}. After later
+    revisions, AI compared the terms used in the report with the existing
+    entries to identify omissions. It helped add 3D, AI, TBD, UI, and VnV,
+    together with their expanded meanings, and check the table's formatting.
+    The entries were reviewed for accuracy and completeness.
 
     \item In Section~\ref{SecChange} (Anticipated and Unlikely Changes), GPT-6.1 Sol
     was provided with the SRS and proof-of-concept (PoC) code to generate an
@@ -1707,16 +1720,86 @@ information, and \LaTeX{} formatting. It was used in the following sections:
     the module design. The team then manually refined the explanations and
     checked them against the SRS.
 
-    \item In Section~\ref{SecMD} (Module Decomposition), GPT-6.1 Sol was used
-    to generate an initial draft of the module descriptions based on the
-    selected modules, PoC code, and SRS. The team then manually reviewed each
-    module to ensure that its secrets, services, and responsibilities were
-    accurate and reflected the intended design.
+    \item In \hyperref[SecMD]{Section~\ref*{SecMD} (Module Decomposition)},
+    GPT-6.1 Sol helped suggest modules that might be needed based on the
+    requirements, PoC code, and existing design. The author selected the
+    suggestions that addressed missing or important responsibilities and
+    determined which modules to include. AI also helped draft and rephrase
+    module descriptions to express their secrets, services, and boundaries
+    more clearly. In particular, it assisted with rephrasing the following
+    descriptions:
+    \begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0.3em]
+        \item \hyperref[md:mReward]{\mplainref{mReward}: Reward Screen Module}
+        \item \hyperref[md:mScoreboard]{\mplainref{mScoreboard}: Scoreboard Screen Module}
+        \item \hyperref[md:mDressUp]{\mplainref{mDressUp}: Dress-Up Screen Module}
+        \item \hyperref[md:mGate]{\mplainref{mGate}: Parental Gate Module}
+        \item \hyperref[md:mSettings]{\mplainref{mSettings}: Settings Screen Module}
+        \item \hyperref[md:mGuide]{\mplainref{mGuide}: Procedure Guide Screen Module}
+        \item \hyperref[md:mDataFile]{\mplainref{mDataFile}: Data File Module}
+        \item \hyperref[md:mSlots]{\mplainref{mSlots}: Save Slots Module}
+        \item \hyperref[md:mStaging]{\mplainref{mStaging}: Scene Staging Module}
+        \item \hyperref[md:mRig]{\mplainref{mRig}: Character Rig Module}
+        \item \hyperref[md:mEffects]{\mplainref{mEffects}: Screen Effects Module}
+        \item \hyperref[md:mSound]{\mplainref{mSound}: Sound Effects Module}
+        \item \hyperref[md:mWidgets]{\mplainref{mWidgets}: UI Widgets Module}
+    \end{itemize}
+    The team then manually reviewed each module to ensure that its secrets,
+    services, and responsibilities were accurate and reflected the intended
+    design.
 
     \item In Section~\ref{SecTM} (Traceability Matrix), GPT-6.1 Sol was used
     to automatically generate the traceability matrices. The team then
     manually verified the entries and the relationships between the SRS
     requirements, anticipated changes, and modules.
+
+    \item In \hyperref[SecUse]{Section~\ref*{SecUse}
+    (Use Hierarchy Between Modules)}, GPT-6.1 Sol helped generate the
+    \hyperref[FigUH]{directed acyclic graph} from the
+    \hyperref[TblUses]{Uses Relation table}. AI assisted with arranging the
+    modules in layers, routing the arrows, and refining the layout to reduce
+    crossings. It also helped distinguish the main dependency chains from
+    additional direct uses with solid and dashed arrows, while preserving
+    the table's dependencies apart from the explicitly omitted arrows to
+    Hardware-Hiding. The final TikZ graph was incorporated directly into
+    this document's \LaTeX{} source.
+
+    \item In \hyperref[SecUI]{Section~\ref*{SecUI} (User Interfaces)},
+    GPT-6.1 Sol helped format the
+    \hyperref[TblUIScreens]{screenshot reference table}, write descriptions
+    of the supplied images, and link each entry to its corresponding figure.
+    AI also helped create and format the
+    \hyperref[AppUIScreens]{User Interface Screenshots appendix} using
+    screenshots supplied by the author from the Figma prototype. This
+    included adding captions and labels, maintaining hyperlinks, and
+    arranging two screenshots per page while preserving their proportions.
+
+    \item In \hyperref[SecDatabase]{Section~\ref*{SecDatabase}
+    (Database Design)}, GPT-6.1 Sol helped rephrase the explanation of local
+    data storage. The revised wording clarified that the application uses
+    files in private application storage, with device-wide preferences and
+    separate player data for each used save slot. It also clarified the
+    responsibilities of \mref{mPrefs}, \mref{mPlayerData}, \mref{mSlots}, and
+    \mref{mDataFile}, while retaining the selected storage design.
+
+    \item In \hyperref[SecTimeline]{Section~\ref*{SecTimeline} (Timeline)},
+    GPT-6.1 Sol helped propose module implementation owners and testers using
+    the team's past deliverables, including the
+    \href{https://team-hindsight.github.io/ophthamology-game/DevelopmentPlan/DevelopmentPlan.pdf\#nameddest=RoleAssignments}{Development Plan roles},
+    the \href{\srsurl}{SRS}, and the
+    \vnvplanitemref{tab:VnVTeam}{VnV Plan Section~3.1 assignments}.
+    The proposals used the MG's
+    \hyperref[TblFRModules]{functional requirement} and
+    \hyperref[TblNFRModules]{non-functional requirement} traceability tables
+    to connect each module's main responsibility with existing team roles
+    and testing areas. AI helped consider overlapping requirements, separate
+    ownership and testing where appropriate, and distribute the work across
+    the team. It also helped organize the
+    \hyperref[TblModulePhases]{phase overview},
+    \hyperref[TblModuleImplementation]{implementation table}, and
+    \hyperref[TblModuleTesting]{testing table}. The author directed the final
+    scheduling decisions, including excluding completed PoC modules from
+    remaining implementation work, marking possible revisions as dependent
+    on feedback, and adjusting implementation and testing deadlines.
 \end{itemize}
 
 \subsubsection*{Verification of AI-Generated Content}
