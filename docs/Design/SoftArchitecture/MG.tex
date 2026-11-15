@@ -1190,9 +1190,38 @@ connected hardware (\uref{ucOffline}, \srsitemref{NFR_Offline}{NFR19},
 \newpage
 \section{Database Design}
 
-\wss{If a database is a significant component of the project, the database
-design should be summarized here.  This section should be filled in with NA if
-it is not appropriate for a given project.}
+
+\progname{} does not use a database. Instead, application data is stored
+in files within the platform's private application storage
+(\srsitemref{NFR_DataProtection}{NFR26}).
+
+The Preferences Module (\mref{mPrefs}) manages a single preferences file
+for the device, while the Player Data Module (\mref{mPlayerData}) manages
+a separate player file for each used save slot through the Save Slots
+Module (\mref{mSlots}).
+
+All files are read and written using the Data File Module
+(\mref{mDataFile}). Stored information is limited to the attributes
+defined in the SRS data dictionary
+(\srsitemref{NFR_Minimization}{NFR29}):
+
+\begin{itemize}
+    \item \textbf{Preferences File:} Stores settings shared by all
+    players on the device, such as audio and accessibility
+    preferences. It also records the most recently selected
+    player. Player specific information, such as nicknames
+    and selected characters, is stored separately.
+
+    \item \textbf{Player File:} Stores each player's individual
+    progress, including level completion statuses and coin balance
+    from the Game Progress and Journey Progress entities.
+    It also contains the Character Inventory (owned and equipped
+    items, including the selected character) and the player's nickname.
+\end{itemize}
+
+
+The game content (levels, rewards, steps, narration, accessories) is built into
+the application and is never written at run time.
 
 \newpage
 \section{Timeline}
