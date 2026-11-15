@@ -302,25 +302,149 @@ under each respective team member's name.
     client(s) or a proxy (e.g., your peers, stakeholders, potential users)?
     For those that were not, why, and where did they come from?}
 
-    % Team response to be added.
+    Several design decisions were influenced by discussions
+    with the project supervisor, TAs, and professor. Since the
+    target audience consists of children aged 3--7, the
+    supervisor emphasized the importance of narration, as
+    many children in this age group cannot yet read. The
+    supervisor also highlighted the need to keep children
+    engaged and prevent frustration during gameplay. This
+    influenced the decision to adopt a journey-style game
+    with character customization, a shop for purchasing
+    accessories using virtual currency earned from completing
+    levels, and a scoreboard to track progress and rewards.
+
+    Another important design decision involved data storage.
+    Discussions with the supervisor, TAs, and professor
+    highlighted the legal and privacy considerations associated
+    with collecting children's medical information. As a
+    result, the application was designed to avoid using a
+    database and instead store only minimal information,
+    such as a player's nickname and potentially their age,
+    privately on the device.
+
+    The supervisor also explained that obtaining ethics
+    approval for direct testing with children would be
+    outside the scope and timeline of the capstone project.
+    As an alternative, the professor suggested gathering
+    usability feedback from peers acting as child personas.
+    This influenced the approach to evaluating the game's
+    interface through cognitive walkthroughs without
+    requiring direct interaction with children.
+
+    Other technical decisions, particularly the module
+    decomposition and interfaces documented in the MG and MIS,
+    were made based on the existing Unity PoC, the SRS,
+    the Hazard Analysis, and software engineering principles.
+    These decisions focused on separating responsibilities,
+    reducing dependencies, and making the application easier
+    to develop, test, and maintain.
+
 
     \item \textbf{While creating the design doc, what parts of your other
     documents (e.g., requirements, hazard analysis, etc.), if any, needed to
     be changed, and why?}
 
-    % Team response to be added.
+    While developing the Design Document, the SRS and Hazard
+    Analysis were also revised based on feedback from the
+    supervisor and TAs. These changes helped clarify existing
+    requirements and ensure that the proposed design addressed
+    the project's functional, safety, and usability expectations.
+
+    In the SRS, several requirements were refined regarding
+    gameplay interactions, saving and restoring progress, and
+    the accuracy of educational content. Requirement traceability
+    was also updated, and project goals were clarified to better
+    reflect what could realistically be evaluated during the
+    capstone.
+
+    In the Hazard Analysis, several safety requirements were
+    improved, including those related to device performance,
+    inclusive character customization, audio interruptions,
+    and the presentation of medical information. Mitigation
+    strategies were also clarified to better align with the
+    project's scope.
+
+    Since some requirements and identifiers changed, the
+    corresponding references in other documents, including
+    the VnV Plan, were updated to maintain consistency
+    and traceability.
+
+    Overall, these revisions provided a clearer understanding
+    of the system and a stronger foundation for defining
+    module responsibilities and interfaces in the MIS and MG.
 
     \item \textbf{What are the limitations of your solution? Put another way,
     given unlimited resources, what could you do to make the project better?}
 
-    % Team response to be added.
+    
+    One of the main limitations of the proposed solution is the
+    limited time available to design, develop, and test the game.
+    Since EyeCanDo is still in the early PoC stage, not all
+    planned features and preparation activities have been
+    fully implemented or evaluated.
+
+    Another limitation is the lack of direct usability testing
+    with children, as the project does not currently have the
+    ethics approval required for such research. This makes it
+    difficult to determine how effectively children will
+    understand and interact with the game.
+
+    With unlimited resources, supervised usability studies
+    could be conducted with children and caregivers, alongside
+    more extensive collaboration with healthcare professionals.
+    Additional preparation activities could also be developed
+    to cover a wider range of ophthalmology examinations.
+
+    Furthermore, working more closely with ophthalmologists
+    would help improve how accurately the game represents
+    real-life eye examinations, including the equipment,
+    procedures, instructions, and sensations children may
+    experience. This would make the preparation activities
+    more realistic while maintaining an age-appropriate
+    and engaging experience.
+
+    Additional development time could also be dedicated to
+    improving the 3D environments, character animations,
+    accessibility features, and overall gameplay experience.
+    Testing on a wider range of mobile devices would further
+    improve the application's reliability and usability.
+
+
 
     \item \textbf{Give a brief overview of other design solutions you
     considered. What are the benefits and tradeoffs of those other designs
     compared with the chosen design? From all the potential options, why did
     you select the documented design?}
+    
+    One of the main architectural decisions considered was
+    whether to develop the application using Unity-specific
+    components or adopt a more engine-independent design.
+    An engine-independent approach would offer greater
+    flexibility when switching game engines in the future,
+    but would also introduce additional interfaces and
+    implementation complexity.
 
-    % Team response to be added.
+    A Unity-native design was ultimately selected because
+    it aligns with the project's development environment
+    and allows further development of the existing PoC.
+    However, important functionality such as player progress,
+    character customization, and data management remains
+    separate from the presentation and gameplay interfaces
+    to improve maintainability.
+
+    Another consideration was how to divide the application's
+    functionality into software modules. Fewer, larger modules
+    could simplify initial development but would make individual
+    responsibilities more difficult to separate and maintain.
+    A more detailed module decomposition introduces additional
+    interfaces and dependencies but improves the system's
+    organization, testability, and extensibility.
+
+    The documented modular architecture was selected because
+    it provides a reasonable balance between maintainability,
+    flexibility, and the practical scope of the capstone project.
+
 
     \item \textbf{What did
     you learn by implementing another team's module? Were all the details you
