@@ -10,6 +10,9 @@
 \usepackage{hyperref}
 \usepackage{parskip}
 \usepackage{enumitem}
+\usepackage{pdflscape}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, backgrounds}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -59,6 +62,9 @@
 \newcommand{\srsurl}{https://team-hindsight.github.io/ophthamology-game/SRS/SRS.pdf}
 \newcommand{\srsitemref}[2]{\href{\srsurl\#nameddest=#1}{#2}}
 
+\newcommand{\vnvplanurl}{https://team-hindsight.github.io/ophthamology-game/VnVPlan/VnVPlan.pdf}
+\newcommand{\vnvplanitemref}[2]{\href{\vnvplanurl\#nameddest=#1}{#2}}
+
 \newcounter{ucnum}
 \newcommand{\uctheucnum}{UC\theucnum}
 \newcommand{\ucdef}[1]{\refstepcounter{ucnum}\label{#1}\reqlabel{UC\theucnum:}}
@@ -70,6 +76,10 @@
 \newcommand{\mref}[1]{\texorpdfstring{\hyperref[md:#1]{M\ref*{#1}}}{M\ref*{#1}}}
 \newcommand{\mfullref}[2]{\mref{#1} #2}
 \newcommand{\mplainref}[1]{M\ref*{#1}}
+
+\tikzset{mod/.style={draw, rounded corners=2pt, fill=blue!5, font=\scriptsize,
+  align=center, minimum width=2.05cm, minimum height=0.8cm, inner sep=2pt},
+  use/.style={-{Stealth[length=1.6mm]}, semithick, draw=black!65}}
 
 \begin{document}
 
@@ -134,7 +144,6 @@ This section records information for easy reference.
 AC & Anticipated Change\\
 DAG & Directed Acyclic Graph\\
 FR & Functional Requirement (from the SRS)\\
-HUD & Heads-Up Display (the controls shown on top of a level)\\
 LC & Likely Change (from the SRS)\\
 M & Module\\
 MG & Module Guide\\
@@ -799,7 +808,7 @@ to be implemented.
   returns the level, or the other screen, that the child chooses.
 \end{description}
 
-\subsubsection{Reward Screen Module (\mref{mReward})}
+\subsubsection{Reward Screen Module (\mref{mReward})}\label{md:mReward}
 
 \begin{description}
 \item[Secrets:] The presentation of the end-of-level celebration and of the
@@ -811,7 +820,7 @@ to be implemented.
 \item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Scoreboard Screen Module (\mref{mScoreboard})}
+\subsubsection{Scoreboard Screen Module (\mplainref{mScoreboard})}\label{md:mScoreboard}
 
 \begin{description}
 \item[Secrets:] The contents and presentation of the personal scoreboard.
@@ -822,7 +831,7 @@ to be implemented.
 \item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Dress Up Screen Module (\mref{mDressUp})}
+\subsubsection{Dress Up Screen Module (\mplainref{mDressUp})}\label{md:mDressUp}
 
 \begin{description}
 \item[Secrets:] The presentation of the character choice, the shop and the
@@ -835,7 +844,7 @@ to be implemented.
 \end{description}
 
 
-\subsubsection{Parental Gate Module (\mref{mGate})}
+\subsubsection{Parental Gate Module (\mplainref{mGate})}\label{md:mGate}
 
 \begin{description}
 \item[Secrets:] The written challenge used to distinguish caregivers/parents
@@ -846,7 +855,7 @@ to be implemented.
 \item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Settings Screen Module (\mref{mSettings})}
+\subsubsection{Settings Screen Module (\mplainref{mSettings})}\label{md:mSettings}
 
 \begin{description}
 \item[Secrets:] The layout of the caregiver settings and the confirmations asked
@@ -858,7 +867,7 @@ to be implemented.
 \item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Procedure Guide Screen Module (\mref{mGuide})}
+\subsubsection{Procedure Guide Screen Module (\mplainref{mGuide})}\label{md:mGuide}
 
 \begin{description}
 \item[Secrets:] The layout, navigation, and display state of the
@@ -873,7 +882,7 @@ to be implemented.
 
 \subsection{Software Decision Module}
 
-\subsubsection{Data File Module (\mref{mDataFile})}
+\subsubsection{Data File Module (\mplainref{mDataFile})}\label{md:mDataFile}
 
 \begin{description}
 \item[Secrets:] How data is stored in a file and how the module
@@ -888,7 +897,7 @@ to be implemented.
 \item[Type of Module:] Generic Abstract Data Type
 \end{description}
 
-\subsubsection{Save Slots Module (\mref{mSlots})}
+\subsubsection{Save Slots Module (\mplainref{mSlots})}\label{md:mSlots}
 
 \begin{description}
 \item[Secrets:] The number of players that can be saved and where each one's
@@ -899,7 +908,7 @@ to be implemented.
 \item[Type of Module:] Generic Abstract Data Type
 \end{description}
 
-\subsubsection{Scene Staging Module (\mref{mStaging})}
+\subsubsection{Scene Staging Module (\mplainref{mStaging})}\label{md:mStaging}
 
 \begin{description}
 \item[Secrets:] The layout of the 3D exam room: the places, the characters, the
@@ -912,7 +921,7 @@ to be implemented.
 \end{description}
 
 
-\subsubsection{Character Rig Module (\mref{mRig})}
+\subsubsection{Character Rig Module (\mplainref{mRig})}\label{md:mRig}
 
 \begin{description}
 \item[Secrets:] The 3D models and animations of the characters.
@@ -922,7 +931,7 @@ to be implemented.
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
-\subsubsection{Screen Effects Module (\mref{mEffects})}
+\subsubsection{Screen Effects Module (\mplainref{mEffects})}\label{md:mEffects}
 
 \begin{description}
 \item[Secrets:] How visual effects are created, displayed,
@@ -935,7 +944,7 @@ to be implemented.
 \item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Sound Effects Module (\mref{mSound})}
+\subsubsection{Sound Effects Module (\mplainref{mSound})}\label{md:mSound}
 
 \begin{description}
 \item[Secrets:] How sound effect files are stored, played,
@@ -948,7 +957,7 @@ to be implemented.
 \item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{UI Widgets Module (\mref{mWidgets})}
+\subsubsection{UI Widgets Module (\mplainref{mWidgets})}\label{md:mWidgets}
 
 \begin{description}
 \item[Secrets:] How reusable user interface controls
