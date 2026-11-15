@@ -1176,8 +1176,159 @@ arrows in the diagram typically correspond to the presence of import statement.}
 \newpage
 \section{User Interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+A user interface prototype was developed in Figma as part of
+our team's Fall Custom Document deliverable. Its primary
+purpose was to support a cognitive walkthrough and gather
+usability feedback on the application's navigation, screen
+layouts, and user interactions.
+
+The prototype takes inspiration from the existing Unity PoC,
+incorporating several of its visual elements and gameplay
+concepts. Since the Unity PoC is an early demonstration rather than a
+fully developed version of \progname{}, the Figma prototype
+also reflects only a portion of the intended game.
+Therefore, not all planned features, screens, and gameplay
+interactions are represented in the prototype.
+
+
+Screenshots of the key interfaces are provided in
+Appendix~\ref{AppUIScreens}, covering navigation, gameplay,
+and character customization.
+Table~\ref{TblUIScreens} provides a brief overview of
+each screenshot, with figure references linking directly
+to the corresponding images in the appendix.
+
+The interactive prototype is available through the
+\href{https://www.figma.com/design/IBdPBjcaoQjUY02BwWSvpv/EyeCanDo-Cognitive-Walkthrough?node-id=0-1}
+{EyeCanDo Cognitive Walkthrough Figma prototype}.
+
+
+
+\begin{longtable}{@{}p{0.12\textwidth}p{0.23\textwidth}p{0.57\textwidth}@{}}
+\caption{User Interface Screenshot Reference}\label{TblUIScreens}\\
+\toprule
+\textbf{Figure} & \textbf{Screen} & \textbf{Overview}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable{} -- continued from previous page}\\
+\toprule
+\textbf{Figure} & \textbf{Screen} & \textbf{Overview}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+
+\hyperref[FigStartScreen]{Figure~\ref*{FigStartScreen}} &
+EyeCanDo Start Screen &
+Introduces the application and provides the starting point
+for the child's experience.\\
+
+\hyperref[FigSavSlot]{Figure~\ref*{FigSavSlot}} &
+Save Slot Selection &
+Allows players to select an existing game or begin a
+new one with separate saved progress.\\
+
+\hyperref[FigJourneyMap]{Figure~\ref*{FigJourneyMap}} &
+Journey Map and Level Selection &
+Provides access to the preparation activities and other
+main features of the application.\\
+
+\hyperref[FigPrepGamePlay]{Figure~\ref*{FigPrepGamePlay}} &
+Preparation Gameplay &
+Guides children through interactive activities that
+familiarize them with ophthalmology procedures.\\
+
+\hyperref[FigShop]{Figure~\ref*{FigShop}} &
+Dress Up Shop &
+Allows children to customize their characters and
+purchase accessories using in-game currency.\\
+
+\hyperref[FigReward]{Figure~\ref*{FigReward}} &
+Reward Screen &
+Recognizes completion of a preparation activity and
+presents any rewards earned by the player.\\
+
+\end{longtable}
+
+
+
+Figure~\ref{FigScreens} illustrates how users navigate between
+the main screens of \progname{}. Children can select a player,
+access preparation activities, customize their character,
+and view their progress. Completing a level leads to the
+reward screen, where rewards are granted only on the first
+completion. Caregiver features are accessed through the
+parental gate, while resetting or clearing saved data
+redirects users to the appropriate screen.
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm,
+  scr/.style={draw=black!65, rounded corners=3pt, fill=blue!5,
+    font=\small, align=center, text width=2.7cm,
+    minimum height=1cm, inner sep=3pt},
+  care/.style={scr, fill=orange!12},
+  nav/.style={-{Stealth[length=1.8mm]}, line width=0.55pt, draw=black!75},
+  lbl/.style={font=\scriptsize, align=center, fill=white,
+    text=black!85, inner sep=2pt}]
+\node[scr]  (launch)   at (0, 5.2)     {Launch};
+\node[care] (notice)   at (-5, 5.2)    {Medical Notice};
+\node[scr]  (players)  at (0, 2.6)     {Player select\\(\mref{mPlayerSelect})};
+\node[scr]  (map)      at (0, 0)       {Journey map\\(\mref{mMap})};
+\node[scr]  (level)    at (5, 0)       {Level\\(\mref{mRunner})};
+\node[scr, text width=3.5cm] (reward) at (5, 3)
+  {Level completion\\(\mref{mReward})\\[2pt]
+   {\scriptsize First completion: reward}\\
+   {\scriptsize Replay: no new reward}};
+\node[scr]  (dress)    at (-5, 2.6)    {Dress up\\(\mref{mDressUp})};
+\node[scr]  (score)    at (-5, 0)      {Scoreboard\\(\mref{mScoreboard})};
+\node[care] (gate)     at (2.5, -2.5)  {Parental gate\\(\mref{mGate})};
+\node[care] (settings) at (2.5, -4.7)  {Settings\\(\mref{mSettings})};
+\node[care] (guide)    at (-2.5, -4.7) {Procedure guide\\(\mref{mGuide})};
+\node[care] (clear)    at (6.5, -4.7)  {Clear all data};
+
+\draw[nav] (launch.west) -- node[lbl, above=2pt] {first use} (notice.east);
+\draw[nav] (notice.south east) -- node[lbl, above right=2pt] {acknowledge}
+  (players.north west);
+\draw[nav] (launch.south) -- node[lbl, right=3pt] {later\\launches} (players.north);
+\draw[nav] (players.south) -- node[lbl, right=3pt] {choose} (map.north);
+
+% Parallel lanes separate the outward and return actions.
+\draw[nav] ([yshift=2mm]map.east) -- node[lbl, above=2pt] {choose / replay}
+  ([yshift=2mm]level.west);
+\draw[nav] ([yshift=-2mm]level.west) -- node[lbl, below=2pt] {home}
+  ([yshift=-2mm]map.east);
+\draw[nav] ([xshift=2mm]level.north) -- node[lbl, right=2pt] {finish}
+  ([xshift=2mm]reward.south);
+\draw[nav] ([xshift=-2mm]reward.south) -- node[lbl, left=3pt] {replay\\no new reward}
+  ([xshift=-2mm]level.north);
+\draw[nav] (reward.south west) -- node[lbl, above left=1pt] {home}
+  (map.north east);
+
+\draw[nav] (map.north west) -- (dress.south east);
+\draw[nav] (map.west) -- (score.east);
+\draw[nav] (map.south) -- node[lbl, left=2pt] {settings} (gate.north west);
+\draw[nav] (level.south) -- node[lbl, right=2pt] {settings} (gate.north east);
+\draw[nav] (gate.south) -- node[lbl, right=3pt] {passed} (settings.north);
+\draw[nav] (settings.west) -- (guide.east);
+\draw[nav] (settings.east) -- (clear.west);
+% Confirmed data clearing returns to Launch and repeats first-use setup.
+\draw[nav, rounded corners=3pt] (clear.east) -- (8.4, -4.7)
+  -- node[lbl, left=3pt] {confirmed} (8.4, 5.2) -- (launch.east);
+% Route the guide's notice link around the other screens.
+\draw[nav, rounded corners=3pt] (guide.west) -- (-7, -4.7)
+  -- node[lbl, left=3pt] {notice} (-7, 5.2) -- (notice.west);
+\end{tikzpicture}
+\caption[Navigation between screens]{Navigation between application screens, with caregiver screens
+shaded orange. Rewards are granted only on first completion.
+The diagram also illustrates navigation, replay, and
+data reset behaviour.}
+\label{FigScreens}
+\end{figure}
 
 \newpage
 \section{Design of Communication Protocols}
@@ -1583,6 +1734,74 @@ The team also checked AI-assisted \LaTeX{} formatting, including the tables,
 module numbering, cross-references, and hyperlinks between sections and
 modules. The team remains responsible for the accuracy, completeness,
 consistency, and appropriateness of the final Module Guide.
+
+\clearpage
+\subsection{User Interface Screenshots}
+
+\label{AppUIScreens}
+
+This appendix presents representative screens from the
+EyeCanDo Figma cognitive walkthrough prototype. The
+screenshots illustrate the application's navigation,
+gameplay interactions, customization features, and
+settings entry points.
+
+% Keep two screenshots on each page without changing their figure numbers.
+\begingroup
+\setlength{\intextsep}{6pt}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s1.png}
+    \caption{EyeCanDo Start Screen}
+    \label{FigStartScreen}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s2.png}
+    \caption{Save Slot Selection}
+    \label{FigSavSlot}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s3.png}
+    \caption{Journey Map and Level Selection}
+    \label{FigJourneyMap}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s4.png}
+    \caption{Preparation Gameplay}
+    \label{FigPrepGamePlay}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s5.png}
+    \caption{Dress Up Shop}
+    \label{FigShop}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s6.png}
+    \caption{Reward Screen}
+    \label{FigReward}
+\end{figure}
+\endgroup
+
 
 \newpage{}
 
