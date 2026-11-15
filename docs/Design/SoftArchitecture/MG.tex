@@ -99,7 +99,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-2026/11/14 & Mohammad Bilal & Completed sections 3, 4, 5, 6, 11, \& contributed to sections 2, 7, 8, 14.1 \\
+2026/11/14 & Mohammad Bilal & Completed sections 3, 4, 5, 6, 11, \& contributed to sections 2, 7, 8, 14.2 \\
 2026/11/14 & Ahsan Muzammil & Completed sections 13, 12, 9, 19, \& contributed to sections 2, 7, 8, 14.1, 14.2 \\
 \bottomrule
 \end{tabularx}
@@ -804,6 +804,8 @@ to be implemented.
   deletion.
 \item[Services:] Shows every save slot with its character and progress, lets a
   slot be chosen, and deletes a player after confirmation.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
 \end{description}
 
 \subsubsection{Journey Map Screen Module (\mplainref{mMap})}\label{md:mMap}
@@ -812,9 +814,11 @@ to be implemented.
 \item[Secrets:] The presentation of the journey map.
 \item[Services:] Shows every level with its name, illustration and status, and
   returns the level, or the other screen, that the child chooses.
+\item[Implemented By:] \progname{}
+\item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Reward Screen Module (\mref{mReward})}\label{md:mReward}
+\subsubsection{Reward Screen Module (\mplainref{mReward})}\label{md:mReward}
 
 \begin{description}
 \item[Secrets:] The presentation of the end-of-level celebration and of the
@@ -1420,11 +1424,7 @@ do not indicate connections between modules.
 }
 \caption[Use hierarchy among modules]{Uses hierarchy between modules, based on the Uses Relation
 in Table~\ref{TblUses}. An arrow from module A to module B
-indicates that A depends on services provided by B.
-All direct dependencies are represented by solid arrows,
-including those involving the Hardware-Hiding Module
-(\mref{mHH}). Crossing arrows do not indicate a connection
-between modules.}
+indicates that A depends on services provided by B.}
 \label{FigUH}
 \end{figure}
 \end{landscape}
@@ -1745,60 +1745,13 @@ to the overall application rather than individual modules.
 \newpage
 \subsection*{Module Implementation}
 
-Table~\ref{TblModuleImplementation} outlines the remaining module
-implementation tasks and potential revisions to existing modules.
-Modules completed during the PoC are excluded from this table.
+Table~\ref{TblModuleImplementation} lists the remaining modules
+to be implemented or reviewed, along with their assigned owners,
+relevant requirements, and target deadlines. Modules completed
+during the PoC are excluded, while modules with early
+implementations are included for potential revisions based on
+feedback.
 
-\underline{Ownership and assignments}
-\begin{itemize}[leftmargin=1.5em, itemsep=0.35em, parsep=0pt, topsep=0.25em]
-\item Each module is assigned an owner responsible for its development,
-required modifications, and integration into the application.
-\item Assignments are based on module responsibilities, the FR/NFR mappings
-in Tables~\ref{TblFRModules} and~\ref{TblNFRModules}, the
-\vnvplanitemref{tab:VnVTeam}{VnV Plan Section~3.1 assignments},
-and the
-\href{https://team-hindsight.github.io/ophthamology-game/DevelopmentPlan/DevelopmentPlan.pdf\#nameddest=RoleAssignments}{Development Plan roles}.
-\item The requirements listed in parentheses explain the assignments
-but do not limit each module's functionality or testing scope.
-\end{itemize}
-
-\underline{Early implementations and deadlines}
-\begin{itemize}[leftmargin=1.5em, itemsep=0.35em, parsep=0pt, topsep=0.25em]
-\item The Journey Progress (\mref{mProgress}), Wardrobe (\mref{mWardrobe}),
-Player Data (\mref{mPlayerData}), and Preferences (\mref{mPrefs})
-modules have initial implementations that may require further changes.
-\item For these modules, \emph{TBD (feedback)} indicates that the
-assigned owner will review feedback before determining whether
-revisions are necessary.
-\item Deadlines will be established only if
-changes are required. Otherwise, the existing implementations
-will be retained. Any required implementation changes must be completed
-by 1 February 2027.
-\item All other listed dates represent internal development targets
-within the previously defined project phases. The final scheduled module
-delivery is 25 January, leaving time for module checks and integration before
-the 1 February implementation deadline.
-\item The Procedure Content deadline covers all three activities. Eye-drop
-content is due on 8 January for core development; the remaining Vision Testing
-and Slit-Lamp Preparation content is due on 22 January.
-\end{itemize}
-
-\underline{Platform services and integration}
-\begin{itemize}[leftmargin=1.5em, itemsep=0.35em, parsep=0pt, topsep=0.25em]
-\item The Hardware-Hiding Module (\mref{mHH}) relies on Unity,
-the operating system, and standard libraries rather than
-a separate team implementation. Therefore, it has a
-platform-integration testing deadline instead of an
-implementation deadline.
-\item The completed PoC modules and early implementations provide
-the foundation for the remaining development work.
-\item Core
-navigation can initially use defined interfaces or test
-doubles for the Scoreboard and Dress-Up screens until
-those modules are implemented and integrated.
-\end{itemize}
-
-\newpage
 \begingroup
 \small
 \setlength{\tabcolsep}{4pt}
@@ -1823,21 +1776,21 @@ those modules are implemented and integrated.
 \bottomrule
 \endlastfoot
 \scheduledmodule{mAccessories}{Accessory Catalogue}{\srsitemref{FR_DiverseCharacters}{FR35}, \srsitemref{FR_Shop}{FR36}, \srsitemref{FR_Equip}{FR39}} & 11 Dec.\ 2026 & Ethan McMehen \\
-\scheduledmodule{mLevels}{Level Catalogue}{\srsitemref{FR_JourneyMap}{FR3}, \srsitemref{FR_StartLevel}{FR4}} & 18 Dec.\ 2026 & Ahsan Muzammil \\
+\scheduledmodule{mLevels}{Level Catalogue}{\srsitemref{FR_JourneyMap}{FR3}, \srsitemref{FR_StartLevel}{FR4}} & 18 Dec.\ 2026 & Mohammad Bilal \\
 \scheduledmodule{mWidgets}{UI Widgets}{\srsitemref{FR_SpokenInstructions}{FR13}, \srsitemref{FR_VisualCues}{FR15}, \srsitemref{FR_IgnoreRepeatedTouches}{FR20}, \srsitemref{FR_HoldSkip}{FR21}} & 5 Jan.\ 2027 & Jackson Beach \\
 \scheduledmodule{mPlayerSelect}{Player Select Screen}{\srsitemref{NFR_Layout}{NFR1}, \srsitemref{NFR_TouchTarget}{NFR3}} & 8 Jan.\ 2027 & Jake Finlay \\
 \scheduledmodule{mMap}{Journey Map Screen}{\srsitemref{FR_JourneyMap}{FR3}, \srsitemref{FR_StartLevel}{FR4}} & 8 Jan.\ 2027 & Ahsan Muzammil \\
 \scheduledmodule{mReward}{Reward Screen}{\srsitemref{FR_FirstReward}{FR31}, \srsitemref{FR_NoDuplicateReward}{FR32}} & 8 Jan.\ 2027 & Jake Finlay \\
 \scheduledmodule{mGate}{Parental Gate}{\srsitemref{FR_ParentGate}{FR41}} & 8 Jan.\ 2027 & Ethan McMehen \\
-\scheduledmodule{mGuide}{Procedure Guide Screen}{\srsitemref{FR_ProcedureGuide}{FR42}} & 11 Jan.\ 2027 & Ethan McMehen \\
-\scheduledmodule{mSettings}{Settings Screen}{\srsitemref{NFR_Layout}{NFR1}} & 12 Jan.\ 2027 & Jake Finlay \\
+\scheduledmodule{mGuide}{Procedure Guide Screen}{\srsitemref{FR_ProcedureGuide}{FR42}} & 11 Jan.\ 2027 & Jackson Beach \\
+\scheduledmodule{mSettings}{Settings Screen}{\srsitemref{NFR_Layout}{NFR1}} & 12 Jan.\ 2027 & Mohammad Bilal \\
 \scheduledmodule{mControl}{Application Control}{\srsitemref{FR_MedicalNotice}{FR1}, \srsitemref{FR_RecordAck}{FR2}} & 18 Jan.\ 2027 & Ahsan Muzammil \\
 \scheduledmodule{mContent}{Procedure Content}{\srsitemref{FR_LevelContent}{FR6}, \srsitemref{FR_DescribeSensations}{FR8}, \srsitemref{FR_TruthfulSensations}{FR9}} & 22 Jan.\ 2027 & Ahsan Muzammil \\
 \scheduledmodule{mScoreboard}{Scoreboard Screen}{\srsitemref{FR_Scoreboard}{FR33}} & 22 Jan.\ 2027 & Jake Finlay \\
 \scheduledmodule{mDressUp}{Dress-Up Screen}{\srsitemref{FR_ChooseCharacter}{FR34}, \srsitemref{FR_Shop}{FR36}, \srsitemref{FR_Purchase}{FR37}, \srsitemref{FR_Equip}{FR39}} & 25 Jan.\ 2027 & Ethan McMehen \\
 \midrule
 \scheduledmodule{mProgress}{Journey Progress (early version)}{\srsitemref{FR_FirstReward}{FR31}, \srsitemref{FR_NoDuplicateReward}{FR32}} & TBD\newline (feedback) & Jake Finlay \\
-\scheduledmodule{mWardrobe}{Wardrobe (early version)}{\srsitemref{FR_Purchase}{FR37}, \srsitemref{FR_Equip}{FR39}} & TBD\newline (feedback) & Ethan McMehen \\
+\scheduledmodule{mWardrobe}{Wardrobe (early version)}{\srsitemref{FR_Purchase}{FR37}, \srsitemref{FR_Equip}{FR39}} & TBD\newline (feedback) & Ahsan Muzammil \\
 \scheduledmodule{mPlayerData}{Player Data (early version)}{\srsitemref{FR_PersistState}{FR28}, \srsitemref{FR_RestoreState}{FR29}, \srsitemref{FR_CorruptData}{FR30}} & TBD\newline (feedback) & Jackson Beach \\
 \scheduledmodule{mPrefs}{Preferences (early version)}{\srsitemref{NFR_DataProtection}{NFR26}, \srsitemref{NFR_Minimization}{NFR29}} & TBD\newline (feedback) & Mohammad Bilal \\
 \end{longtable}
@@ -1845,28 +1798,12 @@ those modules are implemented and integrated.
 \newpage
 \subsection*{Module Testing}
 
-
-Each module, including those completed during the PoC, is assigned
-a tester responsible for conducting tests, documenting results,
-and verifying that identified issues have been resolved.
-
-Testing will take place alongside implementation, covering unit tests and
-applicable integration tests. The module-specific testing deadlines are
-marked \emph{TBD} and will be set by the assigned testers based on module
-readiness and the system-verification period of 1 February--8 March 2027.
-The table is ordered by module number. For modules with early implementations,
-testing applies to the existing versions. If feedback leads to further
-changes, additional testing will be scheduled accordingly.
-
-Testing assignments are organized to encourage independent
-verification wherever possible. Modules with overlapping
-development and testing responsibilities will still undergo
-independent pull-request reviews.
-
-All requirements traced to each module must be verified before
-release. Clinical content approval remains the responsibility
-of qualified reviewers (i.e Project Supervisor). Module testers are responsible for checking that
-the required reviews have been completed and documented.
+Table~\ref{TblModuleTesting} lists the assigned testers,
+relevant requirements, and testing deadlines for each module,
+including those completed during the PoC. Testing will
+include unit and applicable integration tests, with deadlines
+to be determined based on module readiness and the
+system verification schedule.
 
 
 \begingroup
@@ -1924,6 +1861,74 @@ the required reviews have been completed and documented.
 \newpage
 
 \section{Appendix}
+
+\subsection{User Interface Screenshots}
+
+\label{AppUIScreens}
+
+This appendix presents representative screens from the
+EyeCanDo Figma cognitive walkthrough prototype. The
+screenshots illustrate the application's navigation,
+gameplay interactions, customization features, and
+settings entry points.
+
+% Keep two screenshots on each page without changing their figure numbers.
+\begingroup
+\setlength{\intextsep}{6pt}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s1.png}
+    \caption{EyeCanDo Start Screen}
+    \label{FigStartScreen}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s2.png}
+    \caption{Save Slot Selection}
+    \label{FigSavSlot}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s3.png}
+    \caption{Journey Map and Level Selection}
+    \label{FigJourneyMap}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s4.png}
+    \caption{Preparation Gameplay}
+    \label{FigPrepGamePlay}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s5.png}
+    \caption{Dress Up Shop}
+    \label{FigShop}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
+    {Figures/ui/s6.png}
+    \caption{Reward Screen}
+    \label{FigReward}
+\end{figure}
+\endgroup
+
+\newpage
 
 \subsection{Generative AI Use Disclosure}
 
@@ -2070,71 +2075,6 @@ modules. The team remains responsible for the accuracy, completeness,
 consistency, and appropriateness of the final Module Guide.
 
 \clearpage
-\subsection{User Interface Screenshots}
-
-\label{AppUIScreens}
-
-This appendix presents representative screens from the
-EyeCanDo Figma cognitive walkthrough prototype. The
-screenshots illustrate the application's navigation,
-gameplay interactions, customization features, and
-settings entry points.
-
-% Keep two screenshots on each page without changing their figure numbers.
-\begingroup
-\setlength{\intextsep}{6pt}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
-    {Figures/ui/s1.png}
-    \caption{EyeCanDo Start Screen}
-    \label{FigStartScreen}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
-    {Figures/ui/s2.png}
-    \caption{Save Slot Selection}
-    \label{FigSavSlot}
-\end{figure}
-
-\clearpage
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
-    {Figures/ui/s3.png}
-    \caption{Journey Map and Level Selection}
-    \label{FigJourneyMap}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
-    {Figures/ui/s4.png}
-    \caption{Preparation Gameplay}
-    \label{FigPrepGamePlay}
-\end{figure}
-
-\clearpage
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
-    {Figures/ui/s5.png}
-    \caption{Dress Up Shop}
-    \label{FigShop}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth, height=0.37\textheight, keepaspectratio]
-    {Figures/ui/s6.png}
-    \caption{Reward Screen}
-    \label{FigReward}
-\end{figure}
-\endgroup
 
 
 \newpage{}
