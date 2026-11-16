@@ -1,0 +1,74 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[destlabel]{hyperref}
+\usepackage{parskip}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{pdflscape}
+
+\newcommand{\pass}{{\textbf{Pass}}}
+\newcommand{\fail}{{\textbf{Fail}}}
+
+\title{Hazard Analysis\\\progname}
+
+\author{\authname}
+
+\date{}
+
+\input{../Comments.text}
+\input{../Common.text}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+~\newpage
+\tableofcontents
+\newpage
+% =====================================================================
+\section{Introduction}
+% =====================================================================
+
+\subsection{What Is a Cognitive Walkthrough?}
+
+A cognitive walkthrough is a task-based usability inspection method for evaluating how 
+learnable an interface is for a first-time user \cite{nng-overview}. Instead of observing 
+real users, a cross-functional group of reviewers steps through each action in a predefined 
+task and, at every step, answers a fixed set of questions from the point of view of a 
+defined user persona. The goal is to find the parts of an interface that are likely 
+to derail a new user.
+
+At each step, the faciltator asks the four questions or variations of the four questions. 
+Evaluators discuss four questions \cite{nng-overview,nng-workshop}:
+\begin{enumerate}
+  \item Will the user try to achieve the right result, that is, understand that this step 
+  is needed for their larger goal?
+  \item Will the user notice that the correct action is available?
+  \item Will the user associate the correct action with the result they are trying to 
+  achieve?
+  \item After the action is performed, will the user see that progress has been made 
+  toward the goal?
+\end{enumerate}
+If the answer to any question is ``no'', the step is recorded as a \fail{}. The group notes 
+why, then continues the analysis as though the step had succeeded so that later steps can 
+still be examined \cite{nng-workshop}.
+
+The method was first presented by Lewis and colleagues in 1990 for walk-up-and-use interfaces 
+such as kiosks \cite{lewis1990}. The streamlined version most teams use today comes from Wharton 
+and colleagues \cite{wharton1994}. The process of the cognitive walkthrough relies on reviewer 
+expertise instead of participants and works well on early prototypes. The cognitive walkthrough 
+is intended to complement usability testing with real users, not replace it \cite{nng-overview}.
+
+\subsection{Purpose of This Report}
+
+This report documents the cognitive walkthrough of the EyeCanDo gameplay wireframes. Following the 
+structure recommended by Nielsen Norman Group, it records the methodology, the people and roles involved, 
+and the results, with specific problems identified. A summary of results ia also included along with the changes 
+planned for the game as a result of the \fail{} recorded in walkthrough notes\cite{nng-overview}.
+\pagenumbering{roman}
+\end{document}
