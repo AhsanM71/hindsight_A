@@ -11,9 +11,11 @@
 \usepackage{pdflscape}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{booktabs}
 
 \newcommand{\pass}{{\textbf{Pass}}}
 \newcommand{\fail}{{\textbf{Fail}}}
+\newcommand{\crit}[1]{\textbf{Q#1}}
 
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \setlength{\parskip}{\baselineskip}
@@ -86,11 +88,11 @@ walkthrough notes\cite{nng-overview}.
 
 EyeCanDo is a mobile game that prepares the primary end users of children aged 3 to 7, for 
 paediatric ophthalmology appointments, with the aim of reducing anxiety and uncertainty 
-before the visit \cite{srs}. Learnability matters more than usual for this audience because 
+before the visit \cite{SRS}. Learnability matters more than usual for this audience because 
 they are children entering a new and unknown environment. Many of these children cannot read, 
-tap imprecisely, have short attention spans, and respond strongly to perceived failure \cite{srs}. 
+tap imprecisely, have short attention spans, and respond strongly to perceived failure \cite{SRS}. 
 Ideally, a first-time user must be able to complete each core task without reading instructions 
-or receiving training \cite{srs}. A game that is confusing to learn could add to the nervousness 
+or receiving training \cite{SRS}. A game that is confusing to learn could add to the nervousness 
 it is meant to reduce.
 
 Therefore, a cognitive walkthrough lets the team check through wireframes if the active approach 
@@ -98,7 +100,7 @@ to the game development does not induce further anxiety and nervousness. A cogni
 in particular is useful and necessary to verify this requirement but testing with children requires 
 consent and ethics approval that will not be pursued due to the project timing contraints. And testing 
 with adults alone cannot demonstrate that the game is usable by children or reduces their anxiety 
-\cite{srs}. The walkthrough is therefore used here to find and remove likely learnability problems 
+\cite{SRS}. The walkthrough is therefore used here to find and remove likely learnability problems 
 early, ahead of any child-facing evaluation.
 
 \subsection{Procedure}
@@ -130,11 +132,11 @@ to avoid defending design decisions, and to avoid multitasking \cite{nng-worksho
 \textbf{Personas:}
 
 The walkthrough was run from the perspective of two personas defined in the SRS 
-\cite{srs} to use the SRS persona as the basis for user context so that evaluators did not rely on 
+\cite{SRS} to use the SRS persona as the basis for user context so that evaluators did not rely on 
 imagined users \cite{nng-workshop}. Briefly, the first persona was \textbf{Noah}, a four-year-old 
 patient who cannot read independently, is comfortable with basic tapping and dragging, follows short 
 spoken instructions and visual demonstrations, and is frustrated by unfamiliar controls that give no 
-guidance after a mistake \cite{srs}. 
+guidance after a mistake \cite{SRS}. 
 
 The second persona was \textbf{Sarah}, the mother of Noah, who often works 12 to 13-hour shifts, 
 balances time with her children and errands on her full days off and noticed Noah's difficulty 
@@ -182,7 +184,7 @@ the path during the walkthrough \cite{nng-workshop}. Table~\ref{tab:sequence} li
     19 & Tap Green Menu Button & \todo{Figure A.x} \\
     20 & Tap Purple Dress Up Button & \todo{Figure A.x} \\
     21 & Scroll the Fits Catalogue & \todo{Figure A.x} \\
-    22 & Tap Purple Blink Button & \todo{Figure A.x} \\
+    22 & Tap Buy Button to Buy Fit & \todo{Figure A.x} \\
     23 & Tap Eyes Button & \todo{Figure A.x} \\
     24 & Scroll the Eyes Catalogue & \todo{Figure A.x} \\
     25 & Tap Red Back Button & \todo{Figure A.x} \\
@@ -197,18 +199,18 @@ prototype limits what a walkthrough can assess \cite{nng-workshop}. The wirefram
 narration or sound effects, but this was accounted for by playing a screen-recording of the game 
 to share the narration and the scene animations that would occur during a game level. Minor 
 animations were included in the Figma between scene transitions and the final Congratulations scene,
-but not to a fully dynamic level that is present in a Unity implemented game \cite{srs}.
+but not to a fully dynamic level that is present in a Unity implemented game \cite{SRS}.
 
 \subsection{Limitations}
 Due to the restricted timeline and scope of the capstone project, child-facing evaluation cannot be 
 performed due to the required consent and ethics approval clearances. But for further development 
-beyond the capstone this remains necessary step for successful testing practices. \cite{srs}. The evaluators 
+beyond the capstone this remains necessary step for successful testing practices. \cite{SRS}. The evaluators 
 are adults role-playing a child. The persona and the SRS user characteristics reduce the risk of ``fantasy users'' 
 \cite{nng-workshop}, but the findings remain predictions about children's behaviour. A walkthrough assesses 
 learnability and it does not measure whether the game reduces anxiety. The session used two personas and 3 tasks,
 so it does not cover every level or the caregiver flows. The wireframes limit what could be assessed such as narration, 
 the clinical script, direct interaction of evaluators with the wireframe, and the game experience within the 
-true environment of a home or clinic waiting room. \cite{srs}.
+true environment of a home or clinic waiting room. \cite{SRS}.
 
 % =====================================================================
 \section{People and Roles}
@@ -271,17 +273,16 @@ Evaluators follow the presenter and answer the four analysis questions for each 
 
 \begin{table}[H]
 \centering
-\begin{tabularx}{\linewidth}{@{}l l Y@{}}
+\begin{tabularx}{\linewidth}{@{}l l Y Y@{}}
 \toprule
-\textbf{Name} & \textbf{Perspective} & \textbf{Background} \\
+\textbf{Meeting} & \textbf{Name} & \textbf{Perspective} & \textbf{Background} \\
 \midrule
-Emily & Paediatric Clinical Researcher at SickKids Hospital & Honours Bachelor of Health Sciences in BDC (BHSc), McMaster University and 
-Pursuing Master of Science (MSc) in Medical Science, University of Toronto \\
-Curt & User Interface Expert & Pursuing Bachelor of Engineering (BEng), McMaster University \\
-Lucas & User Interface Expert & Pursuing Bachelor of Engineering (BEng), McMaster University \\
-Arjun & User Interface Expert & Pursuing Bachelor of Engineering (BEng), McMaster University \\
-Greg & Parent & Bachelor of Arts (BA English Major), University of Waterloo and Bachelor of Education (BEd), University of Toronto \\
-Dalila & Parent & Bachelor of Arts (BA Sociology Major), York University and Bachelor of Education (BEd), University of Toronto \\
+M1 & Emily & Paediatric Clinical Researcher at SickKids Hospital & Honours Bachelor of Health Sciences in BDC (BHSc), McMaster University \\
+M2 & Curt & User Interface Expert & Pursuing Bachelor of Engineering (BEng), McMaster University \\
+   & Lucas & User Interface Expert & Pursuing Bachelor of Engineering (BEng), McMaster University \\
+   & Arjun & User Interface Expert & Pursuing Bachelor of Engineering (BEng), McMaster University \\
+M3 & Greg & Parent & Bachelor of Arts (BA English Major), University of Waterloo and Bachelor of Education (BEd), University of Toronto \\
+   & Dalila & Parent & Bachelor of Arts (BA Sociology Major), York University and Bachelor of Education (BEd), University of Toronto \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -304,6 +305,200 @@ Jackson Beach & Jackson\_CW\_Nov15\_Notes.md \\
 \end{tabularx}
 \end{table}
 
+\section{Results (Summary)}
+
+\subsection{Overview}
+
+Table~\ref{tab:results} gives the outcome for each of the 25 steps in the predefined action sequence 
+(Table~\ref{tab:sequence}). A step is marked \fail{} if the evaluators answered ``no'' to any of the 
+four analysis questions (Section~1.1) in any session, and the question it failed on is listed. Sessions 
+are referred to as M1 to M3 (Table~\ref{tab:session}).
+
+11 of the 25 steps failed, 14 passed. Step 22 failed under \crit{1}. Eight failures were on \crit{2},
+meaning the child may not notice the correct action: choosing a profile (step 2), tapping Sam (5) and the chair (12), 
+blinking (15 to 17), the end-of-game button (19), and the Back button (25). Steps 13 and 14, holding the green eye 
+button, failed on \crit{3}, and step 14 also on \crit{4}. The blink interaction itself was judged intuitive in one 
+session, but two sessions said children need explicit instruction to use it. Detailed findings follow the table.
+
+\subsection{Results by Step}
+
+{\small
+\begin{longtable}{@{}>{\centering\arraybackslash}p{0.9cm} >{\raggedright\arraybackslash}p{4.0cm} >{\centering\arraybackslash}p{1.7cm} >{\centering\arraybackslash}p{1.4cm} >{\raggedright\arraybackslash}p{\dimexpr\linewidth-8.0cm-8\tabcolsep\relax}@{}}
+\caption{Results for Each Action}
+\label{tab:results}\\
+\toprule
+\textbf{Step} & \textbf{Correct action} & \textbf{Outcome} & \textbf{Q} & \textbf{Reason} \\
+\midrule
+\endfirsthead
+\multicolumn{5}{@{}l}{\small\textit{Table~\thetable{} (continued)}}\\
+\toprule
+\textbf{Step} & \textbf{Correct action} & \textbf{Outcome} & \textbf{Q} & \textbf{Reason} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r@{}}{\small\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+
+1 & Tap Play & \pass & --- &
+  The Play button draws the eye (M2, M3). Curious children may tap other things first, but the green button makes sense 
+  once direction is clear (M1). The waving animation may distract or mislead (M2). \\
+2 & Tap Miguel Profile Picture & \fail & \crit{2} &
+  Non-readers may not know to press their character's picture and may press the green Home button instead (M2). Miguel 
+  is an appealing choice because he is a person (M1). \\
+3 & Tap Eye Drops Level (or Dress Up) & \pass & --- &
+  The menu makes sense (M1), and the green and large purple buttons draw attention (M2). Children are likely to try 
+  Dress Up first (M1, M3), which is allowed. Non-readers may need help (M3). \\
+4 & Tap Green Play Button & \pass & --- &
+  Evaluators identified Play as the way to start the level (M3), and the green button draws attention (M2). \\
+5 & Tap the Photo of Sam & \fail & \crit{2} &
+  It is not obvious that Sam is tappable. Children may press the volume button or the green button instead (M2). 
+  Evaluators recommended a glow or pulse on Sam (M1, M3), and the progress bar cuts off the yellow arrow (M2). \\
+6 & Tap Green Play Button & \pass & --- &
+  The pulsating green button draws attention and shows how to progress (M1, M3). \\
+7 & Tap Green Play Button & \pass & --- & As step 6. \\
+8 & Tap Green Play Button & \pass & --- & As step 6. \\
+9 & Tap Green Play Button & \pass & --- & As step 6. \\
+10 & Tap Green Play Button & \pass & --- & As step 6. \\
+11 & Tap Green Play Button & \pass & --- & As step 6. \\
+12 & Tap the Green Chair & \fail & \crit{2} &
+  The chair needs a stronger indicator, such as a glow or animation, together with explicit narration like ``Tap 
+  the green chair'' (M1, M3). M2 felt the glowing arrow would probably be enough. \\
+13 & Hold the Green Eye Button & \fail & \crit{3} &
+  The button looks like a tap button and only the voiceover says to hold, so children may spam it (M2). Parents are 
+  expected to need to help, and Dr.~Iris should repeat ``hold the button'' (M1, M3). \\
+14 & Hold the Green Eye Button Longer & \fail & \crit{3}, \crit{4} &
+  Same problem as step 13. The progress bar helps parents see how long to hold (M3), but children may ignore it (M1, M3) 
+  or mistake it for a button (M2), so they may not see progress. \\
+15 & Tap Purple Blink Button & \fail & \crit{2} &
+  Pressing to blink is intuitive (M2), but children need explicit narration and a visible cue to know to press it, 
+  otherwise they may not catch it (M1, M3). \\
+16 & Tap Purple Blink Button & \fail & \crit{2} & As step 15. \\
+17 & Tap Purple Blink Button & \fail & \crit{2} & As step 15. \\
+18 & Tap Green Play Button & \pass & --- &
+  The reward and congratulations scene make sense, and success is clear (M1, M2), so \crit{4} is satisfied. \\
+19 & Tap Green Menu Button & \fail & \crit{2} &
+  It was unclear which button to press after the game ended (M2). The green Menu looks like the green forward arrow 
+  (M2, PoC), Play could mean next level or replay (M3), and adults found Home and Menu unclear (M3). \\
+20 & Tap Purple Dress Up Button & \pass & --- &
+  The purple button and t-shirt icon draw interest (M2, M3), and with guidance 3 to 4 year olds would press it (M1). \\
+21 & Scroll the Fits Catalogue & \pass & --- &
+  The layout is intuitive, and children are expected to try every choice (M1, M2, M3). \\
+22 & Buy an Outfit & \fail & \crit{1} &
+  Children may not understand why they should buy the outfit. Money is confusing for ages 3 to 4, and children may not 
+  know what coins do (M1, M2, M3). A 4-year-old would likely just pick the outfit they like (M3). The buy button itself 
+  makes sense with guidance (M1). \\
+23 & Tap Eyes Button & \pass & --- &
+  Switching sections is clear (M2), and the customization menus are intuitive (M3). \\
+24 & Scroll the Eyes Catalogue & \pass & --- &
+  Children want to try every option (M1, M3). \\
+25 & Tap Red Back Button & \fail & \crit{2} &
+  M1 found the red button intriguing to press, but children may not know to press Back and could get stuck on the customization 
+  screen (M2). Parents would press Done first, and Done and Back seem redundant (M3). \\
+\end{longtable}
+}
+
+\subsection{Detailed Findings}
+
+\textbf{F1. Hold the Green Eye Button (steps 13--14) \fail{}, \crit{3}, \crit{4}.}
+All three sessions raised this as an issue. The button looks pressable but only the voiceover says it must be held, 
+so children may tap repeatedly instead (M2). Parents would need to help, and Dr.~Iris should repeat the specific 
+instruction to hold (M1, M3). Because children in this age range react strongly to perceived failure \cite{SRS}, a 
+failed attempt could add to their nervousness. Additionally, in M2, feedback on the Proof of Concept proposed that 
+holding keeps the eyes open and advances the yellow progress wheel. Releasing stops the wheel and closes the eyelids 
+slowly, with a black screen only when the eyes are fully closed. Pressing again reopens the eyes immediately, and 
+there is no failure state or reset.
+
+\textbf{F2. The Purple Blink Button (steps 15--17) \;\fail{}, \crit{2}.}
+Sessions disagreed. M2 found pressing to blink intuitive, but M1 and M3 said children need explicit instruction, otherwise 
+they and their parents may not catch it. The interaction itself is understood once prompted, so the problem is noticing when 
+to use it.
+
+\textbf{F3. Targets that are not Obvious (steps 2, 5, 12, 25) \fail{}, \crit{2}.}
+Four steps share one cause: the intended target is not noticeable enough for a child who cannot read. Evaluators recommended 
+a glow or pulse on Sam and the chair (M1, M3), explicit narration (M1, M3), and noted that the progress bar competes with 
+the arrow cue (M2, PoC). Feedback for the PoC from M2 also proposed a gentle pulse on the expected element when the child is 
+inactive to refocus the attention to the interactive element.
+
+\textbf{F4. End of Game (steps 18--19).}
+The reward and congratulations scene make success clear (step 18, \crit{4}). But Step 19 fails on \crit{2}: the green Menu 
+looks like the forward arrow, the meaning of Play is unclear, and adults found Home and Menu hard to tell apart (M2, M3, PoC).
+
+\textbf{F5. Forward Navigation and Use of a Consistent Colour.}
+Evaluators asked for an always-available forward button that glows after a wrong tap (M1, M2). M3 liked consistent green buttons, 
+while M2 and the PoC feedback warn that a green Menu button is confused with ``go''. The common conclusion was to reserve 
+green for forward or start actions onl (M1, M2, M3).
+
+\textbf{F6. Progress Bar.}
+Children may not notice the bar (M1) or may think it is a button (M2), and it covers the yellow arrow on Sam's screen (M2, PoC). 
+Parents found it useful and clearly placed (M3).
+
+\textbf{F7. Currency and Rewards (Dress Up) \fail{}, \crit{1}}
+All three sessions found money confusing for young children. Evaluators suggested calling rewards ``prizes'' or using collectible 
+stars, and M3 suggested leaving purchasing out for about four-year-olds.
+
+\textbf{F8. Content Observations.}
+Children are literal and may assume both eyes are treated, so animations should show both (M3). Evaluators disagreed on whether 
+children would understand that the drops cause discomfort: M1 thought they might, M2 was unsure, and noted that the screen dimming 
+signals that something is happenin. All evaluators agreed that fear or severe discomfort was not shown.
+
+\textbf{F9. General Successes.}
+Evaluators praised the animations, the script language, the glowing description over narration, the pupil-enlargement explanation, 
+the congratulations scene, and the character layout. Nothing felt uncomfortable (M2).
+
+\subsection{Planned Changes}
+
+Table~\ref{tab:changes} converts each finding into a planned change. Related SRS requirements are listed so the changes can be traced into verification.
+
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.9cm} >{\raggedright\arraybackslash}p{1.0cm} >{\raggedright\arraybackslash}p{\dimexpr\linewidth-6.2cm-6\tabcolsep\relax}@{}}
+\caption{Planned interface changes.}
+\label{tab:changes}\\
+\toprule
+\textbf{ID} & \textbf{From} & \textbf{Planned Change} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{From} & \textbf{Planned Change} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+C1 & F1 &
+  Make the hold requirement visible and narrated. Use the gradual-eyelid design: holding advances the progress, releasing 
+  stops it and closes the eyes slowly, black only when fully closed, with no failure state. \\
+C2 & F2 &
+  Add explicit narration (``tap the purple blink button'') and a pulsing cue or glowing effect on the blink button each time 
+  it is needed. Or consider keeping the button green to signify next with the blink icon. \\
+C3 & F3 &
+  Add a glow or pulse on the intended target (Sam, chair, profile picture, Back or Done) with explicit narration. Pulse the 
+  expected target gently after inactivity, and stop when the child touches it. Consider also including narration through the 
+  game pages as a guide as well and not just for the levels themselves. \\
+C4 & F4 &
+  On the end-of-game screen, give a Play Next and Menu Level option with distinct colours. Play Next should be green to maintain the 
+  colour consistency of progression. Using the distinct colours and icons, make the recommended action 
+  most prominent, and keep a clear stop control. \\
+C5 & F5 &
+  Always show a forward button in one consistent place that glows after a wrong tap. Use green only for forward or start 
+  actions, and give the Menu a different colour and a home or menu icon. \\
+C6 & F6 &
+  Simplify the progress bar from the child view or move it to a caregiver view for assistance, and keep arrow cues uncovered. \\
+C7 & F7 &
+  Replace money and coin wording with prizes or collectible stars, and consider removing purchasing for the youngest 
+  children. This change will most likely require a change in rewards requirements in the SRS to reflect the feedback 
+  obtained. \\
+C8 & F8 &
+  Show the drops going into both eyes, and review the discomfort cue so children understand a sensation is coming. \\
+C9 & F9 &
+  Keep the animations, script wording, glowing description over narration, congratulations scene, and character layout. 
+  Review the waving title animation. Ensure instructions are literal, as this was a positive for clear scenes. \\
+\end{longtable}
+}
+
+These changes will contain issues created in GitHub to track the development and attention to these new implementations and changes. 
+GitHub issues will be reviewed and resolved by team members to ensure the changes have met the standards of the SRS requirements and 
+the feedback provided by evaluators from the cognitive walkthrough.
 
 
 
