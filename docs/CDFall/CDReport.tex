@@ -12,6 +12,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{booktabs}
+\usepackage{hyperref}
 
 \newcommand{\pass}{{\textbf{Pass}}}
 \newcommand{\fail}{{\textbf{Fail}}}
@@ -71,7 +72,7 @@ and colleagues \cite{wharton1994}. The process of the cognitive walkthrough reli
 expertise instead of participants and works well on early prototypes. The cognitive walkthrough 
 is intended to complement usability testing with real users, not replace it \cite{nng-overview}.
 
-\subsection{Purpose of This Report}
+\subsection{Purpose}
 
 This report documents the cognitive walkthrough of the EyeCanDo gameplay wireframes. Following 
 the structure recommended by Nielsen Norman Group, it records the methodology, the people and 
@@ -163,38 +164,38 @@ the path during the walkthrough \cite{nng-workshop}. Table~\ref{tab:sequence} li
     \toprule
     \textbf{Step} & \textbf{Correct Action} & \textbf{Wireframe} \\
     \midrule
-    1 & Tap Play & \todo{Figure A.x} \\
-    2 & Tap Miguel Profile Picture & \todo{Figure A.x} \\
-    3 & Tap Either Eye Drops Level or Dress Up (Proceeding with Eye Drops) & \todo{Figure A.x} \\
-    4 & Tap Green Play Button & \todo{Figure A.x} \\
-    5 & Tap the Photo Sam & \todo{Figure A.x} \\
-    6 & Tap Green Play Button & \todo{Figure A.x} \\
-    7 & Tap Green Play Button & \todo{Figure A.x} \\
-    8 & Tap Green Play Button & \todo{Figure A.x} \\
-    9 & Tap Green Play Button & \todo{Figure A.x} \\
-    10 & Tap Green Play Button & \todo{Figure A.x} \\
-    11 & Tap Green Play Button & \todo{Figure A.x} \\
-    12 & Tap the Green Chair & \todo{Figure A.x} \\
-    13 & Hold the Green Eye Button & \todo{Figure A.x} \\
-    14 & Hold the Green Eye Button Longer & \todo{Figure A.x} \\
-    15 & Tap Purple Blink Button & \todo{Figure A.x} \\
-    16 & Tap Purple Blink Button & \todo{Figure A.x} \\
-    17 & Tap Purple Blink Button & \todo{Figure A.x} \\
-    18 & Tap Green Play Button & \todo{Figure A.x} \\
-    19 & Tap Green Menu Button & \todo{Figure A.x} \\
-    20 & Tap Purple Dress Up Button & \todo{Figure A.x} \\
-    21 & Scroll the Fits Catalogue & \todo{Figure A.x} \\
-    22 & Tap Buy Button to Buy Fit & \todo{Figure A.x} \\
-    23 & Tap Eyes Button & \todo{Figure A.x} \\
-    24 & Scroll the Eyes Catalogue & \todo{Figure A.x} \\
-    25 & Tap Red Back Button & \todo{Figure A.x} \\
+    1 & Tap Play & \ref{fig:welcome} \\
+    2 & Tap Miguel Profile Picture & \ref{fig:profile} \\
+    3 & Tap Either Eye Drops Level or Dress Up (Proceeding with Eye Drops) & \ref{fig:levelmenu} \\
+    4 & Tap Green Play Button & \ref{fig:s1}\\
+    5 & Tap the Photo Sam & \ref{fig:s2} \\
+    6 & Tap Green Play Button & \ref{fig:s3} \\
+    7 & Tap Green Play Button & \ref{fig:s4a} \\
+    8 & Tap Green Play Button & \ref{fig:s4b} \\
+    9 & Tap Green Play Button & \ref{fig:s5} \\
+    10 & Tap Green Play Button & \ref{fig:s6} \\
+    11 & Tap Green Play Button & \ref{fig:s7} \\
+    12 & Tap the Green Chair & \ref{fig:s9} \\
+    13 & Hold the Green Eye Button & \ref{fig:s10a} \\
+    14 & Hold the Green Eye Button Longer & \ref{fig:s10b} \\
+    15 & Tap Purple Blink Button & \ref{fig:s12a} \\
+    16 & Tap Purple Blink Button & \ref{fig:s12b} \\
+    17 & Tap Purple Blink Button & \ref{fig:s12c} \\
+    18 & Tap Green Play Button & \ref{fig:s13} \\
+    19 & Tap Green Menu Button & \ref{fig:final3} \\
+    20 & Tap Purple Dress Up Button & \ref{fig:levelmenu} \\
+    21 & Scroll the Fits Catalogue & \ref{fig:dressfits} \\
+    22 & Tap Buy Button to Buy Fit & \ref{fig:dressfits} \\
+    23 & Tap Eyes Button & \ref{fig:dresseyes} \\
+    24 & Scroll the Eyes Catalogue & \ref{fig:dresseyes} \\
+    25 & Tap Red Back Button & \ref{fig:dresseyes} \\
     \bottomrule
     \end{tabularx}
 \end{table}
 
 \subsection{Figma Prototype Evaluation}
 
-The groups evaluated the Figma wireframes shown in Appendix~\ref{app:figma}. The fidelity of a 
+The groups evaluated the Figma wireframes shown in Appendix~\ref{sec:figmaPhotos}. The fidelity of a 
 prototype limits what a walkthrough can assess \cite{nng-workshop}. The wireframe did not include 
 narration or sound effects, but this was accounted for by playing a screen-recording of the game 
 to share the narration and the scene animations that would occur during a game level. Minor 
@@ -305,7 +306,9 @@ Jackson Beach & Jackson\_CW\_Nov15\_Notes.md \\
 \end{tabularx}
 \end{table}
 
-\section{Results (Summary)}
+% =====================================================================
+\section{Results}
+% =====================================================================
 
 \subsection{Overview}
 
@@ -447,11 +450,11 @@ signals that something is happenin. All evaluators agreed that fear or severe di
 Evaluators praised the animations, the script language, the glowing description over narration, the pupil-enlargement explanation, 
 the congratulations scene, and the character layout. Nothing felt uncomfortable (M2).
 
-\section{Application of Results}
+% =====================================================================
+\section{Planned Changes}
+% =====================================================================
 
-\subsection{Planned Changes}
-
-Table~\ref{tab:changes} converts each finding into a planned change. Related SRS requirements are listed so the changes can be traced into verification.
+Table~\ref{tab:changes} converts each finding into a planned change.
 
 {\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.9cm} >{\raggedright\arraybackslash}p{1.0cm} >{\raggedright\arraybackslash}p{\dimexpr\linewidth-6.2cm-6\tabcolsep\relax}@{}}
@@ -502,41 +505,198 @@ These changes will contain issues created in GitHub to track the development and
 GitHub issues will be reviewed and resolved by team members to ensure the changes have met the standards of the SRS requirements and 
 the feedback provided by evaluators from the cognitive walkthrough.
 
-\subsection{Proposed Timeline}
+% =====================================================================
+\section{Appendix A: Figma Prototype}
+\label{sec:figmaPhotos}
+% =====================================================================
 
-Table~\ref{tab:timeline} specifies the changes and the proposed completion timeline and according to what capstone deliverable.
+The cognitive walkthrough wireframe was developed in Figma. The prototype can be directly accessed through this 
+\href{https://www.figma.com/proto/IBdPBjcaoQjUY02BwWSvpv/EyeCanDo-Cognitive-Walkthrough?node-id=7-2&t=wh38lXowwpUC86ZR-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=7%3A2}{Figma link}. 
+Photographs have also been included below for viewing the prototype statically:
 
-\begin{table}[H]
+\begin{figure}[H]
     \centering
-    \caption{Proposed Timeline for Implementing Changes}
-    \label{tab:timeline}
-    \small
-    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.7cm} >{\raggedright\arraybackslash}p{3.0cm}@{}}
-    \toprule
-    \textbf{Timing} & \textbf{Activity}  \\
-    \midrule
-    PoC Nov 23 2026 &
-    Update the green eye drops button to satisfy C1 \\
-    PoC Nov 23 2026 &
-    Add explicit narration and more visual cues to the Blink Button interact with the button to satisfy C2 \\
-    PoC Nov 23 2026 &
-    Add glowing and visual cues on intended objects to satisy C3 \\
-    Rev 0 Feb 1 2027 &
-    Simplify the button on the end-of-game screen following feedback to satisfy C4 \\
-    PoC Nov 23 2026 &
-    Ensure consistent button indicators and colours to help during wrong clicks to satisfy C5 \\
-    PoC Nov 23 2026 &
-    Simplify progress bar to satisfy C6 \\
-    PoC Nov 23 2026 &
-    Change to collectable stars and edit documentation referencing currency to satisfy C7 \\
-    PoC Nov 23 2026 &
-    Ensure the examinations are clinically accurate to satisfy C8 \\
-    Rev 0 Feb 1 &
-    Ensure the positives remain and explicit instructions continue to be included to satisfy C9 \\
+    \caption{Welcome Scene}
+    \label{fig:welcome}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/EyeCanDoWelcome.png}
+\end{figure}
 
-    \bottomrule
-    \end{tabularx}
-\end{table}
+\begin{figure}[H]
+    \centering
+    \caption{Profile Selection Scene}
+    \label{fig:profile}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/ProfileSelection.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Level Menu Scene}
+    \label{fig:levelmenu}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Level Menu.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{First Scene}
+    \label{fig:s1}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/First Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Second Scene}
+    \label{fig:s2}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Second Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Third Scene}
+    \label{fig:s3}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Third Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Fourth Scene}
+    \label{fig:s4a}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Fourth Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Fourth Scene 2}
+    \label{fig:s4b}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Fourth Scene 2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Fifth Scene}
+    \label{fig:s5}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Fifth Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Sixth Scene}
+    \label{fig:s6}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Sixth Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Seventh Scene}
+    \label{fig:s7}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Seventh Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Eighth Scene}
+    \label{fig:s8}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Eighth Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Ninth Scene}
+    \label{fig:s9}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Ninth Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Tenth Scene 1}
+    \label{fig:s10a}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Tenth Scene 1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Tenth Scene 2}
+    \label{fig:s10b}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Tenth Scene 2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Eleventh Scene}
+    \label{fig:s11}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/EleventhScene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Twelfth Scene}
+    \label{fig:s12a}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Twelfth Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Twelfth Scene 2}
+    \label{fig:s12b}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Twelfth Scene 2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Twelfth Scene 3}
+    \label{fig:s12c}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Twelfth Scene 3.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Twelfth Scene 4}
+    \label{fig:s12d}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Twelfth Scene 4.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Thirteenth Scene}
+    \label{fig:s13}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Thirteen Scene.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Final Scene 1}
+    \label{fig:final1}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Final Scene 1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Final Scene 2}
+    \label{fig:final2}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Final Scene 2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Final Scene 3}
+    \label{fig:final3}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Final Scene 3.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Dress Up Fits Scene}
+    \label{fig:dressfits}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Dress Up Fits.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Dress Up Eyes Scene}
+    \label{fig:dresseyes}
+    \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Dress Up Eyes.png}
+\end{figure}
+
+
 
 
 
