@@ -35,11 +35,26 @@
 \maketitle
 \thispagestyle{empty}
 
-~\newpage
+\newpage
+
 \tableofcontents
+
+\newpage
+
+\begin{table}[!htbp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+2026/11/16 & Ethan McMehen & Completed Everything in the Report \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \newpage
 % =====================================================================
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 % =====================================================================
 
 \subsection{What Is a Cognitive Walkthrough?}
@@ -82,7 +97,7 @@ walkthrough notes\cite{nng-overview}.
 \pagenumbering{roman}
 
 % =====================================================================
-\section{Methodology}
+\section{Methodology}\label{sec:method}
 % =====================================================================
 
 \subsection{EyeCanDo Cognitive Walkthrough Justification}
@@ -214,7 +229,7 @@ the clinical script, direct interaction of evaluators with the wireframe, and th
 true environment of a home or clinic waiting room. \cite{SRS}.
 
 % =====================================================================
-\section{People and Roles}
+\section{People and Roles}\label{sec:people}
 % =====================================================================
 
 Ethan performed as the facilitator for all meetings, the full Hindsight team performed the notetaking roles, 
@@ -307,7 +322,7 @@ Jackson Beach & Jackson\_CW\_Nov15\_Notes.md \\
 \end{table}
 
 % =====================================================================
-\section{Results}
+\section{Results}\label{sec:results}
 % =====================================================================
 
 \subsection{Overview}
@@ -451,7 +466,7 @@ Evaluators praised the animations, the script language, the glowing description 
 the congratulations scene, and the character layout. Nothing felt uncomfortable (M2).
 
 % =====================================================================
-\section{Planned Changes}
+\section{Planned Changes}\label{sec:planned}
 % =====================================================================
 
 Table~\ref{tab:changes} converts each finding into a planned change.
@@ -505,8 +520,12 @@ These changes will contain issues created in GitHub to track the development and
 GitHub issues will be reviewed and resolved by team members to ensure the changes have met the standards of the SRS requirements and 
 the feedback provided by evaluators from the cognitive walkthrough.
 
+\newpage
 % =====================================================================
-\section{Appendix A: Figma Prototype}
+\section{Appendices}
+% =====================================================================
+% =====================================================================
+\subsection{Appendix A: Figma Prototype}
 \label{sec:figmaPhotos}
 % =====================================================================
 
@@ -696,176 +715,69 @@ Photographs have also been included below for viewing the prototype statically:
     \includegraphics[width=0.8\textwidth]{EyeCanDoCW/Dress Up Eyes.png}
 \end{figure}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\newpage
+
+% =====================================================================
+\subsection{Appendix B: Generative AI Disclosure}
+% =====================================================================
+
+\subsubsection{AI Tools Used}
+
+\begin{itemize}
+    \item Claude (Opus 5.5)
+\end{itemize}
+
+\subsubsection{How and Where Used}
+
+Claude was used as the supporting tool during the preparation of
+this document, primarily to assist with \LaTeX{} formatting,
+improving wording and clarity, organizing information, and performing 
+draft summaries of the collected notes.
+They were used in the following sections:
+
+\begin{itemize}
+    \item In Section~\ref{sec:intro} Opus was used to create a draft from 
+    the resources provided and clarifications given. This was scrutinized 
+    and edited to ensure the correct information is presented from the provided
+    data and resources.
+    \item In Section~\ref{sec:method} Opus was used to create a draft from 
+    the resources provided and clarifications given. This was scrutinized 
+    and edited to ensure the correct information is presented from the provided
+    data and resources. Opus was also used to assist with \LaTeX formatting 
+    to ensure a good quality document is presented to read.
+    \item In Section~\ref{sec:people} Opus was used to assist with \LaTeX formatting 
+    to ensure a good quality document is presented to read.
+    \item In Section~\ref{sec:results} Opus was used to assist with drafting the 
+    results and findings by simplifying and cross-referencing the notes with each other.
+    The notes were thoroughly reviewed alongside the draft, with multiple fixes occurring 
+    to reflect the correct information from the meetings. Opus also helped with 
+    \LaTeX formatting to ensure a good quality document is presented to read.
+    \item In Section~\ref{sec:planned} Opus was used to assist with drafting the 
+    of the changes based on the heavily edited results. This was edited thoroughly to 
+    reflect the expectations of the team and the requirements in the SRS. Opus also helped with 
+    \LaTeX formatting to ensure a good quality document is presented to read.
+    \item In Section~\ref{sec:figmaPhotos} Opus was used to generate the \LaTeX code for the 
+    figures to save time. The output was reviewed to ensure all the Figma photos were present 
+    with the correct captions.
+    \item Opus was used to generate the BibText references for the References.bib file to
+    ensure IEEE standards are followed.
+
+\end{itemize}
+
+\subsubsection{Verification of AI-Generated Content}
+
+Ethan reviewed AI-assisted material to ensure it was
+consistent with the project's scope, existing documentation,
+and intended application functionality. Ethan reviewed suggested 
+wording, data entities, and recommendation approaches before including 
+them in the document. Initial design ideas were also noted as needing 
+further feedback from the project supervisors.
+
+AI-assisted \LaTeX{} formatting was checked to ensure
+that tables and other document elements were presented
+correctly. The team remains responsible for the accuracy,
+completeness, consistency, and appropriateness of the
+final Custom Document.
 
 \newpage
 
