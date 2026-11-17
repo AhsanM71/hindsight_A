@@ -3,7 +3,6 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage[destlabel]{hyperref}
 \usepackage{parskip}
 \usepackage{longtable}
 \usepackage{array}
@@ -11,7 +10,6 @@
 \usepackage{pdflscape}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{booktabs}
 \usepackage{hyperref}
 
 \newcommand{\pass}{{\textbf{Pass}}}
@@ -21,7 +19,7 @@
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \setlength{\parskip}{\baselineskip}
 
-\title{Hazard Analysis\\\progname}
+\title{CD Fall - Cognitive Walkthrough\\\progname}
 
 \author{\authname}
 
@@ -33,13 +31,9 @@
 \begin{document}
 
 \maketitle
-\thispagestyle{empty}
 
-\newpage
-
-\tableofcontents
-
-\newpage
+~\newpage
+\pagenumbering{roman} 
 
 \begin{table}[!htbp]
 \caption{Revision History} \label{TblRevisionHistory}
@@ -48,16 +42,22 @@
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
 2026/11/16 & Ethan McMehen & Completed Everything in the Report \\
+2026/11/17 & Ethan McMehen & Applied Minor Changes for Clean up \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \newpage
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+
 % =====================================================================
 \section{Introduction}\label{sec:intro}
 % =====================================================================
 
-\subsection{What Is a Cognitive Walkthrough?}
+\subsection{What Is a Cognitive Walkthrough?}\label{sec:whatIs}
 
 A cognitive walkthrough is a task-based usability inspection method for evaluating how 
 learnable an interface is for a first-time user \cite{nng-overview}. Instead of observing 
@@ -66,8 +66,8 @@ task and, at every step, answers a fixed set of questions from the point of view
 defined user persona. The goal is to find the parts of an interface that are likely 
 to derail a new user.
 
-At each step, the faciltator asks the four questions or variations of the four questions. 
-Evaluators discuss four questions \cite{nng-overview},\cite{nng-workshop}:
+At each step, the facilitator asks the four questions or variations of the four questions. 
+Evaluators discuss four questions \cite{nng-overview, nng-workshop}:
 \begin{enumerate}
   \item Will the user try to achieve the right result, that is, understand that this step 
   is needed for their larger goal?
@@ -91,9 +91,9 @@ is intended to complement usability testing with real users, not replace it \cit
 
 This report documents the cognitive walkthrough of the EyeCanDo gameplay wireframes. Following 
 the structure recommended by Nielsen Norman Group, it records the methodology, the people and 
-roles involved, and the results, with specific problems identified. A summary of results ia also 
+roles involved, and the results, with specific problems identified. A summary of results is also 
 included along with the changes planned for the game as a result of the \fail{} recorded in 
-walkthrough notes\cite{nng-overview}.
+walkthrough notes \cite{nng-overview}.
 \pagenumbering{roman}
 
 % =====================================================================
@@ -114,7 +114,7 @@ it is meant to reduce.
 Therefore, a cognitive walkthrough lets the team check through wireframes if the active approach 
 to the game development does not induce further anxiety and nervousness. A cognitive walkthrough 
 in particular is useful and necessary to verify this requirement but testing with children requires 
-consent and ethics approval that will not be pursued due to the project timing contraints. And testing 
+consent and ethics approval that will not be pursued due to the project timing constraints. And testing 
 with adults alone cannot demonstrate that the game is usable by children or reduces their anxiety 
 \cite{SRS}. The walkthrough is therefore used here to find and remove likely learnability problems 
 early, ahead of any child-facing evaluation.
@@ -147,9 +147,9 @@ to avoid defending design decisions, and to avoid multitasking \cite{nng-worksho
 
 \textbf{Personas:}
 
-The walkthrough was run from the perspective of two personas defined in the SRS 
-\cite{SRS} to use the SRS persona as the basis for user context so that evaluators did not rely on 
-imagined users \cite{nng-workshop}. Briefly, the first persona was \textbf{Noah}, a four-year-old 
+The walkthrough was run from the perspective of two personas defined in the SRS \cite{SRS}. 
+The SRS personas gave evaluators a shared user context, so they did not rely on imagined users. 
+Briefly, the first persona was \textbf{Noah}, a four-year-old 
 patient who cannot read independently, is comfortable with basic tapping and dragging, follows short 
 spoken instructions and visual demonstrations, and is frustrated by unfamiliar controls that give no 
 guidance after a mistake \cite{SRS}. 
@@ -165,7 +165,7 @@ these two personas and judged each step as Noah or Sarah would experience it.
 \begin{enumerate}
     \item Enter the game and select the predefined profile to enter the level menu.
     \item Play the Eye Drops game level.
-    \item Play the character "dress-up" game section with Fits and Eyes catalogues.
+    \item Play the character ``dress-up'' game section with Fits and Eyes catalogues.
 \end{enumerate}
 
 The correct action sequence was defined before the session so that the group would not debate 
@@ -183,7 +183,7 @@ the path during the walkthrough \cite{nng-workshop}. Table~\ref{tab:sequence} li
     2 & Tap Miguel Profile Picture & \ref{fig:profile} \\
     3 & Tap Either Eye Drops Level or Dress Up (Proceeding with Eye Drops) & \ref{fig:levelmenu} \\
     4 & Tap Green Play Button & \ref{fig:s1}\\
-    5 & Tap the Photo Sam & \ref{fig:s2} \\
+    5 & Tap the Photo of Sam & \ref{fig:s2} \\
     6 & Tap Green Play Button & \ref{fig:s3} \\
     7 & Tap Green Play Button & \ref{fig:s4a} \\
     8 & Tap Green Play Button & \ref{fig:s4b} \\
@@ -220,13 +220,13 @@ but not to a fully dynamic level that is present in a Unity implemented game \ci
 \subsection{Limitations}
 Due to the restricted timeline and scope of the capstone project, child-facing evaluation cannot be 
 performed due to the required consent and ethics approval clearances. But for further development 
-beyond the capstone this remains necessary step for successful testing practices. \cite{SRS}. The evaluators 
+beyond the capstone this remains a necessary step for successful testing practices. \cite{SRS}. The evaluators 
 are adults role-playing a child. The persona and the SRS user characteristics reduce the risk of ``fantasy users'' 
 \cite{nng-workshop}, but the findings remain predictions about children's behaviour. A walkthrough assesses 
 learnability and it does not measure whether the game reduces anxiety. The session used two personas and 3 tasks,
 so it does not cover every level or the caregiver flows. The wireframes limit what could be assessed such as narration, 
 the clinical script, direct interaction of evaluators with the wireframe, and the game experience within the 
-true environment of a home or clinic waiting room. \cite{SRS}.
+true environment of a home or clinic waiting room \cite{SRS}.
 
 % =====================================================================
 \section{People and Roles}\label{sec:people}
@@ -329,7 +329,7 @@ Jackson Beach & Jackson\_CW\_Nov15\_Notes.md \\
 
 Table~\ref{tab:results} gives the outcome for each of the 25 steps in the predefined action sequence 
 (Table~\ref{tab:sequence}). A step is marked \fail{} if the evaluators answered ``no'' to any of the 
-four analysis questions (Section~1.1) in any session, and the question it failed on is listed. Sessions 
+four analysis questions (Section~\ref{sec:whatIs}) in any session, and the question it failed on is listed. Sessions 
 are referred to as M1 to M3 (Table~\ref{tab:session}).
 
 11 of the 25 steps failed, 14 passed. Step 22 failed under \crit{1}. Eight failures were on \crit{2},
@@ -395,7 +395,7 @@ session, but two sessions said children need explicit instruction to use it. Det
 16 & Tap Purple Blink Button & \fail & \crit{2} & As step 15. \\
 17 & Tap Purple Blink Button & \fail & \crit{2} & As step 15. \\
 18 & Tap Green Play Button & \pass & --- &
-  The reward and congratulations scene make sense, and success is clear (M1, M2), so \crit{4} is satisfied. \\
+  The reward and congratulations scenes make sense, and success is clear (M1, M2), so \crit{4} is satisfied. \\
 19 & Tap Green Menu Button & \fail & \crit{2} &
   It was unclear which button to press after the game ended (M2). The green Menu looks like the green forward arrow 
   (M2, PoC), Play could mean next level or replay (M3), and adults found Home and Menu unclear (M3). \\
@@ -428,7 +428,7 @@ holding keeps the eyes open and advances the yellow progress wheel. Releasing st
 slowly, with a black screen only when the eyes are fully closed. Pressing again reopens the eyes immediately, and 
 there is no failure state or reset.
 
-\textbf{F2. The Purple Blink Button (steps 15--17) \;\fail{}, \crit{2}.}
+\textbf{F2. The Purple Blink Button (steps 15--17) \fail{}, \crit{2}.}
 Sessions disagreed. M2 found pressing to blink intuitive, but M1 and M3 said children need explicit instruction, otherwise 
 they and their parents may not catch it. The interaction itself is understood once prompted, so the problem is noticing when 
 to use it.
@@ -440,26 +440,26 @@ the arrow cue (M2, PoC). Feedback for the PoC from M2 also proposed a gentle pul
 inactive to refocus the attention to the interactive element.
 
 \textbf{F4. End of Game (steps 18--19).}
-The reward and congratulations scene make success clear (step 18, \crit{4}). But Step 19 fails on \crit{2}: the green Menu 
+The reward and congratulations scenes make success clear (step 18, \crit{4}). But Step 19 fails on \crit{2}: the green Menu 
 looks like the forward arrow, the meaning of Play is unclear, and adults found Home and Menu hard to tell apart (M2, M3, PoC).
 
 \textbf{F5. Forward Navigation and Use of a Consistent Colour.}
 Evaluators asked for an always-available forward button that glows after a wrong tap (M1, M2). M3 liked consistent green buttons, 
 while M2 and the PoC feedback warn that a green Menu button is confused with ``go''. The common conclusion was to reserve 
-green for forward or start actions onl (M1, M2, M3).
+green for forward or start actions only (M1, M2, M3).
 
 \textbf{F6. Progress Bar.}
 Children may not notice the bar (M1) or may think it is a button (M2), and it covers the yellow arrow on Sam's screen (M2, PoC). 
 Parents found it useful and clearly placed (M3).
 
-\textbf{F7. Currency and Rewards (Dress Up) \fail{}, \crit{1}}
+\textbf{F7. Currency and Rewards (Dress Up) \fail{}, \crit{1}.}
 All three sessions found money confusing for young children. Evaluators suggested calling rewards ``prizes'' or using collectible 
 stars, and M3 suggested leaving purchasing out for about four-year-olds.
 
 \textbf{F8. Content Observations.}
 Children are literal and may assume both eyes are treated, so animations should show both (M3). Evaluators disagreed on whether 
 children would understand that the drops cause discomfort: M1 thought they might, M2 was unsure, and noted that the screen dimming 
-signals that something is happenin. All evaluators agreed that fear or severe discomfort was not shown.
+signals that something is happening. All evaluators agreed that fear or severe discomfort was not shown.
 
 \textbf{F9. General Successes.}
 Evaluators praised the animations, the script language, the glowing description over narration, the pupil-enlargement explanation, 
@@ -743,20 +743,20 @@ They were used in the following sections:
     \item In Section~\ref{sec:method} Opus was used to create a draft from 
     the resources provided and clarifications given. This was scrutinized 
     and edited to ensure the correct information is presented from the provided
-    data and resources. Opus was also used to assist with \LaTeX formatting 
+    data and resources. Opus was also used to assist with \LaTeX{} formatting 
     to ensure a good quality document is presented to read.
-    \item In Section~\ref{sec:people} Opus was used to assist with \LaTeX formatting 
+    \item In Section~\ref{sec:people} Opus was used to assist with \LaTeX{} formatting 
     to ensure a good quality document is presented to read.
     \item In Section~\ref{sec:results} Opus was used to assist with drafting the 
     results and findings by simplifying and cross-referencing the notes with each other.
     The notes were thoroughly reviewed alongside the draft, with multiple fixes occurring 
     to reflect the correct information from the meetings. Opus also helped with 
-    \LaTeX formatting to ensure a good quality document is presented to read.
+    \LaTeX{} formatting to ensure a good quality document is presented to read.
     \item In Section~\ref{sec:planned} Opus was used to assist with drafting the 
     of the changes based on the heavily edited results. This was edited thoroughly to 
     reflect the expectations of the team and the requirements in the SRS. Opus also helped with 
-    \LaTeX formatting to ensure a good quality document is presented to read.
-    \item In Section~\ref{sec:figmaPhotos} Opus was used to generate the \LaTeX code for the 
+    \LaTeX{} formatting to ensure a good quality document is presented to read.
+    \item In Section~\ref{sec:figmaPhotos} Opus was used to generate the \LaTeX{} code for the 
     figures to save time. The output was reviewed to ensure all the Figma photos were present 
     with the correct captions.
     \item Opus was used to generate the BibText references for the References.bib file to
