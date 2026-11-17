@@ -9,9 +9,14 @@
 \usepackage{array}
 \usepackage{enumitem}
 \usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{float}
 
 \newcommand{\pass}{{\textbf{Pass}}}
 \newcommand{\fail}{{\textbf{Fail}}}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\setlength{\parskip}{\baselineskip}
 
 \title{Hazard Analysis\\\progname}
 
@@ -66,9 +71,318 @@ is intended to complement usability testing with real users, not replace it \cit
 
 \subsection{Purpose of This Report}
 
-This report documents the cognitive walkthrough of the EyeCanDo gameplay wireframes. Following the 
-structure recommended by Nielsen Norman Group, it records the methodology, the people and roles involved, 
-and the results, with specific problems identified. A summary of results ia also included along with the changes 
-planned for the game as a result of the \fail{} recorded in walkthrough notes\cite{nng-overview}.
+This report documents the cognitive walkthrough of the EyeCanDo gameplay wireframes. Following 
+the structure recommended by Nielsen Norman Group, it records the methodology, the people and 
+roles involved, and the results, with specific problems identified. A summary of results ia also 
+included along with the changes planned for the game as a result of the \fail{} recorded in 
+walkthrough notes\cite{nng-overview}.
 \pagenumbering{roman}
+
+% =====================================================================
+\section{Methodology}
+% =====================================================================
+
+\subsection{EyeCanDo Cognitive Walkthrough Justification}
+
+EyeCanDo is a mobile game that prepares the primary end users of children aged 3 to 7, for 
+paediatric ophthalmology appointments, with the aim of reducing anxiety and uncertainty 
+before the visit \cite{srs}. Learnability matters more than usual for this audience because 
+they are children entering a new and unknown environment. Many of these children cannot read, 
+tap imprecisely, have short attention spans, and respond strongly to perceived failure \cite{srs}. 
+Ideally, a first-time user must be able to complete each core task without reading instructions 
+or receiving training \cite{srs}. A game that is confusing to learn could add to the nervousness 
+it is meant to reduce.
+
+Therefore, a cognitive walkthrough lets the team check through wireframes if the active approach 
+to the game development does not induce further anxiety and nervousness. A cognitive walkthrough 
+in particular is useful and necessary to verify this requirement but testing with children requires 
+consent and ethics approval that will not be pursued due to the project timing contraints. And testing 
+with adults alone cannot demonstrate that the game is usable by children or reduces their anxiety 
+\cite{srs}. The walkthrough is therefore used here to find and remove likely learnability problems 
+early, ahead of any child-facing evaluation.
+
+\subsection{Procedure}
+
+The session followed the following cognitive walkthrough format \cite{nng-workshop}:
+\begin{enumerate}
+  \item \textbf{Briefing.} The facilitator described the purpose, the task, the persona, the roles, 
+  and the ground rules.
+  \item \textbf{Persona review.} The group discussed what Noah or Sarah already knows and can do 
+  before starting.
+  \item \textbf{Walkthrough.} The presenter showed each wireframe and asked the evaluators how 
+  Noah would act and acted on behalf of evaluators responses. Before the game level, a screen-recording 
+  of the level was presented for evaluators to learn the sequence and the narration attached with each 
+  scene of the game level. For each step the evaluators answered 
+  Q1--Q4, and the notetaker recorded yes or no and the reason for each answer.
+  \item \textbf{Determination.} A step was marked \fail{} if any question received a ``no'', and 
+  the group continued as though the step had succeeded.
+  \item \textbf{Comfort check.} Evaluators also noted any moment that might feel uncomfortable or 
+  frightening for the persona because the project's purpose is anxiety reduction.
+  \item \textbf{Debrief.} The facilitator summarized the failure points. Design suggestions and 
+  the pass/fail determinations that came up were recorded.
+
+\end{enumerate}
+The ground rules were to keep discussion on the persona's likely reactions to the design as shown, 
+to avoid defending design decisions, and to avoid multitasking \cite{nng-workshop}.
+
+\subsection{Persona, Task, and Action Sequence}
+
+\textbf{Personas:}
+
+The walkthrough was run from the perspective of two personas defined in the SRS 
+\cite{srs} to use the SRS persona as the basis for user context so that evaluators did not rely on 
+imagined users \cite{nng-workshop}. Briefly, the first persona was \textbf{Noah}, a four-year-old 
+patient who cannot read independently, is comfortable with basic tapping and dragging, follows short 
+spoken instructions and visual demonstrations, and is frustrated by unfamiliar controls that give no 
+guidance after a mistake \cite{srs}. 
+
+The second persona was \textbf{Sarah}, the mother of Noah, who often works 12 to 13-hour shifts, 
+balances time with her children and errands on her full days off and noticed Noah's difficulty 
+seeing and raised her concerns with the family doctor, leading to referral to an ophthalmologist. 
+Before his first eye appointment, she wants to introduce preparation activities on the tablet, 
+play alongside him, and help explain anything he does not understand. Evaluators took on one of 
+these two personas and judged each step as Noah or Sarah would experience it. 
+
+\textbf{Tasks Evaluated:}
+\begin{enumerate}
+    \item Enter the game and select the predefined profile to enter the level menu.
+    \item Play the Eye Drops game level.
+    \item Play the character "dress-up" game section with Fits and Eyes catalogues.
+\end{enumerate}
+
+The correct action sequence was defined before the session so that the group would not debate 
+the path during the walkthrough \cite{nng-workshop}. Table~\ref{tab:sequence} lists it.
+
+\begin{table}[H]
+\centering
+\caption{Predefined action sequence for the evaluated task.}
+\label{tab:sequence}
+    \begin{tabularx}{\linewidth}{@{}c Y Y@{}}
+    \toprule
+    \textbf{Step} & \textbf{Correct Action} & \textbf{Wireframe} \\
+    \midrule
+    1 & Tap Play & \todo{Figure A.x} \\
+    2 & Tap Miguel Profile Picture & \todo{Figure A.x} \\
+    3 & Tap Either Eye Drops Level or Dress Up (Proceeding with Eye Drops) & \todo{Figure A.x} \\
+    4 & Tap Green Play Button & \todo{Figure A.x} \\
+    5 & Tap the Photo Sam & \todo{Figure A.x} \\
+    6 & Tap Green Play Button & \todo{Figure A.x} \\
+    7 & Tap Green Play Button & \todo{Figure A.x} \\
+    8 & Tap Green Play Button & \todo{Figure A.x} \\
+    9 & Tap Green Play Button & \todo{Figure A.x} \\
+    10 & Tap Green Play Button & \todo{Figure A.x} \\
+    11 & Tap Green Play Button & \todo{Figure A.x} \\
+    12 & Tap the Green Chair & \todo{Figure A.x} \\
+    13 & Hold the Green Eye Button & \todo{Figure A.x} \\
+    14 & Hold the Green Eye Button Longer & \todo{Figure A.x} \\
+    15 & Tap Purple Blink Button & \todo{Figure A.x} \\
+    16 & Tap Purple Blink Button & \todo{Figure A.x} \\
+    17 & Tap Purple Blink Button & \todo{Figure A.x} \\
+    18 & Tap Green Play Button & \todo{Figure A.x} \\
+    19 & Tap Green Menu Button & \todo{Figure A.x} \\
+    20 & Tap Purple Dress Up Button & \todo{Figure A.x} \\
+    21 & Scroll the Fits Catalogue & \todo{Figure A.x} \\
+    22 & Tap Purple Blink Button & \todo{Figure A.x} \\
+    23 & Tap Eyes Button & \todo{Figure A.x} \\
+    24 & Scroll the Eyes Catalogue & \todo{Figure A.x} \\
+    25 & Tap Red Back Button & \todo{Figure A.x} \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsection{Figma Prototype Evaluation}
+
+The groups evaluated the Figma wireframes shown in Appendix~\ref{app:figma}. The fidelity of a 
+prototype limits what a walkthrough can assess \cite{nng-workshop}. The wireframe did not include 
+narration or sound effects, but this was accounted for by playing a screen-recording of the game 
+to share the narration and the scene animations that would occur during a game level. Minor 
+animations were included in the Figma between scene transitions and the final Congratulations scene,
+but not to a fully dynamic level that is present in a Unity implemented game \cite{srs}.
+
+\subsection{Limitations}
+Due to the restricted timeline and scope of the capstone project, child-facing evaluation cannot be 
+performed due to the required consent and ethics approval clearances. But for further development 
+beyond the capstone this remains necessary step for successful testing practices. \cite{srs}. The evaluators 
+are adults role-playing a child. The persona and the SRS user characteristics reduce the risk of ``fantasy users'' 
+\cite{nng-workshop}, but the findings remain predictions about children's behaviour. A walkthrough assesses 
+learnability and it does not measure whether the game reduces anxiety. The session used two personas and 3 tasks,
+so it does not cover every level or the caregiver flows. The wireframes limit what could be assessed such as narration, 
+the clinical script, direct interaction of evaluators with the wireframe, and the game experience within the 
+true environment of a home or clinic waiting room. \cite{srs}.
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
