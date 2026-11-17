@@ -51,7 +51,7 @@ defined user persona. The goal is to find the parts of an interface that are lik
 to derail a new user.
 
 At each step, the faciltator asks the four questions or variations of the four questions. 
-Evaluators discuss four questions \cite{nng-overview,nng-workshop}:
+Evaluators discuss four questions \cite{nng-overview},\cite{nng-workshop}:
 \begin{enumerate}
   \item Will the user try to achieve the right result, that is, understand that this step 
   is needed for their larger goal?
@@ -447,6 +447,8 @@ signals that something is happenin. All evaluators agreed that fear or severe di
 Evaluators praised the animations, the script language, the glowing description over narration, the pupil-enlargement explanation, 
 the congratulations scene, and the character layout. Nothing felt uncomfortable (M2).
 
+\section{Application of Results}
+
 \subsection{Planned Changes}
 
 Table~\ref{tab:changes} converts each finding into a planned change. Related SRS requirements are listed so the changes can be traced into verification.
@@ -500,9 +502,41 @@ These changes will contain issues created in GitHub to track the development and
 GitHub issues will be reviewed and resolved by team members to ensure the changes have met the standards of the SRS requirements and 
 the feedback provided by evaluators from the cognitive walkthrough.
 
+\subsection{Proposed Timeline}
 
+Table~\ref{tab:timeline} specifies the changes and the proposed completion timeline and according to what capstone deliverable.
 
+\begin{table}[H]
+    \centering
+    \caption{Proposed Timeline for Implementing Changes}
+    \label{tab:timeline}
+    \small
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.7cm} >{\raggedright\arraybackslash}p{3.0cm}@{}}
+    \toprule
+    \textbf{Timing} & \textbf{Activity}  \\
+    \midrule
+    PoC Nov 23 2026 &
+    Update the green eye drops button to satisfy C1 \\
+    PoC Nov 23 2026 &
+    Add explicit narration and more visual cues to the Blink Button interact with the button to satisfy C2 \\
+    PoC Nov 23 2026 &
+    Add glowing and visual cues on intended objects to satisy C3 \\
+    Rev 0 Feb 1 2027 &
+    Simplify the button on the end-of-game screen following feedback to satisfy C4 \\
+    PoC Nov 23 2026 &
+    Ensure consistent button indicators and colours to help during wrong clicks to satisfy C5 \\
+    PoC Nov 23 2026 &
+    Simplify progress bar to satisfy C6 \\
+    PoC Nov 23 2026 &
+    Change to collectable stars and edit documentation referencing currency to satisfy C7 \\
+    PoC Nov 23 2026 &
+    Ensure the examinations are clinically accurate to satisfy C8 \\
+    Rev 0 Feb 1 &
+    Ensure the positives remain and explicit instructions continue to be included to satisfy C9 \\
 
+    \bottomrule
+    \end{tabularx}
+\end{table}
 
 
 
@@ -672,5 +706,12 @@ the feedback provided by evaluators from the cognitive walkthrough.
 
 
 
+
+\newpage
+
+\bibliographystyle{unsrt}
+\bibliography{../../refs/References}
+
+\newpage
 
 \end{document}
